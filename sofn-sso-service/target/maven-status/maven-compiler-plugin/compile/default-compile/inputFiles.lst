@@ -1,0 +1,10 @@
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\dao\sso\SSOUserRoleMapper.java
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\provider\sso\SSOMenuProviderImpl.java
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\service\mq\listener\FountConsumer.java
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\provider\sso\SSOLoginProviderImpl.java
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\core\listener\ServerListerner.java
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\dao\sso\SSORoleMapper.java
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\dao\sso\SSOMenuMapper.java
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\service\mq\listener\DirectConsumer.java
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\service\mq\listener\TopicConsumer.java
+F:\sofn-server\sofn-sso-service\src\main\java\com\sofn\dao\sso\SSOLoginMapper.java

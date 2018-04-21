@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysDeptExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysDept" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="IS_SUBITEM" property="isSubitem" jdbcType="VARCHAR" />
+    <result column="DEPT_TYPE" property="deptType" jdbcType="VARCHAR" />
+    <result column="DEPT_LEVEL" property="deptLevel" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="DEPT_MANAGER" property="deptManager" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR" />
+    <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="selectAllByCondition" resultType="map">
+
+    select d.ID, d.PARENT_ID, d.IS_SUBITEM, d.DEPT_TYPE, d.DEPT_LEVEL, d.REGION_ID, d.DEPT_NAME, d.DEPT_MANAGER,
+    d.PHONE, d.STATUS, d.CREATE_BY, d.CREATE_TIME, d.UPDATE_BY, d.UPDATE_TIME, d.DEL_FLAG, o.ORG_NAME as RESERVED_FIELD1,
+    o.REGION_NAME as RESERVED_FIELD2
+    from SYS_DEPT d left join SYS_ORGANIZATION o on o.ID=d.REGION_ID
+    WHERE 1=1
+     AND d.DEL_FLAG != 'Y'
+    <if test="status!=null and status!=''">
+      AND d.STATUS = #{status,jdbcType=VARCHAR}
+    </if>
+    <if test="deptName != null and deptName != ''">
+      AND d.DEPT_NAME like '%'||#{deptName}||'%'
+    </if>
+
+    order by ID
+  </select>
+  <select id="getAllCount" parameterType="hashmap" resultType="long">
+    select COUNT(*)
+    from SYS_DEPT
+    WHERE 1=1
+     AND DEL_FLAG != 'Y'
+    <if test="status!=null and status!=''">
+      AND STATUS = #{status,jdbcType=VARCHAR}
+    </if>
+    <if test="deptName != null and deptName != ''">
+      AND DEPT_NAME like '%'||#{deptName}||'%'
+    </if>
+
+
+  </select>
+  <select id="getDeptListByRegion" resultType="com.sofn.model.generator.SysDept">
+    select distinct ID, DEPT_NAME
+    from SYS_DEPT
+    WHERE 1=1 AND DEL_FLAG != 'Y'
+    <if test="regionId!=null and regionId!=''">
+      AND REGION_ID = #{regionId,jdbcType=VARCHAR}
+    </if>
+
+    order by ID
+  </select>
+  <select id="getSysDeptLists" resultType="com.sofn.model.generator.SysDept">
+    SELECT * FROM
+    (
+    SELECT A.*, ROWNUM RN
+    FROM (
+    select d.ID, d.PARENT_ID, d.IS_SUBITEM, d.DEPT_TYPE, d.DEPT_LEVEL, d.REGION_ID, d.DEPT_NAME, d.DEPT_MANAGER,
+    d.PHONE, d.STATUS, d.CREATE_BY, d.CREATE_TIME, d.UPDATE_BY, d.UPDATE_TIME, d.DEL_FLAG, o.ORG_NAME as RESERVED_FIELD1,
+    o.REGION_NAME as RESERVED_FIELD2
+    from SYS_DEPT d left join SYS_ORGANIZATION o on o.ID=d.REGION_ID
+    WHERE 1=1 AND d.DEL_FLAG != 'Y'
+    <if test="status != null and status != ''">
+      AND d.STATUS = #{status,jdbcType=VARCHAR}
+    </if>
+    <if test="deptName != null and deptName != ''">
+      AND d.DEPT_NAME like '%'||#{deptName}||'%'
+    </if>
+
+    ) A
+    <![CDATA[
+            WHERE ROWNUM <= #{pager.pageTail}
+            ]]>
+    )
+    <![CDATA[
+        WHERE RN >= #{pager.pageOffset}
+        ]]>
+  </select>
+
+</mapper>

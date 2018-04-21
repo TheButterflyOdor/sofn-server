@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjXsthMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjXsth" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="XSJLID" property="xsjlid" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+    <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP" />
+    <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR" />
+    <result column="PRODUCT_XSPC" property="productXspc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_XSPC_SL" property="productXspcSl" jdbcType="VARCHAR" />
+    <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ENTITY_IDCODE" property="customerEntityIdcode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_USER_IDCODE" property="customerUserIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="XSTHYY" property="xsthyy" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_XSTH
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjXsth" >
+    insert into TTS_SCLTXXCJ_XSTH (ID
+    , XSJLID
+    , PRODUCT_NAME
+    , PRODUCT_ID
+    , PRODUCT_INDUSTRY
+    , PRODUCT_SORT
+    , SALE_AMOUNT
+    , SALE_TIME
+    , SALE_USER
+    , PRODUCT_XSPC
+    , PRODUCT_XSPC_SL
+    , BUY_COM_USER_ID
+    , CUSTOMER_ENTITY_IDCODE
+    , CUSTOMER_USER_IDCODE
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , XSTHYY
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{xsjlid,jdbcType=VARCHAR}
+    , #{productName,jdbcType=VARCHAR}
+    , #{productId,jdbcType=VARCHAR}
+    , #{productIndustry,jdbcType=VARCHAR}
+    , #{productSort,jdbcType=VARCHAR}
+    , #{saleAmount,jdbcType=DECIMAL}
+    , #{saleTime,jdbcType=TIMESTAMP}
+    , #{saleUser,jdbcType=VARCHAR}
+    , #{productXspc,jdbcType=VARCHAR}
+    , #{productXspcSl,jdbcType=VARCHAR}
+    , #{buyComUserId,jdbcType=VARCHAR}
+    , #{customerEntityIdcode,jdbcType=VARCHAR}
+    , #{customerUserIdcode,jdbcType=VARCHAR}
+    , #{entityIdcode,jdbcType=VARCHAR}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{xsthyy,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjXsth" >
+    update TTS_SCLTXXCJ_XSTH
+    set
+     XSJLID =  #{xsjlid,jdbcType=VARCHAR},
+     PRODUCT_NAME =  #{productName,jdbcType=VARCHAR},
+     PRODUCT_ID =  #{productId,jdbcType=VARCHAR},
+     PRODUCT_INDUSTRY =  #{productIndustry,jdbcType=VARCHAR},
+     PRODUCT_SORT =  #{productSort,jdbcType=VARCHAR},
+     SALE_AMOUNT =  #{saleAmount,jdbcType=DECIMAL},
+     SALE_TIME =  #{saleTime,jdbcType=TIMESTAMP},
+     SALE_USER =  #{saleUser,jdbcType=VARCHAR},
+     PRODUCT_XSPC =  #{productXspc,jdbcType=VARCHAR},
+     PRODUCT_XSPC_SL =  #{productXspcSl,jdbcType=VARCHAR},
+     BUY_COM_USER_ID =  #{buyComUserId,jdbcType=VARCHAR},
+     CUSTOMER_ENTITY_IDCODE =  #{customerEntityIdcode,jdbcType=VARCHAR},
+     CUSTOMER_USER_IDCODE =  #{customerUserIdcode,jdbcType=VARCHAR},
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+     XSTHYY =  #{xsthyy,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , XSJLID
+    , PRODUCT_NAME
+    , PRODUCT_ID
+    , PRODUCT_INDUSTRY
+    , PRODUCT_SORT
+    , SALE_AMOUNT
+    , SALE_TIME
+    , SALE_USER
+    , PRODUCT_XSPC
+    , PRODUCT_XSPC_SL
+    , BUY_COM_USER_ID
+    , CUSTOMER_ENTITY_IDCODE
+    , CUSTOMER_USER_IDCODE
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , XSTHYY
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from TTS_SCLTXXCJ_XSTH
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

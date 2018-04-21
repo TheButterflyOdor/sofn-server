@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SysCodeConvertMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysCodeConvert" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CODE_LONG" property="codeLong" jdbcType="VARCHAR" />
+    <result column="CODE_SHORT" property="codeShort" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_CODE_CONVERT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysCodeConvert" >
+    insert into SYS_CODE_CONVERT (ID, CODE_LONG, CODE_SHORT,CREATE_TIME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{codeLong,jdbcType=VARCHAR}, #{codeShort,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysCodeConvert" >
+    update SYS_CODE_CONVERT
+    set CODE_LONG = #{codeLong,jdbcType=VARCHAR},
+      CODE_SHORT = #{codeShort,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, CODE_LONG, CODE_SHORT,CREATE_TIME
+    from SYS_CODE_CONVERT
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, CODE_LONG, CODE_SHORT,CREATE_TIME
+    from SYS_CODE_CONVERT
+  </select>
+</mapper>

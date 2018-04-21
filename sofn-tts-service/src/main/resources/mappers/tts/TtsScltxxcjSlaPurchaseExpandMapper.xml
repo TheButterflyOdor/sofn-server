@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjSlaPurchaseExpandMapper" >
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjSlaPurchase" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+        <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+        <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+        <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />
+        <result column="CG_AMOUNT" property="cgAmount" jdbcType="DECIMAL" />
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+        <result column="SALE_ENTITY_IDCODE" property="saleEntityIdcode" jdbcType="VARCHAR" />
+        <result column="SALE_USER_IDCODE" property="saleUserIdcode" jdbcType="VARCHAR" />
+        <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR" />
+        <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR" />
+        <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP" />
+        <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP" />
+        <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR" />
+        <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+        <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR" />
+        <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+        <result column="FROM_TRACE_CODE" property="fromTraceCode" jdbcType="VARCHAR" />
+        <result column="TO_TRACE_CODE" property="toTraceCode" jdbcType="VARCHAR" />
+        <result column="PRODUCT_CGPC" property="productCgpc" jdbcType="VARCHAR" />
+        <result column="PRODUCT_CGPC_SL" property="productCgpcSl" jdbcType="VARCHAR" />
+        <result column="XSDJID" property="xsdjid" jdbcType="VARCHAR" />
+        <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR" />
+        <result column="CG_DW" property="cgDw" jdbcType="VARCHAR" />
+        <result column="ZJRESULT" property="zjresult" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_SLA_PURCHASE T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_SLA_PURCHASE T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+  </select>
+
+</mapper>

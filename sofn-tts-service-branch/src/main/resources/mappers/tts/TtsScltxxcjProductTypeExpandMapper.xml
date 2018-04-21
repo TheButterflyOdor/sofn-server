@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjProductTypeExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjProductType" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR" />
+     <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+     <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_PRODUCT_TYPE_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'  AND T.ENTITY_IDCODE = #{user.entityIdcode}
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    ORDER BY Tab.CREATE_TIME DESC
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_PRODUCT_TYPE_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'  AND T.ENTITY_IDCODE = #{user.entityIdcode}
+  </select>
+
+    <select id="getList" resultMap="BaseResultMap">
+        SELECT ID,NAME FROM TTS_SCLTXXCJ_PRODUCT_TYPE_V2
+        where 1 = 1 AND DEL_FLAG != 'Y'
+    </select>
+
+    <update id="changeStatus" parameterType="com.sofn.model.generator.TtsScltxxcjProductType">
+        update TTS_SCLTXXCJ_PRODUCT_TYPE_V2
+        set STATUS = #{status,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getTypeByCode" resultMap="BaseResultMap" parameterType="hashmap">
+        select ID
+        , NAME
+        , STATUS
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , TYPE_CODE
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        from TTS_SCLTXXCJ_PRODUCT_TYPE_V2
+         where TYPE_CODE =#{type,jdbcType=VARCHAR}
+    </select>
+</mapper>

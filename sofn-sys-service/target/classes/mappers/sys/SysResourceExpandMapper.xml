@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysResourceExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysResource" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="RESOURCETYPE" property="resourcetype" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="PROFESSIONALFILED" property="professionalfiled" jdbcType="VARCHAR" />
+        <result column="JOBTITLE" property="jobtitle" jdbcType="VARCHAR" />
+        <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+        <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+        <result column="CONTRACT" property="contract" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR" />
+        <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="getList" parameterType="hashmap" resultType="map">
+        SELECT * FROM(
+            SELECT res.*,rownum RN
+            FROM (
+                SELECT
+                s.*
+                FROM SYS_RESOURCE s
+                WHERE 1=1 AND （s.DEL_FLAG !='Y'OR s.DEL_FLAG is NULL）
+                <if test="resourcetype!=null and resourcetype!=''">
+                    AND s.RESOURCETYPE like '%'||#{resourcetype}||'%'
+                </if>
+                <if test="professionalfiled!=null and professionalfiled!=''">
+                    AND s.PROFESSIONALFILED =#{professionalfiled}
+                </if>
+                <if test="location!=null and location!=''">
+                    AND s.LOCATION like #{location}||'%'
+                </if>
+                <if test="name!=null and name!=''">
+                    AND s.NAME like '%'||#{name}||'%'
+                </if>
+                order by s.UPDATE_TIME desc
+            )res
+        )
+        WHERE RN BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM SYS_RESOURCE s
+    WHERE 1=1 AND  （ s.DEL_FLAG !='Y'OR s.DEL_FLAG is NULL）
+        <if test="resourcetype!=null and resourcetype!=''">
+            AND s.RESOURCETYPE like '%'||#{resourcetype}||'%'
+        </if>
+        <if test="professionalfiled!=null and professionalfiled!=''">
+            AND s.PROFESSIONALFILED =#{professionalfiled}
+        </if>
+        <if test="location!=null and location!=''">
+            AND s.LOCATION =#{location}
+        </if>
+        <if test="name!=null and name!=''">
+            AND s.NAME like '%'||#{name}||'%'
+        </if>
+        order by s.UPDATE_TIME desc
+    </select>
+
+    <!--监管系统接口SQL-->
+    <select id="getQueryList" parameterType="hashmap" resultMap="BaseResultMap">
+        select * from ( SELECT f.*,ROWNUM AS rn
+        FROM (
+        SELECT
+        s.*
+        FROM SYS_RESOURCE s
+        WHERE 1=1 AND （s.DEL_FLAG !='Y'OR s.DEL_FLAG is NULL）
+        <if test="queryCon!=null and queryCon!=''">
+            AND s.NAME like '%'||#{queryCon}||'%'
+        </if>
+        <if test="professionalfiled!=null and professionalfiled!=''">
+            AND s.PROFESSIONALFILED =#{professionalfiled}
+        </if>
+        <if test="location!=null and location!=''">
+            AND s.LOCATION like #{location}||'%'
+        </if>
+        AND s.STATUS='1'
+        order by ROWNUM)f)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+    <select id="getQueryCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM SYS_RESOURCE s
+        WHERE 1=1 AND （s.DEL_FLAG !='Y'OR s.DEL_FLAG is NULL）
+        <if test="queryCon!=null and queryCon!=''">
+            AND s.NAME like '%'||#{queryCon}||'%'
+        </if>
+        <if test="professionalfiled!=null and professionalfiled!=''">
+            AND s.PROFESSIONALFILED =#{professionalfiled}
+        </if>
+        <if test="location!=null and location!=''">
+            AND s.LOCATION like #{location}||'%'
+        </if>
+        AND s.STATUS='1'
+    </select>
+    <select id="getRepeatRescourceCount" resultType="java.lang.Integer" parameterType="hashmap">
+        SELECT
+            COUNT(ID)
+        FROM
+            SYS_RESOURCE
+        WHERE
+            NAME = #{name}
+            AND UNIT = #{unit}
+            AND (DEL_FLAG = 'N' OR DEL_FLAG IS NULL)
+    </select>
+</mapper>

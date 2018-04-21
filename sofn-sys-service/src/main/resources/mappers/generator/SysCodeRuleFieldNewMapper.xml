@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SysCodeRuleFieldNewMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysCodeRuleFieldNew" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="LENGTH" property="length" jdbcType="VARCHAR" />
+    <result column="COMPONENT" property="component" jdbcType="VARCHAR" />
+    <result column="NUM" property="num" jdbcType="DECIMAL" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_CODE_RULE_FIELD_NEW
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysCodeRuleFieldNew" >
+    insert into SYS_CODE_RULE_FIELD_NEW (ID, NAME, LENGTH, 
+      COMPONENT, NUM, CREATE_BY, 
+      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+      DEL_FLAG)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{length,jdbcType=DECIMAL}, 
+      #{component,jdbcType=VARCHAR}, #{num,jdbcType=DECIMAL}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysCodeRuleFieldNew" >
+    update SYS_CODE_RULE_FIELD_NEW
+    set NAME = #{name,jdbcType=VARCHAR},
+      LENGTH = #{length,jdbcType=DECIMAL},
+      COMPONENT = #{component,jdbcType=VARCHAR},
+      NUM = #{num,jdbcType=DECIMAL},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, NAME, LENGTH, COMPONENT, NUM, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    DEL_FLAG
+    from SYS_CODE_RULE_FIELD_NEW
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, NAME, LENGTH, COMPONENT, NUM, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    DEL_FLAG
+    from SYS_CODE_RULE_FIELD_NEW
+  </select>
+</mapper>

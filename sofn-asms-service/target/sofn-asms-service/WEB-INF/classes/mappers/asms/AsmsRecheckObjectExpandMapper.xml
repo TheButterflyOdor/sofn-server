@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsRecheckObjectExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsRecheckObject">
+        <id column="ID" property="id" jdbcType="CHAR"/>
+        <result column="RECHECK_TASK_ID" property="recheckTaskId" jdbcType="CHAR"/>
+        <result column="RECHECK_SAMPLE_NAME" property="recheckSampleName" jdbcType="VARCHAR"/>
+        <result column="RECHECK_SAMPLE_CODE" property="recheckSampleCode" jdbcType="VARCHAR"/>
+        <result column="RECHECK_UNIT_ID" property="recheckUnitId" jdbcType="CHAR"/>
+        <result column="RECHECK_STANDARD" property="recheckStandard" jdbcType="VARCHAR"/>
+        <result column="RECHECK_JUDGE_STANDARD" property="recheckJudgeStandard" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="ENABLE" property="enable" jdbcType="CHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR"/>
+        <result column="RECHECK_UNIT_NAME" jdbcType="VARCHAR" property="recheckUnitName"/>
+        <result column="TESTED_DEPARMENT" jdbcType="VARCHAR" property="testedDeparment"/>
+    </resultMap>
+
+    <!--列表-->
+    <select id="getPagesList" resultMap="BaseResultMap">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.*
+        FROM
+        ASMS_RECHECK_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG='N' AND M.RECHECK_TASK_ID = '${recheckTaskId}'
+        <if test="recheckSampleName!=null and recheckSampleName!=''">
+            AND M.RECHECK_SAMPLE_NAME LIKE #{recheckSampleName}
+        </if>
+        <if test="recheckSampleCode!=null and recheckSampleCode!=''">
+            AND M.RECHECK_SAMPLE_CODE LIKE #{recheckSampleCode}
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_RECHECK_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG='N' AND M.RECHECK_TASK_ID = '${recheckTaskId}'
+        <if test="recheckSampleName!=null and recheckSampleName!=''">
+            AND M.RECHECK_SAMPLE_NAME LIKE #{recheckSampleName}
+        </if>
+        <if test="recheckSampleCode!=null and recheckSampleCode!=''">
+            AND M.RECHECK_SAMPLE_CODE LIKE #{recheckSampleCode}
+        </if>
+    </select>
+
+    <delete id="delByTaskId" parameterType="com.sofn.model.generator.AsmsCheckBearUnit">
+    delete from ASMS_RECHECK_OBJECT
+        where RECHECK_TASK_ID = '${recheckTaskId}'
+    </delete>
+
+    <select id="getObjsByTaskId" resultMap="BaseResultMap">
+        SELECT
+          M.*
+        FROM
+        ASMS_RECHECK_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND M.RECHECK_TASK_ID=#{id}
+        order by M.CREATE_TIME DESC
+    </select>
+
+</mapper>

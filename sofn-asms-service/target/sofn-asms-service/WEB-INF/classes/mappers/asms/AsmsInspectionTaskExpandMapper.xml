@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsInspectionTaskExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsInspectionTask">
+        <id column="ID" property="id" jdbcType="CHAR" />
+        <result column="TASK_TYPE" property="taskType" jdbcType="CHAR" />
+        <result column="TASK_DATE_TYPE" property="taskDateType" jdbcType="CHAR" />
+        <result column="TASK_DATE" property="taskDate" jdbcType="VARCHAR" />
+        <result column="INSPECTION_AREA_ID" property="inspectionAreaId" jdbcType="VARCHAR" />
+        <result column="INSPECTION_COUNT" property="inspectionCount" jdbcType="DECIMAL" />
+        <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="ENABLE" property="enable" jdbcType="CHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+        <result column="TASK_DATE_YEAR" property="taskDateYear" jdbcType="VARCHAR" />
+        <result column="TASK_DATE_MONTHS" property="taskDateMonths" jdbcType="VARCHAR" />
+        <result column="TASK_DATE_QUARTER" property="taskDateQuarter" jdbcType="VARCHAR" />
+        <result column="TASK_TYPE_NAME" property="taskTypeName" jdbcType="VARCHAR" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+        <result column="ATTACHMENT_ADDRESS" jdbcType="VARCHAR" property="attachmentAddress" />
+        <result column="ATTACHMENT_NAME" jdbcType="VARCHAR" property="attachmentName" />
+        <result column="DETAIL_CONTENT" jdbcType="VARCHAR" property="detailContent" />
+    </resultMap>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="map">
+      select ID, TASK_TYPE, TASK_DATE_TYPE, TASK_DATE, INSPECTION_AREA_ID, INSPECTION_COUNT,
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, DEL_FLAG, TASK_DATE_YEAR,
+    TASK_DATE_MONTHS, TASK_DATE_QUARTER,CREATE_ORG_ID,CREATE_ORG_NAME, ATTACHMENT_ADDRESS, ATTACHMENT_NAME, DETAIL_CONTENT
+      from ASMS_INSPECTION_TASK
+      where ID = '${id}'
+    </select>
+
+    <!--pageExpand-->
+    <select id="getPagesList" resultType="map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        task.ID AS id,
+        task.TASK_TYPE AS taskType,
+        task.TASK_TYPE_NAME AS taskTypeName,
+        task.CREATE_TIME AS createTime,
+        task.TASK_DATE_TYPE AS taskDateType,
+        task.INSPECTION_AREA_ID AS inspectionAreaId,
+        task.INSPECTION_COUNT AS inspectionCount,
+        task.ENABLE AS enable,
+        task.TASK_DATE_YEAR AS taskDateYear,
+        task.TASK_DATE_MONTHS AS taskDateMonths,
+        task.TASK_DATE_QUARTER AS taskDateQuarter,
+        task.CREATE_ORG_ID AS createOrgId,
+        task.CREATE_ORG_NAME AS createOrgName,
+        task.ATTACHMENT_ADDRESS AS attachmentAddress,
+        task.ATTACHMENT_NAME AS attachmentName,
+        task.DETAIL_CONTENT AS detailContent
+        FROM
+        ASMS_INSPECTION_TASK task
+        WHERE 1=1 AND task.DEL_FLAG = 'N' AND CREATE_ORG_ID = #{theUserOrgId}
+        <!--<if test="regParm!=null and regParm!=''">-->
+            <!--AND task.INSPECTION_AREA_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="taskType!=null and taskType!=''">
+            AND task.TASK_TYPE LIKE #{taskType}
+        </if>
+        <if test="taskDateType!=null and taskDateType!=''">
+            AND task.TASK_DATE_TYPE LIKE #{taskDateType}
+        </if>
+        <if test="querySheng!=null and querySheng!=''">
+            AND task.INSPECTION_AREA_ID LIKE #{querySheng}
+        </if>
+        <if test="queryShi!=null and queryShi!=''">
+            AND task.INSPECTION_AREA_ID LIKE #{queryShi}
+        </if>
+        <if test="queryXian!=null and queryXian!=''">
+            AND task.INSPECTION_AREA_ID LIKE #{queryXian}
+        </if>
+        order by task.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_INSPECTION_TASK task
+        WHERE 1=1 AND task.DEL_FLAG = 'N' AND CREATE_ORG_ID = #{theUserOrgId}
+        <!--<if test="regParm!=null and regParm!=''">-->
+            <!--AND task.INSPECTION_AREA_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="taskType!=null and taskType!=''">
+            AND task.TASK_TYPE LIKE #{taskType}
+        </if>
+        <if test="taskDateType!=null and taskDateType!=''">
+            AND task.TASK_DATE_TYPE LIKE #{taskDateType}
+        </if>
+        <if test="querySheng!=null and querySheng!=''">
+            AND task.INSPECTION_AREA_ID LIKE #{querySheng}
+        </if>
+        <if test="queryShi!=null and queryShi!=''">
+            AND task.INSPECTION_AREA_ID LIKE #{queryShi}
+        </if>
+        <if test="queryXian!=null and queryXian!=''">
+            AND task.INSPECTION_AREA_ID LIKE #{queryXian}
+        </if>
+    </select>
+
+
+</mapper>

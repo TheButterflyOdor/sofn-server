@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SysCodeRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysCodeRecord" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CODE_TYPE" property="codeType" jdbcType="VARCHAR" />
+    <result column="MANGE_TYPE" property="mangeType" jdbcType="VARCHAR" />
+    <result column="CREDIT_CODE" property="creditCode" jdbcType="VARCHAR" />
+    <result column="ORDER_CODE" property="orderCode" jdbcType="INTEGER" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_CODE_RECORD
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysCodeRecord" >
+    insert into SYS_CODE_RECORD (ID, CODE_TYPE, MANGE_TYPE, 
+      CREDIT_CODE, ORDER_CODE, CREATE_BY, 
+      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+      DEL_FLAG)
+    values (#{id,jdbcType=VARCHAR}, #{codeType,jdbcType=VARCHAR}, #{mangeType,jdbcType=VARCHAR}, 
+      #{creditCode,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysCodeRecord" >
+    update SYS_CODE_RECORD
+    set CODE_TYPE = #{codeType,jdbcType=VARCHAR},
+      MANGE_TYPE = #{mangeType,jdbcType=VARCHAR},
+      CREDIT_CODE = #{creditCode,jdbcType=VARCHAR},
+      ORDER_CODE = #{orderCode,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, CODE_TYPE, MANGE_TYPE, CREDIT_CODE, ORDER_CODE, CREATE_BY, CREATE_TIME, 
+    UPDATE_BY, UPDATE_TIME, DEL_FLAG
+    from SYS_CODE_RECORD
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, CODE_TYPE, MANGE_TYPE, CREDIT_CODE, ORDER_CODE, CREATE_BY, CREATE_TIME, 
+    UPDATE_BY, UPDATE_TIME, DEL_FLAG
+    from SYS_CODE_RECORD
+  </select>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsEmergencyTaskExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsEmergencyTask">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_TYPE" jdbcType="VARCHAR" property="taskType" />
+    <result column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+    <result column="TASK_BEGIN" jdbcType="TIMESTAMP" property="taskBegin" />
+    <result column="TASK_END" jdbcType="TIMESTAMP" property="taskEnd" />
+    <result column="RELEASE_UNIT" jdbcType="VARCHAR" property="releaseUnit" />
+    <result column="RELEASE_UNIT_LEVEL" jdbcType="VARCHAR" property="releaseUnitLevel" />
+    <result column="IS_BEAR_UNIT" jdbcType="VARCHAR" property="isBearUnit" />
+    <result column="BEAR_UNIT" jdbcType="VARCHAR" property="bearUnit" />
+    <result column="FILES" jdbcType="VARCHAR" property="files" />
+    <result column="FILE_CODE" jdbcType="VARCHAR" property="fileCode" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="EXPERT_NAME" jdbcType="VARCHAR" property="expertName" />
+    <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+  </resultMap>
+  <select id="getAsmsEmergencyTaskAllList" resultType="map">
+    select * from (
+    SELECT f.*,ROWNUM AS rn FROM (
+    SELECT
+    s.*
+    FROM ASMS_EMERGENCY_TASK s
+    WHERE 1=1
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.TASK_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="taskYear!=null and taskYear!=''">
+      AND s.TASK_BEGIN  BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.TASK_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.TASK_BEGIN &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND s.AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="createOrgId!=null and createOrgId!=''">
+      AND s.CREATE_ORG_ID =#{createOrgId}
+    </if>
+    <if test="releaseUnit!=null and releaseUnit!=''">
+      AND s.RELEASE_UNIT =#{releaseUnit}
+    </if>
+    <if test="bearUnit!=null and bearUnit!=''">
+      AND
+      <foreach collection="bearUnit" item="item" index="index" open="(" close=")" separator="OR">
+        s.BEAR_UNIT like '%'||#{item}||'%'
+      </foreach>
+    </if>
+    order by s.CREATE_TIME DESC) f)
+    WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  <select id="getAsmsEmergencyTaskAllCount" resultType="long">
+    SELECT COUNT(*) FROM ASMS_EMERGENCY_TASK s
+    WHERE 1=1
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.TASK_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="taskYear!=null and taskYear!=''">
+      AND s.TASK_BEGIN  BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.TASK_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.TASK_BEGIN &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND s.AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="createOrgId!=null and createOrgId!=''">
+      AND s.CREATE_ORG_ID =#{createOrgId}
+    </if>
+    <if test="releaseUnit!=null and releaseUnit!=''">
+      AND s.RELEASE_UNIT =#{releaseUnit}
+    </if>
+    <if test="bearUnit!=null and bearUnit!=''">
+      AND
+      <foreach collection="bearUnit" item="item" index="index" open="(" close=")" separator="OR">
+        s.BEAR_UNIT like '%'||#{item}||'%'
+      </foreach>
+    </if>
+  </select>
+</mapper>

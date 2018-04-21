@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ales.AlesJdccTaskSampleExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesJdccTaskSample">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_TRACEABILITY_CODE" property="productTraceabilityCode" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_BAR_CODE" property="sampleBarCode" jdbcType="DECIMAL"/>
+        <result column="SAMPLE_NAME" property="sampleName" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR"/>
+        <result column="TRADE_MARK" property="tradeMark" jdbcType="VARCHAR"/>
+        <result column="PACKING" property="packing" jdbcType="VARCHAR"/>
+        <result column="GRADE" property="grade" jdbcType="VARCHAR"/>
+        <result column="IDENTIFY" property="identify" jdbcType="VARCHAR"/>
+        <result column="SPECIFICATION_GX" property="specificationGx" jdbcType="VARCHAR"/>
+        <result column="STANDARD" property="standard" jdbcType="VARCHAR"/>
+        <result column="PRODUCE_DATE" property="produceDate" jdbcType="TIMESTAMP"/>
+        <result column="PRODUCE_CERTIFICATE" property="produceCertificate" jdbcType="VARCHAR"/>
+        <result column="CERTIFICATE_CODE" property="certificateCode" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_BASE" property="sampleBase" jdbcType="DECIMAL"/>
+        <result column="SAMPLE_PLACE" property="samplePlace" jdbcType="VARCHAR"/>
+        <result column="TESTED_DEPARMENT" property="testedDeparment" jdbcType="VARCHAR"/>
+        <result column="TESTED_ADDRESS" property="testedAddress" jdbcType="VARCHAR"/>
+        <result column="TESTED_LEGALREP" property="testedLegalrep" jdbcType="VARCHAR"/>
+        <result column="TESTED_LINKMAN" property="testedLinkman" jdbcType="VARCHAR"/>
+        <result column="TESTED_LINKMANPHONE" property="testedLinkmanphone" jdbcType="VARCHAR"/>
+        <result column="TESTED_LINKMANFAX" property="testedLinkmanfax" jdbcType="VARCHAR"/>
+        <result column="TESTED_PERSON" property="testedPerson" jdbcType="VARCHAR"/>
+        <result column="TESTED_PERSONPHONE" property="testedPersonphone" jdbcType="VARCHAR"/>
+        <result column="TESTED_PERSONFAX" property="testedPersonfax" jdbcType="VARCHAR"/>
+        <result column="PRODUCTIONS_TATUS" property="productionsTatus" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_DEPARMENT" property="productionDeparment" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_ADDRESS" property="productionAddress" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_ZIPCODE" property="productionZipcode" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_LINKMAN" property="productionLinkman" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_LINKMANPHONE" property="productionLinkmanphone" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_LINKMANFAX" property="productionLinkmanfax" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_ID" property="sampleId" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_DEPARMENT" property="sampleDeparment" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_LINKMAN" property="sampleLinkman" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_ADDRESS" property="sampleAddress" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_ZIPCODE" property="sampleZipcode" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_PHONE" property="samplePhone" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_FAX" property="sampleFax" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_EMAIL" property="sampleEmail" jdbcType="VARCHAR"/>
+        <result column="PROOF" property="proof" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_PERSON" property="samplePerson" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_DATE" property="sampleDate" jdbcType="TIMESTAMP"/>
+        <result column="SAMPLE_REPORT" property="sampleReport" jdbcType="VARCHAR"/>
+        <result column="COMMENT_GX" property="commentGx" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR"/>
+        <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR"/>
+        <result column="PRODUCING_AREA" property="producingArea" jdbcType="VARCHAR"/>
+        <result column="PRODUCING_AREA_NAME" property="producingAreaName" jdbcType="VARCHAR"/>
+        <result column="IS_SYNC" property="isSync" jdbcType="VARCHAR"/>
+        <result column="RESULT" jdbcType="CHAR" property="result"/>
+        <result column="SAMPLE_AMOUNT" jdbcType="DECIMAL" property="sampleAmount" />
+        <result column="ATTACHMENTS" jdbcType="VARCHAR" property="attachments" />
+        <result column="ATTACHMENT_NAMES" jdbcType="VARCHAR" property="attachmentNames" />
+        <result column="SAMPLE_SOURCE" jdbcType="VARCHAR" property="sampleSource" />
+        <result column="NOTE" jdbcType="VARCHAR" property="note" />
+        <result column="SAMPLE_UNIT_TYPE" jdbcType="VARCHAR" property="sampleUnitType" />
+        <result column="SAMPLE_BASE_UNIT_TYPE" jdbcType="VARCHAR" property="sampleBaseUnitType" />
+    </resultMap>
+</mapper>

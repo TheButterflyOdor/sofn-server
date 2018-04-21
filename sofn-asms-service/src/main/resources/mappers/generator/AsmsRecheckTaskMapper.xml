@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsRecheckTaskMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsRecheckTask">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="RECHECK_TASK_NAME" jdbcType="VARCHAR" property="recheckTaskName" />
+    <result column="RECHECK_TASK_YEAR" jdbcType="CHAR" property="recheckTaskYear" />
+    <result column="RECHECK_TASK_BEGIN" jdbcType="TIMESTAMP" property="recheckTaskBegin" />
+    <result column="RECHECK_TASK_END" jdbcType="TIMESTAMP" property="recheckTaskEnd" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="INIT_TASK_TYPE" jdbcType="VARCHAR" property="initTaskType" />
+    <result column="INIT_TASK_NAME" jdbcType="VARCHAR" property="initTaskName" />
+    <result column="INIT_TASK_ID" jdbcType="CHAR" property="initTaskId" />
+    <result column="RECHECK_UNIT_ID" jdbcType="CHAR" property="recheckUnitId" />
+    <result column="RECHECK_UNIT_NAME" jdbcType="VARCHAR" property="recheckUnitName" />
+    <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+    <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+    <result column="BATCH" jdbcType="VARCHAR" property="batch" />
+    <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+    <result column="LEVEL_ENUM" jdbcType="CHAR" property="levelEnum" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_RECHECK_TASK
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsRecheckTask">
+    insert into ASMS_RECHECK_TASK (ID, RECHECK_TASK_NAME, RECHECK_TASK_YEAR, 
+      RECHECK_TASK_BEGIN, RECHECK_TASK_END, CREATE_BY, 
+      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+      ENABLE, STATE, DEL_FLAG, INIT_TASK_TYPE, 
+      INIT_TASK_NAME, INIT_TASK_ID, RECHECK_UNIT_ID, 
+      RECHECK_UNIT_NAME, CREATE_ORG_ID, CREATE_ORG_NAME, 
+      BATCH, CREATE_ORG_REGION_ID, LEVEL_ENUM
+      )
+    values (#{id,jdbcType=CHAR}, #{recheckTaskName,jdbcType=VARCHAR}, #{recheckTaskYear,jdbcType=CHAR}, 
+      #{recheckTaskBegin,jdbcType=TIMESTAMP}, #{recheckTaskEnd,jdbcType=TIMESTAMP}, #{createBy,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{enable,jdbcType=CHAR}, #{state,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{initTaskType,jdbcType=VARCHAR}, 
+      #{initTaskName,jdbcType=VARCHAR}, #{initTaskId,jdbcType=CHAR}, #{recheckUnitId,jdbcType=CHAR}, 
+      #{recheckUnitName,jdbcType=VARCHAR}, #{createOrgId,jdbcType=CHAR}, #{createOrgName,jdbcType=VARCHAR}, 
+      #{batch,jdbcType=VARCHAR}, #{createOrgRegionId,jdbcType=VARCHAR}, #{levelEnum,jdbcType=CHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsRecheckTask">
+    update ASMS_RECHECK_TASK
+    set RECHECK_TASK_NAME = #{recheckTaskName,jdbcType=VARCHAR},
+      RECHECK_TASK_YEAR = #{recheckTaskYear,jdbcType=CHAR},
+      RECHECK_TASK_BEGIN = #{recheckTaskBegin,jdbcType=TIMESTAMP},
+      RECHECK_TASK_END = #{recheckTaskEnd,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      INIT_TASK_TYPE = #{initTaskType,jdbcType=VARCHAR},
+      INIT_TASK_NAME = #{initTaskName,jdbcType=VARCHAR},
+      INIT_TASK_ID = #{initTaskId,jdbcType=CHAR},
+      RECHECK_UNIT_ID = #{recheckUnitId,jdbcType=CHAR},
+      RECHECK_UNIT_NAME = #{recheckUnitName,jdbcType=VARCHAR},
+      CREATE_ORG_ID = #{createOrgId,jdbcType=CHAR},
+      CREATE_ORG_NAME = #{createOrgName,jdbcType=VARCHAR},
+      BATCH = #{batch,jdbcType=VARCHAR},
+      CREATE_ORG_REGION_ID = #{createOrgRegionId,jdbcType=VARCHAR},
+      LEVEL_ENUM = #{levelEnum,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, RECHECK_TASK_NAME, RECHECK_TASK_YEAR, RECHECK_TASK_BEGIN, RECHECK_TASK_END, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, STATE, DEL_FLAG, INIT_TASK_TYPE, 
+    INIT_TASK_NAME, INIT_TASK_ID, RECHECK_UNIT_ID, RECHECK_UNIT_NAME, CREATE_ORG_ID, 
+    CREATE_ORG_NAME, BATCH, CREATE_ORG_REGION_ID, LEVEL_ENUM
+    from ASMS_RECHECK_TASK
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, RECHECK_TASK_NAME, RECHECK_TASK_YEAR, RECHECK_TASK_BEGIN, RECHECK_TASK_END, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, STATE, DEL_FLAG, INIT_TASK_TYPE, 
+    INIT_TASK_NAME, INIT_TASK_ID, RECHECK_UNIT_ID, RECHECK_UNIT_NAME, CREATE_ORG_ID, 
+    CREATE_ORG_NAME, BATCH, CREATE_ORG_REGION_ID, LEVEL_ENUM
+    from ASMS_RECHECK_TASK
+  </select>
+</mapper>

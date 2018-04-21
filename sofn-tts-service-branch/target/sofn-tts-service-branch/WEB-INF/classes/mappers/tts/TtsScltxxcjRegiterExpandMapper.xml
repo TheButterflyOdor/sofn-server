@@ -1,0 +1,1563 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjRegiterExpandMapper">
+
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjRegiter">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="ENTITY_SCALE_NAME" property="entityScaleName" jdbcType="VARCHAR"/>
+        <result column="ENTITY_TYPE_NAME" property="entityTypeName" jdbcType="VARCHAR"/>
+        <result column="ENTITY_PROPERTY_NAME" property="entityPropertyName" jdbcType="VARCHAR"/>
+        <result column="ENTITY_INDUSTRY_NAME" property="entityIndustryName" jdbcType="VARCHAR"/>
+        <result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR"/>
+        <result column="LATITUDE" property="latitude" jdbcType="DECIMAL"/>
+        <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR"/>
+        <result column="LEGAL_IDNUMBER" property="legalIdnumber" jdbcType="VARCHAR"/>
+        <result column="LEGAL_PHONE" property="legalPhone" jdbcType="VARCHAR"/>
+        <result column="LEGAL_IMAGES" property="legalImages" jdbcType="VARCHAR"/>
+        <result column="FAX_NUMBER" property="faxNumber" jdbcType="VARCHAR"/>
+        <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR"/>
+        <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR"/>
+        <result column="CONTACT_EMAIL" property="contactEmail" jdbcType="VARCHAR"/>
+        <result column="REGISTER_TIME" property="registerTime" jdbcType="TIMESTAMP"/>
+        <result column="APPROVE_STATUS" property="approveStatus" jdbcType="CHAR"/>
+        <result column="APPROVE_OPINION" property="approveOpinion" jdbcType="VARCHAR"/>
+        <result column="APPROVE_USER_IDCODE" property="approveUserIdcode" jdbcType="VARCHAR"/>
+        <result column="APPROVE_NAME" property="approveName" jdbcType="VARCHAR"/>
+        <result column="APPROVE_TIME" property="approveTime" jdbcType="TIMESTAMP"/>
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR"/>
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR"/>
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR"/>
+        <result column="REAL_NAME" property="realName" jdbcType="VARCHAR"/>
+        <result column="IDCODE" property="idcode" jdbcType="VARCHAR"/>
+        <result column="ENTITY_SCALE" property="entityScale" jdbcType="VARCHAR"/>
+        <result column="ENTITY_TYPE" property="entityType" jdbcType="VARCHAR"/>
+        <result column="ENTITY_PROPERTY" property="entityProperty" jdbcType="VARCHAR"/>
+        <result column="ENTITY_INDUSTRY" property="entityIndustry" jdbcType="VARCHAR"/>
+        <result column="ENTERPRISE_NAME" property="enterpriseName" jdbcType="VARCHAR"/>
+        <result column="CARD_TYPE" property="cardType" jdbcType="CHAR"/>
+        <result column="CREDIT_CODE" property="creditCode" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_OPERATION" property="businessOperation" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_OPERATION_START" property="businessOperationStart" jdbcType="TIMESTAMP"/>
+        <result column="BUSINESS_OPERATION_END" property="businessOperationEnd" jdbcType="TIMESTAMP"/>
+        <result column="ENTERPRISE_INDUSTRY" property="enterpriseIndustry" jdbcType="VARCHAR"/>
+        <result column="ANNUAL_OUTPUT" property="annualOutput" jdbcType="VARCHAR"/>
+        <result column="UNIT" property="unit" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="DOCUMENT_IMAGES" property="documentImages" jdbcType="VARCHAR"/>
+        <result column="AREA" property="area" jdbcType="VARCHAR"/>
+        <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="BUSINESS_LICENCEIMG" property="businessLicenceimg" jdbcType="VARCHAR" />
+        <result column="ORGANIZATION_CERTIFICATEIMG" property="organizationCertificateimg" jdbcType="VARCHAR" />
+        <result column="POSITIVE_IDCARDEIMG" property="positiveIdcardeimg" jdbcType="VARCHAR" />
+        <result column="NEGATIVE_IDCARDIMG" property="negativeIdcardimg" jdbcType="VARCHAR" />
+        <result column="HAND_IDCARDIMG" property="handIdcardimg" jdbcType="VARCHAR" />
+        <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+        <result column="IS_LONG" property="isLong" jdbcType="VARCHAR" />
+        <result column="ANNUAL_OUTPUT_X" property="annualOutputX" jdbcType="VARCHAR" />
+        <result column="ANNUAL_OUTPUT_S" property="annualOutputS" jdbcType="VARCHAR" />
+        <result column="UNIT_X" property="unitX" jdbcType="VARCHAR" />
+        <result column="UNIT_S" property="unitS" jdbcType="VARCHAR" />
+        <result column="UNIT_NAME_X" property="unitNameX" jdbcType="VARCHAR" />
+        <result column="UNIT_NAME_S" property="unitNameS" jdbcType="VARCHAR" />
+        <result column="INFO_UNIQUE" property="infoUnique" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="BaseResultMapNew" type="com.sofn.model.tts.TtsScltxxcjRegiterDto" extends="BaseResultMap">
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+        <result column="USER_ACCOUNT" jdbcType="VARCHAR" property="userAccount" />
+        <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+    </resultMap>
+
+    <select id="findInfoByEntityCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        ID
+        , ENTITY_SCALE_NAME
+        , ENTITY_TYPE_NAME
+        , ENTITY_PROPERTY_NAME
+        , ENTITY_INDUSTRY_NAME
+        , UNIT_NAME
+        , LATITUDE
+        , LEGAL_NAME
+        , LEGAL_IDNUMBER
+        , LEGAL_PHONE
+        , LEGAL_IMAGES
+        , FAX_NUMBER
+        , CONTACT_NAME
+        , CONTACT_PHONE
+        , CONTACT_EMAIL
+        , REGISTER_TIME
+        , APPROVE_STATUS
+        , APPROVE_OPINION
+        , APPROVE_USER_IDCODE
+        , APPROVE_NAME
+        , APPROVE_TIME
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , ACCOUNT
+        , REAL_NAME
+        , IDCODE
+        , ENTITY_SCALE
+        , ENTITY_TYPE
+        , ENTITY_PROPERTY
+        , ENTITY_INDUSTRY
+        , ENTERPRISE_NAME
+        , CARD_TYPE
+        , CREDIT_CODE
+        , BUSINESS_OPERATION
+        , BUSINESS_OPERATION_START
+        , BUSINESS_OPERATION_END
+        , ENTERPRISE_INDUSTRY
+        , ANNUAL_OUTPUT
+        , UNIT
+        , ADDRESS
+        , DOCUMENT_IMAGES
+        , AREA
+        , LONGITUDE
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , BUSINESS_LICENCEIMG
+        , ORGANIZATION_CERTIFICATEIMG
+        , POSITIVE_IDCARDEIMG
+        , NEGATIVE_IDCARDIMG
+        , HAND_IDCARDIMG
+        , ORGANIZATION_CODE
+        , IS_LONG
+        , ANNUAL_OUTPUT_X
+        , ANNUAL_OUTPUT_S
+        , UNIT_X
+        , UNIT_S
+        , UNIT_NAME_X
+        , UNIT_NAME_S
+        , INFO_UNIQUE
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where ENTITY_IDCODE =#{entityCode}
+    </select>
+
+
+    <select id="queryEntityInfoByEntity" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+            A.*
+        FROM
+            (
+                SELECT
+                    ID,
+                    ENTITY_SCALE_NAME,
+                    ENTITY_TYPE_NAME,
+                    ENTITY_PROPERTY_NAME,
+                    ENTITY_INDUSTRY_NAME,
+                    UNIT_NAME,
+                    LATITUDE,
+                    LEGAL_NAME,
+                    LEGAL_IDNUMBER,
+                    LEGAL_PHONE,
+                    LEGAL_IMAGES,
+                    FAX_NUMBER,
+                    CONTACT_NAME,
+                    CONTACT_PHONE,
+                    CONTACT_EMAIL,
+                    REGISTER_TIME,
+                    APPROVE_STATUS,
+                    APPROVE_OPINION,
+                    APPROVE_USER_IDCODE,
+                    APPROVE_NAME,
+                    APPROVE_TIME,
+                    USER_IDCODE,
+                    ENTITY_IDCODE,
+                    ACCOUNT,
+                    REAL_NAME,
+                    IDCODE,
+                    ENTITY_SCALE,
+                    ENTITY_TYPE,
+                    ENTITY_PROPERTY,
+                    ENTITY_INDUSTRY,
+                    ENTERPRISE_NAME,
+                    CARD_TYPE,
+                    CREDIT_CODE,
+                    BUSINESS_OPERATION,
+                    BUSINESS_OPERATION_START,
+                    BUSINESS_OPERATION_END,
+                    ENTERPRISE_INDUSTRY,
+                    ANNUAL_OUTPUT,
+                    UNIT,
+                    ADDRESS,
+                    DOCUMENT_IMAGES,
+                    AREA,
+                    LONGITUDE,
+                    DEL_FLAG,
+                    CREATE_BY,
+                    UPDATE_BY,
+                    CREATE_TIME,
+                    UPDATE_TIME,
+                    BUSINESS_LICENCEIMG,
+                    ORGANIZATION_CERTIFICATEIMG,
+                    POSITIVE_IDCARDEIMG,
+                    NEGATIVE_IDCARDIMG,
+                    HAND_IDCARDIMG,
+                    ORGANIZATION_CODE,
+                    IS_LONG,
+                    ANNUAL_OUTPUT_X,
+                    ANNUAL_OUTPUT_S,
+                    UNIT_X,
+                    UNIT_S,
+                    UNIT_NAME_X,
+                    UNIT_NAME_S,
+                    INFO_UNIQUE
+                FROM
+                    TTS_SCLTXXCJ_REGISTER_V2
+            ) A,
+            (
+                SELECT DISTINCT
+                    ENTITY_IDCODE
+                FROM
+                    TTS_SCLTXXCJ_USER_V2
+                WHERE
+                    USER_IDCODE = #{sourceEntity}
+                OR ENTITY_IDCODE = #{sourceEntity}
+            ) b
+        WHERE
+            A .USER_IDCODE = b.ENTITY_IDCODE
+        OR A .ENTITY_IDCODE = b.ENTITY_IDCODE
+    </select>
+
+    <select id="selectByAccountAndUserInfo" resultMap="BaseResultMap" parameterType="map">
+        select
+        T.ID
+        , T.ENTITY_SCALE_NAME
+        , T.ENTITY_TYPE_NAME
+        , T.ENTITY_PROPERTY_NAME
+        , T.ENTITY_INDUSTRY_NAME
+        , T.UNIT_NAME
+        , T.LATITUDE
+        , T.LEGAL_NAME
+        , T.LEGAL_IDNUMBER
+        , T.LEGAL_PHONE
+        , T.LEGAL_IMAGES
+        , T.FAX_NUMBER
+        , T.CONTACT_NAME
+        , T.CONTACT_PHONE
+        , T.CONTACT_EMAIL
+        , T.REGISTER_TIME
+        , T.APPROVE_STATUS
+        , T.APPROVE_OPINION
+        , T.APPROVE_USER_IDCODE
+        , T.APPROVE_NAME
+        , T.APPROVE_TIME
+        , U.USER_IDCODE
+        , T.ENTITY_IDCODE
+        , U.ACCOUNT
+        , U.IS_MAIN isMain
+        , U.DEL_FLAG childDelFlag
+        , U.NAME childName
+        , U.ID_CARD childIdcard
+        , U.PHONE childPhone
+        , U.EMAIL childEmail
+        , U.WHETHER_PASSWORD childWhetherPassword
+        , U.CHECK_EDIT_PASSWORD childCheckEditPassword
+        , U.ID childId
+        , T.REAL_NAME
+        , T.IDCODE
+        , T.ENTITY_SCALE
+        , T.ENTITY_TYPE
+        , T.ENTITY_PROPERTY
+        , T.ENTITY_INDUSTRY
+        , T.ENTERPRISE_NAME
+        , T.CARD_TYPE
+        , T.CREDIT_CODE
+        , T.BUSINESS_OPERATION
+        , T.BUSINESS_OPERATION_START
+        , T.BUSINESS_OPERATION_END
+        , T.ENTERPRISE_INDUSTRY
+        , T.ANNUAL_OUTPUT
+        , T.UNIT
+        , T.ADDRESS
+        , T.DOCUMENT_IMAGES
+        , T.AREA
+        , T.LONGITUDE
+        , T.DEL_FLAG
+        , T.CREATE_BY
+        , T.UPDATE_BY
+        , T.CREATE_TIME
+        , T.UPDATE_TIME
+        , T.BUSINESS_LICENCEIMG
+        , T.ORGANIZATION_CERTIFICATEIMG
+        , T.POSITIVE_IDCARDEIMG
+        , T.NEGATIVE_IDCARDIMG
+        , T.HAND_IDCARDIMG
+        , T.ORGANIZATION_CODE
+        , T.IS_LONG
+        , T.ANNUAL_OUTPUT_X
+        , T.ANNUAL_OUTPUT_S
+        , T.UNIT_X
+        , T.UNIT_S
+        , T.UNIT_NAME_X
+        , T.UNIT_NAME_S
+        , T.INFO_UNIQUE
+        from TTS_SCLTXXCJ_REGISTER_V2 T,TTS_SCLTXXCJ_USER_V2 U
+        where U.ACCOUNT =#{account,jdbcType=VARCHAR} AND T.ENTITY_IDCODE = U.ENTITY_IDCODE
+    </select>
+
+    <select id="findByAccount" parameterType="map" resultMap="BaseResultMap">
+        select
+        ID
+        , ENTITY_SCALE_NAME
+        , ENTITY_TYPE_NAME
+        , ENTITY_PROPERTY_NAME
+        , ENTITY_INDUSTRY_NAME
+        , UNIT_NAME
+        , LATITUDE
+        , LEGAL_NAME
+        , LEGAL_IDNUMBER
+        , LEGAL_PHONE
+        , LEGAL_IMAGES
+        , FAX_NUMBER
+        , CONTACT_NAME
+        , CONTACT_PHONE
+        , CONTACT_EMAIL
+        , REGISTER_TIME
+        , APPROVE_STATUS
+        , APPROVE_OPINION
+        , APPROVE_USER_IDCODE
+        , APPROVE_NAME
+        , APPROVE_TIME
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , ACCOUNT
+        , REAL_NAME
+        , IDCODE
+        , ENTITY_SCALE
+        , ENTITY_TYPE
+        , ENTITY_PROPERTY
+        , ENTITY_INDUSTRY
+        , ENTERPRISE_NAME
+        , CARD_TYPE
+        , CREDIT_CODE
+        , BUSINESS_OPERATION
+        , BUSINESS_OPERATION_START
+        , BUSINESS_OPERATION_END
+        , ENTERPRISE_INDUSTRY
+        , ANNUAL_OUTPUT
+        , UNIT
+        , ADDRESS
+        , DOCUMENT_IMAGES
+        , AREA
+        , LONGITUDE
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , BUSINESS_LICENCEIMG
+        , ORGANIZATION_CERTIFICATEIMG
+        , POSITIVE_IDCARDEIMG
+        , NEGATIVE_IDCARDIMG
+        , HAND_IDCARDIMG
+        , ORGANIZATION_CODE
+        , IS_LONG
+        , ANNUAL_OUTPUT_X
+        , ANNUAL_OUTPUT_S
+        , UNIT_X
+        , UNIT_S
+        , UNIT_NAME_X
+        , UNIT_NAME_S
+        , INFO_UNIQUE
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where ACCOUNT =#{account}
+    </select>
+
+    <select id="selectByEntityIdCode" resultMap="BaseResultMap" parameterType="map">
+        select
+        ID
+        , ENTITY_SCALE_NAME
+        , ENTITY_TYPE_NAME
+        , ENTITY_PROPERTY_NAME
+        , ENTITY_INDUSTRY_NAME
+        , UNIT_NAME
+        , LATITUDE
+        , LEGAL_NAME
+        , LEGAL_IDNUMBER
+        , LEGAL_PHONE
+        , LEGAL_IMAGES
+        , FAX_NUMBER
+        , CONTACT_NAME
+        , CONTACT_PHONE
+        , CONTACT_EMAIL
+        , REGISTER_TIME
+        , APPROVE_STATUS
+        , APPROVE_OPINION
+        , APPROVE_USER_IDCODE
+        , APPROVE_NAME
+        , APPROVE_TIME
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , ACCOUNT
+        , REAL_NAME
+        , IDCODE
+        , ENTITY_SCALE
+        , ENTITY_TYPE
+        , ENTITY_PROPERTY
+        , ENTITY_INDUSTRY
+        , ENTERPRISE_NAME
+        , CARD_TYPE
+        , CREDIT_CODE
+        , BUSINESS_OPERATION
+        , BUSINESS_OPERATION_START
+        , BUSINESS_OPERATION_END
+        , ENTERPRISE_INDUSTRY
+        , ANNUAL_OUTPUT
+        , UNIT
+        , ADDRESS
+        , DOCUMENT_IMAGES
+        , AREA
+        , LONGITUDE
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , BUSINESS_LICENCEIMG
+        , ORGANIZATION_CERTIFICATEIMG
+        , POSITIVE_IDCARDEIMG
+        , NEGATIVE_IDCARDIMG
+        , HAND_IDCARDIMG
+        , ORGANIZATION_CODE
+        , IS_LONG
+        , ANNUAL_OUTPUT_X
+        , ANNUAL_OUTPUT_S
+        , UNIT_X
+        , UNIT_S
+        , UNIT_NAME_X
+        , UNIT_NAME_S
+        , INFO_UNIQUE
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where ENTITY_IDCODE =#{entityIdCode,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByUserIdCode" resultMap="BaseResultMap" parameterType="map">
+        select
+        ID
+        , ENTITY_SCALE_NAME
+        , ENTITY_TYPE_NAME
+        , ENTITY_PROPERTY_NAME
+        , ENTITY_INDUSTRY_NAME
+        , UNIT_NAME
+        , LATITUDE
+        , LEGAL_NAME
+        , LEGAL_IDNUMBER
+        , LEGAL_PHONE
+        , LEGAL_IMAGES
+        , FAX_NUMBER
+        , CONTACT_NAME
+        , CONTACT_PHONE
+        , CONTACT_EMAIL
+        , REGISTER_TIME
+        , APPROVE_STATUS
+        , APPROVE_OPINION
+        , APPROVE_USER_IDCODE
+        , APPROVE_NAME
+        , APPROVE_TIME
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , ACCOUNT
+        , REAL_NAME
+        , IDCODE
+        , ENTITY_SCALE
+        , ENTITY_TYPE
+        , ENTITY_PROPERTY
+        , ENTITY_INDUSTRY
+        , ENTERPRISE_NAME
+        , CARD_TYPE
+        , CREDIT_CODE
+        , BUSINESS_OPERATION
+        , BUSINESS_OPERATION_START
+        , BUSINESS_OPERATION_END
+        , ENTERPRISE_INDUSTRY
+        , ANNUAL_OUTPUT
+        , UNIT
+        , ADDRESS
+        , DOCUMENT_IMAGES
+        , AREA
+        , LONGITUDE
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , BUSINESS_LICENCEIMG
+        , ORGANIZATION_CERTIFICATEIMG
+        , POSITIVE_IDCARDEIMG
+        , NEGATIVE_IDCARDIMG
+        , HAND_IDCARDIMG
+        , ORGANIZATION_CODE
+        , IS_LONG
+        , ANNUAL_OUTPUT_X
+        , ANNUAL_OUTPUT_S
+        , UNIT_X
+        , UNIT_S
+        , UNIT_NAME_X
+        , UNIT_NAME_S
+        , INFO_UNIQUE
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where USER_IDCODE =#{userIdCode,jdbcType=VARCHAR}
+    </select>
+    <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_REGISTER_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'`  `
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_REGISTER_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="enterpriseName != null and ''!=enterpriseName">and ENTERPRISE_NAME like '%'||#{enterpriseName}||'%'
+        </if>
+        <if test="entityIndustry!=null and entityIndustry.length>0">
+            and
+            <foreach collection="entityIndustry" item="item" index="index" open="(" close=")" separator="or">
+                T.ENTITY_INDUSTRY like '%'||#{item}||'%'
+            </foreach>
+        </if>
+        <!--<if test="enterpriseName != null">and ENTERPRISE_NAME like CONCAT('%','${enterpriseName}','%')</if>-->
+        <!--<if test="entityIndustry != null">and ENTITY_INDUSTRY like CONCAT('%','${entityIndustry}','%')</if>-->
+        <if test="entityType != null and ''!=entityType">and ENTITY_TYPE=#{entityType}</if>
+        <if test="entityScale != null and ''!=entityScale">and ENTITY_SCALE=#{entityScale}</if>
+        <if test="area != null and ''!=area">and AREA like CONCAT('${area}','%')</if>
+        <if test="approveStatus != null and ''!=approveStatus">and APPROVE_STATUS=#{approveStatus}</if>
+        <if test="beginDate != null and ''!=beginDate">and to_date(#{beginDate},'yyyy-MM-dd') &lt; REGISTER_TIME</if>
+        <if test="endDate != null and ''!=endDate">and to_date(#{endDate},'yyyy-MM-dd') &gt; REGISTER_TIME</if>
+    </select>
+
+    <select id="queryByInfounique" flushCache="true" parameterType="java.util.Map" resultType="String">
+        select r.ID
+            from TTS_SCLTXXCJ_REGISTER_V2 r
+            LEFT JOIN TTS_SCLTXXCJ_CHANGERECORD_V2 c ON (r.ACCOUNT = c.ACCOUNT)
+            WHERE  r.INFO_UNIQUE =#{uniqueKey}
+            <if test="account != null and account != ''">
+                and r."ACCOUNT" !=#{account}
+            </if>
+            or (c.INFO_UNIQUE = #{uniqueKey}
+            and (c.APPROVE_STATUS = '0' or c.APPROVE_STATUS = '3'or c.APPROVE_STATUS = '4'))
+    </select>
+
+    <select id="queryEntityCodeAndUserCode" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+            ID
+            , ENTITY_SCALE_NAME
+            , ENTITY_TYPE_NAME
+            , ENTITY_PROPERTY_NAME
+            , ENTITY_INDUSTRY_NAME
+            , UNIT_NAME
+            , LATITUDE
+            , LEGAL_NAME
+            , LEGAL_IDNUMBER
+            , LEGAL_PHONE
+            , LEGAL_IMAGES
+            , FAX_NUMBER
+            , CONTACT_NAME
+            , CONTACT_PHONE
+            , CONTACT_EMAIL
+            , REGISTER_TIME
+            , APPROVE_STATUS
+            , APPROVE_OPINION
+            , APPROVE_USER_IDCODE
+            , APPROVE_NAME
+            , APPROVE_TIME
+            , USER_IDCODE
+            , ENTITY_IDCODE
+            , ACCOUNT
+            , REAL_NAME
+            , IDCODE
+            , ENTITY_SCALE
+            , ENTITY_TYPE
+            , ENTITY_PROPERTY
+            , ENTITY_INDUSTRY
+            , ENTERPRISE_NAME
+            , CARD_TYPE
+            , CREDIT_CODE
+            , BUSINESS_OPERATION
+            , BUSINESS_OPERATION_START
+            , BUSINESS_OPERATION_END
+            , ENTERPRISE_INDUSTRY
+            , ANNUAL_OUTPUT
+            , UNIT
+            , ADDRESS
+            , DOCUMENT_IMAGES
+            , AREA
+            , LONGITUDE
+            , DEL_FLAG
+            , CREATE_BY
+            , UPDATE_BY
+            , CREATE_TIME
+            , UPDATE_TIME
+            , BUSINESS_LICENCEIMG
+            , ORGANIZATION_CERTIFICATEIMG
+            , POSITIVE_IDCARDEIMG
+            , NEGATIVE_IDCARDIMG
+            , HAND_IDCARDIMG
+            , ORGANIZATION_CODE
+            , IS_LONG
+            , T.ANNUAL_OUTPUT_X
+            , T.ANNUAL_OUTPUT_S
+            , T.UNIT_X
+            , T.UNIT_S
+            , T.UNIT_NAME_X
+            , T.UNIT_NAME_S
+            , T.INFO_UNIQUE
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where 1=1 AND DEL_FLAG != 'Y' AND Approve_Status== '1'
+        <if test="creditCode != null and ''!=creditCode">and CREDIT_CODE=#{creditCode}</if>
+    </select>
+
+    <select id="queryByIdCode" parameterType="java.util.Map" resultType="map">
+        select count(*) num from TTS_SCLTXXCJ_REGISTER_V2
+        where 1=1 AND DEL_FLAG != 'Y' AND APPROVE_STATUS != '2'
+        <if test="idCode != null and idCard != ''"> and LEGAL_IDNUMBER=#{idCode} </if>
+        <if test="entityScale != null and entityScale != ''"> and ENTITY_SCALE=#{entityScale}</if>
+    </select>
+    <select id="queryDictValueById" parameterType="java.util.Map" resultType="map">
+        select DICT_VALUE dictValue from SYS_DICT_DATA
+        where 1=1 AND DEL_FLAG != 'Y'
+        <if test="id != null">and id=#{id}</if>
+    </select>
+
+    <select id="getRegisterNum" resultType="map" parameterType="java.util.Map">
+        select
+        CASE WHEN CREDIT_CODE IS NULL or CREDIT_CODE = '' THEN LEGAL_IDNUMBER ELSE CREDIT_CODE END registerNum
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where 1=1 AND DEL_FLAG != 'Y'
+        <if test="id != null and id != ''">
+            and id=#{id}
+        </if>
+        <if test="userIdCode != null and userIdCode != ''">
+            and USER_IDCODE=#{userIdCode}
+        </if>
+        <if test="entityIdCode != null and entityIdCode != ''">
+            and ENTITY_IDCODE=#{entityIdCode}
+        </if>
+    </select>
+
+    <select id="getEntityPageInfoByCondition" parameterType="hashmap" resultMap="BaseResultMap">
+        SELECT * FROM (
+        SELECT
+        t.*, ROWNUM AS rn
+        FROM
+        (
+        SELECT
+        ID
+        , ENTITY_SCALE_NAME
+        , ENTITY_TYPE_NAME
+        , ENTITY_PROPERTY_NAME
+        , ENTITY_INDUSTRY_NAME
+        , UNIT_NAME
+        , LATITUDE
+        , LEGAL_NAME
+        , LEGAL_IDNUMBER
+        , LEGAL_PHONE
+        , LEGAL_IMAGES
+        , FAX_NUMBER
+        , CONTACT_NAME
+        , CONTACT_PHONE
+        , CONTACT_EMAIL
+        , REGISTER_TIME
+        , APPROVE_STATUS
+        , APPROVE_OPINION
+        , APPROVE_USER_IDCODE
+        , APPROVE_NAME
+        , APPROVE_TIME
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , ACCOUNT
+        , REAL_NAME
+        , IDCODE
+        , ENTITY_SCALE
+        , ENTITY_TYPE
+        , ENTITY_PROPERTY
+        , ENTITY_INDUSTRY
+        , ENTERPRISE_NAME
+        , CARD_TYPE
+        , CREDIT_CODE
+        , BUSINESS_OPERATION
+        , BUSINESS_OPERATION_START
+        , BUSINESS_OPERATION_END
+        , ENTERPRISE_INDUSTRY
+        , ANNUAL_OUTPUT
+        , UNIT
+        , ADDRESS
+        , DOCUMENT_IMAGES
+        , AREA
+        , LONGITUDE
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , BUSINESS_LICENCEIMG
+        , ORGANIZATION_CERTIFICATEIMG
+        , POSITIVE_IDCARDEIMG
+        , NEGATIVE_IDCARDIMG
+        , HAND_IDCARDIMG
+        , ORGANIZATION_CODE
+        , IS_LONG
+        , ANNUAL_OUTPUT_X
+        , ANNUAL_OUTPUT_S
+        , UNIT_X
+        , UNIT_S
+        , UNIT_NAME_X
+        , UNIT_NAME_S
+        , INFO_UNIQUE
+        FROM
+        TTS_SCLTXXCJ_REGISTER_V2
+        where 1 = 1 AND DEL_FLAG != 'Y'
+        <if test="enterpriseName != null and ''!=enterpriseName">and ENTERPRISE_NAME like '%'||#{enterpriseName}||'%'
+        </if>
+        <if test="entityIndustry != null and ''!=entityIndustry">and ENTITY_INDUSTRY like '%'||#{entityIndustry}||'%'
+        </if>
+        <!--<if test="enterpriseName != null">and ENTERPRISE_NAME like CONCAT('%','${enterpriseName}','%')</if>-->
+        <!--<if test="entityIndustry != null">and ENTITY_INDUSTRY like CONCAT('%','${entityIndustry}','%')</if>-->
+        <if test="entityType != null and ''!=entityType">and ENTITY_TYPE=#{entityType}</if>
+        <if test="entityScale != null and ''!=entityScale">and ENTITY_SCALE=#{entityScale}</if>
+        <if test="area != null and ''!=area">and AREA like CONCAT('${area}','%')</if>
+        <if test="approveStatus != null and ''!=approveStatus">and APPROVE_STATUS=#{approveStatus}</if>
+        <if test="beginDate != null and ''!=beginDate">and to_date(#{beginDate},'yyyy-MM-dd') &lt; REGISTER_TIME</if>
+        <if test="endDate != null and ''!=endDate">and to_date(#{endDate},'yyyy-MM-dd') &gt; REGISTER_TIME</if>
+        ORDER BY CREATE_TIME DESC
+        ) t
+        WHERE ROWNUM &lt;= #{pageTail}
+        )
+        WHERE rn &gt;= #{pageOffset}
+    </select>
+    <!-- 注销 撤销-->
+    <update id="updateEntityByCX" parameterType="com.sofn.model.generator.TtsScltxxcjRegiter">
+        update TTS_SCLTXXCJ_REGISTER_V2
+        set
+           DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+           APPROVE_STATUS = #{approveStatus,jdbcType=CHAR}
+        where ID =#{entityId,jdbcType=VARCHAR}
+    </update>
+    <!-- 备案非核心信息变更 -->
+    <update id="updateByFirm" parameterType="com.sofn.model.generator.TtsScltxxcjRegiter">
+        update TTS_SCLTXXCJ_REGISTER_V2
+        <set>
+            <if test="entityTypeName != null and entityTypeName != ''">
+                ENTITY_TYPE_NAME =  #{entityTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="entityPropertyName != null and entityPropertyName != ''">
+                ENTITY_PROPERTY_NAME =  #{entityPropertyName,jdbcType=VARCHAR},
+            </if>
+            <if test="entityIndustryName != null and entityIndustryName != ''">
+                ENTITY_INDUSTRY_NAME =  #{entityIndustryName,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPhone != null and contactPhone != ''">
+                CONTACT_PHONE =  #{contactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="contactEmail != null and contactEmail != ''">
+                CONTACT_EMAIL =  #{contactEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="entityScale != null and entityScale != ''">
+                ENTITY_SCALE =  #{entityScale,jdbcType=VARCHAR},
+            </if>
+            <if test="entityType != null and entityType != ''">
+                ENTITY_TYPE =  #{entityType,jdbcType=VARCHAR},
+            </if>
+            <if test="entityProperty != null and entityProperty != ''">
+                ENTITY_PROPERTY =  #{entityProperty,jdbcType=VARCHAR},
+            </if>
+            <if test="entityIndustry != null and entityIndustry">
+                ENTITY_INDUSTRY =  #{entityIndustry,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null and area != ''">
+                AREA = #{area},
+            </if>
+            <if test="address != null and address != ''">
+                ADDRESS = #{address},
+            </if>
+            <if test="longitude != null and longitude != ''">
+                LONGITUDE = #{longitude},
+            </if>
+            <if test="latitude != null and latitude != ''">
+                LATITUDE = #{latitude},
+            </if>
+            <if test="contactName != null and contactName != ''">
+                CONTACT_NAME =  #{contactName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+    <!-- 注销 撤销-->
+    <update id="updateEntityByIdcode" parameterType="com.sofn.model.generator.TtsScltxxcjRegiter">
+        update TTS_SCLTXXCJ_REGISTER_V2
+        set
+        DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+        APPROVE_STATUS = #{approveStatus,jdbcType=CHAR}
+        where ENTITY_IDCODE =#{entityIdCode,jdbcType=VARCHAR}
+    </update>
+    <update id="updateEntityByEntity" parameterType="com.sofn.model.generator.TtsScltxxcjRegiter">
+        update TTS_SCLTXXCJ_REGISTER_V2
+        set
+        <if test="delFlag != null and ''!=delFlag">DEL_FLAG=#{delFlag},</if>
+        <if test="entityIdcode != null and ''!=entityIdcode">ENTITY_IDCODE = #{entityIdcode,jdbcType=CHAR},</if>
+        USER_IDCODE = #{userIdcode,jdbcType=CHAR},
+        APPROVE_STATUS = #{approveStatus,jdbcType=CHAR},
+        APPROVE_OPINION = #{approveOpinion,jdbcType=VARCHAR},
+        APPROVE_USER_IDCODE = #{approveUserIdcode,jdbcType=VARCHAR},
+        APPROVE_NAME = #{approveName,jdbcType=VARCHAR},
+        APPROVE_TIME = #{approveTime,jdbcType=DATE},
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+        UPDATE_TIME = #{updateTime,jdbcType=DATE}
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateEntityByUpdate" parameterType="com.sofn.model.generator.TtsScltxxcjRegiter">
+        update TTS_SCLTXXCJ_REGISTER_V2
+        <set>
+            <if test="enterpriseName != null and enterpriseName != ''">
+                ENTERPRISE_NAME = #{enterpriseName,jdbcType=VARCHAR},
+            </if>
+            <if test="cardType != null and cardType != ''">
+                CARD_TYPE = #{cardType},
+            </if>
+            <if test="organizationCode != null and organizationCode != ''">
+                ORGANIZATION_CODE =  #{organizationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="creditCode != null and creditCode != ''">
+                CREDIT_CODE = #{creditCode,jdbcType=VARCHAR},
+            </if>
+            <!--<if test="businessOperationStart != null and businessOperationStart != ''">
+                BUSINESS_OPERATION_START = #{businessOperationStart},
+            </if>
+            <if test="businessOperationEnd != null and businessOperationEnd != ''">
+                BUSINESS_OPERATION_END = #{businessOperationEnd},
+            </if>-->
+            <!--<if test="isLong != null and isLong != ''">
+                IS_LONG = #{isLong},
+            </if>-->
+            BUSINESS_OPERATION_START = #{businessOperationStart},
+            BUSINESS_OPERATION_END = #{businessOperationEnd},
+            IS_LONG = #{isLong},
+            <if test="area != null and area != ''">
+                AREA = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null and address != ''">
+                ADDRESS = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null and longitude != ''">
+                LONGITUDE = #{longitude},
+            </if>
+            <if test="latitude != null and latitude != ''">
+                LATITUDE = #{latitude},
+            </if>
+            <if test="legalName != null and legalName != ''">
+                LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+            </if>
+            <if test="legalPhone != null and legalPhone != ''">
+                LEGAL_PHONE = #{legalPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="legalIdnumber != null and legalIdnumber != ''">
+                LEGAL_IDNUMBER = #{legalIdnumber},
+            </if>
+            <if test="businessLicenceimg != null and businessLicenceimg != ''">
+                BUSINESS_LICENCEIMG = #{businessLicenceimg,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationCertificateimg != null and organizationCertificateimg != ''">
+                ORGANIZATION_CERTIFICATEIMG = #{organizationCertificateimg},
+            </if>
+            <if test="positiveIdcardeimg != null and positiveIdcardeimg != ''">
+                POSITIVE_IDCARDEIMG = #{positiveIdcardeimg},
+            </if>
+            <if test="negativeIdcardimg != null and negativeIdcardimg != ''">
+                NEGATIVE_IDCARDIMG = #{negativeIdcardimg},
+            </if>
+            <if test="handIdcardimg != null and handIdcardimg != ''">
+                HAND_IDCARDIMG = #{handIdcardimg},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID =#{entityId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getInfoForBody" resultMap="BaseResultMap" parameterType="string">
+        select
+        ENTITY_TYPE
+        ,ENTERPRISE_NAME
+        ,CREDIT_CODE
+        ,ENTITY_INDUSTRY
+        ,AREA
+        ,ADDRESS
+        ,LEGAL_NAME
+        ,ANNUAL_OUTPUT
+        ,APPROVE_STATUS
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where ENTITY_IDCODE =#{code,jdbcType=VARCHAR}
+    </select>
+    <select id="getInfoForUser" resultMap="BaseResultMap" parameterType="string">
+        select
+        ID
+        ,ENTITY_TYPE
+        ,ENTERPRISE_NAME
+        ,CREDIT_CODE
+        ,ENTITY_INDUSTRY
+        ,AREA
+        ,ADDRESS
+        ,LEGAL_NAME
+        ,ANNUAL_OUTPUT
+        ,APPROVE_STATUS
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where USER_IDCODE =#{code,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getBodyInfoByCode" parameterType="hashmap" resultMap="BaseResultMap">
+        select
+        <if test='userType != "4"'>
+            ENTITY_TYPE
+            ,ENTERPRISE_NAME
+            ,CREDIT_CODE
+            ,ENTITY_INDUSTRY
+            ,AREA
+            ,ADDRESS
+            ,LEGAL_NAME
+            ,ANNUAL_OUTPUT
+            ,APPROVE_STATUS
+            ,ENTITY_TYPE_NAME
+            ,ENTITY_INDUSTRY_NAME
+        </if>
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where ENTITY_IDCODE =#{code,jdbcType=VARCHAR}
+    </select>
+    <select id="getBodyInfoByUserCode" parameterType="hashmap" resultMap="BaseResultMap">
+        select
+        <if test='userType != "4"'>
+            ENTITY_TYPE
+            ,ENTERPRISE_NAME
+            ,CREDIT_CODE
+            ,ENTITY_INDUSTRY
+            ,AREA
+            ,ADDRESS
+            ,LEGAL_NAME
+            ,ANNUAL_OUTPUT
+            ,APPROVE_STATUS
+            ,ENTITY_TYPE_NAME
+            ,ENTITY_INDUSTRY_NAME
+        </if>
+        from TTS_SCLTXXCJ_REGISTER_V2
+        where USER_IDCODE =#{code,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getInfoByUserInfo" parameterType="map" resultType="com.sofn.model.generator.TtsScltxxcjRegiter">
+        select
+        ID
+        , ENTITY_SCALE_NAME
+        , ENTITY_TYPE_NAME
+        , ENTITY_PROPERTY_NAME
+        , ENTITY_INDUSTRY_NAME
+        , UNIT_NAME
+        , LATITUDE
+        , LEGAL_NAME
+        , LEGAL_IDNUMBER
+        , LEGAL_PHONE
+        , LEGAL_IMAGES
+        , FAX_NUMBER
+        , CONTACT_NAME
+        , CONTACT_PHONE
+        , CONTACT_EMAIL
+        , REGISTER_TIME
+        , APPROVE_STATUS
+        , APPROVE_OPINION
+        , APPROVE_USER_IDCODE
+        , APPROVE_NAME
+        , APPROVE_TIME
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , ACCOUNT
+        , REAL_NAME
+        , IDCODE
+        , ENTITY_SCALE
+        , ENTITY_TYPE
+        , ENTITY_PROPERTY
+        , ENTITY_INDUSTRY
+        , ENTERPRISE_NAME
+        , CARD_TYPE
+        , CREDIT_CODE
+        , BUSINESS_OPERATION
+        , BUSINESS_OPERATION_START
+        , BUSINESS_OPERATION_END
+        , ENTERPRISE_INDUSTRY
+        , ANNUAL_OUTPUT
+        , UNIT
+        , ADDRESS
+        , DOCUMENT_IMAGES
+        , AREA
+        , LONGITUDE
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , BUSINESS_LICENCEIMG
+        , ORGANIZATION_CERTIFICATEIMG
+        , POSITIVE_IDCARDEIMG
+        , NEGATIVE_IDCARDIMG
+        , HAND_IDCARDIMG
+        , ORGANIZATION_CODE
+        , IS_LONG
+        , ANNUAL_OUTPUT_X
+        , ANNUAL_OUTPUT_S
+        , UNIT_X
+        , UNIT_S
+        , UNIT_NAME_X
+        , UNIT_NAME_S
+        , INFO_UNIQUE
+        from TTS_SCLTXXCJ_REGISTER_V2
+        WHERE ENTITY_IDCODE = #{entityIdcode} AND USER_IDCODE = #{userIdcode}
+    </select>
+
+    <select id="queryByUserId" resultMap="BaseResultMap" parameterType="string">
+        select
+        T.ID
+        , T.ENTITY_SCALE_NAME
+        , T.ENTITY_TYPE_NAME
+        , T.ENTITY_PROPERTY_NAME
+        , T.ENTITY_INDUSTRY_NAME
+        , T.UNIT_NAME
+        , T.LATITUDE
+        , T.LEGAL_NAME
+        , T.LEGAL_IDNUMBER
+        , T.LEGAL_PHONE
+        , T.LEGAL_IMAGES
+        , T.FAX_NUMBER
+        , T.CONTACT_NAME
+        , T.CONTACT_PHONE
+        , T.CONTACT_EMAIL
+        , T.REGISTER_TIME
+        , T.APPROVE_STATUS
+        , T.APPROVE_OPINION
+        , T.APPROVE_USER_IDCODE
+        , T.APPROVE_NAME
+        , T.APPROVE_TIME
+        , U.USER_IDCODE
+        , T.ENTITY_IDCODE
+        , U.ACCOUNT
+        , U.IS_MAIN isMain
+        , U.DEL_FLAG childDelFlag
+        , U.ID_CARD childIdcard
+        , U.NAME childName
+        , U.PHONE childPhone
+        , U.EMAIL childEmail
+        , T.REAL_NAME
+        , T.IDCODE
+        , T.ENTITY_SCALE
+        , T.ENTITY_TYPE
+        , T.ENTITY_PROPERTY
+        , T.ENTITY_INDUSTRY
+        , T.ENTERPRISE_NAME
+        , T.CARD_TYPE
+        , T.CREDIT_CODE
+        , T.BUSINESS_OPERATION
+        , T.BUSINESS_OPERATION_START
+        , T.BUSINESS_OPERATION_END
+        , T.ENTERPRISE_INDUSTRY
+        , T.ANNUAL_OUTPUT
+        , T.UNIT
+        , T.ADDRESS
+        , T.DOCUMENT_IMAGES
+        , T.AREA
+        , T.LONGITUDE
+        , T.DEL_FLAG
+        , T.CREATE_BY
+        , T.UPDATE_BY
+        , T.CREATE_TIME
+        , T.UPDATE_TIME
+        , T.BUSINESS_LICENCEIMG
+        , T.ORGANIZATION_CERTIFICATEIMG
+        , T.POSITIVE_IDCARDEIMG
+        , T.NEGATIVE_IDCARDIMG
+        , T.HAND_IDCARDIMG
+        , T.ORGANIZATION_CODE
+        , T.IS_LONG
+        , T.ANNUAL_OUTPUT_X
+        , T.ANNUAL_OUTPUT_S
+        , T.UNIT_X
+        , T.UNIT_S
+        , T.UNIT_NAME_X
+        , T.UNIT_NAME_S
+        , T.INFO_UNIQUE
+        from TTS_SCLTXXCJ_REGISTER_V2 T,TTS_SCLTXXCJ_USER_V2 U
+        where U.ID =#{id} AND T.ENTITY_IDCODE = U.ENTITY_IDCODE
+    </select>
+
+    <select id="queryByUserIdCode" resultType="com.sofn.model.generator.TtsScltxxcjRegiterAndUser" parameterType="string">
+        select
+        T.ID id
+        , T.ENTITY_SCALE_NAME entityScaleName
+        , T.ENTITY_TYPE_NAME entityTypeName
+        , T.ENTITY_PROPERTY_NAME entityPropertyName
+        , T.ENTITY_INDUSTRY_NAME entityIndustryName
+        , T.UNIT_NAME unitName
+        , T.LATITUDE latitude
+        , T.LEGAL_NAME legalName
+        , T.LEGAL_IDNUMBER legalIdnumber
+        , T.LEGAL_PHONE legalPhone
+        , T.LEGAL_IMAGES legalImages
+        , T.FAX_NUMBER faxNumber
+        , T.CONTACT_NAME contactName
+        , T.CONTACT_PHONE contactPhone
+        , T.CONTACT_EMAIL contactEmail
+        , T.REGISTER_TIME registerTime
+        , T.APPROVE_STATUS approveStatus
+        , T.APPROVE_OPINION approveOpinion
+        , T.APPROVE_USER_IDCODE approveUserIdcode
+        , T.APPROVE_NAME approveName
+        , T.APPROVE_TIME approveTime
+        , U.USER_IDCODE userIdcode
+        , T.ENTITY_IDCODE entityIdcode
+        , T.ACCOUNT account
+        , T.REAL_NAME realName
+        , T.IDCODE idcode
+        , T.ENTITY_SCALE entityScale
+        , T.ENTITY_TYPE entityType
+        , T.ENTITY_PROPERTY entityProperty
+        , T.ENTITY_INDUSTRY entityIndustry
+        , T.ENTERPRISE_NAME enterpriseName
+        , T.CARD_TYPE cardType
+        , T.CREDIT_CODE creditCode
+        , T.BUSINESS_OPERATION businessOperation
+        , T.BUSINESS_OPERATION_START businessOperationStart
+        , T.BUSINESS_OPERATION_END businessOperationEnd
+        , T.ENTERPRISE_INDUSTRY enterpriseIndustry
+        , T.ANNUAL_OUTPUT annualOutput
+        , T.UNIT unit
+        , T.ADDRESS address
+        , T.DOCUMENT_IMAGES documentImages
+        , T.AREA area
+        , T.LONGITUDE longitude
+        , U.ID childId
+        , U.ACCOUNT longinAccount
+        , U.USER_IDCODE childUserIdcode
+        , U.IS_MAIN isMain
+        , U.STATUS status
+        , U.NAME name
+        , U.PHONE phone
+        , U.EMAIL email
+        , U.PASSWORD password
+        , U.ID_CARD idCard
+        , T.ORGANIZATION_CODE organizationCode
+        , T.IS_LONG isLong
+        , T.ANNUAL_OUTPUT_X annualOutputX
+        , T.ANNUAL_OUTPUT_S annualOutputS
+        , T.UNIT_X unitX
+        , T.UNIT_S unitS
+        , T.UNIT_NAME_X unitNameX
+        , T.UNIT_NAME_S unitNameS
+        , T.INFO_UNIQUE infoUnique
+        from TTS_SCLTXXCJ_REGISTER_V2 T,TTS_SCLTXXCJ_USER_V2 U
+        where U.USER_IDCODE =#{id} AND T.ENTITY_IDCODE = U.ENTITY_IDCODE
+    </select>
+
+    <select id="getSubjEntList" parameterType="map" resultMap="BaseResultMapNew">
+        SELECT * FROM (
+        SELECT
+        t.*, ROWNUM AS rn
+        FROM
+        (
+        SELECT
+        d.*
+        FROM
+        (
+        SELECT
+        NVL (b.COU, 0) AS badRecord,a.*, u.id as USER_ID,u.account as USER_ACCOUNT,u.RESERVED_FIELD2 as USER_PASSWORD
+        FROM
+        TTS_SCLTXXCJ_REGISTER_V2 a left join SYS_USER u ON a.ACCOUNT = u.ACCOUNT  and u.DEL_FLAG='N'
+        LEFT JOIN (
+        SELECT
+        COUNT (*) AS cou,
+        c.ENTERPRISE_ID AS ENTERPRISE_ID
+        FROM
+        ASMS_SUBJ_ENT_BADRECORD c
+        GROUP BY
+        c.ENTERPRISE_ID
+        ) b ON a.ID = b.ENTERPRISE_ID
+        ) d
+
+        where 1 = 1
+        <if test='badRecord != null and ""!=badRecord and badRecord=="1"'>
+            and d.BADRECORD >0
+        </if>
+        <if test='badRecord != null and ""!=badRecord and badRecord=="0"'>
+            and d.BADRECORD =0
+        </if>
+        <if test="enterpriseName != null and ''!=enterpriseName">and d.ENTERPRISE_NAME like '%'||#{enterpriseName}||'%'
+        </if>
+        <if test="entityIndustry!=null and entityIndustry.length>0">
+            and
+            <foreach collection="entityIndustry" item="item" index="index" open="(" close=")" separator="or">
+                d.ENTITY_INDUSTRY like '%'||#{item}||'%'
+            </foreach>
+        </if>
+        <!--<if test="enterpriseName != null">and ENTERPRISE_NAME like CONCAT('%','${enterpriseName}','%')</if>-->
+        <!--<if test="entityIndustry != null">and ENTITY_INDUSTRY like CONCAT('%','${entityIndustry}','%')</if>-->
+        <if test="entityType != null and ''!=entityType">and d.ENTITY_TYPE=#{entityType}</if>
+        <if test="entityIdcode != null and ''!=entityIdcode">and d.ENTITY_IDCODE=#{entityIdcode}</if>
+
+        <!--之前的方式，输入主帐号的useridcode进行查询。根据需求改为输入主帐号或者子帐号的useridcode都可以查询。所以注释掉这个方式-->
+        <!--<if test="userIdcode != null and ''!=userIdcode">and d.USER_IDCODE=#{userIdcode}</if>-->
+        <!--之前的方式，输入主帐号的useridcode。根据需求改为输入主帐号或者子帐号的useridcode都可以查询。所以改为下面的方式-->
+        <if test="userIdcode != null and ''!=userIdcode">
+            and d.USER_IDCODE=(
+                SELECT a.USER_IDCODE from TTS_SCLTXXCJ_REGISTER_V2 a , TTS_SCLTXXCJ_USER_V2 b , SYS_USER c
+                WHERE  c.ID = b.CREATE_BY AND c.ACCOUNT = a.ACCOUNT and b.USER_IDCODE=#{userIdcode}
+                UNION
+                SELECT a.USER_IDCODE from TTS_SCLTXXCJ_REGISTER_V2 a where a.USER_IDCODE=#{userIdcode}
+            )
+        </if>
+        <if test="entityScale != null and ''!=entityScale">and d.ENTITY_SCALE=#{entityScale}</if>
+        <if test="area != null and ''!=area">and d.AREA like CONCAT('${area}','%')</if>
+        <if test="approveStatus != null and approveStatus.length > 0">
+            AND
+            <foreach collection="approveStatus" item="approveStatu" index="index" open="(" close=")" separator="or">
+                d.APPROVE_STATUS=#{approveStatu}
+            </foreach>
+        </if>
+        <!-- <if test="approveStatus != null and ''!=approveStatus">and d.APPROVE_STATUS=#{approveStatus}</if>-->
+        <if test="beginDate != null and ''!=beginDate">and to_date(#{beginDate},'yyyy-MM-dd') &lt; d.REGISTER_TIME</if>
+        <if test="endDate != null and ''!=endDate">and to_date(#{endDate},'yyyy-MM-dd') &gt; d.REGISTER_TIME</if>
+        ORDER BY d.CREATE_TIME DESC
+        ) t
+        WHERE ROWNUM &lt;= #{pageTail}
+        )
+        WHERE rn &gt;= #{pageOffset}
+    </select>
+
+    <select id="getSubjEntListNew" parameterType="map" resultMap="BaseResultMapNew">
+        SELECT * FROM (
+        SELECT
+        t.*, ROWNUM AS rn
+        FROM
+        (
+        SELECT
+        d.*
+        FROM
+        (
+        SELECT
+        NVL (b.COU, 0) AS badRecord,a.*,u.id as USER_ID,u.account as USER_ACCOUNT,u.RESERVED_FIELD2 as USER_PASSWORD
+        FROM
+        TTS_SCLTXXCJ_REGISTER_V2 a left join SYS_USER u ON a.ACCOUNT = u.ACCOUNT  and u.DEL_FLAG='N'
+        LEFT JOIN (
+        SELECT
+        COUNT (*) AS cou,
+        c.ENTERPRISE_ID AS ENTERPRISE_ID
+        FROM
+        ASMS_SUBJ_ENT_BADRECORD c
+        GROUP BY
+        c.ENTERPRISE_ID
+        ) b ON a.ID = b.ENTERPRISE_ID
+        ) d
+
+        where 1 = 1 AND d.DEL_FLAG != 'Y'
+        <if test='badRecord != null and ""!=badRecord and badRecord=="1"'>
+            and d.BADRECORD >0
+        </if>
+        <if test='badRecord != null and ""!=badRecord and badRecord=="0"'>
+            and d.BADRECORD =0
+        </if>
+        <if test="enterpriseName != null and ''!=enterpriseName">and d.ENTERPRISE_NAME like '%'||#{enterpriseName}||'%'
+        </if>
+        <if test="entityIndustry != null and ''!=entityIndustry">and d.ENTITY_INDUSTRY like '%'||#{entityIndustry}||'%'
+        </if>
+        <!--<if test="enterpriseName != null">and ENTERPRISE_NAME like CONCAT('%','${enterpriseName}','%')</if>-->
+        <!--<if test="entityIndustry != null">and ENTITY_INDUSTRY like CONCAT('%','${entityIndustry}','%')</if>-->
+        <if test="entityType != null and ''!=entityType">and d.ENTITY_TYPE=#{entityType}</if>
+        <if test="entityIdcode != null and ''!=entityIdcode">and d.ENTITY_IDCODE=#{entityIdcode}</if>
+        <if test="userIdcode != null and ''!=userIdcode">and d.USER_IDCODE=#{userIdcode}</if>
+        <if test="entityScale != null and ''!=entityScale">and d.ENTITY_SCALE=#{entityScale}</if>
+        <if test="area != null and ''!=area">and d.AREA like CONCAT('${area}','%')</if>
+        <if test="approveStatus != null and ''!=approveStatus">
+            <if test='approveStatus == "1"'>
+                and d.APPROVE_STATUS!='0' and d.APPROVE_STATUS!='2'
+            </if>
+            <if test='approveStatus != "1"'>
+                and d.APPROVE_STATUS=#{approveStatus}
+            </if>
+        </if>
+        <if test="approveStatus == null or ''==approveStatus">
+            and d.APPROVE_STATUS='1' or d.APPROVE_STATUS='6'
+        </if>
+        <!-- <if test="approveStatus != null and ''!=approveStatus">and d.APPROVE_STATUS=#{approveStatus}</if>-->
+        <if test="beginDate != null and ''!=beginDate">and to_date(#{beginDate},'yyyy-MM-dd') &lt; d.REGISTER_TIME</if>
+        <if test="endDate != null and ''!=endDate">and to_date(#{endDate},'yyyy-MM-dd') &gt; d.REGISTER_TIME</if>
+        ORDER BY d.CREATE_TIME DESC
+        ) t
+        WHERE ROWNUM &lt;= #{pageTail}
+        )
+        WHERE rn &gt;= #{pageOffset}
+    </select>
+    <select id="getSubjEntTotal" parameterType="map" resultType="long">
+        SELECT
+        count(*)
+        FROM
+        (
+        SELECT
+        NVL (b.COU, 0) AS badRecord,a.*, u.id as USER_ID,u.account as USER_ACCOUNT,u.RESERVED_FIELD2 as USER_PASSWORD
+        FROM
+        TTS_SCLTXXCJ_REGISTER_V2 a left join SYS_USER u ON a.ACCOUNT = u.ACCOUNT  and u.DEL_FLAG='N'
+        LEFT JOIN (
+        SELECT
+        COUNT (*) AS cou,
+        c.ENTERPRISE_ID AS ENTERPRISE_ID
+        FROM
+        ASMS_SUBJ_ENT_BADRECORD c
+        GROUP BY
+        c.ENTERPRISE_ID
+        ) b ON a.ID = b.ENTERPRISE_ID
+        ) d
+
+        where 1 = 1
+        <if test='badRecord != null and ""!=badRecord and badRecord=="1"'>
+            and d.BADRECORD >0
+        </if>
+        <if test='badRecord != null and ""!=badRecord and badRecord=="0"'>
+            and d.BADRECORD =0
+        </if>
+        <if test="enterpriseName != null and ''!=enterpriseName">and d.ENTERPRISE_NAME like '%'||#{enterpriseName}||'%'
+        </if>
+        <if test="entityIndustry!=null and entityIndustry.length>0">
+            and
+            <foreach collection="entityIndustry" item="item" index="index" open="(" close=")" separator="or">
+                d.ENTITY_INDUSTRY like '%'||#{item}||'%'
+            </foreach>
+        </if>
+        <!--<if test="enterpriseName != null">and ENTERPRISE_NAME like CONCAT('%','${enterpriseName}','%')</if>-->
+        <!--<if test="entityIndustry != null">and ENTITY_INDUSTRY like CONCAT('%','${entityIndustry}','%')</if>-->
+        <if test="entityType != null and ''!=entityType">and d.ENTITY_TYPE=#{entityType}</if>
+        <if test="entityIdcode != null and ''!=entityIdcode">and d.ENTITY_IDCODE=#{entityIdcode}</if>
+        <if test="userIdcode != null and ''!=userIdcode">and d.USER_IDCODE=#{userIdcode}</if>
+        <if test="entityScale != null and ''!=entityScale">and d.ENTITY_SCALE=#{entityScale}</if>
+        <if test="area != null and ''!=area">and d.AREA like CONCAT('${area}','%')</if>
+        <if test="approveStatus != null and approveStatus.length > 0">
+            AND
+            <foreach collection="approveStatus" item="approveStatu" index="index" open="(" close=")" separator="or">
+                d.APPROVE_STATUS=#{approveStatu}
+            </foreach>
+        </if>
+        <!--<if test="approveStatus != null and ''!=approveStatus">and d.APPROVE_STATUS=#{approveStatus}</if>-->
+        <if test="beginDate != null and ''!=beginDate">and to_date(#{beginDate},'yyyy-MM-dd') &lt; d.REGISTER_TIME</if>
+        <if test="endDate != null and ''!=endDate">and to_date(#{endDate},'yyyy-MM-dd') &gt; d.REGISTER_TIME</if>
+    </select>
+    <select id="getMainByUserIdCode" resultMap="BaseResultMap" parameterType="string">
+       SELECT * FROM TTS_SCLTXXCJ_REGISTER_V2 WHERE ENTITY_IDCODE = #{entityIdCode}
+    </select>
+
+    <update id="updateByAccount" parameterType="com.sofn.model.generator.TtsScltxxcjRegiter" >
+        update TTS_SCLTXXCJ_REGISTER_V2
+        set
+        ENTITY_SCALE_NAME =  #{entityScaleName,jdbcType=VARCHAR},
+        ENTITY_TYPE_NAME =  #{entityTypeName,jdbcType=VARCHAR},
+        ENTITY_PROPERTY_NAME =  #{entityPropertyName,jdbcType=VARCHAR},
+        ENTITY_INDUSTRY_NAME =  #{entityIndustryName,jdbcType=VARCHAR},
+        UNIT_NAME =  #{unitName,jdbcType=VARCHAR},
+        LATITUDE =  #{latitude,jdbcType=DECIMAL},
+        LEGAL_NAME =  #{legalName,jdbcType=VARCHAR},
+        LEGAL_IDNUMBER =  #{legalIdnumber,jdbcType=VARCHAR},
+        LEGAL_PHONE =  #{legalPhone,jdbcType=VARCHAR},
+        LEGAL_IMAGES =  #{legalImages,jdbcType=VARCHAR},
+        FAX_NUMBER =  #{faxNumber,jdbcType=VARCHAR},
+        CONTACT_NAME =  #{contactName,jdbcType=VARCHAR},
+        CONTACT_PHONE =  #{contactPhone,jdbcType=VARCHAR},
+        CONTACT_EMAIL =  #{contactEmail,jdbcType=VARCHAR},
+        REGISTER_TIME =  #{registerTime,jdbcType=TIMESTAMP},
+        APPROVE_STATUS =  #{approveStatus,jdbcType=CHAR},
+        APPROVE_OPINION =  #{approveOpinion,jdbcType=VARCHAR},
+        APPROVE_USER_IDCODE =  #{approveUserIdcode,jdbcType=VARCHAR},
+        APPROVE_NAME =  #{approveName,jdbcType=VARCHAR},
+        APPROVE_TIME =  #{approveTime,jdbcType=TIMESTAMP},
+        USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+        ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+        REAL_NAME =  #{realName,jdbcType=VARCHAR},
+        IDCODE =  #{idcode,jdbcType=VARCHAR},
+        ENTITY_SCALE =  #{entityScale,jdbcType=VARCHAR},
+        ENTITY_TYPE =  #{entityType,jdbcType=VARCHAR},
+        ENTITY_PROPERTY =  #{entityProperty,jdbcType=VARCHAR},
+        ENTITY_INDUSTRY =  #{entityIndustry,jdbcType=VARCHAR},
+        ENTERPRISE_NAME =  #{enterpriseName,jdbcType=VARCHAR},
+        CARD_TYPE =  #{cardType,jdbcType=CHAR},
+        CREDIT_CODE =  #{creditCode,jdbcType=VARCHAR},
+        BUSINESS_OPERATION =  #{businessOperation,jdbcType=VARCHAR},
+        BUSINESS_OPERATION_START =  #{businessOperationStart,jdbcType=TIMESTAMP},
+        BUSINESS_OPERATION_END =  #{businessOperationEnd,jdbcType=TIMESTAMP},
+        ENTERPRISE_INDUSTRY =  #{enterpriseIndustry,jdbcType=VARCHAR},
+        ANNUAL_OUTPUT =  #{annualOutput,jdbcType=VARCHAR},
+        UNIT =  #{unit,jdbcType=VARCHAR},
+        ADDRESS =  #{address,jdbcType=VARCHAR},
+        DOCUMENT_IMAGES =  #{documentImages,jdbcType=VARCHAR},
+        AREA =  #{area,jdbcType=VARCHAR},
+        LONGITUDE =  #{longitude,jdbcType=DECIMAL},
+        DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+        CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+        UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+        UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+        BUSINESS_LICENCEIMG =  #{businessLicenceimg,jdbcType=VARCHAR},
+        ORGANIZATION_CERTIFICATEIMG =  #{organizationCertificateimg,jdbcType=VARCHAR},
+        POSITIVE_IDCARDEIMG =  #{positiveIdcardeimg,jdbcType=VARCHAR},
+        NEGATIVE_IDCARDIMG =  #{negativeIdcardimg,jdbcType=VARCHAR},
+        ORGANIZATION_CODE =  #{organizationCode,jdbcType=VARCHAR},
+        IS_LONG =  #{isLong,jdbcType=VARCHAR},
+        HAND_IDCARDIMG =  #{handIdcardimg,jdbcType=VARCHAR},
+        ANNUAL_OUTPUT_X =  #{annualOutputX,jdbcType=VARCHAR},
+        ANNUAL_OUTPUT_S =  #{annualOutputS,jdbcType=VARCHAR},
+        UNIT_X =  #{unitX,jdbcType=VARCHAR},
+        UNIT_S =  #{unitS,jdbcType=VARCHAR},
+        UNIT_NAME_X =  #{unitNameX,jdbcType=VARCHAR},
+        UNIT_NAME_S =  #{unitNameS,jdbcType=VARCHAR},
+        INFO_UNIQUE =  #{infoUnique,jdbcType=VARCHAR}
+        where ACCOUNT =#{account,jdbcType=VARCHAR}
+    </update>
+    <select id="getUserInfoByRegiter" resultMap="BaseResultMap" parameterType="map">
+        SELECT * from TTS_SCLTXXCJ_REGISTER_V2 T where 1=1
+            <if test="ttsScltxxcjRegiter.entityScale != null and ttsScltxxcjRegiter.entityScale != ''">
+                AND T.ENTITY_SCALE = #{ttsScltxxcjRegiter.entityScale}
+            </if>
+            <if test="ttsScltxxcjRegiter.account != null and ttsScltxxcjRegiter.account != ''">
+                AND T.ACCOUNT = #{ttsScltxxcjRegiter.account}
+            </if>
+            <if test="ttsScltxxcjRegiter.enterpriseName != null and ttsScltxxcjRegiter.enterpriseName != ''">
+                AND T.ENTERPRISE_NAME = #{ttsScltxxcjRegiter.enterpriseName}
+            </if>
+            <if test="ttsScltxxcjRegiter.creditCode != null and ttsScltxxcjRegiter.creditCode != ''">
+                AND T.CREDIT_CODE = #{ttsScltxxcjRegiter.creditCode}
+            </if>
+            <if test="ttsScltxxcjRegiter.legalName != null and ttsScltxxcjRegiter.legalName != ''">
+                AND T.LEGAL_NAME = #{ttsScltxxcjRegiter.legalName}
+            </if>
+            <if test="ttsScltxxcjRegiter.legalIdnumber != null and ttsScltxxcjRegiter.legalIdnumber != ''">
+                AND T.LEGAL_IDNUMBER = #{ttsScltxxcjRegiter.legalIdnumber}
+            </if>
+            <if test="ttsScltxxcjRegiter.legalPhone != null and ttsScltxxcjRegiter.legalPhone != ''">
+                AND T.LEGAL_PHONE = #{ttsScltxxcjRegiter.legalPhone}
+            </if>
+        AND T.DEL_FLAG != 'Y'
+    </select>
+
+    <select id="getSubjSuperviseListByArea" resultType="java.util.Map" parameterType="string">
+        SELECT
+        s.SV_NAME, s.SV_CONTACT_PHONE
+        FROM
+        ASMS_SUBJ_SUPERVISE s
+        WHERE
+        s.DEL_FLAG='N' AND s.SV_LEVEL = '3'
+        AND s.SV_AREA_ID = #{areaId}
+    </select>
+    <select id="getEntityByCode" resultMap="BaseResultMap" parameterType="string">
+        select
+        T.ID id
+        , T.ENTITY_SCALE_NAME entityScaleName
+        , T.ENTITY_TYPE_NAME entityTypeName
+        , T.ENTITY_PROPERTY_NAME entityPropertyName
+        , T.ENTITY_INDUSTRY_NAME entityIndustryName
+        , T.UNIT_NAME unitName
+        , T.LATITUDE latitude
+        , T.LEGAL_NAME legalName
+        , T.LEGAL_IDNUMBER legalIdnumber
+        , T.LEGAL_PHONE legalPhone
+        , T.LEGAL_IMAGES legalImages
+        , T.FAX_NUMBER faxNumber
+        , T.CONTACT_NAME contactName
+        , T.CONTACT_PHONE contactPhone
+        , T.CONTACT_EMAIL contactEmail
+        , T.REGISTER_TIME registerTime
+        , T.APPROVE_STATUS approveStatus
+        , T.APPROVE_OPINION approveOpinion
+        , T.APPROVE_USER_IDCODE approveUserIdcode
+        , T.APPROVE_NAME approveName
+        , T.APPROVE_TIME approveTime
+        , U.USER_IDCODE userIdcode
+        , T.ENTITY_IDCODE entityIdcode
+        , T.ACCOUNT account
+        , T.REAL_NAME realName
+        , T.IDCODE idcode
+        , T.ENTITY_SCALE entityScale
+        , T.ENTITY_TYPE entityType
+        , T.ENTITY_PROPERTY entityProperty
+        , T.ENTITY_INDUSTRY entityIndustry
+        , T.ENTERPRISE_NAME enterpriseName
+        , T.CARD_TYPE cardType
+        , T.CREDIT_CODE creditCode
+        , T.BUSINESS_OPERATION businessOperation
+        , T.BUSINESS_OPERATION_START businessOperationStart
+        , T.BUSINESS_OPERATION_END businessOperationEnd
+        , T.ENTERPRISE_INDUSTRY enterpriseIndustry
+        , T.ANNUAL_OUTPUT annualOutput
+        , T.UNIT unit
+        , T.ADDRESS address
+        , T.DOCUMENT_IMAGES documentImages
+        , T.AREA area
+        , T.LONGITUDE longitude
+        , U.ID childId
+        , U.ACCOUNT longinAccount
+        , U.USER_IDCODE childUserIdcode
+        , U.IS_MAIN isMain
+        , U.STATUS status
+        , U.NAME name
+        , U.PHONE phone
+        , U.EMAIL email
+        , U.PASSWORD password
+        , U.ID_CARD idCard
+        , T.ORGANIZATION_CODE organizationCode
+        , T.IS_LONG isLong
+        , T.ANNUAL_OUTPUT_X annualOutputX
+        , T.ANNUAL_OUTPUT_S annualOutputS
+        , T.UNIT_X unitX
+        , T.UNIT_S unitS
+        , T.UNIT_NAME_X unitNameX
+        , T.UNIT_NAME_S unitNameS
+        , T.INFO_UNIQUE infoUnique
+        from TTS_SCLTXXCJ_REGISTER_V2 T,TTS_SCLTXXCJ_USER_V2 U
+        where (T.ORGANIZATION_CODE = #{code} or T.CREDIT_CODE = #{code} or T.IDCODE = #{code}) and T.ENTITY_IDCODE = U.ENTITY_IDCODE
+     </select>
+
+    <select id="getSubjEntByCondition" resultMap="BaseResultMap">
+        SELECT * FROM TTS_SCLTXXCJ_REGISTER_V2 a
+        WHERE a.DEL_FLAG='N'
+        <if test="entityType!=null and entityType !=''">
+            AND a.ENTITY_TYPE=#{entityType}
+        </if>
+        <if test="legalIdnumber!=null and legalIdnumber !=''">
+            AND a.LEGAL_IDNUMBER=#{legalIdnumber}
+        </if>
+        union
+        SELECT * FROM TTS_SCLTXXCJ_REGISTER_V2 a
+        WHERE a.DEL_FLAG='N'
+        <if test="account!=null and account!=''">
+            AND a.ACCOUNT=#{account}
+        </if>
+    </select>
+    <select id="getSubjEntByUnionCredit" resultMap="BaseResultMap">
+        SELECT * FROM TTS_SCLTXXCJ_REGISTER_V2 a
+        WHERE a.DEL_FLAG='N'
+        <if test="entityType!=null and entityType !=''">
+            AND a.ENTITY_TYPE=#{entityType}
+        </if>
+        <if test="creditCode!=null and creditCode !=''">
+            AND a.CREDIT_CODE=#{creditCode}
+        </if>
+        union
+        SELECT * FROM TTS_SCLTXXCJ_REGISTER_V2 a
+        WHERE a.DEL_FLAG='N'
+        <if test="account!=null and account!=''">
+            AND a.ACCOUNT=#{account}
+        </if>
+    </select>
+ </mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsSubjElRevokeMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjElRevoke">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="EL_ID" jdbcType="CHAR" property="elId" />
+    <result column="APPLY_REASON" jdbcType="VARCHAR" property="applyReason" />
+    <result column="APPLY_USER_ID" jdbcType="CHAR" property="applyUserId" />
+    <result column="APPLY_SV_ID" jdbcType="CHAR" property="applySvId" />
+    <result column="APPLY_TIME" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="AUDIT_USER_ID" jdbcType="VARCHAR" property="auditUserId" />
+    <result column="AUDIT_SV_ID" jdbcType="VARCHAR" property="auditSvId" />
+    <result column="AUDIT_TIME" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="AUDIT_SUGGESTION" jdbcType="VARCHAR" property="auditSuggestion" />
+    <result column="AUDIT_STATE" jdbcType="CHAR" property="auditState" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_SUBJ_EL_REVOKE
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsSubjElRevoke">
+    insert into ASMS_SUBJ_EL_REVOKE (ID, EL_ID, APPLY_REASON, 
+      APPLY_USER_ID, APPLY_SV_ID, APPLY_TIME, 
+      AUDIT_USER_ID, AUDIT_SV_ID, AUDIT_TIME, 
+      AUDIT_SUGGESTION, AUDIT_STATE, DEL_FLAG
+      )
+    values (#{id,jdbcType=CHAR}, #{elId,jdbcType=CHAR}, #{applyReason,jdbcType=VARCHAR}, 
+      #{applyUserId,jdbcType=CHAR}, #{applySvId,jdbcType=CHAR}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{auditUserId,jdbcType=VARCHAR}, #{auditSvId,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, 
+      #{auditSuggestion,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsSubjElRevoke">
+    update ASMS_SUBJ_EL_REVOKE
+    set EL_ID = #{elId,jdbcType=CHAR},
+      APPLY_REASON = #{applyReason,jdbcType=VARCHAR},
+      APPLY_USER_ID = #{applyUserId,jdbcType=CHAR},
+      APPLY_SV_ID = #{applySvId,jdbcType=CHAR},
+      APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+      AUDIT_USER_ID = #{auditUserId,jdbcType=VARCHAR},
+      AUDIT_SV_ID = #{auditSvId,jdbcType=VARCHAR},
+      AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      AUDIT_SUGGESTION = #{auditSuggestion,jdbcType=VARCHAR},
+      AUDIT_STATE = #{auditState,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, EL_ID, APPLY_REASON, APPLY_USER_ID, APPLY_SV_ID, APPLY_TIME, AUDIT_USER_ID, 
+    AUDIT_SV_ID, AUDIT_TIME, AUDIT_SUGGESTION, AUDIT_STATE, DEL_FLAG
+    from ASMS_SUBJ_EL_REVOKE
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, EL_ID, APPLY_REASON, APPLY_USER_ID, APPLY_SV_ID, APPLY_TIME, AUDIT_USER_ID, 
+    AUDIT_SV_ID, AUDIT_TIME, AUDIT_SUGGESTION, AUDIT_STATE, DEL_FLAG
+    from ASMS_SUBJ_EL_REVOKE
+  </select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.SysResourceExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.Resource">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="RESOURCETYPE" jdbcType="VARCHAR" property="resourcetype" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PROFESSIONALFILED" jdbcType="VARCHAR" property="professionalfiled" />
+    <result column="JOBTITLE" jdbcType="VARCHAR" property="jobtitle" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="CONTRACT" jdbcType="VARCHAR" property="contract" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DEL_FLAG" jdbcType="VARCHAR" property="delFlag" />
+    <result column="RESERVED_FIELD1" jdbcType="VARCHAR" property="reservedField1" />
+    <result column="RESERVED_FIELD2" jdbcType="VARCHAR" property="reservedField2" />
+  </resultMap>
+  <select id="selectAllByCondition" parameterType="hashmap" resultMap="BaseResultMap">
+    select * from ( SELECT f.*,ROWNUM AS rn
+    FROM (
+    SELECT
+    s.*
+    FROM SYS_RESOURCE s
+    WHERE 1=1
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.NAME like '%'||#{queryCon}||'%'OR s.UNIT like '%'||#{queryCon}||'%'OR s.LOCATION like '%'||#{queryCon}||'%'OR s.JOBTITLE like '%'||#{queryCon}||'%'
+    </if>
+    <if test="professionalfiled!=null and professionalfiled!=''">
+      AND s.PROFESSIONALFILED =#{professionalfiled}
+    </if>
+    <if test="location!=null and location!=''">
+      AND s.LOCATION =#{location}
+    </if>
+    order by ROWNUM)f)
+    WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  <select id="getSysResourceCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM SYS_RESOURCE s
+    WHERE 1=1
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.NAME like '%'||#{queryCon}||'%'OR s.UNIT like '%'||#{queryCon}||'%'OR s.LOCATION like '%'||#{queryCon}||'%'OR s.JOBTITLE like '%'||#{queryCon}||'%'
+    </if>
+    <if test="resourcetype!=null and resourcetype!=''">
+      AND s.RESOURCETYPE =#{resourcetype}
+    </if>
+    <if test="location!=null and location!=''">
+      AND s.LOCATION =#{location}
+    </if>
+  </select>
+</mapper>

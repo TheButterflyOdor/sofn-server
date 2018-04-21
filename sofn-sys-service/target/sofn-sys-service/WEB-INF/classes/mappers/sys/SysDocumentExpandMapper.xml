@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysDocumentExpandMapper">
+    <insert id="addDocument">
+        INSERT INTO SYS_DOCUMENT ( ID, TITLE, CONTENT, TYPE, APPLY_TO, CREATE_BY, CREATE_TIME )
+        VALUES
+            ( #{id}, #{title}, #{content, jdbcType=CLOB}, #{type}, #{applyTo}, #{createBy}, #{createTime} )
+    </insert>
+    <update id="updateDocument">
+        UPDATE SYS_DOCUMENT
+        <set>
+            <if test="title != null and title != ''">TITLE = #{title},</if>
+            <if test="content != null and content != ''">CONTENT = #{content, jdbcType=CLOB},</if>
+            <if test="type != null and type != ''">TYPE = #{type},</if>
+            <if test="applyTo != null and applyTo != ''">APPLY_TO = #{applyTo},</if>
+            <if test="enableFlag != null and enableFlag != ''">ENABLE_FLAG = #{enableFlag},</if>
+            <if test="updateBy != null and updateBy != ''">UPDATE_BY = #{updateBy},</if>
+            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">DEL_FLAG = #{delFlag}</if>
+        </set>
+        WHERE
+            ID = #{id}
+    </update>
+    <select id="getDocumentList" resultType="com.sofn.model.generator.SysDocument">
+        SELECT
+            ID,
+            TITLE,
+            CONTENT,
+            TYPE,
+            APPLY_TO,
+            ENABLE_FLAG,
+            CREATE_BY,
+            CREATE_TIME,
+            UPDATE_BY,
+            UPDATE_TIME,
+            DEL_FLAG
+        FROM
+            SYS_DOCUMENT
+        WHERE
+            DEL_FLAG = 'N'
+        <if test="enableFlag != null and enableFlag != ''">
+          AND ENABLE_FLAG = #{enableFlag}
+        </if>
+        <if test="applyTo != null and applyTo != ''">
+          AND APPLY_TO = #{applyTo}
+        </if>
+        <if test="title != null and title != ''">
+          AND TITLE LIKE '%' || #{title} || '%'
+        </if>
+        <if test="type != null and type !=''">
+          AND TYPE = #{type}
+        </if>
+        <if test="createBy != null and createBy !=''">
+          AND CREATE_BY = #{createBy}
+        </if>
+        <if test="createTime != null and createTime !=''">
+          AND TRUNC(CREATE_TIME) = TO_DATE(#{createTime}, 'yyyy-mm-dd')
+        </if>
+        ORDER BY CREATE_TIME DESC
+    </select>
+    <select id="getDocument" resultType="com.sofn.model.generator.SysDocument">
+        SELECT
+            ID,
+            TITLE,
+            CONTENT,
+            TYPE,
+            APPLY_TO,
+            ENABLE_FLAG,
+            CREATE_BY,
+            CREATE_TIME,
+            UPDATE_BY,
+            UPDATE_TIME,
+            DEL_FLAG
+        FROM
+            SYS_DOCUMENT
+        WHERE
+            DEL_FLAG = 'N'
+          AND ID = #{id}
+    </select>
+</mapper>

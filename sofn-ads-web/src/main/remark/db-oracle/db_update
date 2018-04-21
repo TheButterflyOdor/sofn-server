@@ -1,0 +1,98 @@
+-- ----------------------------
+-- 数据库更新脚本2016.12.05
+-- ----------------------------
+
+-- ----------------------------
+-- 监测任务表增加SUP_ID字段(监管任务ID)
+-- ----------------------------
+
+alter table ads_monitor_task add SUP_ID VARCHAR(64);
+COMMENT ON COLUMN  ads_monitor_task.SUP_ID is '监管任务ID';
+
+-- ----------------------------
+-- 监测任务表字段TASK_NAME和RELEASE_UNIT均改为VARCHAR2(256)
+-- ----------------------------
+
+ALTER TABLE ads_monitor_task modify  TASK_NAME VARCHAR2(256);
+ALTER TABLE ads_monitor_task modify RELEASE_UNIT VARCHAR2(256);
+
+ALTER TABLE ADS_FILE add organ_task_id  VARCHAR2(64);
+
+-- ----------------------------
+-- 检测对象表增加产品编码、名称相关属性
+-- ----------------------------
+alter table ads_model_check_object add gb_code VARCHAR(64);
+COMMENT ON COLUMN  ads_model_check_object.gb_code is '产品种类编号';
+
+alter table ads_model_check_object add product_code VARCHAR(64);
+COMMENT ON COLUMN  ads_model_check_object.product_code is '产品编号';
+
+alter table ads_model_check_object add product_name VARCHAR(64);
+COMMENT ON COLUMN  ads_model_check_object.product_name is '产品种类名称';
+
+alter table ads_model_check_object add industry VARCHAR(64);
+COMMENT ON COLUMN  ads_model_check_object.industry is '产品所属行业';
+
+-- ----------------------------
+-- date 2016-12-26
+-- 机构表增加报告上报单位id
+-- ----------------------------
+alter table ADS_ORGAN_TASK add DEPARMENT_ID VARCHAR(64);
+COMMENT ON COLUMN  ADS_ORGAN_TASK.DEPARMENT_ID is '上传报告单位id';
+
+-- ----------------------------
+-- 回执单表增加name和code字段
+-- ----------------------------
+
+alter table ads_recipe add S_NAME VARCHAR(1024);
+alter table ads_recipe add S_CODE VARCHAR(1024);
+COMMENT ON COLUMN  ads_recipe.S_NAME is '名称';
+COMMENT ON COLUMN  ads_recipe.S_CODE is '编号';
+
+-- ----------------------------
+-- date 2017-01-20
+-- 文件表增加行业名称字段长度和行业id，同步数据使用
+-- 监测任务表增加行业id字段，同步数据使用
+-- ----------------------------
+ALTER TABLE ads_file modify FIELD VARCHAR2(64);
+alter table ads_file add FIELD_ID VARCHAR(64);
+COMMENT ON COLUMN  ads_file.FIELD_ID is '行业id';
+
+alter table ads_monitor_task add INDUSTRY_ID VARCHAR(64);
+COMMENT ON COLUMN  ads_monitor_task.INDUSTRY_ID is '行业id';
+
+-- ----------------------------
+-- date 2017-03-28
+-- 机构任务表扩充部分字段长度
+-- ----------------------------
+ALTER TABLE ads_organ_task modify SAMPLE_ORGAN VARCHAR2(200);
+ALTER TABLE ads_organ_task modify DETECTION_ORGAN VARCHAR2(200);
+ALTER TABLE ads_organ_task modify DEPARMENT VARCHAR2(200);
+
+
+-- ----------------------------
+-- 检测模型表增加是否启用标识
+-- ----------------------------
+alter table ads_check_model add is_enable VARCHAR(1) DEFAULT '0';
+COMMENT ON COLUMN  ads_check_model.is_enable is '是否启用 0: 未启用 1:已启用';
+
+
+-- ----------------------------
+-- 检测模型表增加创建单位ID
+-- ----------------------------
+alter table ads_check_model add ORGAN_ID VARCHAR(64);
+COMMENT ON COLUMN  ads_check_model.ORGAN_ID is '创建单位ID';
+
+-- ----------------------------
+-- 监测任务表增加区域编码和机构级别
+-- ----------------------------
+alter table ads_monitor_task add CREATE_ORG_REGION_ID VARCHAR(64);
+alter table ads_monitor_task add LEVEL_ENUM VARCHAR(2);
+COMMENT ON COLUMN  ads_monitor_task.CREATE_ORG_REGION_ID is '区域编码';
+COMMENT ON COLUMN  ads_monitor_task.LEVEL_ENUM is '机构级别';
+
+-- ----------------------------
+-- 检测对象表增加创建单位ID
+-- ----------------------------
+alter table ADS_MODEL_CHECK_OBJECT add ORGAN_ID VARCHAR(64);
+COMMENT ON COLUMN  ADS_MODEL_CHECK_OBJECT.ORGAN_ID is '创建单位ID';

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AsmsSubjEntBadrecordMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjEntBadrecord" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="VARCHAR" />
+    <result column="BADRECORD_CONTENT" property="badrecordContent" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="BADRECORD_FILE" property="badrecordFile" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="SOURCE_ID" property="sourceId" jdbcType="VARCHAR" />
+    <result column="SOURCE_TYPE" property="sourceType" jdbcType="CHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ASMS_SUBJ_ENT_BADRECORD
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsSubjEntBadrecord" >
+    insert into ASMS_SUBJ_ENT_BADRECORD (ID, ENTERPRISE_ID, BADRECORD_CONTENT, 
+      CREATE_BY, CREATE_TIME, BADRECORD_FILE, 
+      DEL_FLAG, SOURCE_ID, SOURCE_TYPE
+      )
+    values (#{id,jdbcType=CHAR}, #{enterpriseId,jdbcType=VARCHAR}, #{badrecordContent,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{badrecordFile,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{sourceId,jdbcType=VARCHAR}, #{sourceType,jdbcType=CHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsSubjEntBadrecord" >
+    update ASMS_SUBJ_ENT_BADRECORD
+    set ENTERPRISE_ID = #{enterpriseId,jdbcType=VARCHAR},
+      BADRECORD_CONTENT = #{badrecordContent,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      BADRECORD_FILE = #{badrecordFile,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      SOURCE_ID = #{sourceId,jdbcType=VARCHAR},
+      SOURCE_TYPE = #{sourceType,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, ENTERPRISE_ID, BADRECORD_CONTENT, CREATE_BY, CREATE_TIME, BADRECORD_FILE, 
+    DEL_FLAG, SOURCE_ID, SOURCE_TYPE
+    from ASMS_SUBJ_ENT_BADRECORD
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, ENTERPRISE_ID, BADRECORD_CONTENT, CREATE_BY, CREATE_TIME, BADRECORD_FILE, 
+    DEL_FLAG, SOURCE_ID, SOURCE_TYPE
+    from ASMS_SUBJ_ENT_BADRECORD
+  </select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsSpecialLeadUnitExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSpecialLeadUnit">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="SPECIAL_MONITOR_ID" jdbcType="CHAR" property="specialMonitorId" />
+        <result column="LEAD_UNIT_ID" jdbcType="CHAR" property="leadUnitId" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="LEAD_UNIT_NAME" jdbcType="VARCHAR" property="leadUnitName" />
+    </resultMap>
+
+    <delete id="delByTaskId" parameterType="com.sofn.model.generator.AsmsSpecialLeadUnit">
+    delete from ASMS_SPECIAL_LEAD_UNIT
+        where SPECIAL_MONITOR_ID = '${specialMonitorId}'
+    </delete>
+
+    <select id="getUnitByTaskId" resultType="com.sofn.model.generator.AsmsSpecialLeadUnit" parameterType="com.sofn.model.generator.AsmsSpecialLeadUnit">
+        SELECT * FROM ASMS_SPECIAL_LEAD_UNIT WHERE SPECIAL_MONITOR_ID = '${specialMonitorId}'
+    </select>
+
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsEmergencyTaskExpertExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsEmergencyExpert" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="EMERGENCY_ID" property="emergencyId" jdbcType="CHAR" />
+    <result column="EXPERT_ID" property="expertId" jdbcType="CHAR" />
+  </resultMap>
+  <delete id="deleteByExpert" parameterType="java.lang.String" >
+    delete from ASMS_EMERGENCY_EXPERT
+    where ID = #{emergencyId,jdbcType=CHAR}
+  </delete>
+</mapper>

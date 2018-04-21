@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsSubjEnforceLawMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjEnforceLaw">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="EL_NAME" jdbcType="VARCHAR" property="elName" />
+    <result column="EL_CODE" jdbcType="VARCHAR" property="elCode" />
+    <result column="EL_TYPE" jdbcType="VARCHAR" property="elType" />
+    <result column="EL_LEVEL" jdbcType="VARCHAR" property="elLevel" />
+    <result column="EL_AREA_ID" jdbcType="VARCHAR" property="elAreaId" />
+    <result column="EL_ADDRESS" jdbcType="VARCHAR" property="elAddress" />
+    <result column="EL_LEADER" jdbcType="VARCHAR" property="elLeader" />
+    <result column="EL_LEADER_PHONE" jdbcType="VARCHAR" property="elLeaderPhone" />
+    <result column="EL_CONTACT" jdbcType="VARCHAR" property="elContact" />
+    <result column="EL_CONTACT_PHONE" jdbcType="VARCHAR" property="elContactPhone" />
+    <result column="EL_CONTACT_Q_Q" jdbcType="VARCHAR" property="elContactQQ" />
+    <result column="EL_CONTACT_EMAIL" jdbcType="VARCHAR" property="elContactEmail" />
+    <result column="EL_POSTCODE" jdbcType="CHAR" property="elPostcode" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="EL_UNIT_NATURE" jdbcType="VARCHAR" property="elUnitNature" />
+    <result column="EL_WORK_BODY" jdbcType="VARCHAR" property="elWorkBody" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="EL_LEVEL_ID" jdbcType="VARCHAR" property="elLevelId" />
+    <result column="EL_TYPE_ID" jdbcType="VARCHAR" property="elTypeId" />
+    <result column="EL_AREA" jdbcType="VARCHAR" property="elArea" />
+    <result column="EL_PEOPLE_NUM" jdbcType="VARCHAR" property="elPeopleNum" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_SUBJ_ENFORCE_LAW
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsSubjEnforceLaw">
+    insert into ASMS_SUBJ_ENFORCE_LAW (ID, EL_NAME, EL_CODE, 
+      EL_TYPE, EL_LEVEL, EL_AREA_ID, 
+      EL_ADDRESS, EL_LEADER, EL_LEADER_PHONE, 
+      EL_CONTACT, EL_CONTACT_PHONE, EL_CONTACT_Q_Q, 
+      EL_CONTACT_EMAIL, EL_POSTCODE, CREATE_BY, 
+      CREATE_TIME, STATUS, EL_UNIT_NATURE, 
+      EL_WORK_BODY, DEL_FLAG, EL_LEVEL_ID, 
+      EL_TYPE_ID, EL_AREA, EL_PEOPLE_NUM
+      )
+    values (#{id,jdbcType=CHAR}, #{elName,jdbcType=VARCHAR}, #{elCode,jdbcType=VARCHAR}, 
+      #{elType,jdbcType=VARCHAR}, #{elLevel,jdbcType=VARCHAR}, #{elAreaId,jdbcType=VARCHAR}, 
+      #{elAddress,jdbcType=VARCHAR}, #{elLeader,jdbcType=VARCHAR}, #{elLeaderPhone,jdbcType=VARCHAR}, 
+      #{elContact,jdbcType=VARCHAR}, #{elContactPhone,jdbcType=VARCHAR}, #{elContactQQ,jdbcType=VARCHAR}, 
+      #{elContactEmail,jdbcType=VARCHAR}, #{elPostcode,jdbcType=CHAR}, #{createBy,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{elUnitNature,jdbcType=VARCHAR}, 
+      #{elWorkBody,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{elLevelId,jdbcType=VARCHAR}, 
+      #{elTypeId,jdbcType=VARCHAR}, #{elArea,jdbcType=VARCHAR}, #{elPeopleNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsSubjEnforceLaw">
+    update ASMS_SUBJ_ENFORCE_LAW
+    set EL_NAME = #{elName,jdbcType=VARCHAR},
+      EL_CODE = #{elCode,jdbcType=VARCHAR},
+      EL_TYPE = #{elType,jdbcType=VARCHAR},
+      EL_LEVEL = #{elLevel,jdbcType=VARCHAR},
+      EL_AREA_ID = #{elAreaId,jdbcType=VARCHAR},
+      EL_ADDRESS = #{elAddress,jdbcType=VARCHAR},
+      EL_LEADER = #{elLeader,jdbcType=VARCHAR},
+      EL_LEADER_PHONE = #{elLeaderPhone,jdbcType=VARCHAR},
+      EL_CONTACT = #{elContact,jdbcType=VARCHAR},
+      EL_CONTACT_PHONE = #{elContactPhone,jdbcType=VARCHAR},
+      EL_CONTACT_Q_Q = #{elContactQQ,jdbcType=VARCHAR},
+      EL_CONTACT_EMAIL = #{elContactEmail,jdbcType=VARCHAR},
+      EL_POSTCODE = #{elPostcode,jdbcType=CHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      EL_UNIT_NATURE = #{elUnitNature,jdbcType=VARCHAR},
+      EL_WORK_BODY = #{elWorkBody,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      EL_LEVEL_ID = #{elLevelId,jdbcType=VARCHAR},
+      EL_TYPE_ID = #{elTypeId,jdbcType=VARCHAR},
+      EL_AREA = #{elArea,jdbcType=VARCHAR},
+      EL_PEOPLE_NUM = #{elPeopleNum,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, EL_NAME, EL_CODE, EL_TYPE, EL_LEVEL, EL_AREA_ID, EL_ADDRESS, EL_LEADER, 
+    EL_LEADER_PHONE, EL_CONTACT, EL_CONTACT_PHONE, EL_CONTACT_Q_Q, EL_CONTACT_EMAIL, 
+    EL_POSTCODE, CREATE_BY, CREATE_TIME, STATUS, EL_UNIT_NATURE, EL_WORK_BODY, DEL_FLAG, 
+    EL_LEVEL_ID, EL_TYPE_ID, EL_AREA, EL_PEOPLE_NUM
+    from ASMS_SUBJ_ENFORCE_LAW
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, EL_NAME, EL_CODE, EL_TYPE, EL_LEVEL, EL_AREA_ID, EL_ADDRESS, EL_LEADER, 
+    EL_LEADER_PHONE, EL_CONTACT, EL_CONTACT_PHONE, EL_CONTACT_Q_Q, EL_CONTACT_EMAIL, 
+    EL_POSTCODE, CREATE_BY, CREATE_TIME, STATUS, EL_UNIT_NATURE, EL_WORK_BODY, DEL_FLAG, 
+    EL_LEVEL_ID, EL_TYPE_ID, EL_AREA, EL_PEOPLE_NUM
+    from ASMS_SUBJ_ENFORCE_LAW
+  </select>
+</mapper>

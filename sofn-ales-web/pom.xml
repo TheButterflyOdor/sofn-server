@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sofn</artifactId>
+        <groupId>com.sofn</groupId>
+        <version>1.1.1.15</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sofn-ales-web</artifactId>
+    <name>sofn-ales-web</name>
+    <packaging>war</packaging>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <server.port>${web.ales.port}</server.port>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.sofn</groupId>
+            <artifactId>sofn-ales-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sofn</groupId>
+            <artifactId>sofn-sso-api</artifactId>
+        </dependency>
+        <!--引用监管系统API-->
+        <dependency>
+            <groupId>com.sofn</groupId>
+            <artifactId>sofn-asms-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sofn</groupId>
+            <artifactId>sofn-ads-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sofn</groupId>
+            <artifactId>sofn-tts-api-branch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.apusic</groupId>
+            <artifactId>apusic</artifactId>
+            <version>8.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.apusic</groupId>
+            <artifactId>amq-client-sdk</artifactId>
+            <version>8.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.apusic</groupId>
+            <artifactId>apusic-javaee</artifactId>
+            <version>8.0</version>
+        </dependency>
+    </dependencies>
+
+</project>

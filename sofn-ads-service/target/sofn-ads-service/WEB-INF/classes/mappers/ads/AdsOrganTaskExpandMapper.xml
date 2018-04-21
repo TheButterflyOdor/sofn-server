@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsOrganTaskExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsOrganTask" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SAMPLE_REPORT_TIME" property="sampleReportTime" jdbcType="VARCHAR" />
+    <result column="CHECK_REPORT_TIME" property="checkReportTime" jdbcType="VARCHAR" />
+    <result column="SAMPLE_FINISH_STATUS" property="sampleFinishStatus" jdbcType="DECIMAL" />
+    <result column="CHECK_FINISH_STATUS" property="checkFinishStatus" jdbcType="DECIMAL" />
+    <result column="SAMPLE_REPORT_STATUS" property="sampleReportStatus" jdbcType="DECIMAL" />
+    <result column="CHECK_REPORT_STATUS" property="checkReportStatus" jdbcType="DECIMAL" />
+    <result column="MONITOR_TASK_ID" property="monitorTaskId" jdbcType="VARCHAR" />
+    <result column="SAMPLE_ORGAN" property="sampleOrgan" jdbcType="VARCHAR" />
+    <result column="SAMPLE_ORGAN_ID" property="sampleOrganId" jdbcType="VARCHAR" />
+    <result column="DETECTION_ORGAN" property="detectionOrgan" jdbcType="VARCHAR" />
+    <result column="DETECTION_ORGAN_ID" property="detectionOrganId" jdbcType="VARCHAR" />
+    <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+    <result column="REG_ID" property="regId" jdbcType="VARCHAR" />
+     <result column="REG_NAME" property="regName" jdbcType="VARCHAR" />
+    <result column="NUMBERS" property="numbers" jdbcType="DECIMAL" />
+    <result column="DEPARMENT" property="deparment" jdbcType="VARCHAR" />
+     <result column="DEPARMENT_ID" property="deparmentId" jdbcType="VARCHAR" />
+    <result column="UPLOAD_TIME" property="uploadTime" jdbcType="VARCHAR" />
+    <result column="FINISH_NUM" property="finishNum" jdbcType="DECIMAL" />
+    <result column="REPORT_STATUS" property="reportStatus" jdbcType="VARCHAR" />
+    <result column="REPORT_TIME" property="reportTime" jdbcType="VARCHAR" />
+    <result column="TASKS_STATUS" property="tasksStatus" jdbcType="VARCHAR" />
+    <result column="SAMPLE_FINISH_NUM" property="sampleFinishNum" jdbcType="DECIMAL" />
+    <result column="CHECK_FINISH_NUM" property="checkFinishNum" jdbcType="DECIMAL" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="RN" property="rn" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from ADS_ORGAN_TASK T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM ADS_ORGAN_TASK T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+  </select>
+
+    <select id="getPageInfoByMonitorTask" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+            from (select tmp.*, rownum rn
+                from (select aot.id,
+                                aot.monitor_task_id,
+                                aot.sample_organ,
+                                aot.sample_organ_id,
+                                aot.detection_organ,
+                                aot.detection_organ_id,
+                                aot.city_code,
+                                aot.city_name,
+                                aot.FINISH_NUM,
+                                aot.REPORT_STATUS,
+                                aot.REPORT_TIME,
+                                aot.TASKS_STATUS,
+                                aot.SAMPLE_FINISH_NUM,
+                                aot.CHECK_FINISH_NUM,
+                                aot.numbers,
+                                aot.deparment,
+                                aot.deparment_id,
+                                to_char(aot.upload_time,'yyyy-mm-dd') upload_time
+                                from ADS_ORGAN_TASK aot
+                                where 1 = 1 AND aot.DEL_FLAG != 'Y'
+                                  AND aot.monitor_task_id = #{monitorTaskId}
+                                <if test="sampleOrgan!=null and sampleOrgan!=''">
+                                    AND lower(aot.sample_organ) like '%' || lower(trim(#{sampleOrgan})) ||'%'
+                                </if>
+                                <if test="detectionOrgan!=null and detectionOrgan!=''">
+                                    AND lower(aot.detection_organ) like '%' || lower(trim(#{detectionOrgan})) ||'%'
+                                </if>
+                                order by aot.update_time desc,aot.create_time desc,aot.id desc) tmp
+              <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+
+    <select id="getCountByMonitorTask" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) FROM ADS_ORGAN_TASK aot
+        where 1 = 1 AND aot.DEL_FLAG != 'Y'
+          AND aot.monitor_task_id = #{monitorTaskId}
+        <if test="sampleOrgan!=null and sampleOrgan!=''">
+            AND lower(aot.sample_organ) like '%' || lower(trim(#{sampleOrgan})) ||'%'
+        </if>
+        <if test="detectionOrgan!=null and detectionOrgan!=''">
+            AND lower(aot.detection_organ) like '%' || lower(trim(#{detectionOrgan})) ||'%'
+        </if>
+    </select>
+
+    <select id="getPageInfoByMonitorTaskID" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select  so.id,
+                        so.sample_organ,
+                        so.DETECTION_ORGAN,
+                        so.numbers,
+                        so.sample_finish_num,
+                        so.sample_report_status,
+                        to_char(so.sample_report_time,'yyyy-mm-dd hh24:mi:ss') sample_report_time,
+                        so.check_finish_num,
+                        so.check_report_status,
+                        to_char(so.check_report_time,'yyyy-mm-dd hh24:mi:ss') check_report_time,
+                        so.SAMPLE_ORGAN_ID,
+                        so.DETECTION_ORGAN_ID
+        from Ads_Organ_Task so,Ads_Monitor_Task b
+        where 1 = 1
+        AND so.DEL_FLAG != 'Y'
+        AND so.MONITOR_TASK_ID = b.ID
+        <if test="publishStatus!=null and publishStatus!=''">
+           AND  b.publish_status = #{publishStatus}
+        </if>
+        <if test="monitorClass != null and monitorClass !=''">
+            AND b.monitor_class = #{monitorClass}
+        </if>
+        <if test="year != null and year !=''">
+            AND b.year = #{year}
+        </if>
+        <if test="taskName != null and taskName !=''">
+            AND b.task_name = #{taskName}
+        </if>
+        <if test="monitorTaskId != null and monitorTaskId !=''">
+            AND b.ID = #{monitorTaskId}
+        </if>
+        <if test="sampleOrgan!=null and sampleOrgan!=''">
+            AND lower(so.sample_organ) like '%' || lower(trim(#{sampleOrgan})) ||'%'
+        </if>
+        <if test="detectionOrgan!=null and detectionOrgan!=''">
+            AND lower(so.detection_organ) like '%' || lower(trim(#{detectionOrgan})) ||'%'
+        </if>
+        <if test="orgId != null and orgId !=''">
+            AND b.ORGAN_ID = #{orgId}
+        </if>
+        order by so.update_time desc,
+        so.create_time desc,so.id desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+
+    <select id="getCountByMonitorTaskID" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from Ads_Organ_Task so,Ads_Monitor_Task b
+        where 1 = 1 AND so.DEL_FLAG != 'Y'
+        AND so.MONITOR_TASK_ID = b.ID
+        <if test="publishStatus!=null and publishStatus!=''">
+            AND b.publish_status = #{publishStatus}
+        </if>
+        <if test="monitorClass != null and monitorClass !=''">
+            AND b.monitor_class = #{monitorClass}
+        </if>
+        <if test="year != null and year !=''">
+            AND b.year = #{year}
+        </if>
+        <if test="taskName != null and taskName !=''">
+            AND b.task_name = #{taskName}
+        </if>
+        <if test="monitorTaskId != null and monitorTaskId !=''">
+            AND so.MONITOR_TASK_ID = #{monitorTaskId}
+        </if>
+        <if test="sampleOrgan!=null and sampleOrgan!=''">
+            AND lower(so.sample_organ) like '%' || lower(trim(#{sampleOrgan})) ||'%'
+        </if>
+        <if test="detectionOrgan!=null and detectionOrgan!=''">
+            AND lower(so.detection_organ) like '%' || lower(trim(#{detectionOrgan})) ||'%'
+        </if>
+        <if test="orgId != null and orgId !=''">
+            AND b.ORGAN_ID = #{orgId}
+        </if>
+    </select>
+
+    <select id="findSampleOrgan" resultMap="BaseResultMap">
+        SELECT
+         DISTINCT SAMPLE_ORGAN
+        from ADS_ORGAN_TASK
+        where 1 = 1 AND DEL_FLAG != 'Y' AND SAMPLE_ORGAN is NOT NULL
+         AND MONITOR_TASK_ID = #{monitorTaskId}
+    </select>
+
+    <select id="getOrganListByTaskId" parameterType="string" resultMap="BaseResultMap">
+        select t.*
+          from Ads_Organ_Task t
+         where 1 = 1
+           AND t.DEL_FLAG != 'Y'
+           AND t.MONITOR_TASK_ID = #{taskId}
+    </select>
+
+    <select id="getCountByAdsOrganCondition" parameterType="hashmap" resultType="int">
+      select count(1)
+          from ads_organ_task t
+         where t.del_flag != 'Y'
+           and t.monitor_task_id = #{monitorTaskId}
+           and (t.sample_organ_id = #{sampleOrganId} or t.sample_organ_id = #{detectionOrganId} or t.detection_organ_id = #{detectionOrganId} or t.detection_organ_id = #{sampleOrganId})
+    </select>
+
+    <update id="updateCheckInfo" parameterType="hashmap" >
+    update ADS_ORGAN_TASK
+    set CHECK_REPORT_TIME = sysdate,
+    CHECK_FINISH_NUM = #{num},
+    CHECK_REPORT_STATUS = #{status}
+    where ID = #{organTaskId}
+</update>
+
+    <update id="updateById" parameterType="com.sofn.model.generator.AdsOrganTask" >
+        update ADS_ORGAN_TASK
+        set
+        <if test="sampleFinishNum != null and sampleFinishNum !=''">
+            SAMPLE_FINISH_NUM = #{sampleFinishNum},
+        </if>
+        <if test="sampleReportStatus != null and sampleReportStatus !=''">
+            SAMPLE_REPORT_STATUS = #{sampleReportStatus},
+        </if>
+            SAMPLE_REPORT_TIME = sysdate
+        where ID = #{id}
+    </update>
+</mapper>

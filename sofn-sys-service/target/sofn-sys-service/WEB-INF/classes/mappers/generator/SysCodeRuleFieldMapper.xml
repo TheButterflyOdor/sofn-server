@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.SysCodeRuleFieldMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysCodeRuleField">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="FIELD_NAME" jdbcType="VARCHAR" property="fieldName" />
+    <result column="RULE_ID" jdbcType="VARCHAR" property="ruleId" />
+    <result column="SORT_ID" jdbcType="VARCHAR" property="sortId" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DEL_FLAG" jdbcType="VARCHAR" property="delFlag" />
+    <result column="FIXED" jdbcType="VARCHAR" property="fixed" />
+    <result column="GROUP_MODE" jdbcType="VARCHAR" property="groupMode" />
+    <result column="RESERVED_FIELD1" jdbcType="VARCHAR" property="reservedField1" />
+    <result column="RESERVED_FIELD2" jdbcType="VARCHAR" property="reservedField2" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SYS_CODE_RULE_FIELD
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysCodeRuleField">
+    insert into SYS_CODE_RULE_FIELD (ID, FIELD_NAME, RULE_ID, 
+      SORT_ID, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, DEL_FLAG, 
+      FIXED, GROUP_MODE, RESERVED_FIELD1, 
+      RESERVED_FIELD2)
+    values (#{id,jdbcType=VARCHAR}, #{fieldName,jdbcType=VARCHAR}, #{ruleId,jdbcType=VARCHAR}, 
+      #{sortId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=VARCHAR}, 
+      #{fixed,jdbcType=VARCHAR}, #{groupMode,jdbcType=VARCHAR}, #{reservedField1,jdbcType=VARCHAR}, 
+      #{reservedField2,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysCodeRuleField">
+    update SYS_CODE_RULE_FIELD
+    set FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+      RULE_ID = #{ruleId,jdbcType=VARCHAR},
+      SORT_ID = #{sortId,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+      FIXED = #{fixed,jdbcType=VARCHAR},
+      GROUP_MODE = #{groupMode,jdbcType=VARCHAR},
+      RESERVED_FIELD1 = #{reservedField1,jdbcType=VARCHAR},
+      RESERVED_FIELD2 = #{reservedField2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, FIELD_NAME, RULE_ID, SORT_ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    DEL_FLAG, FIXED, GROUP_MODE, RESERVED_FIELD1, RESERVED_FIELD2
+    from SYS_CODE_RULE_FIELD
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, FIELD_NAME, RULE_ID, SORT_ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    DEL_FLAG, FIXED, GROUP_MODE, RESERVED_FIELD1, RESERVED_FIELD2
+    from SYS_CODE_RULE_FIELD
+  </select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsCommonOpinionMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCommonOpinion">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="DICT_VALUE" jdbcType="VARCHAR" property="dictValue" />
+    <result column="DICT_NAME" jdbcType="VARCHAR" property="dictName" />
+    <result column="DICT_CODE" jdbcType="VARCHAR" property="dictCode" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsCommonOpinion">
+    insert into ASMS_COMMON_OPINION (ID, DICT_VALUE, DICT_NAME,
+      DICT_CODE, USER_ID, UPDATE_TIME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{dictValue,jdbcType=VARCHAR}, #{dictName,jdbcType=VARCHAR},
+      #{dictCode,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, DICT_VALUE, DICT_NAME, DICT_CODE, USER_ID, UPDATE_TIME
+    from ASMS_COMMON_OPINION
+  </select>
+
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsCommonOpinion">
+    update ASMS_COMMON_OPINION
+    set DICT_VALUE = #{dictValue,jdbcType=VARCHAR},
+      DICT_NAME = #{dictName,jdbcType=CHAR},
+      DICT_CODE = #{dictCode,jdbcType=CHAR},
+      USER_ID = #{userId,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+
+        </mapper>

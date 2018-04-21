@@ -1,0 +1,8 @@
+com\sofn\provider\sso\SSOLoginProvider.class
+com\sofn\model\sso\SysMenu.class
+com\sofn\model\sso\SysUserAuth.class
+com\sofn\model\sso\SysUserRole.class
+com\sofn\model\sso\UserInfoForAuth.class
+com\sofn\model\sso\SysMenuComparator.class
+com\sofn\provider\sso\SSOMenuProvider.class
+com\sofn\model\sso\SysRole.class

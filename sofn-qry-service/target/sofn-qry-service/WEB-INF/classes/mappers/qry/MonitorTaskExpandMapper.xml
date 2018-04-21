@@ -1,0 +1,1116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.qry.MonitorTaskExpandMapper" >
+
+    <resultMap id="checkTaskMap" type="com.sofn.model.generator.AsmsCheckTask">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+        <result column="TASK_TYPE" jdbcType="VARCHAR" property="taskType" />
+        <result column="TASK_YEAR" jdbcType="CHAR" property="taskYear" />
+        <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+        <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+        <result column="TASK_RELEASE_UNIT" jdbcType="VARCHAR" property="taskReleaseUnit" />
+        <result column="TASK_IS_SEPARATE" jdbcType="CHAR" property="taskIsSeparate" />
+        <result column="TASK_AREA_ID" jdbcType="VARCHAR" property="taskAreaId" />
+        <result column="TASK_INDUSTRY" jdbcType="VARCHAR" property="taskIndustry" />
+        <result column="TASK_SAMPLE_DEADLINE" jdbcType="TIMESTAMP" property="taskSampleDeadline" />
+        <result column="FILES" jdbcType="VARCHAR" property="files" />
+        <result column="FILE_CODE" jdbcType="VARCHAR" property="fileCode" />
+        <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+        <result column="TASK_LEVEL" jdbcType="CHAR" property="taskLevel" />
+        <result column="STATE" jdbcType="VARCHAR" property="state" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+        <result column="BASE_INSPECTION_ID" jdbcType="VARCHAR" property="baseInspectionId" />
+        <result column="CY_UNIT_ID" jdbcType="CHAR" property="cyUnitId" />
+        <result column="CY_UNIT_NAME" jdbcType="VARCHAR" property="cyUnitName" />
+        <result column="JC_UNIT_ID" jdbcType="CHAR" property="jcUnitId" />
+        <result column="JC_UNIT_NAME" jdbcType="VARCHAR" property="jcUnitName" />
+        <result column="IS_SAMPLE" jdbcType="CHAR" property="isSample" />
+        <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard" />
+        <result column="JUDGE_STANDARD_ID" jdbcType="VARCHAR" property="judgeStandardId" />
+        <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard" />
+        <result column="DETECTION_STANDARD_ID" jdbcType="VARCHAR" property="detectionStandardId" />
+        <result column="PARENT_TASK_ID" jdbcType="CHAR" property="parentTaskId" />
+        <result column="PARENT_TASK_NAME" jdbcType="VARCHAR" property="parentTaskName" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+        <result column="JC_STANDARD_LINK_ID" jdbcType="VARCHAR" property="jcStandardLinkId" />
+        <result column="PD_STANDARD_LINK_ID" jdbcType="VARCHAR" property="pdStandardLinkId" />
+        <result column="JD_UNIT_ID" jdbcType="CHAR" property="jdUnitId" />
+        <result column="JD_UNIT_NAME" jdbcType="VARCHAR" property="jdUnitName" />
+        <result column="ATTACHMENT_ADDRESS" jdbcType="VARCHAR" property="attachmentAddress" />
+        <result column="ATTACHMENT_NAME" jdbcType="VARCHAR" property="attachmentName" />
+        <result column="FILE_NUMBER" jdbcType="VARCHAR" property="fileNumber" />
+    </resultMap>
+
+    <resultMap id="monitorObjectMap" type="com.sofn.model.generator.AsmsMonitorObject">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="SUPERVISE_CHECK_TASK_ID" jdbcType="CHAR" property="superviseCheckTaskId" />
+        <result column="PRODUCT_TYPE" jdbcType="VARCHAR" property="productType" />
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+        <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+        <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+        <result column="SAMPLE_UNIT_ID" jdbcType="CHAR" property="sampleUnitId" />
+        <result column="DETECTION_UNIT_ID" jdbcType="CHAR" property="detectionUnitId" />
+        <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard" />
+        <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="MONITOR_NUM" jdbcType="VARCHAR" property="monitorNum" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="IS_SAMPLE" jdbcType="CHAR" property="isSample" />
+        <result column="DETECTION_ITEM" jdbcType="VARCHAR" property="detectionItem" />
+        <result column="DETECTION_ITEM_ID" jdbcType="VARCHAR" property="detectionItemId" />
+        <result column="PRODUCT_TYPE_ID" jdbcType="CHAR" property="productTypeId" />
+        <result column="PRODUCT_NAME_ID" jdbcType="CHAR" property="productNameId" />
+        <result column="AREA_ID" jdbcType="CHAR" property="areaId" />
+        <result column="INDUSTRY" jdbcType="VARCHAR" property="industry" />
+    </resultMap>
+
+    <resultMap id="reCheckTaskMap" type="com.sofn.model.generator.AsmsRecheckTask">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="RECHECK_TASK_NAME" jdbcType="VARCHAR" property="recheckTaskName" />
+        <result column="RECHECK_TASK_YEAR" jdbcType="CHAR" property="recheckTaskYear" />
+        <result column="RECHECK_TASK_BEGIN" jdbcType="TIMESTAMP" property="recheckTaskBegin" />
+        <result column="RECHECK_TASK_END" jdbcType="TIMESTAMP" property="recheckTaskEnd" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="STATE" jdbcType="VARCHAR" property="state" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="INIT_TASK_TYPE" jdbcType="VARCHAR" property="initTaskType" />
+        <result column="INIT_TASK_NAME" jdbcType="VARCHAR" property="initTaskName" />
+        <result column="INIT_TASK_ID" jdbcType="CHAR" property="initTaskId" />
+        <result column="RECHECK_UNIT_ID" jdbcType="CHAR" property="recheckUnitId" />
+        <result column="RECHECK_UNIT_NAME" jdbcType="VARCHAR" property="recheckUnitName" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+        <result column="BATCH" jdbcType="VARCHAR" property="batch" />
+        <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+    </resultMap>
+
+    <resultMap id="routineMonitorMap" type="com.sofn.model.generator.AsmsRoutineMonitor">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="RM_NAME" jdbcType="VARCHAR" property="rmName" />
+        <result column="RM_TYPE" jdbcType="VARCHAR" property="rmType" />
+        <result column="RM_MODEL_ID" jdbcType="VARCHAR" property="rmModelId" />
+        <result column="RM_YEAR" jdbcType="CHAR" property="rmYear" />
+        <result column="RM_BATCH" jdbcType="VARCHAR" property="rmBatch" />
+        <result column="RM_DATE_BEGIN" jdbcType="TIMESTAMP" property="rmDateBegin" />
+        <result column="RM_DATE_END" jdbcType="TIMESTAMP" property="rmDateEnd" />
+        <result column="RM_RELEASE_UNIT" jdbcType="CHAR" property="rmReleaseUnit" />
+        <result column="RM_FILE" jdbcType="VARCHAR" property="rmFile" />
+        <result column="RM_FILE_NUM" jdbcType="VARCHAR" property="rmFileNum" />
+        <result column="RM_REMARK" jdbcType="VARCHAR" property="rmRemark" />
+        <result column="RM_STATE" jdbcType="VARCHAR" property="rmState" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+    </resultMap>
+
+    <resultMap id="specialMonitorMap" type="com.sofn.model.generator.AsmsSpecialMonitor">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="SM_NAME" jdbcType="VARCHAR" property="smName" />
+        <result column="SM_TYPE" jdbcType="VARCHAR" property="smType" />
+        <result column="SM_MODEL_ID" jdbcType="VARCHAR" property="smModelId" />
+        <result column="SM_YEAR" jdbcType="CHAR" property="smYear" />
+        <result column="SM_BATCH" jdbcType="VARCHAR" property="smBatch" />
+        <result column="SM_DATE_BEGIN" jdbcType="TIMESTAMP" property="smDateBegin" />
+        <result column="SM_DATE_END" jdbcType="TIMESTAMP" property="smDateEnd" />
+        <result column="SM_RELEASE_UNIT" jdbcType="CHAR" property="smReleaseUnit" />
+        <result column="SM_FILE" jdbcType="VARCHAR" property="smFile" />
+        <result column="SM_FILE_NUM" jdbcType="VARCHAR" property="smFileNum" />
+        <result column="SM_REMARK" jdbcType="VARCHAR" property="smRemark" />
+        <result column="SM_STATE" jdbcType="VARCHAR" property="smState" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+    </resultMap>
+
+    <resultMap id="infoProjectMap" type="com.sofn.model.generator.AdsInfoProject" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR" />
+        <result column="CHECK_NUM" property="checkNum" jdbcType="VARCHAR" />
+        <result column="JUDGE_NUM" property="judgeNum" jdbcType="VARCHAR" />
+        <result column="RESULT" property="result" jdbcType="VARCHAR" />
+        <result column="CHECK_INFO_ID" property="checkInfoId" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="LOD" property="LOD" jdbcType="VARCHAR" />
+        <result column="LOO" property="LOO" jdbcType="VARCHAR" />
+        <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="checkInfoMap" type="com.sofn.model.generator.AdsCheckInfo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR" />
+        <result column="SAMPLE_BAR_CODE" property="sampleBarCode" jdbcType="VARCHAR" />
+        <result column="MONITOR_SAMPLE_ID" property="monitorSampleId" jdbcType="VARCHAR" />
+        <result column="PRODUCT_TRACEABILITY_CODE" property="productTraceabilityCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_NAME" property="sampleName" jdbcType="VARCHAR" />
+        <result column="CHECK_LINK" property="checkLink" jdbcType="VARCHAR" />
+        <result column="RESULT" property="result" jdbcType="VARCHAR" />
+        <result column="CHECK_ORGAN_ID" property="checkOrganId" jdbcType="VARCHAR" />
+        <result column="CHECK_ORGAN" property="checkOrgan" jdbcType="VARCHAR" />
+        <result column="CHECK_REPORT" property="checkReport" jdbcType="VARCHAR" />
+        <result column="CHECK_TIME" property="checkTime" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="TESTED_DEPARMENT" property="testedDeparment" jdbcType="VARCHAR" />
+        <result column="SAMPLE_DEPARMENT" property="sampleDeparment" jdbcType="VARCHAR" />
+        <result column="SAMPLE_DATE" property="sampleDate" jdbcType="VARCHAR" />
+        <result column="MONITOR_TASK_ID" property="monitorTaskId" jdbcType="VARCHAR" />
+        <result column="YEAR" property="year" jdbcType="VARCHAR" />
+        <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR" />
+        <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR" />
+        <result column="CHECK_NUM" property="checkNum" jdbcType="VARCHAR" />
+        <result column="JUDGE_NUM" property="judgeNum" jdbcType="VARCHAR" />
+        <result column="CHECK_INFO_ID" property="checkInfoId" jdbcType="VARCHAR" />
+
+        <result column="TRADE_MARK" property="tradeMark" jdbcType="VARCHAR" />
+        <result column="PACKING" property="packing" jdbcType="VARCHAR" />
+        <result column="GRADE" property="grade" jdbcType="VARCHAR" />
+        <result column="IDENTIFY" property="identify" jdbcType="VARCHAR" />
+        <result column="SPECIFICATION" property="specification" jdbcType="VARCHAR" />
+        <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
+        <result column="PRODUCE_DATE" property="produceDate" jdbcType="VARCHAR" />
+        <result column="PRODUCE_CERTIFICATE" property="produceCertificate" jdbcType="VARCHAR" />
+        <result column="CERTIFICATE_CODE" property="certificateCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_BASE" property="sampleBase" jdbcType="DECIMAL" />
+        <result column="SAMPLE_PLACE" property="samplePlace" jdbcType="VARCHAR" />
+        <result column="TESTED_ADDRESS" property="testedAddress" jdbcType="VARCHAR" />
+        <result column="TESTED_LEGALREP" property="testedLegalrep" jdbcType="VARCHAR" />
+        <result column="TESTED_LINKMAN" property="testedLinkman" jdbcType="VARCHAR" />
+        <result column="TESTED_LINKMANPHONE" property="testedLinkmanphone" jdbcType="VARCHAR" />
+        <result column="TESTED_LINKMANFAX" property="testedLinkmanfax" jdbcType="VARCHAR" />
+        <result column="TESTED_PERSON" property="testedPerson" jdbcType="VARCHAR" />
+        <result column="TESTED_PERSONPHONE" property="testedPersonphone" jdbcType="VARCHAR" />
+        <result column="TESTED_PERSONFAX" property="testedPersonfax" jdbcType="VARCHAR" />
+        <result column="PRODUCTIONS_TATUS" property="productionsTatus" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_DEPARMENT" property="productionDeparment" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_ADDRESS" property="productionAddress" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_ZIPCODE" property="productionZipcode" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_LINKMAN" property="productionLinkman" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_LINKMANPHONE" property="productionLinkmanphone" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_LINKMANFAX" property="productionLinkmanfax" jdbcType="VARCHAR" />
+        <result column="SAMPLE_ID" property="sampleId" jdbcType="VARCHAR" />
+        <result column="SAMPLE_LINKMAN" property="sampleLinkman" jdbcType="VARCHAR" />
+        <result column="SAMPLE_ADDRESS" property="sampleAddress" jdbcType="VARCHAR" />
+        <result column="SAMPLE_ZIPCODE" property="sampleZipcode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_PHONE" property="samplePhone" jdbcType="VARCHAR" />
+        <result column="SAMPLE_FAX" property="sampleFax" jdbcType="VARCHAR" />
+        <result column="SAMPLE_EMAIL" property="sampleEmail" jdbcType="VARCHAR" />
+        <result column="PROOF" property="proof" jdbcType="VARCHAR" />
+        <result column="SAMPLE_PERSON" property="samplePerson" jdbcType="VARCHAR" />
+        <result column="SAMPLE_REPORT" property="sampleReport" jdbcType="VARCHAR" />
+        <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCING_AREA" property="producingArea" jdbcType="VARCHAR" />
+
+        <result column="TESTED_DEPARMENT" property="testedDeparment" jdbcType="VARCHAR" />
+        <result column="SAMPLE_DEPARMENT" property="sampleDeparment" jdbcType="VARCHAR" />
+        <result column="RN" property="rn" jdbcType="INTEGER" />
+
+    </resultMap>
+
+    <resultMap id="monitorSampleMap" type="com.sofn.model.generator.AdsMonitorSample" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR" />
+        <result column="PRODUCT_TRACEABILITY_CODE" property="productTraceabilityCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_BAR_CODE" property="sampleBarCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_NAME" property="sampleName" jdbcType="VARCHAR" />
+        <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR" />
+        <result column="TRADE_MARK" property="tradeMark" jdbcType="VARCHAR" />
+        <result column="PACKING" property="packing" jdbcType="VARCHAR" />
+        <result column="GRADE" property="grade" jdbcType="VARCHAR" />
+        <result column="IDENTIFY" property="identify" jdbcType="VARCHAR" />
+        <result column="SPECIFICATION" property="specification" jdbcType="VARCHAR" />
+        <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
+        <result column="PRODUCE_DATE" property="produceDate" jdbcType="VARCHAR" />
+        <result column="PRODUCE_CERTIFICATE" property="produceCertificate" jdbcType="VARCHAR" />
+        <result column="CERTIFICATE_CODE" property="certificateCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_BASE" property="sampleBase" jdbcType="DECIMAL" />
+        <result column="SAMPLE_PLACE" property="samplePlace" jdbcType="VARCHAR" />
+        <result column="TESTED_DEPARMENT" property="testedDeparment" jdbcType="VARCHAR" />
+        <result column="TESTED_ADDRESS" property="testedAddress" jdbcType="VARCHAR" />
+        <result column="TESTED_LEGALREP" property="testedLegalrep" jdbcType="VARCHAR" />
+        <result column="TESTED_LINKMAN" property="testedLinkman" jdbcType="VARCHAR" />
+        <result column="TESTED_LINKMANPHONE" property="testedLinkmanphone" jdbcType="VARCHAR" />
+        <result column="TESTED_LINKMANFAX" property="testedLinkmanfax" jdbcType="VARCHAR" />
+        <result column="TESTED_PERSON" property="testedPerson" jdbcType="VARCHAR" />
+        <result column="TESTED_PERSONPHONE" property="testedPersonphone" jdbcType="VARCHAR" />
+        <result column="TESTED_PERSONFAX" property="testedPersonfax" jdbcType="VARCHAR" />
+        <result column="PRODUCTIONS_TATUS" property="productionsTatus" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_DEPARMENT" property="productionDeparment" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_ADDRESS" property="productionAddress" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_ZIPCODE" property="productionZipcode" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_LINKMAN" property="productionLinkman" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_LINKMANPHONE" property="productionLinkmanphone" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_LINKMANFAX" property="productionLinkmanfax" jdbcType="VARCHAR" />
+        <result column="SAMPLE_ID" property="sampleId" jdbcType="VARCHAR" />
+        <result column="SAMPLE_DEPARMENT" property="sampleDeparment" jdbcType="VARCHAR" />
+        <result column="SAMPLE_LINKMAN" property="sampleLinkman" jdbcType="VARCHAR" />
+        <result column="SAMPLE_ADDRESS" property="sampleAddress" jdbcType="VARCHAR" />
+        <result column="SAMPLE_ZIPCODE" property="sampleZipcode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_PHONE" property="samplePhone" jdbcType="VARCHAR" />
+        <result column="SAMPLE_FAX" property="sampleFax" jdbcType="VARCHAR" />
+        <result column="SAMPLE_EMAIL" property="sampleEmail" jdbcType="VARCHAR" />
+        <result column="PROOF" property="proof" jdbcType="VARCHAR" />
+        <result column="SAMPLE_PERSON" property="samplePerson" jdbcType="VARCHAR" />
+        <result column="SAMPLE_DATE" property="sampleDate" jdbcType="TIMESTAMP" />
+        <result column="SAMPLE_REPORT" property="sampleReport" jdbcType="VARCHAR" />
+        <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+        <result column="PRODUCING_AREA" property="producingArea" jdbcType="VARCHAR" />
+        <result column="PRODUCING_AREA_NAME" property="producingAreaName" jdbcType="VARCHAR" />
+
+    </resultMap>
+    <!--任务列表-->
+    <select id="getRoutineMonitorList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT DISTINCT
+        M.ID AS id,
+        M.RM_NAME AS rmName,
+        M.RM_TYPE AS rmType,
+        M.RM_MODEL_ID AS rmModelId,
+        M.RM_YEAR AS rmYear,
+        M.RM_BATCH AS rmBatch,
+        M.RM_DATE_BEGIN AS rmDateBegin,
+        M.RM_DATE_END AS rmDateEnd,
+        M.RM_RELEASE_UNIT AS rmReleaseUnit,
+        M.RM_FILE AS rmFile,
+        M.RM_FILE_NUM AS rmFileNum,
+        M.RM_REMARK AS rmRemark,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.UPDATE_BY AS updateBy,
+        M.UPDATE_TIME AS updateTime,
+        M.ENABLE AS enable,
+        M.RM_STATE AS rmState,
+        M.CREATE_ORG_REGION_ID AS createOrgRegionId
+        FROM
+           ASMS_ROUTINE_LEAD_UNIT B
+               right join ASMS_ROUTINE_MONITOR M
+         ON M.ID=B.ROUTINE_MONITOR_ID
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="rmState!=null and rmState!=''">
+            AND M.RM_STATE = #{rmState}
+        </if>
+        <if test="rmYear!=null and rmYear!=''">
+            AND M.RM_YEAR = #{rmYear}
+        </if>
+        <if test="rmName!=null and rmName!=''">
+            AND M.RM_NAME LIKE #{rmName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RM_DATE_END &lt;=to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID=#{createOrgId}
+        </if>
+        <if test="leadUnitId!=null and leadUnitId!=''">
+            AND B.LEAD_UNIT_ID=#{leadUnitId}
+        </if>
+        <if test="areaId!=null and areaId!=''">
+            AND M.CREATE_ORG_REGION_ID like #{areaId}||'%'
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getRoutineMonitorCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM
+        (
+        SELECT DISTINCT M.ID
+        FROM
+          ASMS_ROUTINE_LEAD_UNIT B
+        right join ASMS_ROUTINE_MONITOR M
+        ON M.ID=B.ROUTINE_MONITOR_ID
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="rmState!=null and rmState!=''">
+            AND M.RM_STATE = #{rmState}
+        </if>
+        <if test="rmName!=null and rmName!=''">
+            AND M.RM_NAME LIKE #{rmName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RM_DATE_END &lt;=to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID=#{createOrgId}
+        </if>
+        <if test="leadUnitId!=null and leadUnitId!=''">
+            AND B.LEAD_UNIT_ID=#{leadUnitId}
+        </if>
+        <if test="areaId!=null and areaId!=''">
+            AND M.CREATE_ORG_REGION_ID like #{areaId}||'%'
+        </if>
+        )
+    </select>
+
+    <!--任务列表-->
+    <select id="getSpecialMonitorList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT DISTINCT
+        M.ID AS id,
+        M.SM_NAME AS smName,
+        M.SM_TYPE AS smType,
+        M.SM_MODEL_ID AS smModelId,
+        M.SM_YEAR AS smYear,
+        M.SM_BATCH AS smBatch,
+        M.SM_DATE_BEGIN AS smDateBegin,
+        M.SM_DATE_END AS smDateEnd,
+        M.SM_RELEASE_UNIT AS smReleaseUnit,
+        M.SM_FILE AS smFile,
+        M.SM_FILE_NUM AS smFileNum,
+        M.SM_REMARK AS smRemark,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.UPDATE_BY AS updateBy,
+        M.UPDATE_TIME AS updateTime,
+        M.ENABLE AS enable,
+        M.SM_STATE AS smState,
+        M.CREATE_ORG_REGION_ID AS createOrgRegionId
+        FROM
+        ASMS_SPECIAL_LEAD_UNIT B
+        right join ASMS_SPECIAL_MONITOR M
+        ON M.ID=B.SPECIAL_MONITOR_ID
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="smState!=null and smState!=''">
+            AND M.SM_STATE = #{smState}
+        </if>
+        <if test="smYear!=null and smYear!=''">
+            AND M.SM_YEAR = #{smYear}
+        </if>
+        <if test="smName!=null and smName!=''">
+            AND M.SM_NAME LIKE #{smName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.SM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.SM_DATE_END &lt;=to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID=#{createOrgId}
+        </if>
+        <if test="leadUnitId!=null and leadUnitId!=''">
+            AND B.LEAD_UNIT_ID=#{leadUnitId}
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getSpecialMonitorCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM
+        (
+        SELECT DISTINCT M.ID FROM
+
+        ASMS_SPECIAL_LEAD_UNIT B
+        right join ASMS_SPECIAL_MONITOR M
+        ON M.ID=B.SPECIAL_MONITOR_ID
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="smState!=null and smState!=''">
+            AND M.SM_STATE = #{smState}
+        </if>
+        <if test="smName!=null and smName!=''">
+            AND M.SM_NAME LIKE #{smName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.SM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.SM_DATE_END &lt;=to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID=#{createOrgId}
+        </if>
+        <if test="leadUnitId!=null and leadUnitId!=''">
+            AND B.LEAD_UNIT_ID=#{leadUnitId}
+        </if>
+       )
+    </select>
+
+    <!--列表-->
+    <select id="getCheckTaskList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.TASK_NAME AS taskName,
+        M.TASK_TYPE AS taskType,
+        M.TASK_YEAR AS taskYear,
+        M.TASK_BEGIN_TIME AS taskBeginTime,
+        M.TASK_END_TIME AS taskEndTime,
+        M.TASK_RELEASE_UNIT AS taskReleaseUnit,
+        M.FILES AS files,
+        M.FILE_CODE AS fileCode,
+        M.REMARK AS remark,
+        M.TASK_LEVEL AS taskLevel,
+        M.STATE AS state,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.UPDATE_BY AS updateBy,
+        M.UPDATE_TIME AS updateTime,
+        M.ENABLE AS enable,
+        M.DEL_FLAG AS delFlag,
+        M.CREATE_ORG_REGION_ID AS createOrgRegionId,
+        M.BASE_INSPECTION_ID AS baseInspectionId,
+        M.CY_UNIT_ID AS cyUnitId,
+        M.CY_UNIT_NAME AS cyUnitName,
+        M.JC_UNIT_ID AS jcUnitId,
+        M.JC_UNIT_NAME AS jcUnitName,
+        M.IS_SAMPLE AS isSample,
+        M.JUDGE_STANDARD AS judgeStandard,
+        M.JUDGE_STANDARD_ID AS judgeStandardId,
+        M.DETECTION_STANDARD AS detectionStandard,
+        M.DETECTION_STANDARD_ID AS detectionStandardId,
+        M.PARENT_TASK_ID AS parentTaskId,
+        M.PARENT_TASK_NAME AS parentTaskName,
+        M.CREATE_ORG_ID AS createOrgId,
+        M.CREATE_ORG_NAME AS createOrgName,
+        M.TASK_AREA_ID AS taskAreaId
+        FROM
+        ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        AND M.TASK_LEVEL = '${taskLevel}'
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskAreaId!=null and taskAreaId!=''">
+            AND M.TASK_AREA_ID LIKE #{taskAreaId}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getCheckTaskCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        AND M.TASK_LEVEL = '${taskLevel}'
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskAreaId!=null and taskAreaId!=''">
+            AND M.TASK_AREA_ID LIKE #{taskAreaId}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;=to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+    </select>
+
+    <!--列表-->
+    <select id="getReCheckTaskList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.RECHECK_TASK_NAME AS recheckTaskName,
+        M.RECHECK_TASK_YEAR AS recheckTaskYear,
+        M.RECHECK_TASK_BEGIN AS recheckTaskBegin,
+        M.RECHECK_TASK_END AS recheckTaskEnd,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.UPDATE_BY AS updateBy,
+        M.UPDATE_TIME AS updateTime,
+        M.ENABLE AS enable,
+        M.STATE AS state,
+        M.DEL_FLAG AS delFlag,
+        M.INIT_TASK_TYPE AS initTaskType,
+        M.INIT_TASK_NAME AS initTaskName,
+        M.INIT_TASK_ID AS initTaskId,
+        M.RECHECK_UNIT_ID AS recheckUnitId,
+        M.RECHECK_UNIT_NAME AS recheckUnitName,
+        M.CREATE_ORG_ID AS createOrgId,
+        M.CREATE_ORG_NAME AS createOrgName,
+        M.BATCH AS batch
+        FROM
+        ASMS_RECHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="regParm!=null and regParm!=''">
+           AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="recheckTaskName!=null and recheckTaskName!=''">
+            AND M.RECHECK_TASK_NAME LIKE #{recheckTaskName}
+        </if>
+        <if test="recheckTaskYear!=null and recheckTaskYear!=''">
+            AND M.RECHECK_TASK_YEAR LIKE #{recheckTaskYear}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RECHECK_TASK_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RECHECK_TASK_END &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getReCheckTaskCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_RECHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="recheckTaskName!=null and recheckTaskName!=''">
+            AND M.RECHECK_TASK_NAME LIKE #{recheckTaskName}
+        </if>
+        <if test="regParm!=null and regParm!=''">
+           AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="recheckTaskYear!=null and recheckTaskYear!=''">
+            AND M.RECHECK_TASK_YEAR LIKE #{recheckTaskYear}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RECHECK_TASK_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RECHECK_TASK_END &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+        </if>
+    </select>
+
+    <select id="getCheckTaskById" parameterType="java.lang.String" resultMap="checkTaskMap">
+        select ID, TASK_NAME, TASK_TYPE, TASK_YEAR, TASK_BEGIN_TIME, TASK_END_TIME, TASK_RELEASE_UNIT,
+        TASK_IS_SEPARATE, TASK_AREA_ID, TASK_INDUSTRY, TASK_SAMPLE_DEADLINE, FILES, FILE_CODE,
+        REMARK, TASK_LEVEL, STATE, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE,
+        DEL_FLAG, CREATE_ORG_REGION_ID, BASE_INSPECTION_ID, CY_UNIT_ID, CY_UNIT_NAME, JC_UNIT_ID,
+        JC_UNIT_NAME, IS_SAMPLE, JUDGE_STANDARD, JUDGE_STANDARD_ID, DETECTION_STANDARD, DETECTION_STANDARD_ID,
+        PARENT_TASK_ID, PARENT_TASK_NAME, CREATE_ORG_ID, CREATE_ORG_NAME, JC_STANDARD_LINK_ID,
+        PD_STANDARD_LINK_ID, JD_UNIT_ID, JD_UNIT_NAME, ATTACHMENT_ADDRESS, ATTACHMENT_NAME, FILE_NUMBER
+        from ASMS_CHECK_TASK
+        where ID = #{id,jdbcType=CHAR}
+    </select>
+    <select id="getUnitByTaskId" resultType="com.sofn.model.generator.AsmsCheckBearUnit" parameterType="com.sofn.model.generator.AsmsCheckBearUnit">
+        SELECT * FROM ASMS_CHECK_BEAR_UNIT WHERE SUPERVISE_CHECK_TASK_ID = '${superviseCheckTaskId}'
+    </select>
+
+    <select id="getJcListByTaskId" resultType="com.sofn.model.generator.AsmsJcStandard">
+        SELECT M.* FROM ASMS_JC_STANDARD M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="taskId!=null and taskId!=''">
+            AND M.TASK_ID = #{taskId}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="standardName!=null and standardName!=''">
+            AND M.STANDARD_NAME LIKE #{standardName}
+        </if>
+        order by M.CREATE_TIME DESC
+    </select>
+
+    <select id="getPdListByTaskId" resultType="com.sofn.model.generator.AsmsPdStandard">
+        SELECT M.* FROM ASMS_PD_STANDARD M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="taskId!=null and taskId!=''">
+            AND M.TASK_ID = #{taskId}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="standardName!=null and standardName!=''">
+            AND M.STANDARD_NAME LIKE #{standardName}
+        </if>
+        order by M.CREATE_TIME DESC
+    </select>
+
+    <select id="getObjById" resultMap="monitorObjectMap">
+        SELECT
+        *
+        FROM
+        ASMS_MONITOR_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND M.SUPERVISE_CHECK_TASK_ID=#{id}
+        order by M.CREATE_TIME DESC
+    </select>
+
+    <select id="getReObjById" resultType="java.util.Map">
+        SELECT
+        M.ID AS id,
+        M.RECHECK_TASK_ID AS recheckTaskId,
+        M.RECHECK_SAMPLE_NAME AS recheckSampleName,
+        M.RECHECK_SAMPLE_CODE AS recheckSampleCode,
+        M.RECHECK_UNIT_ID AS recheckUnitId,
+        M.RECHECK_STANDARD AS recheckStandard,
+        M.RECHECK_JUDGE_STANDARD AS recheckJudgeStandard,
+        M.RECHECK_UNIT_NAME AS recheckUnitName,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.ENABLE AS enable
+        FROM
+        ASMS_RECHECK_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND M.RECHECK_TASK_ID=#{id}
+        order by M.CREATE_TIME DESC
+    </select>
+
+    <select id="getReCheckTaskById" parameterType="java.lang.String" resultMap="reCheckTaskMap">
+        select ID, RECHECK_TASK_NAME, RECHECK_TASK_YEAR, RECHECK_TASK_BEGIN, RECHECK_TASK_END,
+        CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, STATE, DEL_FLAG, INIT_TASK_TYPE,
+        INIT_TASK_NAME, INIT_TASK_ID, RECHECK_UNIT_ID, RECHECK_UNIT_NAME, CREATE_ORG_ID,
+        CREATE_ORG_NAME, BATCH, CREATE_ORG_REGION_ID
+        from ASMS_RECHECK_TASK
+        where ID = #{id,jdbcType=CHAR}
+    </select>
+
+    <select id="getRoutineMonitorById" parameterType="java.lang.String" resultMap="routineMonitorMap">
+        select ID, RM_NAME, RM_TYPE, RM_MODEL_ID, RM_YEAR, RM_BATCH, RM_DATE_BEGIN, RM_DATE_END,
+        RM_RELEASE_UNIT, RM_FILE, RM_FILE_NUM, RM_REMARK, RM_STATE, CREATE_BY, CREATE_TIME,
+        UPDATE_BY, UPDATE_TIME, ENABLE, DEL_FLAG, CREATE_ORG_REGION_ID, CREATE_ORG_NAME,
+        CREATE_ORG_ID, LEVEL_ENUM,RM_FILE_NAME
+        from ASMS_ROUTINE_MONITOR
+        where ID = #{id,jdbcType=CHAR}
+    </select>
+
+    <select id="getRmUnitByTaskId" resultType="com.sofn.model.generator.AsmsRoutineLeadUnit" parameterType="com.sofn.model.generator.AsmsRoutineLeadUnit">
+        SELECT * FROM ASMS_ROUTINE_LEAD_UNIT WHERE ROUTINE_MONITOR_ID = '${routineMonitorId}'
+    </select>
+
+    <select id="getSpecialMonitorById" parameterType="java.lang.String" resultMap="specialMonitorMap">
+        select ID, SM_NAME, SM_TYPE, SM_MODEL_ID, SM_YEAR, SM_BATCH, SM_DATE_BEGIN, SM_DATE_END,
+        SM_RELEASE_UNIT, SM_FILE, SM_FILE_NUM, SM_REMARK, SM_STATE, CREATE_BY, CREATE_TIME,
+        UPDATE_BY, UPDATE_TIME, ENABLE, DEL_FLAG, CREATE_ORG_REGION_ID, CREATE_ORG_ID, CREATE_ORG_NAME,SM_FILE_NAME
+        from ASMS_SPECIAL_MONITOR
+        where ID = #{id,jdbcType=CHAR}
+    </select>
+
+    <select id="getSmUnitByTaskId" resultType="com.sofn.model.generator.AsmsSpecialLeadUnit" parameterType="com.sofn.model.generator.AsmsSpecialLeadUnit">
+        SELECT * FROM ASMS_SPECIAL_LEAD_UNIT WHERE SPECIAL_MONITOR_ID = '${specialMonitorId}'
+    </select>
+
+    <!--根据父级任务id和创建机构id获取任务列表-->
+    <select id="getTaskByCreateOrgIdAndParentTaskId" resultMap="checkTaskMap">
+        SELECT * FROM
+        ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="parentTaskId!=null and parentTaskId!=''">
+            AND M.PARENT_TASK_ID = '${parentTaskId}'
+        </if>
+        <if test="CreateOrgId!=null and CreateOrgId!=''">
+            AND M.CREATE_ORG_ID = '${CreateOrgId}'
+        </if>
+    </select>
+
+    <!--列表-->
+    <select id="listCheckTaskReport" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.FILE_ADDRESS AS fileAddress,
+        M.MONITOR_TASK_ID AS monitorTaskId,
+        M.MONITOR_TASK AS monitorTask,
+        M.UPLOAD_DEPARTMENT AS uploadDepartment,
+        M.DEL_FLAG AS delFlag,
+        M.RESERVED_FIELD1 AS reservedField1,
+        M.RESERVED_FIELD2 AS reservedField2,
+        M.FILE_NAME AS fileName,
+        M.MONITOR_TYPE AS monitorType,
+        M.YEARS AS years,
+        M.SOURCE AS source,
+        M.FOLDER AS folder,
+        M.FIELD AS field,
+        M.ORGAN_TASK_ID AS organTaskId
+        FROM
+        ASMS_CHECK_TASK_REPORT M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="taskId!=null and taskId!=''">
+            AND M.MONITOR_TASK_ID = #{taskId}
+        </if>
+        <if test="monitorTask!=null and monitorTask!=''">
+            AND M.MONITOR_TASK LIKE #{monitorTask}
+        </if>
+        <if test="years!=null and years!=''">
+            AND M.YEARS = #{years}
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="countCheckTaskReport" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_CHECK_TASK_REPORT M
+        WHERE 1=1
+        <if test="taskId!=null and taskId!=''">
+            AND M.MONITOR_TASK_ID = #{taskId}
+        </if>
+        <if test="monitorTask!=null and monitorTask!=''">
+            AND M.MONITOR_TASK LIKE #{monitorTask}
+        </if>
+        <if test="years!=null and years!=''">
+            AND M.YEARS = #{years}
+        </if>
+    </select>
+
+    <select id="getPageInfoWithCheckInfoId" resultMap="infoProjectMap" parameterType="hashmap" >
+        SELECT * FROM(
+            SELECT
+                N.*,ROWNUM AS rn FROM (
+                  select ID
+                      , CHECK_PROJECT
+                      , CHECK_NUM
+                      , JUDGE_NUM
+                      , RESULT
+                      , CHECK_INFO_ID
+                      , LOO
+                      , LOD
+                      , UNIT
+                  from ADS_INFO_PROJECT
+                  where CHECK_INFO_ID =#{checkInfoId} AND ADS_INFO_PROJECT.DEL_FLAG != 'Y' order by ID asc
+              ) N)
+                WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+    <select id="getCountWithCheckInfoId" resultType="long" parameterType="hashmap">
+        select
+            COUNT(*)
+        from ADS_INFO_PROJECT
+        where CHECK_INFO_ID =#{checkInfoId} AND ADS_INFO_PROJECT.DEL_FLAG != 'Y'
+    </select>
+    <select id="queryByMyId" resultMap="checkInfoMap" parameterType="hashmap" >
+        select ID
+        , ORGAN_TASK_ID
+        , SAMPLE_BAR_CODE
+        , MONITOR_SAMPLE_ID
+        , SAMPLE_CODE
+        , SAMPLE_NAME
+        , CHECK_LINK
+        , RESULT
+        , CHECK_ORGAN_ID
+        , CHECK_ORGAN
+        , CHECK_REPORT
+        , PRODUCT_TRACEABILITY_CODE
+        , TESTED_DEPARMENT
+        , SAMPLE_DEPARMENT
+        from ADS_CHECK_INFO
+        where ID =#{id}
+    </select>
+
+    <select id="queryTaskName" parameterType="string" resultType="string">
+        SELECT a.task_name FROM
+        ADS_MONITOR_TASK a,ADS_ORGAN_TASK b
+        where 1 = 1
+        AND b.ID = #{organTaskId}
+        AND a.ID = b.MONITOR_TASK_ID
+    </select>
+
+    <select id="getPageInfoWithOrgTaskId" parameterType="hashmap" resultType="map">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select amt.id,
+        amt.SAMPLE_NAME,
+        amt.SAMPLE_CODE,
+        amt.PRODUCT_TRACEABILITY_CODE,
+        amt.TESTED_DEPARMENT,
+        amt.SAMPLE_DEPARMENT,
+        amt.CHECK_ORGAN,
+        amt.RESULT,
+        amt.CHECK_REPORT
+        from ADS_CHECK_INFO amt,ADS_MONITOR_SAMPLE s
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND amt.ORGAN_TASK_ID = #{organTaskId} AND s.id = amt.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2'
+        order by amt.create_time desc,amt.update_time desc,amt.id desc) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountWithOrgTaskId" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM ADS_CHECK_INFO T,ADS_MONITOR_SAMPLE s
+        where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.ORGAN_TASK_ID = #{organTaskId} AND s.id = T.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2'
+    </select>
+
+    <select id="findAdsMonitorSample" parameterType="string" resultType="com.sofn.model.generator.AdsMonitorSample">
+        SELECT * FROM ADS_MONITOR_SAMPLE
+        WHERE SAMPLE_CODE=#{sampleCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAdsMonitorSampleById" parameterType="com.sofn.model.generator.AdsMonitorSample" resultType="map">
+        SELECT A.ID
+        ,A.PRODUCT_TRACEABILITY_CODE
+        ,A.PRODUCING_AREA
+        ,A.PRODUCING_AREA_NAME
+        , A.ORGAN_TASK_ID
+        , to_char(A.SAMPLE_BAR_CODE)
+        , A.SAMPLE_NAME
+        , A.SAMPLE_CODE
+        , A.TRADE_MARK
+        , A.PACKING
+        , A.GRADE
+        , A.IDENTIFY
+        , A.SPECIFICATION
+        , A.STANDARD
+        ,to_char(A.PRODUCE_DATE,'yyyy-mm-dd') PRODUCE_DATE
+        ,A.PRODUCE_CERTIFICATE
+        , A.CERTIFICATE_CODE
+        , to_char(A.SAMPLE_BASE) SAMPLE_BASE
+        , A.SAMPLE_PLACE
+        , A.TESTED_DEPARMENT
+        , A.TESTED_ADDRESS
+        , A.TESTED_LEGALREP
+        , A.TESTED_LINKMAN
+        , A.TESTED_LINKMANPHONE
+        , A.TESTED_LINKMANFAX
+        , A.TESTED_PERSON
+        , A.TESTED_PERSONPHONE
+        , A.TESTED_PERSONFAX
+        , A.PRODUCTIONS_TATUS
+        , A.PRODUCTION_DEPARMENT
+        , A.PRODUCTION_ADDRESS
+        , A.PRODUCTION_ZIPCODE
+        , A.PRODUCTION_LINKMAN
+        , A.PRODUCTION_LINKMANPHONE
+        , A.PRODUCTION_LINKMANFAX
+        , A.SAMPLE_ID
+        , A.SAMPLE_DEPARMENT
+        , A.SAMPLE_LINKMAN
+        , A.SAMPLE_ADDRESS
+        , A.SAMPLE_ZIPCODE
+        , A.SAMPLE_PHONE
+        , A.SAMPLE_FAX
+        , A.SAMPLE_EMAIL
+        , A.PROOF
+        , A.SAMPLE_PERSON
+        , to_char(A.SAMPLE_DATE,'yyyy-mm-dd') SAMPLE_DATE
+        , A."COMMENT"
+        , to_char(A.SAMPLE_NUMBER)SAMPLE_NUMBER
+        , A.SAMPLE_NUMBER_UNIT
+        , A.SAMPLE_BASE_UNIT
+        , A.FILE_NAME
+        , A.FILE_ADDRESS
+        , A.SAMPLE_REPORT
+        , A."COMMENT"
+        , C.TASK_NAME
+        , C.CHECK_OBJECT
+        , to_char(C.START_TIME,'yyyy-mm-dd hh24:mi:ss') START_TIME
+        from ADS_MONITOR_SAMPLE A LEFT JOIN ADS_ORGAN_TASK B
+        ON A.ORGAN_TASK_ID= B.ID  LEFT JOIN ADS_MONITOR_TASK C
+        ON B.MONITOR_TASK_ID=C.ID
+        where 1 = 1 AND A.DEL_FLAG != 'Y' AND B.DEL_FLAG != 'Y' AND C.DEL_FLAG != 'Y'
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND A.SAMPLE_CODE= #{sampleCode}
+        </if>
+        AND A.ORGAN_TASK_ID = B.id AND B.ID = #{organTaskId}
+    </select>
+
+    <select id="getAdsMonitorSamplePageInfoByCode" parameterType="hashmap" resultMap="monitorSampleMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (
+        SELECT * from ADS_MONITOR_TASK A LEFT JOIN ADS_ORGAN_TASK B ON A.ID=B.MONITOR_TASK_ID
+        LEFT  JOIN ADS_MONITOR_SAMPLE C ON B.ID=C.ORGAN_TASK_ID
+        where 1 = 1 AND A.DEL_FLAG != 'Y'AND B.DEL_FLAG != 'Y' AND C.DEL_FLAG != 'Y'
+        AND
+        <foreach collection="supId" item="id" index="index" separator="OR">
+            A.id = #{id}
+        </foreach>
+        <if test="organTaskId!=null and organTaskId!=''">
+            AND B.id= #{organTaskId}
+        </if>
+        ) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1) ]]>
+    </select>
+
+    <select id="getCountByCode" parameterType="hashmap" resultType="long">
+        SELECT COUNT (1) from ADS_MONITOR_TASK A LEFT JOIN ADS_ORGAN_TASK B ON A.ID=B.MONITOR_TASK_ID
+        LEFT  JOIN ADS_MONITOR_SAMPLE C ON B.ID=C.ORGAN_TASK_ID
+        where 1 = 1 AND A.DEL_FLAG != 'Y'AND B.DEL_FLAG != 'Y' AND C.DEL_FLAG != 'Y'
+        AND
+        <foreach collection="supId" item="id" index="index" separator="OR">
+            A.id = #{id}
+        </foreach>
+        <if test="organTaskId!=null and organTaskId!=''">
+            AND B.id= #{organTaskId}
+        </if>
+    </select>
+
+    <select id="findALLAdsMonitorSample" parameterType="hashmap" resultMap="monitorSampleMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (
+        SELECT * from ADS_MONITOR_TASK A LEFT JOIN ADS_ORGAN_TASK B ON A.ID=B.MONITOR_TASK_ID
+        LEFT  JOIN ADS_MONITOR_SAMPLE C ON B.ID=C.ORGAN_TASK_ID
+        where 1 = 1 AND A.DEL_FLAG != 'Y'AND B.DEL_FLAG != 'Y' AND C.DEL_FLAG != 'Y'
+        <if test="organId!=null and organId!=''">
+            AND A.ORGAN_ID= #{organId}
+        </if>
+        AND A.SUP_ID= #{supId}
+        ) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1) ]]>
+    </select>
+
+    <select id="findAdsMonitorSampleCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT (1) from ADS_MONITOR_TASK A LEFT JOIN ADS_ORGAN_TASK B ON A.ID=B.MONITOR_TASK_ID
+        LEFT  JOIN ADS_MONITOR_SAMPLE C ON B.ID=C.ORGAN_TASK_ID
+        where 1 = 1 AND A.DEL_FLAG != 'Y'AND B.DEL_FLAG != 'Y' AND C.DEL_FLAG != 'Y'
+        <if test="organId!=null and organId!=''">
+            AND A.ORGAN_ID= #{organId}
+        </if>
+        AND A.SUP_ID= #{supId}
+    </select>
+
+    <select id="findRmOrgList" resultMap="routineMonitorMap" parameterType="map">
+      SELECT DISTINCT M.CREATE_ORG_ID,M.CREATE_ORG_NAME
+         FROM ASMS_ROUTINE_MONITOR M
+      WHERE (M.CREATE_ORG_ID IS NOT NULL) AND (M.CREATE_ORG_NAME IS NOT NULL)
+      <if test="regParm!=null and regParm!=''">
+          AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+      </if>
+    </select>
+
+    <select id="findRmLeadUnitList" resultType="com.sofn.model.generator.AsmsRoutineLeadUnit">
+     SELECT DISTINCT L.LEAD_UNIT_ID,L.LEAD_UNIT_NAME
+      FROM ASMS_ROUTINE_MONITOR M
+        LEFT JOIN ASMS_ROUTINE_LEAD_UNIT L
+         ON M.ID=L.ROUTINE_MONITOR_ID
+         WHERE 1=1
+         <if test="regParm!=null and regParm!=''">
+             AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+         </if>
+    </select>
+    <select id="findSpecialRmOrgList" resultMap="specialMonitorMap">
+          SELECT DISTINCT M.CREATE_ORG_ID,M.CREATE_ORG_NAME
+         FROM ASMS_SPECIAL_MONITOR M
+      WHERE (M.CREATE_ORG_ID IS NOT NULL) AND (M.CREATE_ORG_NAME IS NOT NULL)
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+    </select>
+    <select id="findSpecialRmLeadUnitList" resultType="com.sofn.model.generator.AsmsSpecialLeadUnit">
+        SELECT DISTINCT L.LEAD_UNIT_ID,L.LEAD_UNIT_NAME
+      FROM ASMS_SPECIAL_MONITOR M
+        LEFT JOIN ASMS_SPECIAL_LEAD_UNIT L
+         ON M.ID=L.SPECIAL_MONITOR_ID
+         WHERE (L.LEAD_UNIT_ID IS NOT NULL) AND (L.LEAD_UNIT_NAME IS NOT NULL)
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+    </select>
+
+    <select id="getAdsFileBySupId" parameterType="hashmap" resultType="java.util.Map">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select af.years
+        , af.monitor_task
+        , amt.release_unit
+        , af.file_name
+        , af.file_address
+        from ads_monitor_task amt,ads_file af
+        where 1=1 and af.del_flag != 'Y'
+        and amt.del_flag != 'Y'
+        and amt.id = af.monitor_task_id
+        and af.source = '牵头单位'
+        and af.folder = 'no'
+        <if test="supId != null and supId != ''">
+            and amt.sup_id = #{supId}
+        </if>
+        order by amt.year desc,amt.create_time desc,amt.update_time desc,amt.id desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+        where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountBySupId" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ads_monitor_task amt,ads_file af
+        where 1=1 and af.del_flag != 'Y'
+        and amt.del_flag != 'Y'
+        and amt.id = af.monitor_task_id
+        and af.source = '牵头单位'
+        and af.folder = 'YES'
+        <if test="supId != null and supId != ''">
+            and amt.sup_id = #{supId}
+        </if>
+    </select>
+</mapper>

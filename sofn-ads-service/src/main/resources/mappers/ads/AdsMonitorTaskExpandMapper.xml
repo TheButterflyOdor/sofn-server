@@ -1,0 +1,1308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsMonitorTaskExpandMapper">
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsMonitorTask">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR"/>
+        <result column="MONITOR_CLASS" property="monitorClass" jdbcType="VARCHAR"/>
+        <result column="RELEASE_UNIT" property="releaseUnit" jdbcType="VARCHAR"/>
+        <result column="CHECK_MODEL" property="checkModel" jdbcType="VARCHAR"/>
+        <result column="MODEL_TITLE" property="modelTitle" jdbcType="VARCHAR"/>
+        <result column="YEAR" property="year" jdbcType="VARCHAR"/>
+        <result column="BATCH" property="batch" jdbcType="VARCHAR"/>
+        <result column="SEPARATION" property="separation" jdbcType="DECIMAL"/>
+        <result column="START_TIME" property="startTime" jdbcType="VARCHAR"/>
+        <result column="END_TIME" property="endTime" jdbcType="VARCHAR"/>
+        <result column="DEADLINE" property="deadline" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENTCODE" property="attachmentcode" jdbcType="VARCHAR"/>
+        <result column="COMMENT" property="comment" jdbcType="VARCHAR"/>
+        <result column="PUBLISH_STATUS" property="publishStatus" jdbcType="DECIMAL"/>
+        <result column="INDUSTRY" property="industry" jdbcType="VARCHAR"/>
+        <result column="JUDGE_STANDARD" property="judgeStandard" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_LINK" property="sampleLink" jdbcType="VARCHAR"/>
+        <result column="CHECK_OBJECT" property="checkObject" jdbcType="VARCHAR"/>
+        <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="RN" property="rn" jdbcType="INTEGER"/>
+        <result column="LEVE" property="leve" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_ADDRESS" property="attachmentAddress" jdbcType="VARCHAR"/>
+        <result column="ABOLISH" property="abolish" jdbcType="VARCHAR"/>
+        <result column="ORGAN_ID" property="organId" jdbcType="VARCHAR"/>
+        <result column="TASK_SOURCE" property="taskSource" jdbcType="VARCHAR"/>
+        <result column="SUP_ID" property="supId" jdbcType="VARCHAR"/>
+        <result column="INDUSTRY_ID" property="industryId" jdbcType="VARCHAR"/>
+        <result column="CREATE_ORG_REGION_ID" property="createOrgRegionId" jdbcType="VARCHAR"/>
+        <result column="LEVEL_ENUM" property="levelEnum" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="joinSelectScore" type="com.sofn.model.generator.AdsMonitorTask">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR"/>
+        <result column="MONITOR_CLASS" property="monitorClass" jdbcType="VARCHAR"/>
+        <result column="RELEASE_UNIT" property="releaseUnit" jdbcType="VARCHAR"/>
+        <result column="CHECK_MODEL" property="checkModel" jdbcType="VARCHAR"/>
+        <result column="YEAR" property="year" jdbcType="VARCHAR"/>
+        <result column="BATCH" property="batch" jdbcType="VARCHAR"/>
+        <result column="SEPARATION" property="separation" jdbcType="DECIMAL"/>
+        <result column="START_TIME" property="startTime" jdbcType="VARCHAR"/>
+        <result column="END_TIME" property="endTime" jdbcType="VARCHAR"/>
+        <result column="DEADLINE" property="deadline" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENTCODE" property="attachmentcode" jdbcType="VARCHAR"/>
+        <result column="COMMENT" property="comment" jdbcType="VARCHAR"/>
+        <result column="PUBLISH_STATUS" property="publishStatus" jdbcType="DECIMAL"/>
+        <result column="INDUSTRY" property="industry" jdbcType="VARCHAR"/>
+        <result column="JUDGE_STANDARD" property="judgeStandard" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_LINK" property="sampleLink" jdbcType="VARCHAR"/>
+        <result column="CHECK_OBJECT" property="checkObject" jdbcType="VARCHAR"/>
+        <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="ATTACHMENT_ADDRESS" property="attachmentAddress" jdbcType="VARCHAR"/>
+        <result column="RN" property="rn" jdbcType="INTEGER"/>
+        <result column="SUP_ID" property="supId" jdbcType="VARCHAR"/>
+        <collection property="adsOrganTaskList" column="monitorTaskId" ofType="com.sofn.model.generator.AdsOrganTask">
+            <id column="OrganTaskID" property="id" jdbcType="VARCHAR"/>
+            <result column="SAMPLE_ORGAN" property="sampleOrgan" jdbcType="VARCHAR"/>
+            <result column="DETECTION_ORGAN" property="detectionOrgan" jdbcType="VARCHAR"/>
+            <result column="MONITOR_TASK_ID" property="monitorTaskId" jdbcType="VARCHAR"/>
+            <result column="REG_ID" property="regId" jdbcType="VARCHAR"/>
+            <result column="REG_NAME" property="regName" jdbcType="VARCHAR"/>
+            <result column="NUMBERS" property="numbers" jdbcType="DECIMAL"/>
+            <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR"/>
+            <result column="SAMPLE_FINISH_NUM" property="sampleFinishNum" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <select id="getPageInfo" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select
+        <if test="source !=null and source!=''">
+            DISTINCT
+        </if>
+        amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        (select cm.model_name from ads_check_model cm where cm.id = amt.check_model) model_title,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        to_char(amt.start_time,'yyyy-mm-dd') start_time,
+        to_char(amt.end_time,'yyyy-mm-dd') end_time,
+        to_char(amt.deadline,'yyyy-mm-dd') deadline,
+        "COMMENT",
+        amt.publish_status,
+        amt.industry,
+        amt.sample_link,
+        amt.check_object,
+        amt.check_project,
+        amt.create_by,
+        amt.update_by,
+        amt.create_time,
+        amt.update_time,
+        amt.attachment,
+        amt.attachmentcode,
+        amt.attachment_address,
+        amt.task_source
+        from ADS_MONITOR_TASK amt
+        <if test="source !=null and source!=''">
+            ,ADS_FILE af
+        </if>
+        where 1 = 1 AND amt.DEL_FLAG != 'Y'
+        <if test="industry!=null and industry!=''">
+            AND amt.industry = #{industry}
+        </if>
+        <if test="queryStartTiem!=null and queryStartTiem!=''">
+            AND amt.start_time    <![CDATA[ >=to_date(#{queryStartTiem},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="queryEndTiem!=null and queryEndTiem!=''">
+            AND amt.start_time    <![CDATA[ <=to_date(#{queryEndTiem},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="taskSource!=null and taskSource!=''">
+            AND amt.task_source = #{taskSource}
+        </if>
+        <if test="publishStatus!=null">
+            AND amt.publish_status = #{publishStatus}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND amt.monitor_class = #{monitorClass}
+        </if>
+        <if test="year!=null and year!=''">
+            AND amt.year = #{year}
+        </if>
+        <if test="organId!=null and organId!=''">
+            AND amt.organ_id = #{organId}
+        </if>
+        <if test="monitorType !=null and monitorType !=''">
+            AND amt.monitor_class != #{monitorType}
+        </if>
+        <if test="source !=null and source!=''">
+            and af.monitor_task_id = amt.id
+            and af.source = #{source}
+        </if>
+        <if test="is_history!=null and is_history='Y' and is_history !=''">
+            and amt.publish_status != 0
+        </if>
+        order by amt.year desc,amt.create_time desc,amt.update_time desc,amt.id desc) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(
+        <if test="source !=null and source!=''">
+            DISTINCT amt.id
+        </if>
+        <if test="source == null or source ==''">
+            1
+        </if>
+        ) FROM ADS_MONITOR_TASK amt
+        <if test="source !=null and source!=''">
+            ,ADS_FILE af
+        </if>
+        where 1 = 1 AND amt.DEL_FLAG != 'Y'
+        <if test="industry!=null and industry!=''">
+            AND amt.industry = #{industry}
+        </if>
+        <if test="queryStartTiem!=null and queryStartTiem!=''">
+            and amt.start_time    <![CDATA[ >=to_date(#{queryStartTiem},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="queryEndTiem!=null and queryEndTiem!=''">
+            and amt.start_time    <![CDATA[ <=to_date(#{queryEndTiem},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="publishStatus!=null">
+            AND amt.publish_status = #{publishStatus}
+        </if>
+        <if test="taskSource!=null and taskSource!=''">
+            AND amt.task_source = #{taskSource}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND amt.monitor_class = #{monitorClass}
+        </if>
+        <if test="year!=null and year!=''">
+            AND amt.year = #{year}
+        </if>
+        <if test="organId!=null and organId!=''">
+            AND amt.organ_id = #{organId}
+        </if>
+        <if test="monitorType !=null and monitorType !=''">
+            AND amt.monitor_class != #{monitorType}
+        </if>
+        <if test="source !=null and source!=''">
+            and af.monitor_task_id = amt.id
+            and af.source = #{source}
+        </if>
+        <if test="is_history!=null and is_history='Y' and is_history !=''">
+            and amt.publish_status != 0
+        </if>
+    </select>
+
+    <select id="getHangye" parameterType="hashmap" resultMap="BaseResultMap">
+        select DISTINCT amt.INDUSTRY
+        from ADS_MONITOR_TASK amt where amt.INDUSTRY is not null
+    </select>
+
+    <select id="getLevel" parameterType="hashmap" resultMap="BaseResultMap">
+        select DISTINCT amt.LEVE
+        from ADS_MONITOR_TASK amt
+    </select>
+
+    <update id="updateAdsMonitorTaskStatus" parameterType="hashmap">
+      update ADS_MONITOR_TASK amt set publish_status = #{publishStatus},update_by=#{updateBy},update_time=sysdate
+      where id=#{id}
+    </update>
+
+    <update id="updateAdsMonitorTaskPublishStatus" parameterType="hashmap">
+      update ADS_MONITOR_TASK amt set publish_status = #{publishStatus},update_by=#{updateBy},update_time=sysdate
+      where
+        <if test="supId !=null and supId!=''">
+            SUP_ID=#{supId}
+        </if>
+        <if test="id !=null and id!=''">
+            id=#{id}
+        </if>
+
+    </update>
+
+    <insert id="insert" parameterType="com.sofn.model.generator.AdsMonitorTask">
+        insert into ADS_MONITOR_TASK (ID
+        , TASK_NAME
+        , MONITOR_CLASS
+        , RELEASE_UNIT
+        , CHECK_MODEL
+        , YEAR
+        , BATCH
+        , SEPARATION
+        , START_TIME
+        , END_TIME
+        , DEADLINE
+        , ATTACHMENT
+        , ATTACHMENTCODE
+        , "COMMENT"
+        , PUBLISH_STATUS
+        , INDUSTRY
+        , JUDGE_STANDARD
+        , SAMPLE_LINK
+        , CHECK_OBJECT
+        , CHECK_PROJECT
+        , CREATE_BY
+        , CREATE_TIME
+        , ATTACHMENT_ADDRESS
+        , ABOLISH
+        , ORGAN_ID
+        , SUP_ID
+        <if test="taskSource != null and taskSource !=''">
+            , TASK_SOURCE
+        </if>
+        , INDUSTRY_ID
+        , CREATE_ORG_REGION_ID
+        , LEVEL_ENUM
+        , LEVE
+        )
+        values (#{id,jdbcType=VARCHAR}
+        , #{taskName,jdbcType=VARCHAR}
+        , #{monitorClass,jdbcType=VARCHAR}
+        , #{releaseUnit,jdbcType=VARCHAR}
+        , #{checkModel,jdbcType=VARCHAR}
+        , #{year,jdbcType=VARCHAR}
+        , #{batch,jdbcType=VARCHAR}
+        , #{separation,jdbcType=DECIMAL}
+        , to_timestamp(#{startTime},'yyyy-mm-dd hh24:mi:ss:ff')
+        , to_timestamp(#{endTime},'yyyy-mm-dd hh24:mi:ss:ff')
+        , to_timestamp(#{deadline},'yyyy-mm-dd hh24:mi:ss:ff')
+        , #{attachment,jdbcType=VARCHAR}
+        , #{attachmentcode,jdbcType=VARCHAR}
+        , #{comment,jdbcType=VARCHAR}
+        , #{publishStatus,jdbcType=DECIMAL}
+        , #{industry,jdbcType=VARCHAR}
+        , #{judgeStandard,jdbcType=VARCHAR}
+        , #{sampleLink,jdbcType=VARCHAR}
+        , #{checkObject,jdbcType=VARCHAR}
+        , #{checkProject,jdbcType=VARCHAR}
+        , #{createBy,jdbcType=VARCHAR}
+        , sysdate
+        , #{attachmentAddress,jdbcType=VARCHAR}
+        , #{abolish,jdbcType=VARCHAR}
+        , #{organId,jdbcType=VARCHAR}
+        , #{supId,jdbcType=VARCHAR}
+        <if test="taskSource != null and taskSource !=''">
+            , #{taskSource,jdbcType=VARCHAR}
+        </if>
+        , #{industryId,jdbcType=VARCHAR}
+        , #{createOrgRegionId,jdbcType=VARCHAR}
+        , #{levelEnum,jdbcType=VARCHAR}
+        , #{leve,jdbcType=VARCHAR}
+        )
+    </insert>
+    <select id="findAdsMonitorTaskById" resultMap="joinSelectScore" parameterType="hashmap">
+        select b.ID,b.TASK_NAME,b.MONITOR_CLASS,b.RELEASE_UNIT,b.CHECK_MODEL,b.year,b.BATCH,b.SEPARATION,
+        to_char(b.START_TIME,'yyyy-mm-dd') START_TIME ,to_char(b.END_TIME,'yyyy-mm-dd') END_TIME,
+        to_char(b.DEADLINE,'yyyy-mm-dd') DEADLINE,b.PUBLISH_STATUS,b.ATTACHMENT,b.ATTACHMENTCODE,b.INDUSTRY,b.SUP_ID,
+        b.JUDGE_STANDARD,b.SAMPLE_LINK,b.CHECK_OBJECT,b.CHECK_PROJECT,b.DEL_FLAG,b.CREATE_BY,b.UPDATE_BY,b."COMMENT",a.SAMPLE_FINISH_NUM,
+        a.SAMPLE_ORGAN,a.MONITOR_TASK_ID,a.DETECTION_ORGAN,a.REG_ID,a.NUMBERS,a.ID
+        OrganTaskID,a.CITY_NAME,b.ATTACHMENT_ADDRESS
+        from ADS_MONITOR_TASK b left join ADS_ORGAN_TASK a on a.MONITOR_TASK_ID=b.ID
+        WHERE a.DEL_FLAG != 'Y' AND b.DEL_FLAG != 'Y' AND b.PUBLISH_STATUS !='0'
+        <if test="monitorTaskId!=null and monitorTaskId!=''">
+            AND a.MONITOR_TASK_ID=#{monitorTaskId}
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND b.MONITOR_CLASS=#{monitorClass}
+        </if>
+        <if test="sampleOrganId!=null and sampleOrganId!=''">
+            AND (a.SAMPLE_ORGAN_ID=#{sampleOrganId}
+        </if>
+        <if test="detectionOrganId!=null and detectionOrganId!=''">
+            OR a.DETECTION_ORGAN_ID=#{detectionOrganId})
+        </if>
+    </select>
+
+    <select id="findAuditAdsMonitorTaskById" resultMap="joinSelectScore" parameterType="hashmap">
+        select b.TASK_NAME,b.MONITOR_CLASS,b.RELEASE_UNIT,b.CHECK_MODEL,b.year,b.BATCH,b.SEPARATION,
+        to_char(b.START_TIME,'yyyy-mm-dd') START_TIME ,to_char(b.END_TIME,'yyyy-mm-dd') END_TIME,
+        to_char(b.DEADLINE,'yyyy-mm-dd') DEADLINE,b.PUBLISH_STATUS,b.ATTACHMENT,b.ATTACHMENTCODE,b.INDUSTRY,
+        b.JUDGE_STANDARD,b.SAMPLE_LINK,b.CHECK_OBJECT,b.CHECK_PROJECT,b.DEL_FLAG,b.CREATE_BY,b.UPDATE_BY,
+        a.SAMPLE_ORGAN,a.MONITOR_TASK_ID,a.DETECTION_ORGAN,a.NUMBERS,a.ID OrganTaskID,a.CITY_NAME,a.SAMPLE_FINISH_NUM
+        from ADS_MONITOR_TASK b left join ADS_ORGAN_TASK a on a.MONITOR_TASK_ID=b.ID
+        WHERE a.DEL_FLAG != 'Y' AND b.DEL_FLAG != 'Y' AND b.PUBLISH_STATUS !='0'
+        <if test="id!=null and id!=''">
+            AND b.ID=#{id}
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND b.MONITOR_CLASS='监督抽查'
+        </if>
+        <if test="sampleOrganId!=null and sampleOrganId!=''">
+            AND (a.SAMPLE_ORGAN_ID=#{sampleOrganId}
+        </if>
+        <if test="detectionOrganId!=null and detectionOrganId!=''">
+            OR a.DETECTION_ORGAN_ID=#{detectionOrganId})
+        </if>
+    </select>
+    <select id="getPageAdsMonitorTask" resultType="map" parameterType="hashmap">
+        SELECT Tab.*
+        FROM (select b.ID,b.TASK_NAME,b.MONITOR_CLASS,b.RELEASE_UNIT,b.CHECK_MODEL,b.year,b.BATCH,b.SEPARATION,
+        to_char(b.START_TIME,'yyyy-mm-dd') START_TIME ,to_char(b.END_TIME,'yyyy-mm-dd') END_TIME,
+        to_char(b.DEADLINE,'yyyy-mm-dd') DEADLINE,b.PUBLISH_STATUS,b.ATTACHMENT,b.ATTACHMENTCODE,b.INDUSTRY,
+        b.JUDGE_STANDARD,b.SAMPLE_LINK,b.CHECK_OBJECT,b.CHECK_PROJECT,b.DEL_FLAG,b.CREATE_BY,b.UPDATE_BY,
+        a.SAMPLE_ORGAN,a.MONITOR_TASK_ID,a.DETECTION_ORGAN,a.REG_ID,a.SAMPLE_FINISH_NUM,a.NUMBERS,a.ID OrganTaskID,
+        a.SAMPLE_REPORT_STATUS,(SELECT count(1) from ADS_MONITOR_SAMPLE c WHERE c.DEL_FLAG != 'Y' AND
+        c.ORGAN_TASK_ID=#{id}) CON,
+        ROW_NUMBER() OVER(ORDER BY b.ID DESC) AS NUM
+        from ADS_MONITOR_TASK b left join ADS_ORGAN_TASK a on a.MONITOR_TASK_ID=b.ID
+        WHERE a.DEL_FLAG != 'Y' AND b.DEL_FLAG != 'Y'
+        <if test="id!=null and id!=''">
+            AND a.ID=#{id}
+        </if>
+        )Tab
+        WHERE
+        Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCount" resultType="long" parameterType="hashmap">
+        select count(1)
+        from ADS_MONITOR_TASK b left join ADS_ORGAN_TASK a on a.MONITOR_TASK_ID=b.ID
+        WHERE a.DEL_FLAG != 'Y' AND b.DEL_FLAG != 'Y'
+        AND a.ID=#{id}
+    </select>
+    <select id="findAdsMonitorTask" resultMap="joinSelectScore" parameterType="string">
+        select b.ID,b.TASK_NAME,b.MONITOR_CLASS,b.RELEASE_UNIT,b.CHECK_MODEL,b.year,b.BATCH,b.SEPARATION,
+        to_char(b.START_TIME,'yyyy-mm-dd') START_TIME ,to_char(b.END_TIME,'yyyy-mm-dd')  END_TIME,
+        to_char(b.DEADLINE,'yyyy-mm-dd') DEADLINE,b.PUBLISH_STATUS,b.ATTACHMENT,b.ATTACHMENTCODE,b.INDUSTRY,
+        b.JUDGE_STANDARD,b.SAMPLE_LINK,b.CHECK_OBJECT,b.CHECK_PROJECT,b.DEL_FLAG,b.CREATE_BY,b.UPDATE_BY,
+        a.SAMPLE_ORGAN,a.MONITOR_TASK_ID,a.DETECTION_ORGAN,a.REG_ID,a.NUMBERS,a.CITY_NAME
+        from  ADS_MONITOR_TASK b , ADS_ORGAN_TASK a
+        WHERE  a.MONITOR_TASK_ID=b.ID AND a.DEL_FLAG != 'Y' AND b.DEL_FLAG != 'Y' AND a.id=#{id}
+    </select>
+    <select id="getYear" parameterType="hashmap" resultMap="BaseResultMap">
+        select DISTINCT amt.year
+        from ADS_MONITOR_TASK amt
+    </select>
+
+    <select id="getPageInfoWithParam" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.industry,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        amt.LEVEL_ENUM,
+        to_char(amt.DEADLINE,'yyyy-mm-dd') DEADLINE,
+        to_char(amt.start_time,'yyyy-mm-dd') start_time,
+        to_char(amt.end_time,'yyyy-mm-dd') end_time
+        from ADS_MONITOR_TASK amt,ADS_ORGAN_TASK t
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND t.DEL_FLAG != 'Y' AND amt.MONITOR_CLASS = #{type} AND t.MONITOR_TASK_ID
+        = amt.id AND (t.SAMPLE_ORGAN_ID = #{orgId} OR t.DETECTION_ORGAN_ID = #{orgId}) AND amt.publish_status != '0'
+        <if test="taskSource!=null and taskSource!=''">
+            AND amt.task_source = #{taskSource}
+        </if>
+        <if test="level!=null and level!='ALL'">
+            AND amt.LEVEL_ENUM  = #{level}
+        </if>
+        <if test="industry!=null and industry!='全部'">
+            -- 行业字段后面修改应该是industry
+            AND amt.industry = #{industry}
+        </if>
+        <if test="year!=null and year!='全部'">
+            AND amt.year = #{year}
+        </if>
+        <if test="status!=null and status!='ALL'">
+            AND amt.publish_status = #{status}
+        </if>
+        <!--<if test='status == "1"'>-->
+            <!--AND amt.publish_status = '3'-->
+        <!--</if>-->
+        <if test="taskName!=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and amt.start_time    <![CDATA[ >=to_date(#{startTime},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and amt.end_time    <![CDATA[ <=to_date(#{endTime},'yyyy-MM-dd') ]]>
+        </if>
+        group by amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.industry,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.DEADLINE,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        start_time,
+        end_time,
+        amt.LEVEL_ENUM
+        order by start_time desc) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+        where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountWithParam" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) FROM (select t.*
+        from (select tmp.*, rownum rn
+        from (select amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.industry,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        amt.LEVEL_ENUM,
+        to_char(amt.DEADLINE,'yyyy-mm-dd') DEADLINE,
+        to_char(amt.start_time,'yyyy-mm-dd') start_time,
+        to_char(amt.end_time,'yyyy-mm-dd') end_time
+        from ADS_MONITOR_TASK amt,ADS_ORGAN_TASK t
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND t.DEL_FLAG != 'Y' AND amt.MONITOR_CLASS = #{type} AND t.MONITOR_TASK_ID
+        = amt.id AND (t.SAMPLE_ORGAN_ID = #{orgId} OR t.DETECTION_ORGAN_ID = #{orgId}) AND amt.publish_status != '0'
+        <if test="taskSource!=null and taskSource!=''">
+            AND amt.task_source = #{taskSource}
+        </if>
+        <if test="level!=null and level!='ALL'">
+            AND amt.LEVEL_ENUM  = #{level}
+        </if>
+        <if test="industry!=null and industry!='全部'">
+            -- 行业字段后面修改应该是industry
+            AND amt.industry = #{industry}
+        </if>
+        <if test="year!=null and year!='全部'">
+            AND amt.year = #{year}
+        </if>
+        <if test="status!=null and status!='ALL'">
+            AND amt.publish_status = #{status}
+        </if>
+        <!--<if test='status == "1"'>-->
+            <!--AND amt.publish_status = '3'-->
+        <!--</if>-->
+        <if test="taskName!=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and amt.start_time    <![CDATA[ >=to_date(#{startTime},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and amt.end_time    <![CDATA[ <=to_date(#{endTime},'yyyy-MM-dd') ]]>
+        </if>
+        group by amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.industry,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.DEADLINE,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        start_time,
+        end_time,
+        amt.LEVEL_ENUM
+        order by start_time desc) tmp)t)
+        <!--SELECT COUNT(1) FROM ADS_MONITOR_TASK amt,ADS_ORGAN_TASK t-->
+        <!--where 1 = 1 AND amt.DEL_FLAG != 'Y' AND t.DEL_FLAG != 'Y' AND amt.MONITOR_CLASS = #{type} AND t.MONITOR_TASK_ID = amt.id AND (t.SAMPLE_ORGAN_ID = #{orgId} OR t.DETECTION_ORGAN_ID = #{orgId}) AND amt.publish_status != '0'-->
+        <!--<if test="industry!=null and industry!='全部'">-->
+        <!--AND amt.industry = #{industry}-->
+        <!--</if>-->
+        <!--<if test="level!=null and level!='ALL'">-->
+        <!--AND amt.task_source = #{level}-->
+        <!--</if>-->
+        <!--<if test="year!=null and year!='全部'">-->
+        <!--AND amt.year = #{year}-->
+        <!--</if>-->
+        <!--<if test='status == "0"'>-->
+        <!--AND amt.publish_status != '3'-->
+        <!--</if>-->
+        <!--<if test='status == "1"'>-->
+        <!--AND amt.publish_status = '3'-->
+        <!--</if>-->
+        <!--<if test="taskSource!=null and taskSource!=''">-->
+        <!--AND amt.task_source = #{taskSource}-->
+        <!--</if>-->
+        <!--<if test="taskName!=null and taskName!=''">-->
+        <!--AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'-->
+        <!--</if>-->
+        <!--<if test="startTime!=null and startTime!=''">-->
+        <!--and amt.start_time    <![CDATA[ >=to_date(#{startTime},'yyyy-MM-dd') ]]>-->
+        <!--</if>-->
+        <!--<if test="endTime!=null and endTime!=''">-->
+        <!--and amt.end_time    <![CDATA[ <=to_date(#{endTime},'yyyy-MM-dd') ]]>-->
+        <!--</if>-->
+    </select>
+
+    <!-- 监测例表查询-->
+    <select id="getPageInfoWithParamAudit" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.industry,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        amt.LEVEL_ENUM,
+        to_char(amt.DEADLINE,'yyyy-mm-dd') DEADLINE,
+        to_char(amt.start_time,'yyyy-mm-dd') start_time,
+        to_char(amt.end_time,'yyyy-mm-dd') end_time
+        from ADS_MONITOR_TASK amt,ADS_ORGAN_TASK t
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND t.DEL_FLAG != 'Y' AND amt.MONITOR_CLASS = #{type} AND t.MONITOR_TASK_ID = amt.id AND (t.SAMPLE_ORGAN_ID = #{orgId} OR t.DETECTION_ORGAN_ID = #{orgId}) AND amt.publish_status != '0'
+        <if test="taskSource!=null and taskSource!=''">
+            AND amt.task_source = #{taskSource}
+        </if>
+        <if test="level!=null and level!='ALL'">
+            AND amt.LEVEL_ENUM  = #{level}
+        </if>
+        <if test="industry!=null and industry!='ALL'">
+            --             行业字段后面修改应该是industry
+            AND amt.industry_id = #{industry}
+        </if>
+        <if test="year!=null and year!='全部'">
+            AND amt.year = #{year}
+        </if>
+        <!--<if test='status == "0"'>-->
+            <!--AND amt.publish_status != '3'-->
+        <!--</if>-->
+        <!--<if test='status == "1"'>-->
+            <!--AND amt.publish_status = '3'-->
+        <!--</if>-->
+        <if test="status!=null and status!='ALL'">
+            AND amt.publish_status = #{status}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and amt.start_time    <![CDATA[ >=to_date(#{startTime},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and amt.end_time    <![CDATA[ <=to_date(#{endTime},'yyyy-MM-dd') ]]>
+        </if>
+        group by amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.industry,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.DEADLINE,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        start_time,
+        end_time,
+        amt.LEVEL_ENUM
+        order by start_time desc) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+        where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountWithParamAudit" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) FROM (select t.*
+        from (select tmp.*, rownum rn
+        from (select amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.industry,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        amt.LEVEL_ENUM,
+        to_char(amt.DEADLINE,'yyyy-mm-dd') DEADLINE,
+        to_char(amt.start_time,'yyyy-mm-dd') start_time,
+        to_char(amt.end_time,'yyyy-mm-dd') end_time
+        from ADS_MONITOR_TASK amt,ADS_ORGAN_TASK t
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND t.DEL_FLAG != 'Y' AND amt.MONITOR_CLASS = #{type} AND t.MONITOR_TASK_ID = amt.id AND (t.SAMPLE_ORGAN_ID = #{orgId} OR t.DETECTION_ORGAN_ID = #{orgId}) AND amt.publish_status != '0'
+        <if test="taskSource!=null and taskSource!=''">
+            AND amt.task_source = #{taskSource}
+        </if>
+        <if test="level!=null and level!='ALL'">
+            AND amt.LEVEL_ENUM  = #{level}
+        </if>
+        <if test="industry!=null and industry!='ALL'">
+            --             行业字段后面修改应该是industry
+            AND amt.industry_id = #{industry}
+        </if>
+        <if test="year!=null and year!='全部'">
+            AND amt.year = #{year}
+        </if>
+        <!--<if test='status == "0"'>-->
+            <!--AND amt.publish_status != '3'-->
+        <!--</if>-->
+        <!--<if test='status == "1"'>-->
+            <!--AND amt.publish_status = '3'-->
+        <!--</if>-->
+        <if test="status!=null and status!='ALL'">
+            AND amt.publish_status = #{status}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and amt.start_time    <![CDATA[ >=to_date(#{startTime},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and amt.end_time    <![CDATA[ <=to_date(#{endTime},'yyyy-MM-dd') ]]>
+        </if>
+        group by amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.industry,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.DEADLINE,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        start_time,
+        end_time,
+        amt.LEVEL_ENUM
+        order by start_time desc) tmp)t)
+    </select>
+
+    <select id="getPageInfoWithType" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.INDUSTRY,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        to_char(amt.DEADLINE,'yyyy-mm-dd') DEADLINE,
+        to_char(amt.start_time,'yyyy-mm-dd') start_time,
+        to_char(amt.end_time,'yyyy-mm-dd') end_time
+        from ADS_MONITOR_TASK amt,ADS_ORGAN_TASK t
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND t.DEL_FLAG != 'Y' AND amt.MONITOR_CLASS = #{type} AND t.MONITOR_TASK_ID
+        = amt.id AND (t.SAMPLE_ORGAN_ID = #{orgId} OR t.DETECTION_ORGAN_ID = #{orgId}) AND amt.publish_status != '0'
+        <if test='status == "3"'>
+            and (amt.publish_status = '3' or amt.publish_status = '4' or amt.publish_status = '5')
+        </if>
+        <if test='status != "3"'>
+            AND amt.publish_status = #{status}
+        </if>
+        group by amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        amt.INDUSTRY,
+        amt.create_by,
+        amt.TASK_SOURCE,
+        amt.SAMPLE_LINK,
+        amt.CHECK_OBJECT,
+        amt.CHECK_PROJECT,
+        amt.publish_status,
+        amt.DEADLINE,
+        amt.SUP_ID,
+        amt.INDUSTRY_ID,
+        start_time,
+        end_time
+        order by start_time desc) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+        where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountWithType" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) FROM ADS_MONITOR_TASK amt,ADS_ORGAN_TASK t
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND amt.MONITOR_CLASS = #{type} AND t.MONITOR_TASK_ID = amt.id AND
+        (t.SAMPLE_ORGAN_ID = #{orgId} OR t.DETECTION_ORGAN_ID = #{orgId}) AND amt.publish_status != '0'
+        <if test='status == "3"'>
+            and (amt.publish_status = '3' or amt.publish_status = '4')
+        </if>
+        <if test='status != "3"'>
+            AND amt.publish_status = #{status}
+        </if>
+    </select>
+
+    <select id="selectTaskName" resultType="string">
+        SELECT DISTINCT task_name
+        FROM ads_monitor_task
+        WHERE DEL_FLAG != 'Y'
+    </select>
+
+    <select id="updatePublishStatus" parameterType="hashmap">
+        UPDATE  ads_monitor_task SET  PUBLISH_STATUS=#{publishStatus}
+         where ID =#{id}
+    </select>
+
+    <select id="queryByMyId" resultMap="BaseResultMap" parameterType="hashmap">
+        select ID
+        , CHECK_MODEL
+        , TASK_NAME
+        , YEAR
+        , RELEASE_UNIT
+        , MONITOR_CLASS
+        from ADS_MONITOR_TASK
+        where ID =#{id}
+    </select>
+
+
+    <select id="getNameByParam" parameterType="com.sofn.model.generator.AdsMonitorTask" resultMap="BaseResultMap">
+        select amt.id,amt.task_name,amt.year
+        from ADS_MONITOR_TASK amt
+        WHERE DEL_FLAG != 'Y'
+        <if test="industry != null and industry !=''">
+            AND amt.INDUSTRY = #{industry}
+        </if>
+        <if test="monitorClass != null and monitorClass !=''">
+            AND amt.MONITOR_CLASS = #{monitorClass}
+        </if>
+        <if test="year != null and year !=''">
+            AND amt.year = #{year}
+        </if>
+        <if test="organId != null and organId !=''">
+            AND amt.ORGAN_ID = #{organId}
+        </if>
+    </select>
+
+    <update id="updateAbolish" parameterType="string">
+        update ADS_MONITOR_TASK
+        set
+        ABOLISH =  '2'
+        where ID =#{taskId}
+    </update>
+
+    <select id="getPageInfoTaskName" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select amt.id
+        , amt.task_name
+        , amt.year
+        from ADS_MONITOR_TASK amt,ADS_ORGAN_TASK t
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND t.DEL_FLAG != 'Y' AND t.MONITOR_TASK_ID = amt.id AND (t.SAMPLE_ORGAN_ID
+        = #{organId} OR t.DETECTION_ORGAN_ID = #{organId}) AND amt.publish_status != '0'
+        <if test="taskName !=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="industry != null and industry !=''">
+            AND amt.INDUSTRY = #{industry}
+        </if>
+        <if test="industryId != null and industryId !=''">
+            AND amt.INDUSTRY_ID = #{industryId}
+        </if>
+        <if test="monitorClass != null and monitorClass !=''">
+            AND amt.MONITOR_CLASS = #{monitorClass}
+        </if>
+        <if test="year != null and year !=''">
+            AND amt.year = #{year}
+        </if>
+        order by amt.update_time desc,amt.create_time desc,amt.id desc) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountTaskName" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ADS_MONITOR_TASK amt,ADS_ORGAN_TASK t
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND t.DEL_FLAG != 'Y' AND t.MONITOR_TASK_ID = amt.id AND (t.SAMPLE_ORGAN_ID
+        = #{organId} OR t.DETECTION_ORGAN_ID = #{organId}) AND amt.publish_status != '0'
+        <if test="taskName !=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="industry != null and industry !=''">
+            AND amt.INDUSTRY = #{industry}
+        </if>
+        <if test="monitorClass != null and monitorClass !=''">
+            AND amt.MONITOR_CLASS = #{monitorClass}
+        </if>
+        <if test="year != null and year !=''">
+            AND amt.year = #{year}
+        </if>
+    </select>
+
+    <!--<select id="findCheckObject" parameterType="hashmap" resultMap="BaseResultMap">
+        SELECT * from ADS_ORGAN_TASK A LEFT JOIN ADS_MONITOR_TASK B ON A.MONITOR_TASK_ID=B.ID
+        where 1 = 1 AND A.DEL_FLAG != 'Y' AND B.DEL_FLAG != 'Y'
+        AND (A.SAMPLE_ORGAN_ID=#{sampleOrganId} OR A.DETECTION_ORGAN_ID=#{sampleOrganId})
+        AND A.ID =#{id}
+    </select>-->
+
+    <select id="getAdsTaskListByCondition" parameterType="hashmap" resultMap="BaseResultMap">
+        <!--select rownum rn,-->
+        <!--t.id,-->
+        <!--t.task_name,-->
+        <!--t.monitor_class,-->
+        <!--t.release_unit,-->
+        <!--t.check_model,-->
+        <!--t.year,-->
+        <!--t.batch,-->
+        <!--t.separation,-->
+        <!--t.create_by,-->
+        <!--t.PUBLISH_STATUS,-->
+        <!--to_char(t.start_time, 'yyyy-mm-dd') start_time,-->
+        <!--to_char(t.end_time, 'yyyy-mm-dd') end_time-->
+        <!--from ADS_MONITOR_TASK t-->
+        <!--where 1 = 1-->
+        <!--AND t.DEL_FLAG != 'Y'-->
+        <!--<if test="publishStatus!=null">-->
+        <!--AND t.publish_status = #{publishStatus}-->
+        <!--</if>-->
+        <!--<if test="taskName!=null and taskName !=''">-->
+        <!--AND lower(t.task_name) like '%' || lower(trim(#{taskName})) ||'%'-->
+        <!--</if>-->
+        <!--<if test="monitorClass!=null and monitorClass!=''">-->
+        <!--AND t.MONITOR_CLASS=#{monitorClass}-->
+        <!--</if>-->
+        <!--<if test="year !=null and year != ''">-->
+        <!--AND t.YEAR = #{year}-->
+        <!--</if>-->
+        <!--order by t.create_time desc,t.update_time desc,t.id desc-->
+        select tmp.*, rownum rn
+        from (select
+        <if test="source !=null and source!=''">
+            DISTINCT
+        </if>
+        amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        (select cm.model_name from ads_check_model cm where cm.id = amt.check_model) model_title,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        to_char(amt.start_time,'yyyy-mm-dd') start_time,
+        to_char(amt.end_time,'yyyy-mm-dd') end_time,
+        to_char(amt.deadline,'yyyy-mm-dd') deadline,
+        "COMMENT",
+        amt.publish_status,
+        amt.industry,
+        amt.sample_link,
+        amt.check_object,
+        amt.check_project,
+        amt.create_by,
+        amt.update_by,
+        amt.create_time,
+        amt.update_time,
+        amt.attachment,
+        amt.attachmentcode,
+        amt.attachment_address,
+        amt.task_source
+        from ADS_MONITOR_TASK amt
+        <if test="source !=null and source!=''">
+            ,ADS_FILE af
+        </if>
+        where 1 = 1 AND amt.DEL_FLAG != 'Y'
+        <if test="industry!=null and industry!=''">
+            AND amt.industry = #{industry}
+        </if>
+        <if test="queryStartTiem!=null and queryStartTiem!=''">
+            AND amt.start_time    <![CDATA[ >=to_date(#{queryStartTiem},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="queryEndTiem!=null and queryEndTiem!=''">
+            AND amt.start_time    <![CDATA[ <=to_date(#{queryEndTiem},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="taskSource!=null and taskSource!=''">
+            AND amt.task_source = #{taskSource}
+        </if>
+        <if test="flag==0">
+            AND amt.publish_status = '0'
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND amt.monitor_class = #{monitorClass}
+        </if>
+        <if test="year!=null and year!=''">
+            AND amt.year = #{year}
+        </if>
+        <if test="organId!=null and organId!=''">
+            AND amt.organ_id = #{organId}
+        </if>
+        <if test="monitorType !=null and monitorType !=''">
+            AND amt.monitor_class != #{monitorType}
+        </if>
+        <if test="source !=null and source!=''">
+            and af.monitor_task_id = amt.id
+            and af.source = #{source}
+        </if>
+        <if test="flag==1">
+            and amt.publish_status != 0
+        </if>
+        order by amt.year desc,amt.create_time desc,amt.update_time desc,amt.id desc) tmp
+    </select>
+
+
+    <select id="getAdsTaskListByIds" resultMap="BaseResultMap">
+        select
+        amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        (select cm.model_name from ads_check_model cm where cm.id = amt.check_model) model_title,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        to_char(amt.start_time,'yyyy-mm-dd') start_time,
+        to_char(amt.end_time,'yyyy-mm-dd') end_time,
+        to_char(amt.deadline,'yyyy-mm-dd') deadline,
+        "COMMENT",
+        amt.publish_status,
+        amt.industry,
+        amt.sample_link,
+        amt.check_object,
+        amt.check_project,
+        amt.create_by,
+        amt.update_by,
+        amt.create_time,
+        amt.update_time,
+        amt.attachment,
+        amt.attachmentcode,
+        amt.attachment_address,
+        amt.task_source
+        from ADS_MONITOR_TASK amt
+        where ID IN
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+    <select id="queryExecUnitTaskList" parameterType="hashmap" resultMap="joinSelectScore">
+        select t.*
+        from (select temp.*, rownum rn
+        from (select b.ID,
+        b.TASK_NAME,
+        b.MONITOR_CLASS,
+        b.RELEASE_UNIT,
+        b.CHECK_MODEL,
+        b.year,
+        b.BATCH,
+        b.SEPARATION,
+        to_char(b.START_TIME, 'yyyy-mm-dd') START_TIME,
+        to_char(b.END_TIME, 'yyyy-mm-dd') END_TIME,
+        to_char(b.DEADLINE, 'yyyy-mm-dd') DEADLINE,
+        b.PUBLISH_STATUS,
+        b.ATTACHMENT,
+        b.ATTACHMENTCODE,
+        b.INDUSTRY,
+        b.JUDGE_STANDARD,
+        b.SAMPLE_LINK,
+        b.CHECK_OBJECT,
+        b.CHECK_PROJECT,
+        b.DEL_FLAG,
+        b.CREATE_BY,
+        b.UPDATE_BY,
+        a.SAMPLE_ORGAN,
+        a.MONITOR_TASK_ID,
+        a.DETECTION_ORGAN,
+        a.REG_ID,
+        a.NUMBERS,
+        a.ID OrganTaskID,
+        a.CITY_NAME
+        from ADS_MONITOR_TASK b
+        left join ADS_ORGAN_TASK a
+        on a.MONITOR_TASK_ID = b.ID
+        WHERE a.DEL_FLAG != 'Y'
+        AND b.DEL_FLAG != 'Y'
+        AND b.PUBLISH_STATUS != '0'
+        AND (a.SAMPLE_ORGAN_ID=#{sampleOrganId} OR a.DETECTION_ORGAN_ID=#{detectionOrganId})
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND b.MONITOR_CLASS=#{monitorClass}
+        </if>
+        order by b.start_time desc,b.update_time desc,b.create_time desc,b.id desc) temp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum} ) t
+        where t.rn >= 1+#{pageSize}*(#{pageNum}-1) ]]>
+    </select>
+
+    <select id="queryExecUnitTaskCount" parameterType="hashmap" resultType="int">
+        select count(1)
+        from ADS_MONITOR_TASK b
+        left join ADS_ORGAN_TASK a
+        on a.MONITOR_TASK_ID = b.ID
+        WHERE a.DEL_FLAG != 'Y'
+        AND b.DEL_FLAG != 'Y'
+        AND b.PUBLISH_STATUS != '0'
+        AND (a.SAMPLE_ORGAN_ID=#{sampleOrganId} OR a.DETECTION_ORGAN_ID=#{detectionOrganId})
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND b.MONITOR_CLASS=#{monitorClass}
+        </if>
+    </select>
+
+    <select id="getTasksBySupIdAndBatch" resultMap="joinSelectScore" parameterType="hashmap">
+        select a.ID,a.MONITOR_CLASS,a.TASK_NAME,a.CHECK_MODEL
+        from  ADS_MONITOR_TASK a
+        WHERE a.DEL_FLAG != 'Y' AND a.SUP_ID=#{supId} AND a.BATCH=#{batch}
+    </select>
+
+    <select id="getAdsMonitorTaskNum" parameterType="hashmap" resultType="int">
+        SELECT count(*)
+        from ADS_MONITOR_TASK amt
+        where 1=1
+        <if test="supId!=null and supId!=''">
+            and amt.sup_id =#{supId}
+        </if>
+        <if test="publishStatus==0">
+            AND amt.publish_status ='0'
+        </if>
+        <if test="publishStatus==1">
+            AND (amt.publish_status ='1' or amt.publish_status ='2' or amt.publish_status ='3' or amt.publish_status
+            ='4')
+        </if>
+        <if test="publishStatus==2">
+            AND (amt.publish_status ='3' or amt.publish_status ='4')
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND amt.task_name = #{taskName}
+        </if>
+        <if test="organId!=null and organId!=''">
+            AND amt.organ_id = #{organId}
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND amt.monitor_class=#{monitorClass}
+        </if>
+        <if test="year!=null and year!=''">
+            AND amt.year=#{year}
+        </if>
+    </select>
+
+    <select id="findAdsMonitorTaskInfo" resultMap="BaseResultMap" parameterType="hashmap">
+        select
+        to_char(START_TIME, 'yyyy-mm-dd') START_TIME,
+        to_char(END_TIME, 'yyyy-mm-dd') END_TIME
+        from ADS_MONITOR_TASK
+        where 1=1
+        <if test="supId !=null and supId!=''">
+            AND sup_id =#{supId}
+        </if>
+        <if test="batch!=null and batch!=''">
+            AND batch = #{batch}
+        </if>
+    </select>
+    <!--查找已发布和执行中、已过期的任务-->
+    <select id="findExpiredTask" resultMap="BaseResultMap">
+        select * from ADS_MONITOR_TASK amt WHERE amt.PUBLISH_STATUS IN (1,2) and amt.END_TIME <![CDATA[ < SYSDATE
+        ]]>
+    </select>
+
+    <select id="getPageInfoForAndroid" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select
+        amt.id,
+        amt.task_name,
+        amt.monitor_class,
+        amt.release_unit,
+        amt.check_model,
+        (select cm.model_name from ads_check_model cm where cm.id = amt.check_model) model_title,
+        amt.year,
+        amt.batch,
+        amt.separation,
+        to_char(amt.start_time,'yyyy-mm-dd') start_time,
+        to_char(amt.end_time,'yyyy-mm-dd') end_time,
+        to_char(amt.deadline,'yyyy-mm-dd') deadline,
+        "COMMENT",
+        amt.publish_status,
+        amt.industry,
+        amt.sample_link,
+        amt.check_object,
+        amt.check_project,
+        amt.create_by,
+        amt.update_by,
+        amt.create_time,
+        amt.update_time,
+        amt.attachment,
+        amt.attachmentcode,
+        amt.attachment_address,
+        amt.task_source
+        from ADS_MONITOR_TASK amt
+        where 1 = 1 AND amt.DEL_FLAG != 'Y'
+        <if test="taskName!=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND amt.monitor_class = #{monitorClass}
+        </if>
+        <if test="organId!=null and organId!=''">
+            AND amt.organ_id = #{organId}
+        </if>
+        <if test='publishStatus =="0"'>
+            AND amt.PUBLISH_STATUS = '1'
+        </if>
+        <if test='publishStatus =="1"'>
+            AND amt.PUBLISH_STATUS = '2'
+        </if>
+        <if test='publishStatus =="2"'>
+            AND amt.PUBLISH_STATUS IN ('3','4')
+        </if>
+        <if test='publishStatus!=null and publishStatus!="" and  publishStatus!="0" and publishStatus!="1" and publishStatus!="2"'>
+            AND amt.PUBLISH_STATUS = #{publishStatus}
+        </if>
+        order by amt.year desc,amt.create_time desc,amt.update_time desc,amt.id desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+        where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountForAndroid" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) FROM ADS_MONITOR_TASK amt
+        where 1 = 1 AND amt.DEL_FLAG != 'Y'
+        <if test="taskName!=null and taskName!=''">
+            AND lower(amt.task_name) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND amt.monitor_class = #{monitorClass}
+        </if>
+        <if test="organId!=null and organId!=''">
+            AND amt.organ_id = #{organId}
+        </if>
+        <if test='publishStatus =="0"'>
+            AND amt.PUBLISH_STATUS = '1'
+        </if>
+        <if test='publishStatus =="1"'>
+            AND amt.PUBLISH_STATUS = '2'
+        </if>
+        <if test='publishStatus =="2"'>
+            AND amt.PUBLISH_STATUS IN ('3','4')
+        </if>
+        <if test='publishStatus!=null and publishStatus!="" and  publishStatus!="0" and publishStatus!="1" and publishStatus!="2"'>
+            AND amt.PUBLISH_STATUS = #{publishStatus}
+        </if>
+    </select>
+
+    <!--判断报告上传状态-->
+    <select id="getReportStatus" resultType="java.util.Map" parameterType="java.util.Map">
+        select amt.id,
+        amt.SAMPLE_NAME,
+        amt.SAMPLE_CODE,
+        amt.PRODUCT_TRACEABILITY_CODE,
+        amt.TESTED_DEPARMENT,
+        amt.SAMPLE_DEPARMENT,
+        amt.CHECK_ORGAN,
+        amt.RESULT,
+        amt.CHECK_REPORT
+        from ADS_CHECK_INFO amt,ADS_MONITOR_SAMPLE s
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND amt.ORGAN_TASK_ID = #{taskId}
+        AND s.id = amt.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2'
+    </select>
+
+    <!--判断报告状态-->
+    <select id="getReportStatusByDelegate" resultType="java.util.Map" parameterType="java.util.Map">
+        select amt.id,
+        amt.SAMPLE_NAME,
+        amt.SAMPLE_CODE,
+        amt.PRODUCT_TRACEABILITY_CODE,
+        amt.TESTED_DEPARMENT,
+        amt.SAMPLE_DEPARMENT,
+        amt.CHECK_ORGAN,
+        amt.RESULT,
+        amt.CHECK_REPORT
+        from ADS_CHECK_INFO amt,ADS_MONITOR_SAMPLE s
+        where 1 = 1 AND amt.DEL_FLAG != 'Y'
+        AND amt.ORGAN_TASK_ID = #{taskId}
+        AND s.id = amt.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2'
+    </select>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjNotificationMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjNotification" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="BE_ENTITY_IDCODE" property="beEntityIdcode" jdbcType="VARCHAR" />
+    <result column="BE_USER_IDCODE" property="beUserIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_NOTIFICATION
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>-->
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        update TTS_SCLTXXCJ_NOTIFICATION
+        SET  DEL_FLAG= 'Y'
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjNotification" >
+    insert into TTS_SCLTXXCJ_NOTIFICATION (ID
+    , BE_ENTITY_IDCODE
+    , BE_USER_IDCODE
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , TITLE
+    , CONTENT
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{beEntityIdcode,jdbcType=VARCHAR}
+    , #{beUserIdcode,jdbcType=VARCHAR}
+    , #{entityIdcode,jdbcType=VARCHAR}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{title,jdbcType=VARCHAR}
+    , #{content,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjNotification" >
+    update TTS_SCLTXXCJ_NOTIFICATION
+    set
+     BE_ENTITY_IDCODE =  #{beEntityIdcode,jdbcType=VARCHAR},
+     BE_USER_IDCODE =  #{beUserIdcode,jdbcType=VARCHAR},
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+     TITLE =  #{title,jdbcType=VARCHAR},
+     CONTENT =  #{content,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , BE_ENTITY_IDCODE
+    , BE_USER_IDCODE
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , TITLE
+    , CONTENT
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from TTS_SCLTXXCJ_NOTIFICATION
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

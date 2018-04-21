@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjProductMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjProduct" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="MODEL" property="model" jdbcType="VARCHAR" />
+    <result column="PICTURE" property="picture" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SELF_CHECK" property="selfCheck" jdbcType="VARCHAR" />
+    <result column="AUTHENTICATION" property="authentication" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+    <result column="SLAUGHTER_STATUS" property="slaughterStatus" jdbcType="VARCHAR" />
+    <result column="ALIAS" property="alias" jdbcType="VARCHAR" />
+
+  </resultMap>
+  
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_PRODUCT_V2
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>-->
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        UPDATE TTS_SCLTXXCJ_PRODUCT_V2
+        SET DEL_FLAG = 'Y'
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjProduct" >
+    insert into TTS_SCLTXXCJ_PRODUCT_V2 (ID
+    , INDUSTRY
+    , NAME
+    , TYPE
+    , MODEL
+    , PICTURE
+    , STATUS
+    , SELF_CHECK
+    , AUTHENTICATION
+    , IP
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    , PRODUCT_CODE
+    , TYPE_NAME
+    , SLAUGHTER_STATUS
+    , ALIAS
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{industry,jdbcType=VARCHAR}
+    , #{name,jdbcType=VARCHAR}
+    , #{type,jdbcType=VARCHAR}
+    , #{model,jdbcType=VARCHAR}
+    , #{picture,jdbcType=VARCHAR}
+    , #{status,jdbcType=VARCHAR}
+    , #{selfCheck,jdbcType=VARCHAR}
+    , #{authentication,jdbcType=VARCHAR}
+    , #{ip,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{entityIdcode,jdbcType=VARCHAR}
+    , #{productCode,jdbcType=VARCHAR}
+    , #{typeName,jdbcType=VARCHAR}
+    , #{slaughterStatus,jdbcType=VARCHAR}
+    , #{alias,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjProduct" >
+    update TTS_SCLTXXCJ_PRODUCT_V2
+    set
+     INDUSTRY =  #{industry,jdbcType=VARCHAR},
+     NAME =  #{name,jdbcType=VARCHAR},
+     TYPE =  #{type,jdbcType=VARCHAR},
+     MODEL =  #{model,jdbcType=VARCHAR},
+     PICTURE =  #{picture,jdbcType=VARCHAR},
+     STATUS =  #{status,jdbcType=VARCHAR},
+     SELF_CHECK =  #{selfCheck,jdbcType=VARCHAR},
+     AUTHENTICATION =  #{authentication,jdbcType=VARCHAR},
+     IP =  #{ip,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+     PRODUCT_CODE =  #{productCode,jdbcType=VARCHAR},
+     TYPE_NAME =  #{typeName,jdbcType=VARCHAR},
+     SLAUGHTER_STATUS =  #{slaughterStatus,jdbcType=VARCHAR},
+     ALIAS=  #{alias,jdbcType=VARCHAR}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , INDUSTRY
+    , NAME
+    , TYPE
+    , MODEL
+    , PICTURE
+    , STATUS
+    , SELF_CHECK
+    , AUTHENTICATION
+    , IP
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    , PRODUCT_CODE
+    , TYPE_NAME
+    , SLAUGHTER_STATUS
+    , ALIAS
+    from TTS_SCLTXXCJ_PRODUCT_V2
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

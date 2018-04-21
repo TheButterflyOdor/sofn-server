@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsOrganTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsOrganTask" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MONITOR_TASK_ID" property="monitorTaskId" jdbcType="VARCHAR" />
+    <result column="SAMPLE_ORGAN" property="sampleOrgan" jdbcType="VARCHAR" />
+    <result column="SAMPLE_ORGAN_ID" property="sampleOrganId" jdbcType="VARCHAR" />
+    <result column="DETECTION_ORGAN" property="detectionOrgan" jdbcType="VARCHAR" />
+    <result column="DETECTION_ORGAN_ID" property="detectionOrganId" jdbcType="VARCHAR" />
+    <result column="REG_ID" property="regId" jdbcType="VARCHAR" />
+    <result column="NUMBERS" property="numbers" jdbcType="DECIMAL" />
+    <result column="DEPARMENT" property="deparment" jdbcType="VARCHAR" />
+    <result column="UPLOAD_TIME" property="uploadTime" jdbcType="TIMESTAMP" />
+    <result column="FINISH_NUM" property="finishNum" jdbcType="DECIMAL" />
+    <result column="REPORT_STATUS" property="reportStatus" jdbcType="VARCHAR" />
+    <result column="REPORT_TIME" property="reportTime" jdbcType="TIMESTAMP" />
+    <result column="TASKS_STATUS" property="tasksStatus" jdbcType="VARCHAR" />
+    <result column="SAMPLE_FINISH_NUM" property="sampleFinishNum" jdbcType="DECIMAL" />
+    <result column="CHECK_FINISH_NUM" property="checkFinishNum" jdbcType="DECIMAL" />
+    <result column="SAMPLE_FINISH_STATUS" property="sampleFinishStatus" jdbcType="DECIMAL" />
+    <result column="CHECK_FINISH_STATUS" property="checkFinishStatus" jdbcType="DECIMAL" />
+    <result column="SAMPLE_REPORT_STATUS" property="sampleReportStatus" jdbcType="DECIMAL" />
+    <result column="CHECK_REPORT_STATUS" property="checkReportStatus" jdbcType="DECIMAL" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADS_ORGAN_TASK
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="deleteOrganTaskByLogic" parameterType="com.sofn.model.generator.AdsOrganTask">
+      update ADS_ORGAN_TASK set DEL_FLAG = 'Y',UPDATE_BY = #{updateBy},UPDATE_TIME = sysdate
+      where id =#{id}
+  </update>
+
+  <insert id="insert" parameterType="com.sofn.model.generator.AdsOrganTask" >
+    insert into ADS_ORGAN_TASK
+      (ID,
+       MONITOR_TASK_ID,
+       SAMPLE_ORGAN,
+       SAMPLE_ORGAN_ID,
+       DETECTION_ORGAN,
+       DETECTION_ORGAN_ID,
+       CITY_CODE,
+       CITY_NAME,
+       NUMBERS,
+       DEPARMENT,
+       DEPARMENT_ID,
+       UPLOAD_TIME,
+       REPORT_STATUS,
+       REPORT_TIME,
+       TASKS_STATUS,
+       SAMPLE_FINISH_NUM,
+       CHECK_FINISH_NUM,
+       SAMPLE_FINISH_STATUS,
+       CHECK_FINISH_STATUS,
+       SAMPLE_REPORT_STATUS,
+       CHECK_REPORT_STATUS,
+       CREATE_BY,
+       CREATE_TIME,
+       UPDATE_BY,
+       UPDATE_TIME)
+    values
+      (#{id},
+       #{monitorTaskId},
+       #{sampleOrgan},
+       #{sampleOrganId},
+       #{detectionOrgan},
+       #{detectionOrganId},
+       #{cityCode},
+       #{cityName},
+       #{numbers},
+       #{deparment},
+       #{deparmentId},
+       to_timestamp(#{uploadTime}, 'yyyy-mm-dd hh24:mi:ss:ff'),
+       #{reportStatus},
+       to_timestamp(#{reportTime}, 'yyyy-mm-dd hh24:mi:ss:ff'),
+       #{tasksStatus},
+       #{sampleFinishNum},
+       #{checkFinishNum},
+       #{sampleFinishStatus},
+       #{checkFinishStatus},
+       #{sampleReportStatus},
+       #{checkReportStatus},
+       #{createBy},
+       sysdate,
+       #{createBy},
+       sysdate)
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsOrganTask" >
+    update ADS_ORGAN_TASK
+    set MONITOR_TASK_ID = #{monitorTaskId,jdbcType=VARCHAR},
+      SAMPLE_ORGAN = #{sampleOrgan,jdbcType=VARCHAR},
+      SAMPLE_ORGAN_ID = #{sampleOrganId,jdbcType=VARCHAR},
+      DETECTION_ORGAN = #{detectionOrgan,jdbcType=VARCHAR},
+      DETECTION_ORGAN_ID = #{detectionOrganId,jdbcType=VARCHAR},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      NUMBERS = #{numbers,jdbcType=DECIMAL},
+      DEPARMENT = #{deparment,jdbcType=VARCHAR},
+      UPLOAD_TIME = #{uploadTime,jdbcType=TIMESTAMP},
+      FINISH_NUM = #{finishNum,jdbcType=DECIMAL},
+      REPORT_STATUS = #{reportStatus,jdbcType=VARCHAR},
+      REPORT_TIME = #{reportTime,jdbcType=TIMESTAMP},
+      TASKS_STATUS = #{tasksStatus,jdbcType=VARCHAR},
+      SAMPLE_FINISH_NUM = #{sampleFinishNum,jdbcType=DECIMAL},
+      CHECK_FINISH_NUM = #{checkFinishNum,jdbcType=DECIMAL},
+      SAMPLE_FINISH_STATUS = #{sampleFinishStatus,jdbcType=DECIMAL},
+      CHECK_FINISH_STATUS = #{checkFinishStatus,jdbcType=DECIMAL},
+      SAMPLE_REPORT_STATUS = #{sampleReportStatus,jdbcType=DECIMAL},
+      CHECK_REPORT_STATUS = #{checkReportStatus,jdbcType=DECIMAL},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+      RESERVED_FIELD1 = #{reservedField1,jdbcType=VARCHAR},
+      RESERVED_FIELD2 = #{reservedField2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, MONITOR_TASK_ID, SAMPLE_ORGAN, SAMPLE_ORGAN_ID, DETECTION_ORGAN, DETECTION_ORGAN_ID, 
+    REG_ID, NUMBERS, DEPARMENT, UPLOAD_TIME, FINISH_NUM, REPORT_STATUS, REPORT_TIME, 
+    TASKS_STATUS, SAMPLE_FINISH_NUM, CHECK_FINISH_NUM, SAMPLE_FINISH_STATUS, CHECK_FINISH_STATUS, 
+    SAMPLE_REPORT_STATUS, CHECK_REPORT_STATUS, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    DEL_FLAG, CITY_CODE,CITY_NAME
+    from ADS_ORGAN_TASK
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+</mapper>

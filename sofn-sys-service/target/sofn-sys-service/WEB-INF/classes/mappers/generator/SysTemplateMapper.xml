@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SysTemplateMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysTemplate" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_NAME" property="templateName" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_TYPE" property="templateType" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+    <result column="TEMPLATE_FILENAME" property="templateFilename" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="FILE_ADDRESS" property="fileAddress" jdbcType="VARCHAR"/>
+    <result column="PDF_ADDRESS" property="pdfAddress" jdbcType="VARCHAR"/>
+    <result column="FLAGS" property="flags" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_TEMPLATE
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.SysTemplate" >
+    insert into SYS_TEMPLATE (ID
+    , TEMPLATE_NAME
+    , TEMPLATE_TYPE
+    , TEMPLATE_FILENAME
+    , REMARK
+    , STATUS
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , FILE_ADDRESS
+    , PDF_ADDRESS
+    , FLAGS
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{templateName,jdbcType=VARCHAR}
+    , #{templateType,jdbcType=VARCHAR}
+    , #{templateFilename,jdbcType=VARCHAR}
+    , #{remark,jdbcType=VARCHAR}
+    , #{status,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{fileAddress,jdbcType=VARCHAR}
+    , #{pdfAddress,jdbcType=VARCHAR}
+    , #{flags,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysTemplate" >
+    update SYS_TEMPLATE
+    set
+     TEMPLATE_NAME =  #{templateName,jdbcType=VARCHAR},
+     TEMPLATE_TYPE =  #{templateType,jdbcType=VARCHAR},
+     TEMPLATE_FILENAME =  #{templateFilename,jdbcType=VARCHAR},
+     REMARK = #{remark,jdbcType=VARCHAR},
+     STATUS =  #{status,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+     FILE_ADDRESS = #{fileAddress,jdbcType=VARCHAR},
+     PDF_ADDRESS = #{pdfAddress,jdbcType=VARCHAR},
+     FLAGS = #{flags,jdbcType=VARCHAR}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , TEMPLATE_NAME
+    , TEMPLATE_TYPE
+    , TEMPLATE_FILENAME
+    , REMARK
+    , STATUS
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , FILE_ADDRESS
+    , PDF_ADDRESS
+    , FLAGS
+    from SYS_TEMPLATE
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsSubjElChangeMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjElChange">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="EL_NAME" jdbcType="VARCHAR" property="elName" />
+    <result column="EL_CODE" jdbcType="VARCHAR" property="elCode" />
+    <result column="EL_TYPE" jdbcType="CHAR" property="elType" />
+    <result column="EL_LEVEL" jdbcType="VARCHAR" property="elLevel" />
+    <result column="EL_AREA_ID" jdbcType="VARCHAR" property="elAreaId" />
+    <result column="EL_ADDRESS" jdbcType="VARCHAR" property="elAddress" />
+    <result column="EL_LEADER" jdbcType="VARCHAR" property="elLeader" />
+    <result column="EL_LEADER_PHONE" jdbcType="VARCHAR" property="elLeaderPhone" />
+    <result column="EL_CONTACT" jdbcType="VARCHAR" property="elContact" />
+    <result column="EL_CONTACT_PHONE" jdbcType="VARCHAR" property="elContactPhone" />
+    <result column="EL_CONTACT_Q_Q" jdbcType="VARCHAR" property="elContactQQ" />
+    <result column="EL_CONTACT_EMAIL" jdbcType="VARCHAR" property="elContactEmail" />
+    <result column="EL_POSTCODE" jdbcType="CHAR" property="elPostcode" />
+    <result column="EL_UNIT_NATURE" jdbcType="CHAR" property="elUnitNature" />
+    <result column="EL_WORK_BODY" jdbcType="CHAR" property="elWorkBody" />
+    <result column="EL_FILE" jdbcType="VARCHAR" property="elFile" />
+    <result column="CHANGE_BEFORE_FIELD" jdbcType="VARCHAR" property="changeBeforeField" />
+    <result column="CHANGE_CONTENT" jdbcType="VARCHAR" property="changeContent" />
+    <result column="APPLY_TIME" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="APPLY_USER_ID" jdbcType="CHAR" property="applyUserId" />
+    <result column="APPLY_EL_ID" jdbcType="CHAR" property="applyElId" />
+    <result column="APPLY_REASON" jdbcType="VARCHAR" property="applyReason" />
+    <result column="AUDIT_USER_ID" jdbcType="CHAR" property="auditUserId" />
+    <result column="AUDIT_SV_ID" jdbcType="CHAR" property="auditSvId" />
+    <result column="AUDIT_TIME" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="AUDIT_SUGGESTION" jdbcType="VARCHAR" property="auditSuggestion" />
+    <result column="AUDIT_STATE" jdbcType="CHAR" property="auditState" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="EL_LEVEL_ID" jdbcType="VARCHAR" property="elLevelId" />
+    <result column="EL_TYPE_ID" jdbcType="VARCHAR" property="elTypeId" />
+    <result column="EL_AREA" jdbcType="VARCHAR" property="elArea" />
+    <result column="EL_PEOPLE_NUM" jdbcType="VARCHAR" property="elPeopleNum" />
+    <result column="EL_FILE_NAME" jdbcType="VARCHAR" property="elFileName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_SUBJ_EL_CHANGE
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsSubjElChange">
+    insert into ASMS_SUBJ_EL_CHANGE (ID, EL_NAME, EL_CODE, 
+      EL_TYPE, EL_LEVEL, EL_AREA_ID, 
+      EL_ADDRESS, EL_LEADER, EL_LEADER_PHONE, 
+      EL_CONTACT, EL_CONTACT_PHONE, EL_CONTACT_Q_Q, 
+      EL_CONTACT_EMAIL, EL_POSTCODE, EL_UNIT_NATURE, 
+      EL_WORK_BODY, EL_FILE, CHANGE_BEFORE_FIELD, 
+      CHANGE_CONTENT, APPLY_TIME, APPLY_USER_ID, 
+      APPLY_EL_ID, APPLY_REASON, AUDIT_USER_ID, 
+      AUDIT_SV_ID, AUDIT_TIME, AUDIT_SUGGESTION, 
+      AUDIT_STATE, DEL_FLAG, EL_LEVEL_ID, 
+      EL_TYPE_ID, EL_AREA, EL_PEOPLE_NUM, 
+      EL_FILE_NAME)
+    values (#{id,jdbcType=CHAR}, #{elName,jdbcType=VARCHAR}, #{elCode,jdbcType=VARCHAR}, 
+      #{elType,jdbcType=CHAR}, #{elLevel,jdbcType=VARCHAR}, #{elAreaId,jdbcType=VARCHAR}, 
+      #{elAddress,jdbcType=VARCHAR}, #{elLeader,jdbcType=VARCHAR}, #{elLeaderPhone,jdbcType=VARCHAR}, 
+      #{elContact,jdbcType=VARCHAR}, #{elContactPhone,jdbcType=VARCHAR}, #{elContactQQ,jdbcType=VARCHAR}, 
+      #{elContactEmail,jdbcType=VARCHAR}, #{elPostcode,jdbcType=CHAR}, #{elUnitNature,jdbcType=CHAR}, 
+      #{elWorkBody,jdbcType=CHAR}, #{elFile,jdbcType=VARCHAR}, #{changeBeforeField,jdbcType=VARCHAR}, 
+      #{changeContent,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, #{applyUserId,jdbcType=CHAR}, 
+      #{applyElId,jdbcType=CHAR}, #{applyReason,jdbcType=VARCHAR}, #{auditUserId,jdbcType=CHAR}, 
+      #{auditSvId,jdbcType=CHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{auditSuggestion,jdbcType=VARCHAR}, 
+      #{auditState,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{elLevelId,jdbcType=VARCHAR}, 
+      #{elTypeId,jdbcType=VARCHAR}, #{elArea,jdbcType=VARCHAR}, #{elPeopleNum,jdbcType=VARCHAR}, 
+      #{elFileName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsSubjElChange">
+    update ASMS_SUBJ_EL_CHANGE
+    set EL_NAME = #{elName,jdbcType=VARCHAR},
+      EL_CODE = #{elCode,jdbcType=VARCHAR},
+      EL_TYPE = #{elType,jdbcType=CHAR},
+      EL_LEVEL = #{elLevel,jdbcType=VARCHAR},
+      EL_AREA_ID = #{elAreaId,jdbcType=VARCHAR},
+      EL_ADDRESS = #{elAddress,jdbcType=VARCHAR},
+      EL_LEADER = #{elLeader,jdbcType=VARCHAR},
+      EL_LEADER_PHONE = #{elLeaderPhone,jdbcType=VARCHAR},
+      EL_CONTACT = #{elContact,jdbcType=VARCHAR},
+      EL_CONTACT_PHONE = #{elContactPhone,jdbcType=VARCHAR},
+      EL_CONTACT_Q_Q = #{elContactQQ,jdbcType=VARCHAR},
+      EL_CONTACT_EMAIL = #{elContactEmail,jdbcType=VARCHAR},
+      EL_POSTCODE = #{elPostcode,jdbcType=CHAR},
+      EL_UNIT_NATURE = #{elUnitNature,jdbcType=CHAR},
+      EL_WORK_BODY = #{elWorkBody,jdbcType=CHAR},
+      EL_FILE = #{elFile,jdbcType=VARCHAR},
+      CHANGE_BEFORE_FIELD = #{changeBeforeField,jdbcType=VARCHAR},
+      CHANGE_CONTENT = #{changeContent,jdbcType=VARCHAR},
+      APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+      APPLY_USER_ID = #{applyUserId,jdbcType=CHAR},
+      APPLY_EL_ID = #{applyElId,jdbcType=CHAR},
+      APPLY_REASON = #{applyReason,jdbcType=VARCHAR},
+      AUDIT_USER_ID = #{auditUserId,jdbcType=CHAR},
+      AUDIT_SV_ID = #{auditSvId,jdbcType=CHAR},
+      AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      AUDIT_SUGGESTION = #{auditSuggestion,jdbcType=VARCHAR},
+      AUDIT_STATE = #{auditState,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      EL_LEVEL_ID = #{elLevelId,jdbcType=VARCHAR},
+      EL_TYPE_ID = #{elTypeId,jdbcType=VARCHAR},
+      EL_AREA = #{elArea,jdbcType=VARCHAR},
+      EL_PEOPLE_NUM = #{elPeopleNum,jdbcType=VARCHAR},
+      EL_FILE_NAME = #{elFileName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, EL_NAME, EL_CODE, EL_TYPE, EL_LEVEL, EL_AREA_ID, EL_ADDRESS, EL_LEADER, 
+    EL_LEADER_PHONE, EL_CONTACT, EL_CONTACT_PHONE, EL_CONTACT_Q_Q, EL_CONTACT_EMAIL, 
+    EL_POSTCODE, EL_UNIT_NATURE, EL_WORK_BODY, EL_FILE, CHANGE_BEFORE_FIELD, CHANGE_CONTENT, 
+    APPLY_TIME, APPLY_USER_ID, APPLY_EL_ID, APPLY_REASON, AUDIT_USER_ID, AUDIT_SV_ID, 
+    AUDIT_TIME, AUDIT_SUGGESTION, AUDIT_STATE, DEL_FLAG, EL_LEVEL_ID, EL_TYPE_ID, EL_AREA, 
+    EL_PEOPLE_NUM, EL_FILE_NAME
+    from ASMS_SUBJ_EL_CHANGE
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, EL_NAME, EL_CODE, EL_TYPE, EL_LEVEL, EL_AREA_ID, EL_ADDRESS, EL_LEADER, 
+    EL_LEADER_PHONE, EL_CONTACT, EL_CONTACT_PHONE, EL_CONTACT_Q_Q, EL_CONTACT_EMAIL, 
+    EL_POSTCODE, EL_UNIT_NATURE, EL_WORK_BODY, EL_FILE, CHANGE_BEFORE_FIELD, CHANGE_CONTENT, 
+    APPLY_TIME, APPLY_USER_ID, APPLY_EL_ID, APPLY_REASON, AUDIT_USER_ID, AUDIT_SV_ID, 
+    AUDIT_TIME, AUDIT_SUGGESTION, AUDIT_STATE, DEL_FLAG, EL_LEVEL_ID, EL_TYPE_ID, EL_AREA, 
+    EL_PEOPLE_NUM, EL_FILE_NAME
+    from ASMS_SUBJ_EL_CHANGE
+  </select>
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjSlaProPchcExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjSlaProPchc" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_UNIT" property="productUnit" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="VARCHAR" />
+    <result column="SLAUGHTER_BATCH_NO" property="slaughterBatchNo" jdbcType="VARCHAR" />
+    <result column="INIT_AMOUNT" property="initAmount" jdbcType="DECIMAL" />
+    <result column="CURRENT_AMOUNT" property="currentAmount" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="INSIDE_TRACE_CODE" property="insideTraceCode" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="SLAUGHTER_BATCH_NO_NEW" property="slaughterBatchNoNew" jdbcType="VARCHAR" />
+    <result column="BILL_STRATRUS" property="billStratrus" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_HC_ID" property="productHcId" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_SLAUGHTER_PCHC T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+      <if test="productName != null and productName != ''">
+          and T.PRODUCT_NAME != #{productName}
+      </if>
+      <if test="productName != null and productName != ''">
+          and T.PRODUCT_TYPE != #{productType}
+      </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_SLAUGHTER_PCHC T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+  </select>
+    <insert id="insertBySelect" parameterType="map" >
+        insert into TTS_SCLTXXCJ_SLAUGHTER_PCHC (ID
+        , PRODUCT_HC_ID
+        , PRODUCT_NAME
+        , INIT_AMOUNT
+        , CURRENT_AMOUNT
+        , SLAUGHTER_BATCH_NO
+        , SLAUGHTER_BATCH_NO_NEW
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , STATUS
+        )
+        select id
+        , #{hcid} as PRODUCT_HC_ID
+        , PRODUCT_NAME
+        , INIT_AMOUNT
+        , CURRENT_AMOUNT
+        , SLAUGHTER_BATCH_NO
+        , #{product_pc_new} as SLAUGHTER_BATCH_NO_NEW
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , STATUS
+        from TTS_SCLTXXCJ_SLAUGHTER_STOR t
+        where t.id in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </insert>
+
+</mapper>

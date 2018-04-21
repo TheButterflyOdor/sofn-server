@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsProducttempoRrarycodeExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsProducttempoRrarycode" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MAINBODY_CATEGORIES" property="mainbodyCategories" jdbcType="CHAR" />
+    <result column="ORGANIZATION_FORMS" property="organizationForms" jdbcType="CHAR" />
+    <result column="MAINBODY_NUMBER" property="mainbodyNumber" jdbcType="VARCHAR" />
+    <result column="PROJECT_CATEGORY_CODE" property="projectCategoryCode" jdbcType="VARCHAR" />
+    <result column="SERVICE_TYPE" property="serviceType" jdbcType="CHAR" />
+    <result column="MAINBODY_ADDRESS" property="mainbodyAddress" jdbcType="VARCHAR" />
+    <result column="COLUMN1" property="column1" jdbcType="VARCHAR" />
+    <result column="COLUMN2" property="column2" jdbcType="VARCHAR" />
+    <result column="COLUMN3" property="column3" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from ADS_PRODUCTTEMPORARY_CODE T
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM ADS_PRODUCTTEMPORARY_CODE T
+  </select>
+
+    <select id="findById" parameterType="hashmap" resultType="long">
+        SELECT t.MAINBODY_CATEGORIES,t.ORGANIZATION_FORMS,t.MAINBODY_NUMBER,t.PROJECT_CATEGORY_CODE,SERVICE_TYPE,MAINBODY_ADDRESS FROM ADS_PRODUCTTEMPORARY_CODE T
+        where  t.id=#{id}
+    </select>
+
+
+</mapper>

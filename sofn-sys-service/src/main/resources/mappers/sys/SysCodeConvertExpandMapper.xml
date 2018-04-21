@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysCodeConvertExpandMapper">
+    <select id="queryCode" resultType="com.sofn.model.generator.SysCodeConvert">
+        select CODE_LONG, CODE_SHORT
+        from SYS_CODE_CONVERT
+        where
+        <if test="codeLong!=null and codeLong!=''">
+            CODE_LONG=#{codeLong}
+        </if>
+        <if test="codeShort!=null and codeShort!=''">
+            CODE_SHORT=#{codeShort}
+        </if>
+    </select>
+</mapper>

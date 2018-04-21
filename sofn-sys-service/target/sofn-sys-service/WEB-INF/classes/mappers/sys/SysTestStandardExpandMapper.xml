@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysTestStandardExpandMapper">
+    <select id="getTestStandards" resultType="com.sofn.model.generator.SysTestStandardModel">
+      SELECT
+	    *
+      FROM
+        SYS_TEST_STANDARD
+      WHERE
+        DEL_FLAG = 'N'
+        <if test="standardCode != null and standardCode != ''">
+          AND STANDARD_CODE LIKE '%${standardCode}%'
+        </if>
+        <if test="standardName != null and standardName != ''">
+          AND STANDARD_NAME LIKE '%${standardName}%'
+        </if>
+    </select>
+
+    <select id="querylist" resultType="com.sofn.model.generator.SysTestStandardModel">
+        SELECT
+        *
+        FROM
+        SYS_TEST_STANDARD
+        WHERE
+        DEL_FLAG = 'N'
+    </select>
+
+    <select id="getTestStandard" resultType="com.sofn.model.generator.SysTestStandardModel">
+        SELECT
+          *
+        FROM
+          SYS_TEST_STANDARD
+        WHERE
+          ID = #{id}
+    </select>
+
+    <select id="isExistStandardCode" resultType="java.lang.Integer">
+        SELECT
+          COUNT(1)
+        FROM
+          SYS_TEST_STANDARD
+        WHERE
+          STANDARD_CODE = #{standardCode}
+        AND
+          DEL_FLAG = 'N'
+    </select>
+
+    <update id="updateTestStandard">
+      UPDATE SYS_TEST_STANDARD
+      SET
+        <if test="isUpdateStandardCode">
+            STANDARD_CODE = #{sysTestStandardModel.standardCode},
+        </if>
+        STANDARD_NAME = #{sysTestStandardModel.standardName},
+        REMARK = #{sysTestStandardModel.remark},
+        UPDATE_BY = #{sysTestStandardModel.updateBy},
+        UPDATE_TIME = #{sysTestStandardModel.updateTime}
+      WHERE
+        ID = #{sysTestStandardModel.id}
+        AND
+        DEL_FLAG = 'N'
+    </update>
+    <insert id="addTestStandard">
+      INSERT INTO SYS_TEST_STANDARD (
+        ID,
+        STANDARD_CODE,
+        STANDARD_NAME,
+        REMARK,
+        CREATE_BY,
+        CREATE_TIME
+      )
+      VALUES
+        (
+            #{id},
+            #{standardCode},
+            #{standardName},
+            #{remark},
+            #{createBy},
+            #{createTime}
+        )
+    </insert>
+    <update id="deleteTestStandards">
+      UPDATE SYS_TEST_STANDARD
+      SET DEL_FLAG = 'Y',
+          UPDATE_BY = #{account},
+          UPDATE_TIME = #{operateTime}
+      WHERE
+        ID IN
+      <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </update>
+</mapper>

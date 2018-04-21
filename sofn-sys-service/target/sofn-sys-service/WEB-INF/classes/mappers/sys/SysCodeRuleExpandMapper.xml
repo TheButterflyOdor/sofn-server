@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysCodeRuleExpandMapper">
+
+    <select id="getSysCodeListByPage" resultType="com.sofn.model.generator.SysCodeRule">
+        select r.* from
+        (select * from (select a.*,ROWNUM RN from (
+        select * from SYS_CODE_RULE s where (del_flag is null or del_flag!='Y')
+        order by CREATE_TIME desc
+        ) a
+        <![CDATA[
+        where ROWNUM<= #{page.pageTail}
+        ]]>)
+        <![CDATA[
+        where RN >= #{page.pageOffset}
+        ]]>) r
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1)
+        from SYS_CODE_RULE s
+        where del_flag is null or del_flag!='Y'
+    </select>
+
+</mapper>

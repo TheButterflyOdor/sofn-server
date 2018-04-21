@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsCheckTaskEnterpriseExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCheckTaskEnterprise">
+        <id column="ID" property="id" jdbcType="CHAR" />
+        <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="CHAR" />
+        <result column="ENTERPRISE_NAME" property="enterpriseName" jdbcType="VARCHAR" />
+        <result column="CHECK_TASK_OBJECT_ID" property="checkTaskObjectId" jdbcType="CHAR" />
+        <result column="ENTITY_TYPE" property="entityType" jdbcType="VARCHAR" />
+        <result column="CREDIT_CODE" property="creditCode" jdbcType="VARCHAR" />
+        <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+        <result column="LEGAL_PHONE" property="legalPhone" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="CHECK_TASK_ID" property="checkTaskId" jdbcType="CHAR" />
+    </resultMap>
+
+    <delete id="delByParm">
+        DELETE FROM ASMS_CHECK_TASK_ENTERPRISE M
+        WHERE 1=1
+        <if test="checkTaskObjectId!=null and checkTaskObjectId!=''">
+            AND M.CHECK_TASK_OBJECT_ID = #{checkTaskObjectId}
+        </if>
+    </delete>
+
+    <select id="getListByParams" resultType="com.sofn.model.generator.AsmsCheckTaskEnterprise">
+        SELECT M.* FROM ASMS_CHECK_TASK_ENTERPRISE M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="checkTaskObjectId!=null and checkTaskObjectId!=''">
+            AND M.CHECK_TASK_OBJECT_ID = #{checkTaskObjectId}
+        </if>
+        <if test="enterpriseName!=null and enterpriseName!=''">
+            AND M.ENTERPRISE_NAME LIKE #{enterpriseName}
+        </if>
+        <if test="entityType!=null and entityType!=''">
+            AND M.ENTITY_TYPE LIKE #{entityType}
+        </if>
+        order by M.CREATE_TIME DESC
+    </select>
+
+</mapper>

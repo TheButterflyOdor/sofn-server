@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsInfoProjectExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsInfoProject" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR" />
+    <result column="CHECK_NUM" property="checkNum" jdbcType="VARCHAR" />
+    <result column="JUDGE_NUM" property="judgeNum" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="CHECK_INFO_ID" property="checkInfoId" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+     <result column="LOD" property="LOD" jdbcType="VARCHAR" />
+     <result column="LOO" property="LOO" jdbcType="VARCHAR" />
+     <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from ADS_INFO_PROJECT T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM ADS_INFO_PROJECT T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+  </select>
+
+    <!--<select id="getPageInfoWithCheckInfoId" parameterType="hashmap" resultType="map">-->
+        <!--SELECT Tab.*-->
+        <!--FROM (-->
+        <!--SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from ADS_INFO_PROJECT T-->
+        <!--where 1 = 1 AND T.DEL_FLAG != 'Y' and T.CHECK_INFO_ID = #{checkInfoId}-->
+        <!--)Tab-->
+        <!--WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}-->
+    <!--</select>-->
+
+    <select id="getCountWithCheckInfoId" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM ADS_INFO_PROJECT T
+        where 1 = 1 AND T.DEL_FLAG != 'Y' and T.CHECK_INFO_ID = #{checkInfoId}
+    </select>
+
+    <select id="getPageInfoWithCheckInfoId" resultMap="BaseResultMap" parameterType="hashmap" >
+        select ID
+        , CHECK_PROJECT
+        , CHECK_NUM
+        , JUDGE_NUM
+        , RESULT
+        , CHECK_INFO_ID
+        , LOO
+        , LOD
+        , UNIT
+        from ADS_INFO_PROJECT
+        where CHECK_INFO_ID =#{checkInfoId} AND ADS_INFO_PROJECT.DEL_FLAG != 'Y' order by ID asc
+    </select>
+
+    <update id="updateResult" parameterType="hashmap" >
+        update ADS_INFO_PROJECT
+        set
+        CHECK_NUM =  #{checkNum,jdbcType=VARCHAR},
+        RESULT =  #{result,jdbcType=VARCHAR},
+        LOD =  #{lod,jdbcType=VARCHAR},
+        LOO =  #{loo,jdbcType=VARCHAR}
+        where ID =#{id}
+    </update>
+
+    <select id="queryByProjectAndInfoId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select ID
+        ,JUDGE_NUM
+        from ADS_INFO_PROJECT
+        where CHECK_INFO_ID = #{checkInfoId} AND CHECK_PROJECT = #{CHECK_PROJECT}
+    </select>
+
+    <select id="queryByInfoId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select ID
+        , RESULT
+        from ADS_INFO_PROJECT
+        where CHECK_INFO_ID = #{checkInfoId}
+    </select>
+
+    <select id="queryListByInfoId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select ID
+        , CHECK_PROJECT
+        , CHECK_NUM
+        , JUDGE_NUM
+        , RESULT
+        , CHECK_INFO_ID
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , LOD
+        , LOO
+        from ADS_INFO_PROJECT
+        where CHECK_INFO_ID = #{checkInfoId} AND ADS_INFO_PROJECT.DEL_FLAG != 'Y'
+    </select>
+
+    <update id="updateMax" parameterType="hashmap" >
+        update ADS_INFO_PROJECT
+        set
+        JUDGE_NUM =  #{max,jdbcType=VARCHAR}
+        where ID =#{id}
+    </update>
+
+</mapper>

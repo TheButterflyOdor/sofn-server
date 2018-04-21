@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysTemplateExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysTemplate" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_NAME" property="templateName" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_TYPE" property="templateType" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_FILENAME" property="templateFilename" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+     <result column="FILE_ADDRESS" property="fileAddress" jdbcType="VARCHAR"/>
+     <result column="PDF_ADDRESS" property="pdfAddress" jdbcType="VARCHAR"/>
+     <result column="FLAGS" property="flags" jdbcType="VARCHAR"/>
+  </resultMap>
+
+    <select id="getPageInfo" parameterType="hashmap" resultType="com.sofn.model.generator.SysTemplate">
+        SELECT * FROM
+        (
+        SELECT A.*, ROWNUM RN
+        FROM (
+        select DISTINCT t1.* from SYS_TEMPLATE t1
+        <if test="orgType != null and orgType != ''">
+        , SYS_USER t2,SYS_ORGANIZATION t3
+        </if>
+        where t1.DEL_FLAG !='Y'
+        <if test="templateName!=null and templateName!=''">
+            AND t1.TEMPLATE_NAME like '%'||#{templateName,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="templateType!=null and templateType!=''">
+            AND t1.TEMPLATE_TYPE like '%'||#{templateType,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="status != null and status != ''">
+            AND t1.status = #{status}
+        </if>
+        <if test="flags!=null and flags!=''">
+            AND t1.flags like '%'||#{flags,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="flags==null or flags==''">
+            AND t1.flags is null
+        </if>
+        <if test="orgType != null and orgType != ''">
+            and T1.CREATE_BY = T2."ID" and T2.ORGANIZATION_ID = T3."ID"
+            AND T3.ORG_TYPE = #{orgType}
+        </if>
+        <if test="regId != null and regId != ''">
+            AND T3.REGION_ID like #{regId} || '%'
+        </if>
+        <if test="orgLevel != null and orgLevel != ''">
+            AND T3.ORG_LEVEL = #{orgLevel}
+        </if>
+        order by t1.update_time desc
+        ) A
+        <![CDATA[
+            WHERE ROWNUM <= #{pager.pageTail}
+            ]]>
+        )
+        <![CDATA[
+        WHERE RN >= #{pager.pageOffset}
+        ]]>
+    </select>
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+        select count(DISTINCT t1."ID") from SYS_TEMPLATE t1
+        <if test="orgType != null and orgType != ''">
+            , SYS_USER t2,SYS_ORGANIZATION t3
+        </if>
+        where t1.DEL_FLAG !='Y'
+        <if test="templateName!=null and templateName!=''">
+            AND t1.TEMPLATE_NAME like '%'||#{templateName,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="templateType!=null and templateType!=''">
+            AND t1.TEMPLATE_TYPE like '%'||#{templateType,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="status != null and status != ''">
+            AND t1.status = #{status}
+        </if>
+        <if test="flags!=null and flags!=''">
+            AND t1.flags like '%'||#{flags,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="flags==null or flags==''">
+            AND t1.flags is null
+        </if>
+        <if test="orgType != null and orgType != ''">
+            and T1.CREATE_BY = T2."ID" and T2.ORGANIZATION_ID = T3."ID"
+            AND T3.ORG_TYPE = #{orgType}
+        </if>
+        <if test="regId != null and regId != ''">
+            AND T3.REGION_ID like #{regId} || '%'
+        </if>
+        <if test="orgLevel != null and orgLevel != ''">
+            AND T3.ORG_LEVEL = #{orgLevel}
+        </if>
+    </select>
+    <select id="getTemplateByName" parameterType="String" resultType="com.sofn.model.generator.SysTemplate">
+        SELECT * from SYS_TEMPLATE where template_name = #{name} and DEL_FLAG = 'N'
+    </select>
+    <update id="updateTempStatus" parameterType="hashmap">
+        update SYS_TEMPLATE set status = #{status} where id = #{id}
+    </update>
+    <select id="foundById" parameterType="String" resultType="com.sofn.model.generator.SysTemplate">
+        SELECT * FROM SYS_TEMPLATE WHERE id = #{tid}
+    </select>
+</mapper>

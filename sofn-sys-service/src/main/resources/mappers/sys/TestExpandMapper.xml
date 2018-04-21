@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.TestExpandMapper">
+    <insert id="insertTest">
+        insert into SYS_USER (ID, ACCOUNT, PASSWORD,
+          USER_NAME, DEPT_ID, ORGANIZATION_ID, ROLE_ID,
+          POST_ID, PHONE, EMAIL,
+          STATUS, CREATE_BY, CREATE_TIME,
+          UPDATE_BY, UPDATE_TIME, DEL_FLAG,
+          RESERVED_FIELD1, RESERVED_FIELD2)
+        values (#{id,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+          #{userName,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR},#{organizationId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR},
+          #{postId,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+          #{status,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+          #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=VARCHAR},
+          #{reservedField1,jdbcType=VARCHAR}, #{reservedField2,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateTest">
+        update SYS_USER
+        set ACCOUNT = #{account}
+        WHERE ID = #{id}
+    </update>
+    <select id="getCount" resultType="java.lang.Integer">
+
+    </select>
+    <select id="getUserInfoById" resultType="java.util.Map">
+        SELECT
+          sys_user.id as id,
+          account as account,
+          password as password,
+          phone as phone,
+          user_name as userName,
+          dept_name as deptName,
+          dept_id as deptId
+        FROM sys_user left join sys_dept on dept_id = sys_dept.id
+        where sys_user.id = #{id};
+    </select>
+    <select id="getUserInfo" resultType="com.sofn.model.sys.SysUserDto">
+        SELECT
+          sys_user.id as id,
+          account as account,
+          password as password,
+          phone as phone,
+          user_name as userName,
+          dept_name as "sysDept.deptName",
+          dept_id as "sysDept.id"
+        FROM sys_user left join sys_dept on dept_id = sys_dept.id
+        where sys_user.id = #{id};
+    </select>
+</mapper>

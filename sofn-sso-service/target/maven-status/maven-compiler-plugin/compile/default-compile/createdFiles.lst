@@ -1,0 +1,10 @@
+com\sofn\service\mq\listener\DirectConsumer.class
+com\sofn\dao\sso\SSOMenuMapper.class
+com\sofn\core\listener\ServerListerner.class
+com\sofn\service\mq\listener\FountConsumer.class
+com\sofn\dao\sso\SSORoleMapper.class
+com\sofn\provider\sso\SSOLoginProviderImpl.class
+com\sofn\dao\sso\SSOUserRoleMapper.class
+com\sofn\provider\sso\SSOMenuProviderImpl.class
+com\sofn\dao\sso\SSOLoginMapper.class
+com\sofn\service\mq\listener\TopicConsumer.class

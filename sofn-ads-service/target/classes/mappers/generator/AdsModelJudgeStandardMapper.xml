@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsModelJudgeStandardMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsModelJudgeStandard" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADS_MODEL_JUDGE_STANDARD
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="deleteByLogic" parameterType="com.sofn.model.generator.AdsModelJudgeStandard">
+     update ADS_MODEL_JUDGE_STANDARD set DEL_FLAG = 'Y',UPDATE_BY=#{updateBy},UPDATE_TIME=sysdate
+      where id=#{id}
+  </update>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.AdsModelJudgeStandard" >
+    insert into ADS_MODEL_JUDGE_STANDARD (ID
+    , NAME
+    , CREATE_BY
+    , CREATE_TIME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{name,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , sysdate
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsModelJudgeStandard" >
+    update ADS_MODEL_JUDGE_STANDARD
+    set
+    <if test="name!=null and name!=''">
+        NAME =  #{name,jdbcType=VARCHAR},
+    </if>
+    <if test="filePath!=null and filePath!=''">
+        FILE_PATH =  #{filePath,jdbcType=VARCHAR},
+    </if>
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     UPDATE_TIME =  sysdate
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , NAME
+    , FILE_PATH
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from ADS_MODEL_JUDGE_STANDARD
+     where ID =#{id,jdbcType=VARCHAR}
+       AND DEL_FLAG !='Y'
+  </select>
+  
+  </mapper>

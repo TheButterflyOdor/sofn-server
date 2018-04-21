@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjComplainMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjComplain" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="BE_ENTITY_IDCODE" property="beEntityIdcode" jdbcType="VARCHAR" />
+    <result column="BE_USER_IDCODE" property="beUserIdcode" jdbcType="VARCHAR" />
+    <result column="ACC_ENTITY_IDCODE" property="accEntityIdcode" jdbcType="VARCHAR" />
+    <result column="ACC_USER_IDCODE" property="accUserIdcode" jdbcType="VARCHAR" />
+    <result column="COMPLAINT_TIME" property="complaintTime" jdbcType="TIMESTAMP" />
+    <result column="COMPLAINT_TITLE" property="complaintTitle" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="ACCEPTANCE" property="acceptance" jdbcType="VARCHAR" />
+    <result column="AREA_ID" property="areaId" jdbcType="VARCHAR" />
+    <result column="ACC_TIME" property="accTime" jdbcType="TIMESTAMP" />
+    <result column="ATTACHMENT_NAME" property="attachmentName" jdbcType="VARCHAR" />
+    <result column="COMPLAINT_ENT_NAME" property="complaintEntName" jdbcType="CHAR" />
+    <result column="ATTACHMENT_PATH" property="attachmentPath" jdbcType="VARCHAR" />
+    <result column="COMPLAINT_COP_NAME" property="complaintCopName" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_COMPLAINT
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjComplain" >
+    insert into TTS_SCLTXXCJ_COMPLAINT (ID
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , BE_ENTITY_IDCODE
+    , BE_USER_IDCODE
+    , ACC_ENTITY_IDCODE
+    , ACC_USER_IDCODE
+    , COMPLAINT_TIME
+    , COMPLAINT_TITLE
+    , CONTENT
+    , TYPE
+    , STATUS
+    , ACCEPTANCE
+    , AREA_ID
+    , ACC_TIME
+    , ATTACHMENT_NAME
+    , COMPLAINT_ENT_NAME
+    , ATTACHMENT_PATH
+    , COMPLAINT_COP_NAME
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , TYPE_NAME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{entityIdcode,jdbcType=VARCHAR}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{beEntityIdcode,jdbcType=VARCHAR}
+    , #{beUserIdcode,jdbcType=VARCHAR}
+    , #{accEntityIdcode,jdbcType=VARCHAR}
+    , #{accUserIdcode,jdbcType=VARCHAR}
+    , #{complaintTime,jdbcType=TIMESTAMP}
+    , #{complaintTitle,jdbcType=VARCHAR}
+    , #{content,jdbcType=VARCHAR}
+    , #{type,jdbcType=VARCHAR}
+    , #{status,jdbcType=VARCHAR}
+    , #{acceptance,jdbcType=VARCHAR}
+    , #{areaId,jdbcType=VARCHAR}
+    , #{accTime,jdbcType=TIMESTAMP}
+    , #{attachmentName,jdbcType=VARCHAR}
+    , #{complaintEntName,jdbcType=CHAR}
+    , #{attachmentPath,jdbcType=VARCHAR}
+    , #{complaintCopName,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{typeName,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjComplain" >
+    update TTS_SCLTXXCJ_COMPLAINT
+    set
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+     BE_ENTITY_IDCODE =  #{beEntityIdcode,jdbcType=VARCHAR},
+     BE_USER_IDCODE =  #{beUserIdcode,jdbcType=VARCHAR},
+     ACC_ENTITY_IDCODE =  #{accEntityIdcode,jdbcType=VARCHAR},
+     ACC_USER_IDCODE =  #{accUserIdcode,jdbcType=VARCHAR},
+     COMPLAINT_TIME =  #{complaintTime,jdbcType=TIMESTAMP},
+     COMPLAINT_TITLE =  #{complaintTitle,jdbcType=VARCHAR},
+     CONTENT =  #{content,jdbcType=VARCHAR},
+     TYPE =  #{type,jdbcType=VARCHAR},
+     STATUS =  #{status,jdbcType=VARCHAR},
+     ACCEPTANCE =  #{acceptance,jdbcType=VARCHAR},
+     AREA_ID =  #{areaId,jdbcType=VARCHAR},
+     ACC_TIME =  #{accTime,jdbcType=TIMESTAMP},
+     ATTACHMENT_NAME =  #{attachmentName,jdbcType=VARCHAR},
+     COMPLAINT_ENT_NAME =  #{complaintEntName,jdbcType=CHAR},
+     ATTACHMENT_PATH =  #{attachmentPath,jdbcType=VARCHAR},
+     COMPLAINT_COP_NAME =  #{complaintCopName,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+      TYPE_NAME = #{typeName,jdbcType=VARCHAR}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , BE_ENTITY_IDCODE
+    , BE_USER_IDCODE
+    , ACC_ENTITY_IDCODE
+    , ACC_USER_IDCODE
+    , COMPLAINT_TIME
+    , COMPLAINT_TITLE
+    , CONTENT
+    , TYPE
+    , STATUS
+    , ACCEPTANCE
+    , AREA_ID
+    , ACC_TIME
+    , ATTACHMENT_NAME
+    , COMPLAINT_ENT_NAME
+    , ATTACHMENT_PATH
+    , COMPLAINT_COP_NAME
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , TYPE_NAME
+    from TTS_SCLTXXCJ_COMPLAINT
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

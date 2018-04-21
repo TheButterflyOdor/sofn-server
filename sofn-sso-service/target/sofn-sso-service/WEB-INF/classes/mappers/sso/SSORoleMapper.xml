@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sso.SSORoleMapper" >
+
+  <select id="queryByParam" resultType="com.sofn.model.sso.SysRole">
+    select *
+    from SYS_ROLE
+    where (del_flag is null or del_flag!='Y')
+    <if test="param.keyword != null and param.keyword != ''">
+      AND ROLE_NAME LIKE '%' || #{param.keyword} || '%'
+    </if>
+    <if test="param.roleName != null and param.roleName != ''">
+      AND ROLE_NAME = #{param.roleName}
+    </if>
+    <if test="param.roleCode != null and param.roleCode != ''">
+      AND ROLE_CODE = #{param.roleCode}
+    </if>
+    <if test="param.organizationId != null and param.organizationId != ''">
+      AND ORGANIZATION_ID = #{param.organizationId}
+    </if>
+    <if test="param.deptId != null and param.deptId != ''">
+      AND DEPT_ID=#{param.deptId}
+    </if>
+  </select>
+</mapper>

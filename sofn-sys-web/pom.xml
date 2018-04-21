@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.sofn</groupId>
+		<artifactId>sofn</artifactId>
+		<version>1.1.1.15</version>
+	</parent>
+	<artifactId>sofn-sys-web</artifactId>
+	<name>sofn-sys-web</name>
+	<packaging>war</packaging>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<server.port>${web.sys.port}</server.port>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>com.sofn</groupId>
+			<artifactId>sofn-sys-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sofn</groupId>
+			<artifactId>sofn-sso-api</artifactId>
+		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.sofn</groupId>-->
+			<!--<artifactId>sofn-ssa-api</artifactId>-->
+		<!--</dependency>-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
+
+		<!--<dependency>-->
+			<!--<groupId>json</groupId>-->
+			<!--<artifactId>json-lib</artifactId>-->
+			<!--<version>2.2.2-jdk15</version>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>4.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+	</dependencies>
+</project>

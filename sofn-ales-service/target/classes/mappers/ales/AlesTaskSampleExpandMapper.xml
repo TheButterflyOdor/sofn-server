@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ales.AlesTaskSampleExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesTaskSample">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_TRACEABILITY_CODE" property="productTraceabilityCode" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_BAR_CODE" property="sampleBarCode" jdbcType="DECIMAL"/>
+        <result column="SAMPLE_NAME" property="sampleName" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR"/>
+        <result column="TRADE_MARK" property="tradeMark" jdbcType="VARCHAR"/>
+        <result column="PACKING" property="packing" jdbcType="VARCHAR"/>
+        <result column="GRADE" property="grade" jdbcType="VARCHAR"/>
+        <result column="IDENTIFY" property="identify" jdbcType="VARCHAR"/>
+        <result column="SPECIFICATION_GX" property="specificationGx" jdbcType="VARCHAR"/>
+        <result column="STANDARD" property="standard" jdbcType="VARCHAR"/>
+        <result column="PRODUCE_DATE" property="produceDate" jdbcType="TIMESTAMP"/>
+        <result column="PRODUCE_CERTIFICATE" property="produceCertificate" jdbcType="VARCHAR"/>
+        <result column="CERTIFICATE_CODE" property="certificateCode" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_BASE" property="sampleBase" jdbcType="DECIMAL"/>
+        <result column="SAMPLE_PLACE" property="samplePlace" jdbcType="VARCHAR"/>
+        <result column="TESTED_DEPARMENT" property="testedDeparment" jdbcType="VARCHAR"/>
+        <result column="TESTED_ADDRESS" property="testedAddress" jdbcType="VARCHAR"/>
+        <result column="TESTED_LEGALREP" property="testedLegalrep" jdbcType="VARCHAR"/>
+        <result column="TESTED_LINKMAN" property="testedLinkman" jdbcType="VARCHAR"/>
+        <result column="TESTED_LINKMANPHONE" property="testedLinkmanphone" jdbcType="VARCHAR"/>
+        <result column="TESTED_LINKMANFAX" property="testedLinkmanfax" jdbcType="VARCHAR"/>
+        <result column="TESTED_PERSON" property="testedPerson" jdbcType="VARCHAR"/>
+        <result column="TESTED_PERSONPHONE" property="testedPersonphone" jdbcType="VARCHAR"/>
+        <result column="TESTED_PERSONFAX" property="testedPersonfax" jdbcType="VARCHAR"/>
+        <result column="PRODUCTIONS_TATUS" property="productionsTatus" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_DEPARMENT" property="productionDeparment" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_ADDRESS" property="productionAddress" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_ZIPCODE" property="productionZipcode" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_LINKMAN" property="productionLinkman" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_LINKMANPHONE" property="productionLinkmanphone" jdbcType="VARCHAR"/>
+        <result column="PRODUCTION_LINKMANFAX" property="productionLinkmanfax" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_ID" property="sampleId" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_DEPARMENT" property="sampleDeparment" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_LINKMAN" property="sampleLinkman" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_ADDRESS" property="sampleAddress" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_ZIPCODE" property="sampleZipcode" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_PHONE" property="samplePhone" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_FAX" property="sampleFax" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_EMAIL" property="sampleEmail" jdbcType="VARCHAR"/>
+        <result column="PROOF" property="proof" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_PERSON" property="samplePerson" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_DATE" property="sampleDate" jdbcType="TIMESTAMP"/>
+        <result column="SAMPLE_REPORT" property="sampleReport" jdbcType="VARCHAR"/>
+        <result column="COMMENT_GX" property="commentGx" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR"/>
+        <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR"/>
+        <result column="PRODUCING_AREA" property="producingArea" jdbcType="VARCHAR"/>
+        <result column="PRODUCING_AREA_NAME" property="producingAreaName" jdbcType="VARCHAR"/>
+        <result column="IS_SYNC" property="isSync" jdbcType="VARCHAR"/>
+        <result column="RESULT" jdbcType="CHAR" property="result"/>
+        <result column="SAMPLE_AMOUNT" jdbcType="DECIMAL" property="sampleAmount" />
+        <result column="ATTACHMENTS" jdbcType="VARCHAR" property="attachments" />
+        <result column="ATTACHMENT_NAMES" jdbcType="VARCHAR" property="attachmentNames" />
+        <result column="SAMPLE_UNIT_TYPE" jdbcType="VARCHAR" property="sampleUnitType" />
+        <result column="SAMPLE_BASE_UNIT_TYPE" jdbcType="VARCHAR" property="sampleBaseUnitType" />
+        <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    </resultMap>
+    <!--列表-->
+    <select id="getPagesList" resultMap="BaseResultMap">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.*
+        FROM
+        ALES_TASK_SAMPLE M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="organTaskId!=null and organTaskId!=''">
+            AND M.ORGAN_TASK_ID = #{organTaskId}
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="judgeisSync" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ALES_TASK_SAMPLE M WHERE  1 = 1
+        AND M .DEL_FLAG = 'N' AND M .ORGAN_TASK_ID = #{organTaskId}
+        AND M .IS_SYNC ='0'
+    </select>
+    <!-- AND M.IS_SYNC != '0' -->
+    <select id="judgeisSyncs" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ALES_TASK_SAMPLE M WHERE  1 = 1
+        AND M .DEL_FLAG = 'N' AND M .ORGAN_TASK_ID = #{organTaskId}
+        AND M .IS_SYNC ='1'
+    </select>
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ALES_TASK_SAMPLE M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="organTaskId!=null and organTaskId!=''">
+            AND M.ORGAN_TASK_ID = #{organTaskId}
+        </if>
+    </select>
+
+    <!--根据监测信息id获取下面所有抽样单对象-->
+    <select id="getSampleListByjcxxId" resultMap="BaseResultMap">
+    SELECT * FROM
+    ALES_TASK_SAMPLE M
+    WHERE 1=1 AND M.DEL_FLAG = 'N' AND M.ORGAN_TASK_ID = #{organTaskId} AND M.IS_SYNC ='0'
+    </select>
+    <!-- 根据监测信息id,样品码获取下面抽样单对象 -->
+    <select id="getSampleListByjcxxIds" resultMap="BaseResultMap">
+        SELECT * FROM
+        ALES_TASK_SAMPLE M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND M.ORGAN_TASK_ID = #{organTaskId}  AND M.SAMPLE_CODE = #{sampleCode}
+    </select>
+    <!--根据样品编码获取已提交检测系统的抽样单信息-->
+    <select id="getSampleBySampleCode" resultMap="BaseResultMap">
+    SELECT * FROM ALES_TASK_SAMPLE M WHERE M.DEL_FLAG = 'N' AND M.IS_SYNC = '1' AND M.SAMPLE_CODE = #{sampleCode}
+  </select>
+    <select id="getLocalSoleSampleBySampleCode" resultMap="BaseResultMap">
+        SELECT * FROM ALES_TASK_SAMPLE M WHERE M.DEL_FLAG = 'N' AND M.SAMPLE_CODE = #{sampleCode} AND M.ID = #{id}
+    </select>
+    <!--根据样品编码查询抽样单-->
+    <select id="getLocalSampleBySampleCode" resultMap="BaseResultMap">
+    SELECT * FROM ALES_TASK_SAMPLE M WHERE M.DEL_FLAG = 'N' AND M.SAMPLE_CODE = #{sampleCode}
+  </select>
+
+    <!--修改抽样单信息状态 0 未同步 1 已同步-->
+    <update id="syncIsTrue">
+    UPDATE ALES_TASK_SAMPLE M SET M.IS_SYNC = #{isSync} WHERE M.ORGAN_TASK_ID = #{organTaskId} AND M.DEL_FLAG = 'N'
+   </update>
+    <!--根据id和样品编码修改抽样单信息状态 0 未同步 1 已同步-->
+    <update id="sampleUpdate">
+        UPDATE ALES_TASK_SAMPLE M SET M.IS_SYNC = #{isSync} WHERE M.ORGAN_TASK_ID = #{organTaskId} AND M.SAMPLE_CODE = #{sampleCode} AND M.ID = #{id} AND M.DEL_FLAG ='N'
+    </update>
+
+    <!--根据任务id获取下属所有抽样单信息-->
+    <select id="getSampleListByTaskIdPagesList" resultType="map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS RN FROM (
+        SELECT
+        M.ID,M.SAMPLE_CODE AS SAMPLECODE,M.SAMPLE_NAME AS SAMPLENAME,M.TESTED_DEPARMENT AS TESTEDDEPARMENT
+        FROM
+        ALES_TASK_SAMPLE M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND
+        <foreach collection="objIds" item="obj" index="index" separator="OR">
+            M.ORGAN_TASK_ID = #{obj}
+        </foreach>
+        <if test="sampleName!=null and sampleName!=''">
+            AND M.SAMPLE_NAME LIKE #{sampleName}
+        </if>
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND M.SAMPLE_CODE LIKE #{sampleCode}
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE RN BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getSampleListByTaskIdPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM
+        ALES_TASK_SAMPLE M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND
+        <foreach collection="objIds" item="obj" index="index" separator="OR">
+            M.ORGAN_TASK_ID = #{obj}
+        </foreach>
+        <if test="sampleName!=null and sampleName!=''">
+            AND M.SAMPLE_NAME LIKE #{sampleName}
+        </if>
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND M.SAMPLE_CODE LIKE #{sampleCode}
+        </if>
+    </select>
+
+    <update id="sampleResult">
+        <if test="id!=null and id!='' and result!=null and result!=''">
+            UPDATE ALES_TASK_SAMPLE SET RESULT = #{result} WHERE ID = #{id}
+        </if>
+    </update>
+    <!-- 根据追溯码统计抽样单任务信息 -->
+    <select id="countSubjectinfoTraceabilityCode" resultType="java.lang.Long">
+        SELECT
+        COUNT(*)
+		  FROM
+		   ALES_TASK_SAMPLE N
+		  LEFT JOIN ALES_WT_TASK_MONITOR M ON N.ORGAN_TASK_ID = M.ID
+		  LEFT JOIN ALES_ENTRUST_DETECTION W ON M.SUPERVISE_CHECK_TASK_ID = W.ID
+		  WHERE 1 = 1
+		  AND N.DEL_FLAG = 'N'
+		  <if test ="productTraceabilityCode!=null and productTraceabilityCode!=''">
+				AND N.PRODUCT_TRACEABILITY_CODE = #{productTraceabilityCode}
+          </if>
+    </select>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsCommonOpinionExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCommonOpinion">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="DICT_VALUE" jdbcType="VARCHAR" property="dictValue" />
+    <result column="DICT_NAME" jdbcType="VARCHAR" property="dictName" />
+    <result column="DICT_CODE" jdbcType="VARCHAR" property="dictCode" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+  </resultMap>
+
+  <select id="getOpinionListByUserId" resultMap="BaseResultMap"  >
+    select ID, DICT_VALUE, DICT_NAME, DICT_CODE, USER_ID
+    from ASMS_COMMON_OPINION where USER_ID = #{userId jdbcType=VARCHAR}
+    order by UPDATE_TIME
+  </select>
+</mapper>

@@ -1,0 +1,78 @@
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3a11','2016监测-蔬菜第一次','例行监测','监管局','蔬菜','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3a22','2016监测-蔬菜第二次','例行监测','监管局','蔬菜','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3a33','2016监测-蔬菜第三次','例行监测','监管局','蔬菜','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3a44','2016监测-蔬菜第四次','例行监测','监管局','蔬菜','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3a55','2016监测-蔬菜第五次','例行监测','监管局','蔬菜','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3a66','2016监测-蔬菜第六次','例行监测','监管局','蔬菜','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3a77','2016监测-水果第七次','例行监测','监管局','水果','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3a88','2016监测-水果第八次','例行监测','监管局','水果','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3a99','2016监测-水果第九次','例行监测','监管局','水果','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3100','2016监测-水果第十次','例行监测','监管局','水果','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+insert into ADS_MONITOR_TASK(ID,TASK_NAME,MONITOR_CLASS,RELEASE_UNIT,CHECK_MODEL,YEAR,BATCH,SEPARATION,START_TIME,END_TIME,DEADLINE,PUBLISH_STATUS,CREATE_BY,CREATE_TIME)
+VALUES  ('6482921c0653483b9cb86efb324b3101','2016监测-水果第11次','例行监测','监管局','水果','2016','1',1,to_timestamp('2013-10-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),
+to_timestamp('2013-10-31 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),to_timestamp('2013-11-16 17:03:00.29999', 'yyyy-mm-dd hh24:mi:ss:ff'),1,'2',sysdate);
+
+-- -----------------------------
+-- 机构测试数据
+-- -----------------------------
+insert into SYS_ORGAN(ID,ORG_NAME,ORG_CODE,ORG_TYPE,ORG_LEADER,STATUS,CREATE_BY,CREATE_TIME)
+VALUES ('org2921c0653483b9cb86efb324b3001','AAA检测机构','12345678-9','检测机构','张三','正常','2',sysdate);
+
+insert into SYS_ORGAN(ID,ORG_NAME,ORG_CODE,ORG_TYPE,ORG_LEADER,STATUS,CREATE_BY,CREATE_TIME)
+VALUES ('org2921c0653483b9cb86efb324b3002','成都检测机构','123456cd-9','检测机构','李四','正常','2',sysdate);
+
+insert into SYS_ORGAN(ID,ORG_NAME,ORG_CODE,ORG_TYPE,ORG_LEADER,STATUS,CREATE_BY,CREATE_TIME)
+VALUES ('org2921c0653483b9cb86efb324b3003','龙泉抽样机构','123456lq-9','抽样机构','王五','正常','2',sysdate);
+
+-- -----------------------------
+-- 机构任务测试数据
+-- -----------------------------
+insert into ADS_ORGAN_TASK(ID,MONITOR_TASK_ID,SAMPLE_ORGAN,SAMPLE_ORGAN_ID,DETECTION_ORGAN,DETECTION_ORGAN_ID,REG_ID,
+NUMBERS,DEPARMENT,UPLOAD_TIME,REPORT_STATUS,REPORT_TIME,TASKS_STATUS,SAMPLE_FINISH_NUM,CHECK_FINISH_NUM,SAMPLE_FINISH_STATUS,CHECK_FINISH_STATUS,SAMPLE_REPORT_STATUS,CHECK_REPORT_STATUS,CREATE_BY,CREATE_TIME)
+VALUES ('12345921c0653483b9cb86efb324b3001','6482921c0653483b9cb86efb324b3a11','龙泉抽样机构','org2921c0653483b9cb86efb324b3003','成都检测机构','org2921c0653483b9cb86efb324b3002','5',
+10,'成都检测局',sysdate,'Y',sysdate,'Y',10,10,1,1,1,1,'2',sysdate);
+
+insert into ADS_ORGAN_TASK(ID,MONITOR_TASK_ID,SAMPLE_ORGAN,SAMPLE_ORGAN_ID,DETECTION_ORGAN,DETECTION_ORGAN_ID,REG_ID,
+NUMBERS,DEPARMENT,UPLOAD_TIME,REPORT_STATUS,REPORT_TIME,TASKS_STATUS,SAMPLE_FINISH_NUM,CHECK_FINISH_NUM,SAMPLE_FINISH_STATUS,CHECK_FINISH_STATUS,SAMPLE_REPORT_STATUS,CHECK_REPORT_STATUS,CREATE_BY,CREATE_TIME)
+VALUES ('12345921c0653483b9cb86efb324b3002','6482921c0653483b9cb86efb324b3a11','龙泉抽样机构','org2921c0653483b9cb86efb324b3003','AAA检测机构','org2921c0653483b9cb86efb324b3001','5',
+10,'成都检测局',sysdate,'Y',sysdate,'Y',10,10,1,1,1,1,'2',sysdate);
+
+-- -----------------------------
+-- 检测模型测试数据
+-- -----------------------------
+insert into ADS_CHECK_MODEL(ID,MODEL_NAME,MONITOR_TYPE,INDUSTRY,CREATE_BY,CREATE_TIME)
+VALUES ('12345921c0653483b9cb86efb324b3002','A','例行监测','种植','2',sysdate);
+
+insert into ADS_CHECK_MODEL(ID,MODEL_NAME,MONITOR_TYPE,INDUSTRY,CREATE_BY,CREATE_TIME)
+VALUES ('12345921c0653483b9cb86efb324b3002','B','专项监测','种植','2',sysdate);

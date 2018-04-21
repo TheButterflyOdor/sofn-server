@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.ales.AlesEntrustDetectionExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesEntrustDetection" >
+        <id column="ID" jdbcType="VARCHAR" property="id" />
+        <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+        <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+        <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+        <result column="DETECTION_ID" jdbcType="CHAR" property="detectionId" />
+        <result column="FILE_URL" jdbcType="VARCHAR" property="fileUrl" />
+        <result column="FILE_CODE" jdbcType="VARCHAR" property="fileCode" />
+        <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="STATE" jdbcType="VARCHAR" property="state" />
+        <result column="TASKYEAR" jdbcType="CHAR" property="taskyear" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="TASK_TYPE" jdbcType="VARCHAR" property="taskType" />
+        <result column="TASK_RELEASE_UNIT" jdbcType="VARCHAR" property="taskReleaseUnit" />
+        <result column="TASK_AREA_ID" jdbcType="VARCHAR" property="taskAreaId" />
+        <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+        <result column="CY_UNIT_ID" jdbcType="CHAR" property="cyUnitId" />
+        <result column="CY_UNIT_NAME" jdbcType="VARCHAR" property="cyUnitName" />
+        <result column="JC_UNIT_ID" jdbcType="CHAR" property="jcUnitId" />
+        <result column="JC_UNIT_NAME" jdbcType="VARCHAR" property="jcUnitName" />
+        <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard" />
+        <result column="JUDGE_STANDARD_ID" jdbcType="VARCHAR" property="judgeStandardId" />
+        <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard" />
+        <result column="DETECTION_STANDARD_ID" jdbcType="VARCHAR" property="detectionStandardId" />
+        <result column="PARENT_TASK_ID" jdbcType="CHAR" property="parentTaskId" />
+        <result column="PARENT_TASK_NAME" jdbcType="VARCHAR" property="parentTaskName" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+        <result column="ST_UNIT_ID" jdbcType="CHAR" property="stUnitId" />
+        <result column="ST_UNIT_NAME" jdbcType="VARCHAR" property="stUnitName" />
+    </resultMap>
+
+    <!--列表-->
+    <select id="getPagesList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.TASK_NAME AS taskName,
+        M.TASK_BEGIN_TIME AS taskBeginTime,
+        M.TASK_END_TIME AS taskEndTime,
+        M.DETECTION_ID AS detectionId,
+        M.FILE_URL AS fileUrl,
+        M.FILE_CODE AS fileCode,
+        M.REMARK AS remark,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.STATE AS state,
+        M.ENABLE AS enable,
+        M.TASKYEAR AS taskyear,
+        M.ST_UNIT_ID AS stUnitId,
+        M.ST_UNIT_NAME AS stUnitName
+        FROM
+        ALES_ENTRUST_DETECTION M
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskyear!=null and taskyear!=''">
+            AND M.TASKYEAR = #{taskyear}
+        </if>
+        <if test="taskBeginTime!=null and taskBeginTime!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{taskBeginTime},'yyyy-MM-dd')
+        </if>
+        <if test="taskEndTime!=null and taskEndTime!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{taskEndTime},'yyyy-MM-dd')+1
+        </if>
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID = #{createOrgId}
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ALES_ENTRUST_DETECTION M
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskyear!=null and taskyear!=''">
+            AND M.TASKYEAR = #{taskyear}
+        </if>
+        <if test="taskBeginTime!=null and taskBeginTime!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{taskBeginTime},'yyyy-MM-dd')
+        </if>
+        <if test="taskEndTime!=null and taskEndTime!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{taskEndTime},'yyyy-MM-dd')+1
+        </if>
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID = #{createOrgId}
+        </if>
+    </select>
+
+    <update id="updateMonitorObjectStatus" >
+        UPDATE ALES_WT_TASK_MONITOR SET IS_SAMPLE=#{status}
+        WHERE SUPERVISE_CHECK_TASK_ID=#{entrustDetectionTaskId}
+    </update>
+
+    <update id="updateSampleStatus" >
+        UPDATE ALES_TASK_SAMPLE SET IS_SYNC=#{status}
+        WHERE ORGAN_TASK_ID=#{monitorObjectId}
+    </update>
+</mapper>

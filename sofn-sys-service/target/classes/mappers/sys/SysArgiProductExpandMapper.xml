@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysArgiProductExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysArgiProduct">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR"/>
+        <result column="USE_CODE" property="useCode" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="ALIAS" property="alias" jdbcType="VARCHAR"/>
+        <result column="ENNAME" property="enname" jdbcType="VARCHAR"/>
+        <result column="GB_CODE" property="gbCode" jdbcType="VARCHAR"/>
+        <result column="TYPE_ID" property="typeId" jdbcType="VARCHAR"/>
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR"/>
+        <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR"/>
+        <result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="argiProductCondition">
+        <if test="id != null and id != '' ">and id=#{id}</if>
+        <if test="parentId != null and parentId!='' ">and PARENT_ID = #{parentId}</if>
+        <if test="productCode != null and productCode!='' ">and PRODUCT_CODE like #{productCode} || '%'</if>
+        <if test="useCode != null and useCode!='' ">and USE_CODE = #{useCode}</if>
+        <if test="name != null and name!='' ">and NAME = #{name}</if>
+        <if test="alias != null and alias!='' ">and ALIAS = #{alias}</if>
+        <if test="enname != null and enname!='' ">and ENNAME = #{enname}</if>
+        <if test="gbCode != null and gbCode!='' ">and GB_CODE = #{gbCode}</if>
+        <if test="description != null and description!='' ">and DESCRIPTION = #{description}</if>
+        <if test="delFlag != null and delFlag!='' ">and nvl(DEL_FLAG,'xx') &lt;&gt; #{delFlag}</if>
+        <if test="parentName != null and parentName!='' ">and PARENT_NAME = #{parentName}</if>
+    </sql>
+
+    <select id="getByProductCode" resultMap="BaseResultMap">
+
+        select ID, PARENT_ID, PRODUCT_CODE, USE_CODE, NAME, ALIAS, ENNAME, GB_CODE, DESCRIPTION,
+        CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2,TYPE_ID,PARENT_NAME
+        from SYS_ARGI_PRODUCT
+        where PRODUCT_CODE=#{productCode}
+    </select>
+
+    <select id="getByCondition" resultMap="BaseResultMap">
+
+        select ID, PARENT_ID, PRODUCT_CODE, USE_CODE, NAME, ALIAS, ENNAME, GB_CODE, DESCRIPTION,
+        CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2,TYPE_ID,PARENT_NAME
+        from SYS_ARGI_PRODUCT
+        <where>
+            1=1
+            <include refid="argiProductCondition"/>
+        </where>
+        order by PRODUCT_CODE asc
+        <!--<include refid="com.page.pagePostfix"/>-->
+    </select>
+    <select id="getPageCount" resultType="java.lang.Long">
+        select COUNT(*)
+        from SYS_ARGI_PRODUCT
+        <where>
+            1=1
+            <include refid="argiProductCondition"/>
+        </where>
+    </select>
+    <select id="recursionQueryMap" resultMap="BaseResultMap">
+        SELECT *
+        FROM SYS_ARGI_PRODUCT
+        START WITH PARENT_ID = #{parentId}
+        CONNECT BY PRIOR PRODUCT_CODE = PARENT_ID
+    </select>
+
+    <select id="recursionQuery" resultType="java.lang.String">
+        SELECT
+        r1.id
+        FROM SYS_ARGI_PRODUCT r1
+        START WITH r1.id = #{id}
+        CONNECT BY PRIOR r1.id = r1.parent_id
+    </select>
+    <select id="getBykeyWord" resultMap="BaseResultMap">
+        select ID, PARENT_ID, PRODUCT_CODE, USE_CODE, NAME, ALIAS, ENNAME, GB_CODE, DESCRIPTION,
+        CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, ROW_NUMBER() OVER(ORDER BY PRODUCT_CODE ASC),RESERVED_FIELD2,TYPE_ID,PARENT_NAME
+        from SYS_ARGI_PRODUCT
+        <where>
+            1=1
+            <if test="typeId != null and typeId!='' and typeId != '00' ">
+                and TYPE_ID=#{typeId}
+            </if>
+
+            <!--<include refid="argiProductCondition"/>-->
+            <if test="delFlag != null and delFlag!='' ">and nvl(DEL_FLAG,'xx') &lt;&gt; #{delFlag}</if>
+            <if test="keyword != null and keyword!='' ">
+                and (
+                PRODUCT_CODE like '%' || #{keyword} || '%'
+                or NAME like '%' || #{keyword} || '%'
+                or ALIAS like '%' || #{keyword} || '%'
+                or ENNAME like '%' || #{keyword} || '%'
+                or GB_CODE like '%' || #{keyword} || '%'
+                )
+            </if>
+            and (nvl2(translate(PRODUCT_CODE, '\1234567890', '\'),
+            'is characters',
+            'is number') = 'is number' and PRODUCT_CODE IS NOT NULL )
+        </where>
+    </select>
+    <select id="getAllProductBeforeSlaughter" resultMap="BaseResultMap">
+        select ID, PARENT_ID, PRODUCT_CODE, USE_CODE, NAME, ALIAS, ENNAME, GB_CODE, DESCRIPTION,SLAUGHTER_STATUS,
+        CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1,
+        ROW_NUMBER() OVER(ORDER BY PRODUCT_CODE ASC) AS RESERVED_FIELD2,TYPE_ID,PARENT_NAME
+        from SYS_ARGI_PRODUCT
+        <where>
+            1=1
+            and TYPE_ID='02'
+
+            <!--<include refid="argiProductCondition"/>-->
+            and nvl(DEL_FLAG,'xx') &lt;&gt; 'Y'
+            and (LENGTH(PRODUCT_CODE) = 8 or LENGTH(PRODUCT_CODE) = 10 )
+            <if test="keyword != null and keyword!='' ">
+                and (
+                PRODUCT_CODE like '%' || #{keyword} || '%'
+                or USE_CODE like '%' || #{keyword} || '%'
+                or NAME like '%' || #{keyword} || '%'
+                or ALIAS like '%' || #{keyword} || '%'
+                or ENNAME like '%' || #{keyword} || '%'
+                or GB_CODE like '%' || #{keyword} || '%'
+                or DESCRIPTION like '%' || #{keyword} || '%'
+                or PARENT_NAME like '%' || #{keyword} || '%'
+                )
+            </if>
+            and (nvl2(translate(PRODUCT_CODE, '\1234567890', '\'),
+            'is characters',
+            'is number') = 'is number' and PRODUCT_CODE IS NOT NULL )
+        </where>
+    </select>
+
+    <select id="getPageCountBeforeSlaughter" resultType="java.lang.Long">
+        select COUNT(*)
+        from SYS_ARGI_PRODUCT
+        where 1=1
+        and TYPE_ID='02'
+        and nvl(DEL_FLAG,'xx') &lt;&gt; 'Y'
+        and (LENGTH(PRODUCT_CODE) = 8 or LENGTH(PRODUCT_CODE) = 10 )
+        <if test="keyword != null and keyword!='' ">
+            and (
+            PRODUCT_CODE like '%' || #{keyword} || '%'
+            or USE_CODE like '%' || #{keyword} || '%'
+            or NAME like '%' || #{keyword} || '%'
+            or ALIAS like '%' || #{keyword} || '%'
+            or ENNAME like '%' || #{keyword} || '%'
+            or GB_CODE like '%' || #{keyword} || '%'
+            or DESCRIPTION like '%' || #{keyword} || '%'
+            or PARENT_NAME like '%' || #{keyword} || '%'
+            )
+        </if>
+        and (nvl2(translate(PRODUCT_CODE, '\1234567890', '\'),
+        'is characters',
+        'is number') = 'is number' and PRODUCT_CODE IS NOT NULL )
+    </select>
+
+    <select id="recursionQueryMapByKeyword" resultMap="BaseResultMap">
+        select * from (SELECT *
+        FROM SYS_ARGI_PRODUCT
+        START WITH PARENT_ID = #{parentId}
+        CONNECT BY PRIOR PRODUCT_CODE = PARENT_ID) tmp
+        where 1=1
+        <if test="keyword != null and keyword!='' ">
+            and (
+            PRODUCT_CODE like '%' || #{keyword} || '%'
+            or USE_CODE like '%' || #{keyword} || '%'
+            or NAME like '%' || #{keyword} || '%'
+            or ALIAS like '%' || #{keyword} || '%'
+            or ENNAME like '%' || #{keyword} || '%'
+            or GB_CODE like '%' || #{keyword} || '%'
+            or DESCRIPTION like '%' || #{keyword} || '%'
+            )
+        </if>
+    </select>
+    <select id="getPageCountByKeyword" resultType="java.lang.Long">
+        select count(*) from (SELECT *
+        FROM SYS_ARGI_PRODUCT
+        START WITH PARENT_ID = #{parentId}
+        CONNECT BY PRIOR PRODUCT_CODE = PARENT_ID) tmp
+        where 1=1
+        <if test="keyword != null and keyword!='' ">
+            and (
+            PRODUCT_CODE like '%' || #{keyword} || '%'
+            or USE_CODE like '%' || #{keyword} || '%'
+            or NAME like '%' || #{keyword} || '%'
+            or ALIAS like '%' || #{keyword} || '%'
+            or ENNAME like '%' || #{keyword} || '%'
+            or GB_CODE like '%' || #{keyword} || '%'
+            or DESCRIPTION like '%' || #{keyword} || '%'
+            or PARENT_NAME like '%' || #{keyword} || '%'
+            )
+        </if>
+    </select>
+
+    <select id="getPageCountByKeyword1" resultType="java.lang.Long">
+        select COUNT(*)
+        from SYS_ARGI_PRODUCT
+        where 1=1
+        <if test="typeId != null and typeId!='' and typeId != '00' ">
+            and TYPE_ID=#{typeId}
+        </if>
+        <if test="delFlag != null and delFlag!='' ">and nvl(DEL_FLAG,'xx') &lt;&gt; #{delFlag}</if>
+        <if test="keyword != null and keyword!='' ">
+            and (
+            PRODUCT_CODE like '%' || #{keyword} || '%'
+            or NAME like '%' || #{keyword} || '%'
+            or ALIAS like '%' || #{keyword} || '%'
+            or ENNAME like '%' || #{keyword} || '%'
+            or GB_CODE like '%' || #{keyword} || '%'
+            or DESCRIPTION like '%' || #{keyword} || '%'
+            )
+        </if>
+        and (nvl2(translate(PRODUCT_CODE, '\1234567890', '\'),
+        'is characters',
+        'is number') = 'is number' and PRODUCT_CODE IS NOT NULL )
+    </select>
+    <select id="getByNameOrAlias" resultMap="BaseResultMap">
+        select  T.ID, T.PARENT_ID, T.PRODUCT_CODE,T.PARENT_NAME , T.USE_CODE, T.NAME, T.ALIAS, T.ENNAME, T.GB_CODE, T.DESCRIPTION,T.CREATE_BY, T.CREATE_TIME, T.UPDATE_BY, T.UPDATE_TIME, T.DEL_FLAG, T.RESERVED_FIELD1,
+        ROW_NUMBER() OVER(ORDER BY T.PRODUCT_CODE ASC) AS RESERVED_FIELD2,T.TYPE_ID, T.SLAUGHTER_STATUS
+        from SYS_ARGI_PRODUCT T
+        <where>
+            1=1
+            AND T.TYPE_ID = #{codeType}
+            and nvl(DEL_FLAG,'xx') &lt;&gt; 'Y'
+            <if test="keyword != null and keyword!='' ">
+                and (
+                T.NAME like '%' || #{keyword} || '%'
+                or T.ALIAS like '%' || #{keyword} || '%'
+                )
+            </if>
+            <choose>
+                <when test="codeType == '01'">
+                    and (
+                    length(T.PRODUCT_CODE) = 8 or length(T.PRODUCT_CODE) = 10
+                    )
+                </when>
+                <otherwise>
+                    and length(T.PRODUCT_CODE) = 12
+                </otherwise>
+            </choose>
+
+            and (nvl2(translate(T.PRODUCT_CODE, '\1234567890', '\'),
+            'is characters',
+            'is number') = 'is number' and T.PRODUCT_CODE IS NOT NULL )
+        </where>
+    </select>
+    <select id="getPageCountByNameOrAlias" resultType="java.lang.Long">
+        select  COUNT(*)
+        from SYS_ARGI_PRODUCT T
+        <where>
+            1=1
+            AND T.TYPE_ID = #{codeType}
+            and nvl(DEL_FLAG,'xx') &lt;&gt; 'Y'
+            <if test="keyword != null and keyword!='' ">
+                and (
+                T.NAME like '%' || #{keyword} || '%'
+                or T.ALIAS like '%' || #{keyword} || '%'
+                )
+            </if>
+            <choose>
+                <when test="codeType == '01'">
+                    and (
+                    length(T.PRODUCT_CODE) = 8 or length(T.PRODUCT_CODE) = 10
+                    )
+                </when>
+                <otherwise>
+                    and length(T.PRODUCT_CODE) = 12
+                </otherwise>
+            </choose>
+            and (nvl2(translate(T.PRODUCT_CODE, '\1234567890', '\'),
+            'is characters',
+            'is number') = 'is number' and T.PRODUCT_CODE IS NOT NULL )
+        </where>
+        order by T.PRODUCT_CODE asc
+    </select>
+    <select id="queryProductForSlaughter" resultMap="BaseResultMap">
+        select  T.ID, T.PARENT_ID, T.PRODUCT_CODE,T.PARENT_NAME , T.USE_CODE, T.NAME, T.ALIAS, T.ENNAME, T.GB_CODE, T.DESCRIPTION,T.SLAUGHTER_STATUS,
+        T.CREATE_BY, T.CREATE_TIME, T.UPDATE_BY, T.UPDATE_TIME, T.DEL_FLAG, T.RESERVED_FIELD1,
+        ROW_NUMBER() OVER(ORDER BY T.PRODUCT_CODE ASC) AS RESERVED_FIELD2,T.TYPE_ID
+        from SYS_ARGI_PRODUCT T
+        <where>
+            1=1
+            AND T.TYPE_ID = #{codeType}
+            and nvl(DEL_FLAG,'xx') &lt;&gt; 'Y'
+            <if test="keyword != null and keyword!='' ">
+                and (
+                T.NAME like '%' || #{keyword} || '%'
+                or T.ALIAS like '%' || #{keyword} || '%'
+                )
+            </if>
+            <if test="productCode != null and productCode!='' ">
+                and (
+                substr(T.PRODUCT_CODE,1,6)=substr(#{productCode},1,6)
+                )
+            </if>
+            and (
+            length(T.PRODUCT_CODE) = 8 or length(T.PRODUCT_CODE) = 10
+            )
+            and (
+            T.SLAUGHTER_STATUS = '0'
+            )
+            and (nvl2(translate(T.PRODUCT_CODE, '\1234567890', '\'),
+            'is characters',
+            'is number') = 'is number' and T.PRODUCT_CODE IS NOT NULL )
+        </where>
+    </select>
+    <select id="getPageCountForSlaughter" resultType="java.lang.Long">
+        select  COUNT(*)
+        from SYS_ARGI_PRODUCT T
+        <where>
+            1=1
+            AND T.TYPE_ID = #{codeType}
+            and nvl(DEL_FLAG,'xx') &lt;&gt; 'Y'
+            <if test="keyword != null and keyword!='' ">
+                and (
+                T.NAME like '%' || #{keyword} || '%'
+                or T.ALIAS like '%' || #{keyword} || '%'
+                )
+            </if>
+            <if test="productCode != null and productCode!='' ">
+                and (
+                substr(T.PRODUCT_CODE,1,6)=substr(#{productCode},1,6)
+                )
+            </if>
+            and (
+            length(T.PRODUCT_CODE) = 8 or length(T.PRODUCT_CODE) = 10
+            )
+            and (
+            T.SLAUGHTER_STATUS = '0'
+            )
+            and (nvl2(translate(T.PRODUCT_CODE, '\1234567890', '\'),
+            'is characters',
+            'is number') = 'is number' and T.PRODUCT_CODE IS NOT NULL )
+        </where>
+        order by T.PRODUCT_CODE asc
+    </select>
+
+    <select id="getSlaProductPageInfo" resultMap="BaseResultMap" >
+        select  T.ID,T.PRODUCT_CODE,T.PARENT_NAME , T.NAME, T.PARENT_ID,T.TYPE_ID,
+        ROW_NUMBER() OVER(ORDER BY T.PRODUCT_CODE ASC) AS RESERVED_FIELD2
+        from SYS_ARGI_PRODUCT T where T.PARENT_ID = #{productId} AND  T.DEL_FLAG != 'Y'
+    </select>
+    <select id="getSlaProductPageInfoCount" resultType="java.lang.Long">
+        select  COUNT(*)
+        from SYS_ARGI_PRODUCT T
+        where T.PARENT_ID = #{productId} AND  T.DEL_FLAG != 'Y'
+    </select>
+    <select id="getProductInfoByName" resultMap="BaseResultMap" parameterType="string">
+        select * from SYS_ARGI_PRODUCT T where T.NAME = #{productName} AND  T.DEL_FLAG != 'Y'
+    </select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TempDemoMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TempDemo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="DECIMAL" />
+    <result column="CJRQ" property="cjrq" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TEMP_DEMO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.TempDemo" >
+    insert into TEMP_DEMO (ID, NAME, TEL, 
+      CJRQ)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{tel,jdbcType=DECIMAL}, 
+      #{cjrq,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TempDemo" >
+    update TEMP_DEMO
+    set NAME = #{name,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=DECIMAL},
+      CJRQ = #{cjrq,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, NAME, TEL, CJRQ
+    from TEMP_DEMO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, NAME, TEL, CJRQ
+    from TEMP_DEMO
+  </select>
+</mapper>

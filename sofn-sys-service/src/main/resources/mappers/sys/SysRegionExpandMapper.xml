@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysRegionExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysRegion">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR"/>
+        <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR"/>
+        <result column="REGION_CODE" property="regionCode" jdbcType="VARCHAR"/>
+        <result column="REGION_PINYIN" property="regionPinyin" jdbcType="VARCHAR"/>
+        <result column="REGION_TYPE" property="regionType" jdbcType="VARCHAR"/>
+        <result column="REGION_FULLNAME" property="regionFullname" jdbcType="VARCHAR"/>
+        <result column="SORTID" property="sortid" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="VARCHAR"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR"/>
+        <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="regionCondition">
+        <if test="id != null and id != '' ">and id=#{id}</if>
+        <if test="parentId != null and parentId!='' ">and PARENT_ID = #{parentId}</if>
+        <if test="regionName != null and regionName!='' ">and REGION_NAME like '%' || #{regionName} || '%'</if>
+        <if test="regionCode != null and regionCode!='' ">and REGION_CODE = #{regionCode}</if>
+        <if test="regionPinyin != null and regionPinyin!='' ">and REGION_PINYIN = #{regionPinyin}</if>
+        <if test="regionType != null and regionType!='' ">and REGION_TYPE = #{regionType}</if>
+        <if test="regionFullname != null and regionFullname!='' ">and REGION_FULLNAME = #{regionFullname}</if>
+        <if test="sortid != null and sortid!='' ">and SORTID = #{sortid}</if>
+        <if test="remark != null and remark!='' ">and REMARK = #{remark}</if>
+        <if test="updateBy != null and updateBy!='' ">and UPDATE_BY = #{updateBy}</if>
+        <if test="delFlag != null and delFlag!='' ">and nvl(DEL_FLAG,'xx') &lt;&gt; #{delFlag}</if>
+    </sql>
+
+    <select id="getByCondition" resultMap="BaseResultMap" parameterType="com.sofn.model.generator.SysRegion">
+        select ID, PARENT_ID, REGION_NAME, REGION_CODE, REGION_PINYIN, REGION_TYPE, REGION_FULLNAME,
+        SORTID, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1,
+        RESERVED_FIELD2,STATUS
+        from SYS_REGION
+        <where>
+            1=1
+            <include refid="regionCondition"/>
+        </where>
+        order by REGION_CODE
+    </select>
+    <select id="getPageCount" resultType="java.lang.Long" parameterType="com.sofn.model.generator.SysRegion">
+        select count(1)
+        from SYS_REGION
+        <where>
+            1=1
+            <include refid="regionCondition"/>
+        </where>
+    </select>
+    <select id="recursionQuery" resultType="java.lang.String">
+        SELECT
+          r1.id
+        FROM SYS_REGION r1
+        START WITH r1.id = #{id}
+        CONNECT BY PRIOR r1.id = r1.parent_id
+    </select>
+    <select id="recursionQueryUp" resultType="com.sofn.model.generator.SysRegion">
+        SELECT
+        r1.*
+        FROM SYS_REGION r1
+        where r1.parent_id != '0'
+        START WITH r1.id = #{id}
+        CONNECT BY PRIOR r1.parent_id = r1.id
+    </select>
+    <select id="recursionQueryMap" resultType="com.sofn.model.generator.SysRegion">
+SELECT  r2.* FROM
+        (SELECT
+          r1.*
+        FROM SYS_REGION r1
+        START WITH r1.PARENT_ID = #{parentId}
+        CONNECT BY PRIOR r1.id = r1.parent_id) r2
+        WHERE 1=1
+        <if test="delFlag != null and delFlag!='' ">and nvl(DEL_FLAG,'xx') &lt;&gt; #{delFlag}</if>
+    </select>
+    <select id="getByKeyword" resultMap="BaseResultMap">
+        select ID, PARENT_ID, REGION_NAME, REGION_CODE, REGION_PINYIN, REGION_TYPE, REGION_FULLNAME,
+        SORTID, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1,
+        RESERVED_FIELD2,STATUS
+        from SYS_REGION
+        <where>
+            1=1
+            and PARENT_ID=#{parentId}
+            <if test="delFlag != null and delFlag!='' ">and nvl(DEL_FLAG,'xx') &lt;&gt; #{delFlag}</if>
+            <if test="keyWord != null and keyWord!='' ">
+            and (
+            REGION_CODE like '%' || #{keyWord} || '%'
+            or REGION_NAME like '%' || #{keyWord} || '%'
+            or REGION_PINYIN like '%' || #{keyWord} || '%'
+            )
+            </if>
+        </where>
+        order by REGION_CODE
+    </select>
+    <select id="getPageCountByKeyword" resultType="java.lang.Long">
+        select count(*)
+        from SYS_REGION
+        <where>
+            1=1
+            and PARENT_ID=#{parentId}
+            <if test="delFlag != null and delFlag!='' ">and nvl(DEL_FLAG,'xx') &lt;&gt; #{delFlag}</if>
+            <if test="keyWord != null and keyWord!='' ">
+                and (
+                REGION_CODE like '%' || #{keyWord} || '%'
+                or REGION_NAME like '%' || #{keyWord} || '%'
+                or REGION_PINYIN like '%' || #{keyWord} || '%'
+                )
+            </if>
+        </where>
+    </select>
+    <select id="getRegionByRegionCode" resultType="com.sofn.model.generator.SysRegion">
+        select * from SYS_REGION where REGION_CODE=#{regionCode}
+    </select>
+</mapper>

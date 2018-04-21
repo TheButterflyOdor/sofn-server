@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.qry.ZsmQueryExpandMapper">
+    <!--采购管理-->
+    <resultMap id="CgglAndCustomer" type="com.sofn.model.generator.TtsScltxxcjCgglAndCustomer"
+               extends="CgglBaseResultMap">
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="XSNAME" property="xsName" jdbcType="VARCHAR"/>
+        <result column="NUM" property="num" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="CgglBaseResultMap" type="com.sofn.model.generator.TtsScltxxcjCggl">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR"/>
+        <result column="CG_AMOUNT" property="cgAmount" jdbcType="DECIMAL"/>
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR"/>
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR"/>
+        <result column="SALE_ENTITY_IDCODE" property="saleEntityIdcode" jdbcType="VARCHAR"/>
+        <result column="SALE_USER_IDCODE" property="saleUserIdcode" jdbcType="VARCHAR"/>
+        <result column="CG_DW" property="cgDw" jdbcType="VARCHAR"/>
+        <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR"/>
+        <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR"/>
+        <result column="ZJRESULT" property="zjresult" jdbcType="VARCHAR"/>
+        <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP"/>
+        <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP"/>
+        <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR"/>
+        <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR"/>
+        <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR"/>
+        <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR"/>
+        <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR"/>
+        <result column="TOZSM" property="tozsm" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_CGPC" property="productCgpc" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_CGPC_SL" property="productCgpcSl" jdbcType="VARCHAR"/>
+        <result column="XSDJID" property="xsdjid" jdbcType="VARCHAR"/>
+        <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <!--销售登记-->
+    <resultMap id="XsdjAndCustomer" type="com.sofn.model.generator.TtsScltxxcjXsdjAndCustomer"
+               extends="XsdjBaseResultMap">
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="XSNAME" property="xsName" jdbcType="VARCHAR"/>
+        <result column="NUM" property="num" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="XsdjBaseResultMap" type="com.sofn.model.generator.TtsScltxxcjXsdj">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR"/>
+        <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL"/>
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR"/>
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_ENTITY_IDCODE" property="customerEntityIdcode" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_USER_IDCODE" property="customerUserIdcode" jdbcType="VARCHAR"/>
+        <result column="IS_CIRCULATES_END" property="isCirculatesEnd" jdbcType="VARCHAR"/>
+        <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR"/>
+        <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR"/>
+        <result column="TRACE_PROOF" property="traceProof" jdbcType="VARCHAR"/>
+        <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP"/>
+        <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP"/>
+        <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR"/>
+        <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR"/>
+        <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR"/>
+        <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR"/>
+        <result column="FROMID" property="fromid" jdbcType="VARCHAR"/>
+        <result column="STOCKID" property="stockid" jdbcType="VARCHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="PRODUCT_XSPC" property="productXspc" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_XSPC_SL" property="productXspcSl" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR"/>
+        <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR"/>
+        <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR"/>
+        <result column="TOZSM" property="tozsm" jdbcType="VARCHAR"/>
+        <result column="UNIT_ID" property="unitId" jdbcType="VARCHAR"/>
+        <result column="JOIN_FLAG" property="joinFlag" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--销售登记记录-->
+    <resultMap id="XsdjjlAndCustomer" type="com.sofn.model.generator.TtsScltxxcjXsdjjlAndCustomer"
+               extends="XsdjjlBaseResultMap">
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="XSNAME" property="xsName" jdbcType="VARCHAR"/>
+        <result column="NUM" property="num" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="XsdjjlBaseResultMap" type="com.sofn.model.generator.TtsScltxxcjXsdjjl">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="XSDJ_ID" property="xsdjId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR"/>
+        <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL"/>
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR"/>
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_ENTITY_IDCODE" property="customerEntityIdcode" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_USER_IDCODE" property="customerUserIdcode" jdbcType="VARCHAR"/>
+        <result column="IS_CIRCULATES_END" property="isCirculatesEnd" jdbcType="VARCHAR"/>
+        <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR"/>
+        <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR"/>
+        <result column="TRACE_PROOF" property="traceProof" jdbcType="VARCHAR"/>
+        <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP"/>
+        <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP"/>
+        <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR"/>
+        <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR"/>
+        <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR"/>
+        <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_XSPC" property="productXspc" jdbcType="VARCHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR"/>
+        <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR"/>
+        <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR"/>
+        <result column="TOZSM" property="tozsm" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--生产管理记录-->
+    <resultMap id="ttsScltxxcjScgl" type="com.sofn.model.generator.TtsScltxxcjScgl">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="VARCHAR"/>
+        <result column="BILL_STRATRUS" property="billStratrus" jdbcType="VARCHAR"/>
+        <result column="IP" property="ip" jdbcType="VARCHAR"/>
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_INNER_KEY" property="productInnerKey" jdbcType="VARCHAR"/>
+        <result column="MEDI_RESULT" property="mediResult" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SOURCE" property="productSource" jdbcType="VARCHAR"/>
+        <result column="HARVEST_BASEID" property="harvestBaseid" jdbcType="VARCHAR"/>
+        <result column="HARVEST_BASENAME" property="harvestBasename" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR"/>
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_AMOUNT" property="productAmount" jdbcType="DECIMAL"/>
+        <result column="STORE_COUNT" property="storeCount" jdbcType="DECIMAL"/>
+        <result column="FREEZE_COUNT" property="freezeCount" jdbcType="DECIMAL"/>
+        <result column="HARVEST_UNIT" property="harvestUnit" jdbcType="VARCHAR"/>
+        <result column="HARVEST_TIME" property="harvestTime" jdbcType="TIMESTAMP"/>
+        <result column="PRODUCT_PC" property="productPc" jdbcType="VARCHAR"/>
+        <result column="MEDI_CHECK" property="mediCheck" jdbcType="VARCHAR"/>
+        <result column="CHECK_IMAGENAME" property="checkImagename" jdbcType="VARCHAR"/>
+        <result column="CHECK_IMAGEPATH" property="checkImagepath" jdbcType="VARCHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="JOIN_FLAG" property="joinFlag" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR"/>
+        <result column="UNIT_ID" property="unitId" jdbcType="VARCHAR"/>
+        <result column="INSIDE_TRACE_CODE" property="insideTraceCode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--采购管理-->
+    <select id="getCgglForZsm" parameterType="hashmap" resultMap="CgglAndCustomer">
+        SELECT T.*,C.NAME,C.USER_NAME,
+        C.PHONE,C.ADDRESS
+        from TTS_SCLTXXCJ_CGGL_V2 T
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON
+        T .SALE_ENTITY_IDCODE = C.ENTITY_ID_CODE
+        AND T .USER_IDCODE = C.CUSTOMER_USER_ID_CODE
+        <if test="fromzsm != null and fromzsm != ''">
+            and T.FROMZSM = #{fromzsm}
+        </if>
+    </select>
+    <select id="zsmIsCgOrXs" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) FROM tts_scltxxcj_cggl C
+        where C.fromzsm = #{zsm}
+        and c.entity_idcode = #{entity_id}
+    </select>
+    <!--产品批次合成-->
+    <!--<select id="getInfoForNewPc" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT R.ENTERPRISE_NAME AS NAME,R.REAL_NAME AS USER_NAME,
+              R.LEGAL_PHONE AS PHONE,R.ADDRESS,ROW_NUMBER() OVER(ORDER BY P.ID DESC) AS NUM,
+              G.PRODUCT_INDUSTRY,G.PRODUCT_SORT,G.PRODUCT_NAME,
+              G.PRODUCT_AMOUNT,G.STORE_COUNT AS SALE_AMOUNT,G.HARVEST_TIME,G.ENTITY_IDCODE
+        FROM TTS_SCLTXXCJ_CPPCHC_V2 P
+        INNER JOIN TTS_SCLTXXCJ_SCGL_V2 G ON G.PRODUCT_PC = P.PRODUCT_PC
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON R.ENTITY_IDCODE = G.ENTITY_IDCODE AND R.USER_IDCODE = G.USER_IDCODE
+        WHERE P.PRODUCT_PC_NEW = #{pc}
+         )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>-->
+    <select id="getInfoForNewPc" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT
+        C.ENTERPRISE_NAME NAME,
+        C.ADDRESS ADDRESS,
+        C. NAME USERNAME,
+        C.PHONE PHONE,
+        ROW_NUMBER () OVER (ORDER BY P . ID DESC) AS NUM,
+        G .PRODUCT_INDUSTRY,
+        G .PRODUCT_SORT,
+        G .PRODUCT_NAME,
+        G .PRODUCT_AMOUNT,
+        G .STORE_COUNT AS SALE_AMOUNT,
+        G .HARVEST_TIME,
+        G .ENTITY_IDCODE
+        FROM
+        TTS_SCLTXXCJ_CPPCHC_V2 P
+        INNER JOIN TTS_SCLTXXCJ_SCGL_V2 G ON G .PRODUCT_PC = P .PRODUCT_PC
+        INNER JOIN (
+        SELECT
+        U .USER_IDCODE,
+        T .ENTITY_IDCODE,
+        T .ENTERPRISE_NAME,
+        T .ADDRESS,
+        U . NAME,
+        U .PHONE
+        FROM
+        TTS_SCLTXXCJ_REGISTER_V2 T,
+        TTS_SCLTXXCJ_USER_V2 U
+        WHERE
+        T .ENTITY_IDCODE = U .ENTITY_IDCODE
+        ) C ON C.ENTITY_IDCODE = G.ENTITY_IDCODE
+        AND C.USER_IDCODE = G.USER_IDCODE
+        WHERE
+        P .PRODUCT_PC_NEW = #{pc}
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+    <select id="getCountForNewPc" parameterType="hashmap" resultType="long">
+        SELECT count(1)
+        FROM TTS_SCLTXXCJ_CPPCHC_V2 P
+        INNER JOIN TTS_SCLTXXCJ_SCGL_V2 G ON G.PRODUCT_PC = P.PRODUCT_PC
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON R.ENTITY_IDCODE = G.ENTITY_IDCODE AND R.USER_IDCODE = G.USER_IDCODE
+        WHERE P.PRODUCT_PC_NEW = #{pc}
+    </select>
+    <!--生产管理-->
+    <!--<select id="getBaseForPc" resultType="map" parameterType="string">
+      SELECT R.ENTERPRISE_NAME AS NAME,R.LEGAL_NAME AS USERNAME,
+      R.LEGAL_PHONE AS PHONE,R.ADDRESS,S.ENTITY_IDCODE,
+      S.USER_IDCODE,S.PRODUCT_SORT,S.PRODUCT_NAME,S.PRODUCT_AMOUNT,
+      S.PRODUCT_PC,S.STATUS,S.BILL_STRATRUS,S.FROMZSM
+      FROM TTS_SCLTXXCJ_SCGL_V2 S
+      INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R
+      ON R.ENTITY_IDCODE = S.ENTITY_IDCODE AND R.USER_IDCODE = S.USER_IDCODE
+      WHERE S.PRODUCT_PC = #{pc}
+    </select>-->
+    <select id="getBaseForPc" resultType="map" parameterType="hashmap">
+        SELECT T .ENTERPRISE_NAME NAME,T .ADDRESS ADDRESS,U . NAME USERNAME,U .PHONE PHONE,
+        S.ENTITY_IDCODE,
+        S.USER_IDCODE,
+        S.PRODUCT_SORT,
+        S.PRODUCT_NAME,
+        S.PRODUCT_AMOUNT,
+        S.PRODUCT_PC,
+        S.STATUS,
+        S.BILL_STRATRUS,
+        S.FROMZSM
+        FROM TTS_SCLTXXCJ_SCGL_V2 S
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 T ON T .ENTITY_IDCODE = S.ENTITY_IDCODE
+        INNER JOIN TTS_SCLTXXCJ_USER_V2 U ON U .USER_IDCODE = S.USER_IDCODE
+        AND T .ENTITY_IDCODE = U .ENTITY_IDCODE
+        WHERE S.PRODUCT_PC = #{pc} AND S.ENTITY_IDCODE = #{entityId}
+    </select>
+    <!--销售记录-->
+    <select id="pageForZsm" parameterType="hashmap" resultType="map">
+        SELECT TAB.*
+        FROM (
+        SELECT C.NAME,C.USER_NAME,ROW_NUMBER() OVER(ORDER BY D.ID DESC) AS NUM,
+        C.PHONE,C.ADDRESS,D.CUSTOMER_ENTITY_IDCODE,D.CUSTOMER_USER_IDCODE,
+        D.PRODUCT_NAME,D.PRODUCT_SORT,D.SALE_AMOUNT
+        FROM TTS_SCLTXXCJ_XSDJ_V2 D
+        INNER JOIN TTS_SCLTXXCJ_XSDJJL_V2 M ON D.ID = M.XSDJ_ID
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON C.CUSTOMER_ENTITY_ID_CODE = D.CUSTOMER_ENTITY_IDCODE
+        AND C.CUSTOMER_USER_ID_CODE = D.CUSTOMER_USER_IDCODE AND C.ENTITY_ID_CODE = M.ENTITY_IDCODE
+        where 1=1
+        <if test="fromzsm != null and fromzsm != ''">
+            AND M.FROMZSM = #{fromzsm}
+        </if>
+        <if test="tozsm != null and tozsm != ''">
+            AND M.TOZSM = #{tozsm}
+        </if>
+
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+    <select id="pageForCountZsm" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1)
+        FROM TTS_SCLTXXCJ_XSDJ_V2 D
+        INNER JOIN TTS_SCLTXXCJ_XSDJJL_V2 M ON D.ID = M.XSDJ_ID
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON C.CUSTOMER_ENTITY_ID_CODE = D.CUSTOMER_ENTITY_IDCODE
+        AND C.CUSTOMER_USER_ID_CODE = D.CUSTOMER_USER_IDCODE
+        where 1=1
+        <if test="fromzsm != null and fromzsm != ''">
+            AND M.FROMZSM = #{fromzsm}
+        </if>
+        <if test="tozsm != null and tozsm != ''">
+            AND M.TOZSM = #{tozsm}
+        </if>
+    </select>
+    <!--<select id="getXsbaseZsm" parameterType="hashmap" resultType="map">
+      SELECT TAB.*
+      FROM (
+        SELECT X.*,R.ENTERPRISE_NAME AS NAME,R.REAL_NAME AS USER_NAME,
+        R.LEGAL_PHONE AS PHONE,R.ADDRESS,
+        ROW_NUMBER() OVER(ORDER BY X.CREATE_TIME DESC) AS NUM
+        FROM TTS_SCLTXXCJ_XSDJJL_V2 X
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON TRIM(R.ID) = X.SALE_USER
+        WHERE 1=1
+        <if test="tozsm != null and tozsm != ''">
+            AND X.TOZSM =  #{tozsm}
+        </if>
+
+      )Tab
+      WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>-->
+    <select id="getXsbaseZsm" parameterType="hashmap" resultType="map">
+        SELECT TAB.*
+        FROM (
+        SELECT X.*, R.ENTERPRISE_NAME AS NAME,
+        R. NAME AS USER_NAME,
+        R.PHONE AS PHONE,
+        R.ADDRESS,
+        ROW_NUMBER() OVER(ORDER BY X.CREATE_TIME DESC) AS NUM
+        FROM TTS_SCLTXXCJ_XSDJJL_V2 X
+        LEFT JOIN (
+        SELECT
+        T ."ID",
+        T .ENTITY_IDCODE,
+        T .ENTERPRISE_NAME,
+        T .ADDRESS,
+        U . NAME,
+        U .PHONE,
+        U.USER_IDCODE
+        FROM
+        TTS_SCLTXXCJ_REGISTER_V2 T,
+        TTS_SCLTXXCJ_USER_V2 U
+        WHERE
+        T .ENTITY_IDCODE = U .ENTITY_IDCODE AND T.DEL_FLAG != 'Y'
+        ) R ON R.USER_IDCODE = X.USER_IDCODE
+        WHERE 1=1
+        <if test="tozsm != null and tozsm != ''">
+            AND X.TOZSM = #{tozsm}
+        </if>
+        <if test="entityId != null and entityId != ''">
+            AND X.ENTITY_IDCODE = #{entityId}
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+    <select id="getXsbaseZsmCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) FROM TTS_SCLTXXCJ_XSDJJL_V2 X
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON TRIM(R.ID) = X.SALE_USER
+        WHERE 1=1
+        <if test="tozsm != null and tozsm != ''">
+            AND X.TOZSM = #{tozsm}
+        </if>
+    </select>
+    <!--<select id="getPcToUpInfo" parameterType="hashmap" resultType="map">
+      SELECT TAB.*
+      FROM (
+        SELECT R.ENTERPRISE_NAME AS NAME,R.REAL_NAME AS USER_NAME,
+        R.LEGAL_PHONE AS PHONE,R.ADDRESS,
+        X.ENTITY_IDCODE,X.USER_IDCODE,
+        X.PRODUCT_NAME,X.PRODUCT_SORT,X.SALE_AMOUNT,
+        ROW_NUMBER() OVER(ORDER BY X.ID DESC) AS NUM
+        FROM TTS_SCLTXXCJ_XSDJJL_V2 X
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON R.ENTITY_IDCODE = X.ENTITY_IDCODE
+        AND R.USER_IDCODE = X.USER_IDCODE
+        WHERE x.TOZSM = #{zsm}
+      )Tab
+      WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+
+    </select>-->
+    <select id="getPcToUpInfo" parameterType="hashmap" resultType="map">
+        SELECT TAB.*
+        FROM (
+        SELECT
+        C.ENTERPRISE_NAME NAME,
+        C.ADDRESS ADDRESS,
+        C. NAME USERNAME,
+        C.PHONE PHONE,
+        X.ENTITY_IDCODE,
+        X.USER_IDCODE,
+        X.PRODUCT_NAME,
+        X.PRODUCT_SORT,
+        X.SALE_AMOUNT,
+        ROW_NUMBER () OVER (ORDER BY X. ID DESC) AS NUM
+        FROM
+        TTS_SCLTXXCJ_XSDJJL_V2 X
+        INNER JOIN (
+        SELECT
+        U .USER_IDCODE,
+        T .ENTITY_IDCODE,
+        T .ENTERPRISE_NAME,
+        T .ADDRESS,
+        U . NAME,
+        U .PHONE
+        FROM
+        TTS_SCLTXXCJ_REGISTER_V2 T,
+        TTS_SCLTXXCJ_USER_V2 U
+        WHERE
+        T .ENTITY_IDCODE = U .ENTITY_IDCODE
+        ) C ON C.ENTITY_IDCODE = X.ENTITY_IDCODE
+        AND C.USER_IDCODE = X.USER_IDCODE
+        WHERE
+        x.TOZSM = #{zsm}
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+    <select id="getPcToUpCount" parameterType="hashmap" resultType="long">
+        SELECT count(1)
+        FROM TTS_SCLTXXCJ_XSDJJL_V2 X
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON R.ENTITY_IDCODE = X.ENTITY_IDCODE
+        AND R.USER_IDCODE = X.USER_IDCODE
+        WHERE x.TOZSM = #{zsm}
+    </select>
+    <select id="getInfoforpc" parameterType="hashmap" resultType="map">
+        SELECT TAB.*
+        FROM (
+        SELECT C.NAME,C.USER_NAME,C.PHONE,C.ADDRESS,C.CUSTOMER_ENTITY_ID_CODE,
+        ROW_NUMBER() OVER(ORDER BY X.ID DESC) AS NUM,
+        X.PRODUCT_INDUSTRY,X.PRODUCT_SORT,X.PRODUCT_NAME,X.SALE_AMOUNT,X.SALE_TIME
+        FROM TTS_SCLTXXCJ_XSDJJL_V2 X
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON C.ID = X.CUSTOMER_ID
+        WHERE X.PRODUCT_SCGL_ID = #{pc} AND X.ENTITY_IDCODE = #{entityId}
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+    <select id="getCountforpc" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1)
+        FROM TTS_SCLTXXCJ_XSDJJL_V2 X
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON C.ID = X.CUSTOMER_ID
+        WHERE X.PRODUCT_SCGL_ID = #{pc}
+    </select>
+    <!-- <select id="getHclx" parameterType="hashmap" resultType="map">
+        SELECT
+        R.ENTERPRISE_NAME AS NAME,R.REAL_NAME AS USER_NAME,
+        R.LEGAL_PHONE AS PHONE,R.ADDRESS,S.ENTITY_IDCODE,
+        CP.PRODUCT_PC_NEW,
+        S.PRODUCT_INDUSTRY,S.PRODUCT_SORT,S.PRODUCT_NAME,CP.PRODUCT_AMOUNT
+        FROM TTS_SCLTXXCJ_SCGL_V2 S
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON R.ENTITY_IDCODE = S.ENTITY_IDCODE
+        AND R.USER_IDCODE = S.USER_IDCODE
+        INNER JOIN TTS_SCLTXXCJ_CPPCHC_V2 CP ON CP.PRODUCT_PC = S.PRODUCT_PC
+        WHERE CP.PRODUCT_PC = #{pc}
+    </select>-->
+    <select id="getHclx" parameterType="hashmap" resultType="map">
+        SELECT
+        C.ENTERPRISE_NAME NAME,
+        C.ADDRESS ADDRESS,
+        C. NAME USERNAME,
+        C.PHONE PHONE,
+        S.ENTITY_IDCODE,
+        CP.PRODUCT_PC_NEW,
+        S.PRODUCT_INDUSTRY,
+        S.PRODUCT_SORT,
+        S.PRODUCT_NAME,
+        CP.PRODUCT_AMOUNT
+        FROM
+        TTS_SCLTXXCJ_SCGL_V2 S
+        INNER JOIN (
+        SELECT
+        U .USER_IDCODE,
+        T .ENTITY_IDCODE,
+        T .ENTERPRISE_NAME,
+        T .ADDRESS,
+        U . NAME,
+        U .PHONE
+        FROM
+        TTS_SCLTXXCJ_REGISTER_V2 T,
+        TTS_SCLTXXCJ_USER_V2 U
+        WHERE
+        T .ENTITY_IDCODE = U .ENTITY_IDCODE
+        ) C ON C.ENTITY_IDCODE = S.ENTITY_IDCODE
+        AND C.USER_IDCODE = S.USER_IDCODE
+        INNER JOIN TTS_SCLTXXCJ_CPPCHC_V2 CP ON CP.PRODUCT_PC = S.PRODUCT_PC
+        WHERE
+        CP.PRODUCT_PC = #{pc}
+    </select>
+    <!--销售登记-->
+    <select id="getXsdjForZsm" parameterType="hashmap" resultMap="XsdjAndCustomer">
+        SELECT X.*,R.ENTERPRISE_NAME AS NAME,R.REAL_NAME AS USER_NAME,
+        <!-- R.LEGAL_PHONE AS PHONE, 这个地方用的是法人的联系方式，应该改为联系人的联系方式-->
+        R.CONTACT_PHONE AS PHONE,
+        R.ADDRESS FROM TTS_SCLTXXCJ_XSDJ_V2 X
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON TRIM(R.ID) = TRIM(X.SALE_USER)
+        WHERE 1 = 1
+        <if test="tozsm != null and tozsm != ''">
+            and X.TOZSM = #{tozsm}
+        </if>
+        <if test="fromzsm != null and fromzsm != ''">
+            and X.FROMZSM = #{fromzsm}
+        </if>
+    </select>
+    <select id="getXsUpZsm" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (SELECT
+        C. NAME,
+        C.USER_NAME,
+        ROW_NUMBER () OVER (ORDER BY D . ID DESC) AS NUM,
+        C.PHONE,
+        C.ADDRESS,
+        D .ENTITY_IDCODE,
+        D .USER_IDCODE,
+        D .PRODUCT_NAME,
+        D .PRODUCT_SORT,
+        D .SALE_AMOUNT
+        FROM
+        TTS_SCLTXXCJ_XSDJ_V2 D
+        INNER JOIN TTS_SCLTXXCJ_XSDJJL_V2 X ON X.FROMZSM = D.TOZSM
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON C.CUSTOMER_ENTITY_ID_CODE = D .ENTITY_IDCODE
+        AND C.ENTITY_ID_CODE = X.ENTITY_IDCODE
+        WHERE X.TOZSM = #{zsm}
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+    <select id="getXsUpZsmCount" parameterType="hashmap" resultType="long">
+        SELECT count(1)
+        FROM TTS_SCLTXXCJ_XSDJJL_V2 D
+        INNER JOIN TTS_SCLTXXCJ_XSDJ_V2 X ON D.FROMZSM = X.TOZSM
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C
+        ON C.CUSTOMER_ENTITY_ID_CODE = D.CUSTOMER_ENTITY_IDCODE
+        WHERE D.TOZSM = #{zsm}
+    </select>
+    <select id="existsTrace" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) FROM TTS_SCLTXXCJ_XSDJ_V2 C
+        where C.tozsm = #{zsm}
+        and c.entity_idcode = #{entityId}
+    </select>
+
+    <!--无权限追溯码查询-->
+    <!--是否存在追溯码-->
+    <select id="existTraceCode" parameterType="java.lang.String" resultType="long">
+        SELECT COUNT(1)
+        FROM tts_scltxxcj_cggl c
+        where c.fromzsm = #{traceCode}
+    </select>
+    <!--（采购）本级-->
+    <select id="getCgglByTraceCode" parameterType="java.lang.String" resultMap="CgglAndCustomer">
+        SELECT T.*,C.NAME,C.USER_NAME,
+        C.PHONE,C.ADDRESS
+        from TTS_SCLTXXCJ_CGGL_V2 T
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON T .SALE_ENTITY_IDCODE = C.ENTITY_ID_CODE
+        AND T .USER_IDCODE = C.CUSTOMER_USER_ID_CODE
+        and T.FROMZSM = #{traceCode}
+    </select>
+    <!--（采购）上游-->
+    <select id="getXsdjByTraceCode" parameterType="java.lang.String" resultMap="XsdjAndCustomer">
+        SELECT X.*,R.ENTERPRISE_NAME AS NAME,R.REAL_NAME AS USER_NAME,
+        R.LEGAL_PHONE AS PHONE,R.ADDRESS
+        FROM TTS_SCLTXXCJ_XSDJ_V2 X
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON TRIM(R.ID) = TRIM(X.SALE_USER)
+        and X.TOZSM = #{traceCode}
+    </select>
+    <!--（采购）下游-->
+    <select id="getXsdjsByTraceCode" parameterType="java.lang.String" resultMap="XsdjAndCustomer">
+        SELECT D.*,C.NAME,C.USER_NAME,
+        C.PHONE,C.ADDRESS
+        FROM TTS_SCLTXXCJ_XSDJ_V2 D
+        INNER JOIN TTS_SCLTXXCJ_XSDJJL_V2 M ON D.ID = M.XSDJ_ID
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON C.CUSTOMER_ENTITY_ID_CODE = D.CUSTOMER_ENTITY_IDCODE
+        AND C.CUSTOMER_USER_ID_CODE = D.CUSTOMER_USER_IDCODE AND C.ENTITY_ID_CODE = M.ENTITY_IDCODE
+        where M.FROMZSM = #{traceCode}
+    </select>
+    <!--（销售）本级-->
+    <select id="getXsdjjlsByTraceCodex" parameterType="java.lang.String" resultMap="XsdjjlAndCustomer">
+        SELECT X.*, R.ENTERPRISE_NAME AS NAME,
+        R. NAME AS USER_NAME,
+        R.PHONE AS PHONE,
+        R.ADDRESS
+        FROM TTS_SCLTXXCJ_XSDJJL_V2 X
+        LEFT JOIN (
+        SELECT
+        T ."ID",
+        T .ENTITY_IDCODE,
+        T .ENTERPRISE_NAME,
+        T .ADDRESS,
+        U . NAME,
+        U .PHONE,
+        U.USER_IDCODE
+        FROM
+        TTS_SCLTXXCJ_REGISTER_V2 T,
+        TTS_SCLTXXCJ_USER_V2 U
+        WHERE
+        T .ENTITY_IDCODE = U .ENTITY_IDCODE AND T.DEL_FLAG != 'Y'
+        ) R ON R.USER_IDCODE = X.USER_IDCODE
+        WHERE X.TOZSM = #{traceCode}
+    </select>
+    <!--（销售）上游-->
+    <select id="getXsdjByTraceCodex" parameterType="java.lang.String" resultMap="XsdjAndCustomer">
+        SELECT D.*,
+        C. NAME,
+        C.USER_NAME,
+        C.PHONE,
+        C.ADDRESS
+        FROM
+        TTS_SCLTXXCJ_XSDJ_V2 D
+        INNER JOIN TTS_SCLTXXCJ_XSDJJL_V2 X ON X.FROMZSM = D.TOZSM
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON C.CUSTOMER_ENTITY_ID_CODE = D .ENTITY_IDCODE
+        AND C.ENTITY_ID_CODE = X.ENTITY_IDCODE
+        WHERE X.TOZSM = #{traceCode}
+    </select>
+
+    <!--通过追溯码获取采购主体信息-->
+    <select id="getCgSubjectInfoByTraceCode" parameterType="java.lang.String" resultMap="CgglAndCustomer">
+        SELECT T.*,R.ENTERPRISE_NAME AS NAME,R.LEGAL_NAME AS USER_NAME,
+        <!-- R.LEGAL_PHONE AS PHONE, 这个地方用的是法人的联系方式，应该改为联系人的联系方式-->
+        R.CONTACT_PHONE AS PHONE,R.ADDRESS
+        from TTS_SCLTXXCJ_CGGL_V2 T
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON T.ENTITY_IDCODE = R.ENTITY_IDCODE
+        and T.FROMZSM = #{traceCode}
+    </select>
+    <!--通过追溯码获取销售主体信息-->
+    <select id="getXsSubjectInfoByTraceCode" parameterType="java.lang.String" resultMap="XsdjAndCustomer">
+        SELECT X.*,R.ENTERPRISE_NAME AS NAME,R.LEGAL_NAME AS USER_NAME,
+        <!-- R.LEGAL_PHONE AS PHONE, 这个地方用的是法人的联系方式，应该改为联系人的联系方式-->
+        R.CONTACT_PHONE AS PHONE,R.ADDRESS
+        FROM TTS_SCLTXXCJ_XSDJ_V2 X
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON X.ENTITY_IDCODE = R.ENTITY_IDCODE
+        and X.TOZSM = #{traceCode}
+    </select>
+    <!--通过追溯码获取生产管理记录-->
+    <select id="getProductionProductInfo" parameterType="java.lang.String" resultMap="ttsScltxxcjScgl">
+        select s.*
+        from TTS_SCLTXXCJ_SCGL_V2 s
+        where s.fromzsm = #{traceCode}
+    </select>
+    <!--通过追溯码获取合成后产品登记信息-->
+    <select id="getSynthesisProductInfo" parameterType="java.lang.String" resultMap="ttsScltxxcjScgl">
+        select s.*
+        from TTS_SCLTXXCJ_SCGL_V2 s
+        inner join (select hc.product_pc_new from TTS_SCLTXXCJ_CPPCHC_V2 hc
+        inner join TTS_SCLTXXCJ_SCGL_V2 sc on hc.product_pc = sc.product_pc
+        and sc.fromzsm = #{traceCode}
+        group by hc.product_pc_new) a on s.product_pc = a.product_pc_new
+    </select>
+    <!--通过批次码获取采购对象(流通)-->
+    <select id="getCgSubjectInfoByBatchCode" parameterType="java.lang.String" resultType="map">
+        select d.enterprise_name as ENTITYNAME,d.legal_name as LEGALNAME,d.legal_phone as LEGALPHONE,d.address,c.*
+        from (
+            select t.USER_IDCODE as ENTITYIDCODE,a.product_scgl_id as BATCHCODE,t.customer_entity_idcode as CUSTOMERENTITYIDCODE,sum(t.sale_amount) as SALEAMOUNT,t.unit_id as UNITID,t.harvest_unit as UNITNAME,t.tozsm as FROMZSM
+            from TTS_SCLTXXCJ_XSDJ_V2 t
+            inner join (
+              select j.xsdj_id,j.product_scgl_id
+              from TTS_SCLTXXCJ_XSDJJL_V2 j
+              where j.product_scgl_id = #{batchCode}
+              group by j.xsdj_id,j.product_scgl_id
+            ) a on t.id = a.xsdj_id
+            and t.customer_entity_idcode is not null
+            and t.tozsm is not null
+            and t.is_circulates_end = 'N'
+            group by t.customer_entity_idcode,t.unit_id,a.product_scgl_id,t.tozsm,t.entity_idcode,t.harvest_unit
+        ) c
+        inner join TTS_SCLTXXCJ_REGISTER_V2 d on c.ENTITYIDCODE = d.entity_idcode
+        and d.del_flag!='Y'
+    </select>
+    <!--通过批次码获取入市对象-->
+    <select id="getRsSubjectInfoByBatchCode" parameterType="java.lang.String" resultType="map">
+        select d.enterprise_name as ENTITYNAME,d.legal_name as LEGALNAME,d.legal_phone as LEGALPHONE,d.address,c.*
+        from (
+            select t.USER_IDCODE as ENTITYIDCODE,a.product_scgl_id as BATCHCODE,t.customer_id as CUSTOMERID,sum(t.sale_amount) as SALEAMOUNT,t.unit_id as UNITID,t.harvest_unit as UNITNAME,t.tozsm as FROMZSM
+            from TTS_SCLTXXCJ_XSDJ_V2 t
+            inner join (
+                select j.xsdj_id,j.product_scgl_id
+                from TTS_SCLTXXCJ_XSDJJL_V2 j
+                where j.product_scgl_id = #{batchCode}
+                group by j.xsdj_id,j.product_scgl_id
+            ) a on t.id = a.xsdj_id
+            and t.tozsm is null
+            and t.is_circulates_end = 'Y'
+            group by t.customer_id,t.unit_id,a.product_scgl_id,t.tozsm,t.entity_idcode,t.harvest_unit
+        ) c
+        inner join TTS_SCLTXXCJ_REGISTER_V2 d on c.ENTITYIDCODE = d.entity_idcode
+        and d.del_flag!='Y'
+    </select>
+    <!--通过客户id查询客户信息（入市对象）-->
+    <select id="getRsSubjectInfoByIds" resultType="map">
+        select t.name,t.user_name as USERNAME,t.address,t.phone
+        from TTS_SCLTXXCJ_CUSTOMER_V2 t
+        where t.id in
+        <foreach item="id" index="index" collection="customerIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <!--通过主体身份码查询主体信息（流通对象）-->
+    <select id="getSubjectInfoByEntityIdCode" parameterType="java.lang.String" resultType="map">
+        select t.enterprise_name as ENTITYNAME,t.legal_name as LEGALNAME,t.address as ADDRESS,t.legal_phone as LEGALPHONE
+        from TTS_SCLTXXCJ_REGISTER_V2 t
+        where t.entity_idcode = #{entityIdCode}
+    </select>
+    <!--通过销售登记id获取生产管理信息-->
+    <select id="getScglInfos" parameterType="java.lang.String" resultMap="ttsScltxxcjScgl">
+        select t.*
+        from TTS_SCLTXXCJ_SCGL_V2 t
+        inner join TTS_SCLTXXCJ_XSDJ_V2 d on 1 = 1
+        inner join TTS_SCLTXXCJ_XSDJJL_V2 j on d.id = j.xsdj_id
+        and d.id =#{saleRegistrationId}
+        and t.product_pc = j.product_scgl_id
+    </select>
+    <!--通过生产Id获取本批次合成前产品-->
+    <select id="getHcScglInfos" parameterType="java.lang.String" resultMap="ttsScltxxcjScgl">
+        select t.*
+        from TTS_SCLTXXCJ_SCGL_V2 t
+        inner join tts_scltxxcj_cppchc h on t.id = h.id
+        and h.hcid=#{productionId}
+    </select>
+</mapper>

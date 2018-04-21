@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjSlaSrecordExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjSlaSrecord" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />
+    <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ENTITY_IDCODE" property="customerEntityIdcode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_USER_IDCODE" property="customerUserIdcode" jdbcType="VARCHAR" />
+    <result column="IS_CIRCULATES_END" property="isCirculatesEnd" jdbcType="VARCHAR" />
+    <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR" />
+    <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR" />
+    <result column="TRACE_PROOF" property="traceProof" jdbcType="VARCHAR" />
+    <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP" />
+    <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR" />
+    <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+    <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR" />
+    <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="PRODUCT_XSPC" property="productXspc" jdbcType="VARCHAR" />
+    <result column="XSDJ_ID" property="xsdjId" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+     <result column="FROM_TRACE_CODE" property="fromTraceCode" jdbcType="VARCHAR" />
+     <result column="TO_TRACE_CODE" property="toTraceCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_SLAUGHTER_SRECORD T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <if test="productXspc != null and productXspc != ''">
+          AND T.PRODUCT_XSPC = #{productXspc}
+      </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_SLAUGHTER_SRECORD T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+  </select>
+
+    <insert id="insertByTemp" parameterType="com.sofn.model.generator.TtsScltxxcjXsdj" >
+        insert into TTS_SCLTXXCJ_SLAUGHTER_SRECORD (ID
+        , XSDJ_ID, PRODUCT_NAME, PRODUCT_INDUSTRY, PRODUCT_SORT
+        , PRODUCT_SCGL_ID
+        , SALE_AMOUNT, ENTITY_IDCODE, USER_IDCODE
+        , CUSTOMER_ENTITY_IDCODE, CUSTOMER_USER_IDCODE
+        , IS_CIRCULATES_END, CONFIRM_STATE, TRACE_CODE, TRACE_PROOF, SALE_TIME, CONFIRM_TIME
+        , PRODUCT_MODEL, BUY_COM_USER_ID, SALE_USER, IP_ADDRESS, PRODUCT_XSPC, DEL_FLAG, CREATE_BY, UPDATE_BY
+        , CREATE_TIME, UPDATE_TIME, CUSTOMER_ID
+        )
+        select lower(sys_guid())
+        , #{id,jdbcType=VARCHAR}, PRODUCT_NAME, PRODUCT_INDUSTRY, PRODUCT_SORT
+        , PRODUCT_SCGL_ID
+        , SALE_AMOUNT , #{entityIdcode,jdbcType=VARCHAR}, #{userIdcode,jdbcType=VARCHAR}
+        , #{customerEntityIdcode,jdbcType=VARCHAR}, #{customerUserIdcode,jdbcType=VARCHAR}
+        , #{isCirculatesEnd,jdbcType=VARCHAR}, #{confirmState,jdbcType=VARCHAR}, #{traceCode,jdbcType=VARCHAR}
+        , #{traceProof,jdbcType=VARCHAR}, #{saleTime,jdbcType=TIMESTAMP}, #{confirmTime,jdbcType=TIMESTAMP}
+        , #{productModel,jdbcType=VARCHAR}, BUY_COM_USER_ID , #{saleUser,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR}
+        , #{productXspc,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}
+        , #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        , #{customerId,jdbcType=VARCHAR}  from TTS_TEMP_XSJL
+        where PRODUCT_NAME = #{productName} and id = #{tempId}
+    </insert>
+    <update id="updateXsmxStatus" parameterType="hashmap">
+        UPDATE TTS_SCLTXXCJ_SLAUGHTER_SRECORD J SET(CONFIRM_STATE,CONFIRM_TIME,TRACE_CODE,TRACE_PROOF) =
+        (SELECT T.CONFIRM_STATE,T.CONFIRM_TIME,T.TRACE_CODE,T.TRACE_PROOF FROM TTS_SCLTXXCJ_SLAUGHTER_SALE T
+        WHERE T.ID = J.XSDJ_ID)
+        WHERE J.XSDJ_ID IN
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <select id="queryByXsdjId" parameterType="hashmap" resultMap="BaseResultMap">
+        SELECT * from TTS_SCLTXXCJ_SLAUGHTER_SRECORD T
+        where 1 = 1
+        <if test="delFlag != null and delFlag != ''">
+            AND T.DEL_FLAG = #{delFlag}
+        </if>
+        <if test="xsdjId != null and xsdjId != ''">
+            AND T.XSDJ_ID = #{xsdjId}
+        </if>
+    </select>
+
+    <update id="deleteRecordFlag" parameterType="java.lang.String">
+        UPDATE TTS_SCLTXXCJ_SLAUGHTER_SRECORD SET DEL_FLAG = 'Y'
+        WHERE XSDJ_ID = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

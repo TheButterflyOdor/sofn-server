@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsPecipeMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsPecipe" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORGAN_NAME" property="organName" jdbcType="VARCHAR" />
+    <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR" />
+    <result column="ORGAN_ID" property="organId" jdbcType="VARCHAR" />
+    <result column="TASK_NUM" property="taskNum" jdbcType="DECIMAL" />
+    <result column="RECEIPT_CLASS" property="receiptClass" jdbcType="VARCHAR" />
+    <result column="RECEIPT_TIME" property="receiptTime" jdbcType="VARCHAR" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="FINISH_NUM" property="finishNum" jdbcType="DECIMAL" />
+    <result column="S_NAME" property="sName" jdbcType="VARCHAR" />
+    <result column="S_CODE" property="sCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADS_RECIPE
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.AdsPecipe">
+    insert into ADS_RECIPE (ID
+    , ORGAN_NAME
+    , ORGAN_TASK_ID
+    , ORGAN_ID
+    , TASK_NUM
+    , RECEIPT_CLASS
+    , RECEIPT_TIME
+    , REASON
+    , CREATE_BY
+    , CREATE_TIME
+    , FINISH_NUM
+    , S_NAME
+    , S_CODE
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{organName,jdbcType=VARCHAR}
+    , #{organTaskId,jdbcType=VARCHAR}
+    , #{organId,jdbcType=VARCHAR}
+    , #{taskNum,jdbcType=DECIMAL}
+    , #{receiptClass,jdbcType=VARCHAR}
+    , to_timestamp(#{receiptTime},'yyyy-mm-dd hh24:mi:ss:ff')
+    , #{reason,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , sysdate
+    , #{finishNum,jdbcType=DECIMAL}
+    , #{sName,jdbcType=DECIMAL}
+    , #{sCode,jdbcType=DECIMAL}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsPecipe" >
+    update ADS_RECIPE
+    set
+     ORGAN_NAME =  #{organName,jdbcType=VARCHAR},
+     ORGAN_TASK_ID =  #{organTaskId,jdbcType=VARCHAR},
+     ORGAN_ID =  #{organId,jdbcType=VARCHAR},
+     TASK_NUM =  #{taskNum,jdbcType=DECIMAL},
+     RECEIPT_CLASS =  #{receiptClass,jdbcType=VARCHAR},
+     RECEIPT_TIME =  #{receiptTime,jdbcType=VARCHAR},
+     REASON =  #{reason,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , ORGAN_NAME
+    , ORGAN_TASK_ID
+    , ORGAN_ID
+    , S_NAME
+    , S_CODE
+    , TASK_NUM
+    , RECEIPT_CLASS
+    , to_char(RECEIPT_TIME,'yyyy-mm-dd') RECEIPT_TIME
+    , REASON
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , FINISH_NUM
+    from ADS_RECIPE
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+
+  </mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsCheckTaskReportExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCheckTaskReport">
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="FILE_ADDRESS" property="fileAddress" jdbcType="VARCHAR" />
+        <result column="MONITOR_TASK_ID" property="monitorTaskId" jdbcType="VARCHAR" />
+        <result column="MONITOR_TASK" property="monitorTask" jdbcType="VARCHAR" />
+        <result column="UPLOAD_DEPARTMENT" property="uploadDepartment" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR" />
+        <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR" />
+        <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+        <result column="MONITOR_TYPE" property="monitorType" jdbcType="VARCHAR" />
+        <result column="YEARS" property="years" jdbcType="VARCHAR" />
+        <result column="SOURCE" property="source" jdbcType="VARCHAR" />
+        <result column="FOLDER" property="folder" jdbcType="VARCHAR" />
+        <result column="FIELD" property="field" jdbcType="VARCHAR" />
+        <result column="ORGAN_TASK_ID" jdbcType="VARCHAR" property="organTaskId" />
+    </resultMap>
+
+    <!--列表-->
+    <select id="getPagesList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.FILE_ADDRESS AS fileAddress,
+        M.MONITOR_TASK_ID AS monitorTaskId,
+        M.MONITOR_TASK AS monitorTask,
+        M.UPLOAD_DEPARTMENT AS uploadDepartment,
+        M.DEL_FLAG AS delFlag,
+        M.RESERVED_FIELD1 AS reservedField1,
+        M.RESERVED_FIELD2 AS reservedField2,
+        M.FILE_NAME AS fileName,
+        M.MONITOR_TYPE AS monitorType,
+        M.YEARS AS years,
+        M.SOURCE AS source,
+        M.FOLDER AS folder,
+        M.FIELD AS field,
+        M.ORGAN_TASK_ID AS organTaskId
+        FROM
+        ASMS_CHECK_TASK_REPORT M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="taskId!=null and taskId!=''">
+            AND M.MONITOR_TASK_ID = #{taskId}
+        </if>
+        <if test="monitorTask!=null and monitorTask!=''">
+            AND M.MONITOR_TASK LIKE #{monitorTask}
+        </if>
+        <if test="years!=null and years!=''">
+            AND M.YEARS = #{years}
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_CHECK_TASK_REPORT M
+        WHERE 1=1
+        <if test="taskId!=null and taskId!=''">
+            AND M.MONITOR_TASK_ID = #{taskId}
+        </if>
+        <if test="monitorTask!=null and monitorTask!=''">
+            AND M.MONITOR_TASK LIKE #{monitorTask}
+        </if>
+        <if test="years!=null and years!=''">
+            AND M.YEARS = #{years}
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysRoleExpandMapper">
+    <select id="getRecordsTotal" resultType="java.lang.Integer">
+        select count(1)
+        from SYS_ROLE
+        where (del_flag is null or del_flag!='Y')
+        <if test="keyword != null and keyword != ''">
+            AND ROLE_NAME LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="organizationId == null ">
+            AND ORGANIZATION_ID is null
+        </if>
+        <if test="userId!= null and userId != ''">
+            AND create_by = #{userId}
+        </if>
+        <if test="status != null and status != ''">
+            AND STATUS = #{status}
+        </if>
+        <if test="notRoleId != null and notRoleId != ''">
+            AND id ! = #{notRoleId}
+        </if>
+    </select>
+
+    <select id="queryByParam" resultType="com.sofn.model.generator.SysRole">
+        select *
+        from SYS_ROLE
+        where (del_flag is null or del_flag!='Y')
+        <if test="param.keyword != null and param.keyword != ''">
+            AND ROLE_NAME LIKE '%' || #{param.keyword} || '%'
+        </if>
+        <if test="param.roleName != null and param.roleName != ''">
+            AND ROLE_NAME = #{param.roleName}
+        </if>
+        <if test="param.roleCode != null and param.roleCode != ''">
+            AND ROLE_CODE = #{param.roleCode}
+        </if>
+        <if test="param.organizationId != null and param.organizationId != ''">
+            AND ORGANIZATION_ID = #{param.organizationId}
+        </if>
+        <if test=" param.organizationId == ''">
+            AND ORGANIZATION_ID is null
+        </if>
+        <if test="param.deptId != null and param.deptId != ''">
+            AND DEPT_ID=#{param.deptId}
+        </if>
+        <if test="param.status != null and param.status != ''">
+            AND STATUS=#{param.status}
+        </if>
+    </select>
+
+    <select id="getOrgRoleByUserId" resultType="com.sofn.model.generator.SysRole">
+        select t1.* from SYS_ROLE t1
+        left join SYS_USER t2 on t1.ORGANIZATION_ID = T2.ORGANIZATION_ID
+        where  (T1.del_flag is null or t1.del_flag!='Y')
+        <if test="userId != null and userId != ''">
+            and T2.ID = #{userId}
+        </if>
+        <if test="status != null and status != ''">
+          and T1.STATUS = #{status}
+        </if>
+        order by T1.UPDATE_TIME
+    </select>
+
+    <select id="getSysRoleListByPage" resultType="com.sofn.model.sys.SysRoleBean">
+        select r.* from
+        (select * from (select a.*,ROWNUM RN from (
+        select * from sys_role s where (del_flag is null or del_flag!='Y')
+        <if test="keyword != null and keyword != ''">
+            AND ROLE_NAME LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="organizationId == null ">
+            AND ORGANIZATION_ID is null
+        </if>
+        <if test="userId!= null and userId != ''">
+            AND create_by = #{userId}
+        </if>
+        <if test="status != null and status != ''">
+            AND STATUS = #{status}
+        </if>
+        <if test="notRoleId != null and notRoleId != ''">
+            AND id ! = #{notRoleId}
+        </if>
+        order by UPDATE_TIME DESC
+        ) a
+        <![CDATA[
+        where ROWNUM<= #{page.pageTail}
+        ]]>)
+        <![CDATA[
+        where RN >= #{page.pageOffset}
+        ]]>) r
+
+    </select>
+
+    <update id="deleteByOrganization"  parameterType="java.lang.String"  >
+        update sys_role
+        set
+        DEL_FLAG = #{delFlag,jdbcType=VARCHAR}
+        where ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR}
+    </update>
+    <select id="getUsedRoleNameByRoleIds" resultType="string" >
+        select  LISTAGG(T1.ROLE_NAME,',') WITHIN GROUP (ORDER BY ROLE_NAME) AS FName from SYS_ROLE t1,
+        (select count(1) c ,SYS_USER_ROLE.ROLE_ID from SYS_USER_ROLE , SYS_USER  where SYS_USER_ROLE.USER_ID = SYS_USER."ID" and SYS_USER.DEL_FLAG = 'N' and   SYS_USER_ROLE.DEL_FLAG = 'N' AND SYS_USER_ROLE.ROLE_ID in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        group by SYS_USER_ROLE.ROLE_ID) t2
+where T1."ID" = T2.ROLE_ID and c > 0
+
+    </select>
+    <select id="getSysRoleByRoleCodes" resultType="com.sofn.model.sys.SysRoleBean">
+        select * from sys_role where (del_flag = 'N' or del_flag  is null) AND ROLE_CODE in
+        <foreach collection="list" item="item"  separator="," open="(" close=")">
+            &apos;${item}&apos;
+        </foreach>
+    </select>
+    <select id="getNormalRoleByAccount" resultType="com.sofn.model.generator.SysRole">
+        select t3.* from sys_user t1
+        left join sys_role t2 on t1.role_id = t2.id
+        left join sys_role t3 on t3.role_code = (substr(t2.role_code, 0, 5) || '-NORMAL')
+        where t1.account = #{account} and t1.del_flag = 'N'
+    </select>
+
+    <select id="getASMSRoles" resultType="com.sofn.model.generator.SysRole">
+        SELECT * FROM SYS_ROLE WHERE ORGANIZATION_ID in (SELECT ID from SYS_ORGANIZATION where ORG_TYPE in ('ALES','ADS'))
+        OR ROLE_CODE LIKE 'ZF-0%NORMAL' OR ROLE_CODE LIKE 'JC-0%NORMAL'
+    </select>
+    <select id="getSysRolesByUserId" resultType="com.sofn.model.generator.SysRole">
+        select t3.* from sys_user t1
+        left join sys_user_role t2 on T1."ID" = T2.USER_ID
+        left join SYS_ROLE t3 on t2.ROLE_ID = T3.ID
+        where T1."ID" = #{userId} and T2.DEL_FLAG = 'N'
+    </select>
+
+    <select id="getIndustryormalRolesByUserId" resultType="com.sofn.model.generator.SysRole">
+        select t5.* from sys_user t1
+        left join sys_user_role t2 on T1."ID" = T2.USER_ID
+        left join SYS_ROLE t3 on t2.ROLE_ID = T3.ID
+        left join SYS_ORGANIZATION t4 on t1.ORGANIZATION_id = t4.id
+        left join SYS_ROLE t5 on t5.role_code  = (substr(t3.role_code, 0, 2) || '-JG-INDUSTRY-NORMAL-ROLE')
+        where T1."ID" = #{userId}
+        and T2.DEL_FLAG = 'N'
+        and t4.org_type = #{orgFlag}
+        and t3.role_code like '%JG-INDUSTRY-ADMIN-ROLE'
+    </select>
+
+</mapper>

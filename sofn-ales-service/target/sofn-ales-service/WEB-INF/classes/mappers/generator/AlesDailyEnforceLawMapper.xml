@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AlesDailyEnforceLawMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesDailyEnforceLaw">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+    <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+    <result column="ENTERPRISE_ID" jdbcType="VARCHAR" property="enterpriseId" />
+    <result column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+    <result column="ENTERPRISE_ADDRESS" jdbcType="VARCHAR" property="enterpriseAddress" />
+    <result column="TASK_PERSON_COUNT" jdbcType="VARCHAR" property="taskPersonCount" />
+    <result column="TASK_PERSON_ID" jdbcType="VARCHAR" property="taskPersonId" />
+    <result column="ENFORCE_LAW_RESULT" jdbcType="VARCHAR" property="enforceLawResult" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="ENTERPRISE_NAME" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="CREATE_ORG_ID" jdbcType="VARCHAR" property="createOrgId" />
+    <result column="ENFORCE_LAW_RESULT_FLAG" jdbcType="VARCHAR" property="enforceLawResultFlag" />
+    <result column="TASK_PERSON_NAME" jdbcType="VARCHAR" property="taskPersonName" />
+    <result column="ENTERPRISE_IDCODE" jdbcType="VARCHAR" property="enterpriseIdcode" />
+    <result column="PRINCIPAL" jdbcType="VARCHAR" property="principal" />
+    <result column="SCENE_PICTURES" jdbcType="VARCHAR" property="scenePictures" />
+    <result column="SCENE_PICTURE_NAMES" jdbcType="VARCHAR" property="scenePictureNames" />
+    <result column="PRINCIPAL_SIGNATURES" jdbcType="VARCHAR" property="principalSignatures" />
+    <result column="PRINCIPAL_SIGNATURE_NAMES" jdbcType="VARCHAR" property="principalSignatureNames" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ALES_DAILY_ENFORCE_LAW
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AlesDailyEnforceLaw">
+    insert into ALES_DAILY_ENFORCE_LAW (ID, TASK_NAME, TASK_BEGIN_TIME, 
+      TASK_END_TIME, ENTERPRISE_ID, AREA_ID, 
+      ENTERPRISE_ADDRESS, TASK_PERSON_COUNT, TASK_PERSON_ID, 
+      ENFORCE_LAW_RESULT, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, ENABLE, 
+      DEL_FLAG, ENTERPRISE_NAME, CREATE_ORG_ID, 
+      ENFORCE_LAW_RESULT_FLAG, TASK_PERSON_NAME, ENTERPRISE_IDCODE,
+      PRINCIPAL, SCENE_PICTURES, SCENE_PICTURE_NAMES, PRINCIPAL_SIGNATURES, PRINCIPAL_SIGNATURE_NAMES
+      )
+    values (#{id,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, #{taskBeginTime,jdbcType=TIMESTAMP}, 
+      #{taskEndTime,jdbcType=TIMESTAMP}, #{enterpriseId,jdbcType=VARCHAR}, #{areaId,jdbcType=VARCHAR}, 
+      #{enterpriseAddress,jdbcType=VARCHAR}, #{taskPersonCount,jdbcType=VARCHAR}, #{taskPersonId,jdbcType=VARCHAR}, 
+      #{enforceLawResult,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{enterpriseName,jdbcType=VARCHAR}, #{createOrgId,jdbcType=VARCHAR}, 
+      #{enforceLawResultFlag,jdbcType=VARCHAR}, #{taskPersonName,jdbcType=VARCHAR}, #{enterpriseIdcode,jdbcType=VARCHAR},
+      #{principal,jdbcType=VARCHAR}, #{scenePictures,jdbcType=VARCHAR}, #{scenePictureNames,jdbcType=VARCHAR},#{principalSignatures,jdbcType=VARCHAR}, #{principalSignatureNames,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AlesDailyEnforceLaw">
+    update ALES_DAILY_ENFORCE_LAW
+    set TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      TASK_BEGIN_TIME = #{taskBeginTime,jdbcType=TIMESTAMP},
+      TASK_END_TIME = #{taskEndTime,jdbcType=TIMESTAMP},
+      ENTERPRISE_ID = #{enterpriseId,jdbcType=VARCHAR},
+      AREA_ID = #{areaId,jdbcType=VARCHAR},
+      ENTERPRISE_ADDRESS = #{enterpriseAddress,jdbcType=VARCHAR},
+      TASK_PERSON_COUNT = #{taskPersonCount,jdbcType=VARCHAR},
+      TASK_PERSON_ID = #{taskPersonId,jdbcType=VARCHAR},
+      ENFORCE_LAW_RESULT = #{enforceLawResult,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      ENTERPRISE_NAME = #{enterpriseName,jdbcType=VARCHAR},
+      CREATE_ORG_ID = #{createOrgId,jdbcType=VARCHAR},
+      ENFORCE_LAW_RESULT_FLAG = #{enforceLawResultFlag,jdbcType=VARCHAR},
+      TASK_PERSON_NAME = #{taskPersonName,jdbcType=VARCHAR},
+      ENTERPRISE_IDCODE = #{enterpriseIdcode,jdbcType=VARCHAR},
+      PRINCIPAL = #{principal,jdbcType=VARCHAR},
+      SCENE_PICTURES = #{scenePictures,jdbcType=VARCHAR},
+      SCENE_PICTURE_NAMES = #{scenePictureNames,jdbcType=VARCHAR},
+      PRINCIPAL_SIGNATURES = #{principalSignatures,jdbcType=VARCHAR},
+      PRINCIPAL_SIGNATURE_NAMES = #{principalSignatureNames,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, TASK_NAME, TASK_BEGIN_TIME, TASK_END_TIME, ENTERPRISE_ID, AREA_ID, ENTERPRISE_ADDRESS, 
+    TASK_PERSON_COUNT, TASK_PERSON_ID, ENFORCE_LAW_RESULT, CREATE_BY, CREATE_TIME, UPDATE_BY, 
+    UPDATE_TIME, ENABLE, DEL_FLAG, ENTERPRISE_NAME, CREATE_ORG_ID, ENFORCE_LAW_RESULT_FLAG, 
+    TASK_PERSON_NAME, ENTERPRISE_IDCODE,
+    PRINCIPAL, SCENE_PICTURES, SCENE_PICTURE_NAMES, PRINCIPAL_SIGNATURES, PRINCIPAL_SIGNATURE_NAMES
+    from ALES_DAILY_ENFORCE_LAW
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, TASK_NAME, TASK_BEGIN_TIME, TASK_END_TIME, ENTERPRISE_ID, AREA_ID, ENTERPRISE_ADDRESS, 
+    TASK_PERSON_COUNT, TASK_PERSON_ID, ENFORCE_LAW_RESULT, CREATE_BY, CREATE_TIME, UPDATE_BY, 
+    UPDATE_TIME, ENABLE, DEL_FLAG, ENTERPRISE_NAME, CREATE_ORG_ID, ENFORCE_LAW_RESULT_FLAG, 
+    TASK_PERSON_NAME, ENTERPRISE_IDCODE,
+    PRINCIPAL, SCENE_PICTURES, SCENE_PICTURE_NAMES, PRINCIPAL_SIGNATURES, PRINCIPAL_SIGNATURE_NAMES
+    from ALES_DAILY_ENFORCE_LAW
+  </select>
+</mapper>

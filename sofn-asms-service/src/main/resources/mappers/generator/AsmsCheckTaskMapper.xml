@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsCheckTaskMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCheckTask">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_TYPE" jdbcType="VARCHAR" property="taskType" />
+    <result column="TASK_YEAR" jdbcType="CHAR" property="taskYear" />
+    <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+    <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+    <result column="TASK_RELEASE_UNIT" jdbcType="VARCHAR" property="taskReleaseUnit" />
+    <result column="TASK_IS_SEPARATE" jdbcType="CHAR" property="taskIsSeparate" />
+    <result column="TASK_AREA_ID" jdbcType="VARCHAR" property="taskAreaId" />
+    <result column="TASK_INDUSTRY" jdbcType="VARCHAR" property="taskIndustry" />
+    <result column="TASK_SAMPLE_DEADLINE" jdbcType="TIMESTAMP" property="taskSampleDeadline" />
+    <result column="FILES" jdbcType="VARCHAR" property="files" />
+    <result column="FILE_CODE" jdbcType="VARCHAR" property="fileCode" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="TASK_LEVEL" jdbcType="CHAR" property="taskLevel" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+    <result column="BASE_INSPECTION_ID" jdbcType="VARCHAR" property="baseInspectionId" />
+    <result column="CY_UNIT_ID" jdbcType="CHAR" property="cyUnitId" />
+    <result column="CY_UNIT_NAME" jdbcType="VARCHAR" property="cyUnitName" />
+    <result column="JC_UNIT_ID" jdbcType="CHAR" property="jcUnitId" />
+    <result column="JC_UNIT_NAME" jdbcType="VARCHAR" property="jcUnitName" />
+    <result column="IS_SAMPLE" jdbcType="CHAR" property="isSample" />
+    <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard" />
+    <result column="JUDGE_STANDARD_ID" jdbcType="VARCHAR" property="judgeStandardId" />
+    <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard" />
+    <result column="DETECTION_STANDARD_ID" jdbcType="VARCHAR" property="detectionStandardId" />
+    <result column="PARENT_TASK_ID" jdbcType="CHAR" property="parentTaskId" />
+    <result column="PARENT_TASK_NAME" jdbcType="VARCHAR" property="parentTaskName" />
+    <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+    <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+    <result column="JC_STANDARD_LINK_ID" jdbcType="VARCHAR" property="jcStandardLinkId" />
+    <result column="PD_STANDARD_LINK_ID" jdbcType="VARCHAR" property="pdStandardLinkId" />
+    <result column="LEVEL_ENUM" jdbcType="CHAR" property="levelEnum" />
+    <result column="FILESNAME" jdbcType="VARCHAR" property="filesname" />
+    <result column="JD_UNIT_ID" jdbcType="CHAR" property="jdUnitId" />
+    <result column="JD_UNIT_NAME" jdbcType="VARCHAR" property="jdUnitName" />
+    <result column="ATTACHMENT_ADDRESS" jdbcType="VARCHAR" property="attachmentAddress" />
+    <result column="ATTACHMENT_NAME" jdbcType="VARCHAR" property="attachmentName" />
+    <result column="FILE_NUMBER" jdbcType="VARCHAR" property="fileNumber" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_CHECK_TASK
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsCheckTask">
+    insert into ASMS_CHECK_TASK (ID, TASK_NAME, TASK_TYPE, 
+      TASK_YEAR, TASK_BEGIN_TIME, TASK_END_TIME, 
+      TASK_RELEASE_UNIT, TASK_IS_SEPARATE, TASK_AREA_ID, 
+      TASK_INDUSTRY, TASK_SAMPLE_DEADLINE, FILES, 
+      FILE_CODE, REMARK, TASK_LEVEL, 
+      STATE, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, ENABLE, 
+      DEL_FLAG, CREATE_ORG_REGION_ID, BASE_INSPECTION_ID, 
+      CY_UNIT_ID, CY_UNIT_NAME, JC_UNIT_ID, 
+      JC_UNIT_NAME, IS_SAMPLE, JUDGE_STANDARD, 
+      JUDGE_STANDARD_ID, DETECTION_STANDARD, DETECTION_STANDARD_ID, 
+      PARENT_TASK_ID, PARENT_TASK_NAME, CREATE_ORG_ID, 
+      CREATE_ORG_NAME, JC_STANDARD_LINK_ID, PD_STANDARD_LINK_ID, 
+      LEVEL_ENUM, FILESNAME, JD_UNIT_ID, JD_UNIT_NAME, ATTACHMENT_ADDRESS,
+      ATTACHMENT_NAME, FILE_NUMBER)
+    values (#{id,jdbcType=CHAR}, #{taskName,jdbcType=VARCHAR}, #{taskType,jdbcType=VARCHAR}, 
+      #{taskYear,jdbcType=CHAR}, #{taskBeginTime,jdbcType=TIMESTAMP}, #{taskEndTime,jdbcType=TIMESTAMP}, 
+      #{taskReleaseUnit,jdbcType=VARCHAR}, #{taskIsSeparate,jdbcType=CHAR}, #{taskAreaId,jdbcType=VARCHAR}, 
+      #{taskIndustry,jdbcType=VARCHAR}, #{taskSampleDeadline,jdbcType=TIMESTAMP}, #{files,jdbcType=VARCHAR}, 
+      #{fileCode,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{taskLevel,jdbcType=CHAR}, 
+      #{state,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{createOrgRegionId,jdbcType=VARCHAR}, #{baseInspectionId,jdbcType=VARCHAR}, 
+      #{cyUnitId,jdbcType=CHAR}, #{cyUnitName,jdbcType=VARCHAR}, #{jcUnitId,jdbcType=CHAR}, 
+      #{jcUnitName,jdbcType=VARCHAR}, #{isSample,jdbcType=CHAR}, #{judgeStandard,jdbcType=VARCHAR}, 
+      #{judgeStandardId,jdbcType=VARCHAR}, #{detectionStandard,jdbcType=VARCHAR}, #{detectionStandardId,jdbcType=VARCHAR}, 
+      #{parentTaskId,jdbcType=CHAR}, #{parentTaskName,jdbcType=VARCHAR}, #{createOrgId,jdbcType=CHAR}, 
+      #{createOrgName,jdbcType=VARCHAR}, #{jcStandardLinkId,jdbcType=VARCHAR}, #{pdStandardLinkId,jdbcType=VARCHAR}, 
+      #{levelEnum,jdbcType=CHAR}, #{filesname,jdbcType=VARCHAR}, #{jdUnitId, jdbcType=VARCHAR}, #{jdUnitName, jdbcType=VARCHAR},
+      #{attachmentAddress,jdbcType=VARCHAR}, #{attachmentName,jdbcType=VARCHAR}, #{fileNumber, jdbcType=VARCHAR}    )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsCheckTask">
+    update ASMS_CHECK_TASK
+    set TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      TASK_TYPE = #{taskType,jdbcType=VARCHAR},
+      TASK_YEAR = #{taskYear,jdbcType=CHAR},
+      TASK_BEGIN_TIME = #{taskBeginTime,jdbcType=TIMESTAMP},
+      TASK_END_TIME = #{taskEndTime,jdbcType=TIMESTAMP},
+      TASK_RELEASE_UNIT = #{taskReleaseUnit,jdbcType=VARCHAR},
+      TASK_IS_SEPARATE = #{taskIsSeparate,jdbcType=CHAR},
+      TASK_AREA_ID = #{taskAreaId,jdbcType=VARCHAR},
+      TASK_INDUSTRY = #{taskIndustry,jdbcType=VARCHAR},
+      TASK_SAMPLE_DEADLINE = #{taskSampleDeadline,jdbcType=TIMESTAMP},
+      FILES = #{files,jdbcType=VARCHAR},
+      FILE_CODE = #{fileCode,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TASK_LEVEL = #{taskLevel,jdbcType=CHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      CREATE_ORG_REGION_ID = #{createOrgRegionId,jdbcType=VARCHAR},
+      BASE_INSPECTION_ID = #{baseInspectionId,jdbcType=VARCHAR},
+      CY_UNIT_ID = #{cyUnitId,jdbcType=CHAR},
+      CY_UNIT_NAME = #{cyUnitName,jdbcType=VARCHAR},
+      JC_UNIT_ID = #{jcUnitId,jdbcType=CHAR},
+      JC_UNIT_NAME = #{jcUnitName,jdbcType=VARCHAR},
+      IS_SAMPLE = #{isSample,jdbcType=CHAR},
+      JUDGE_STANDARD = #{judgeStandard,jdbcType=VARCHAR},
+      JUDGE_STANDARD_ID = #{judgeStandardId,jdbcType=VARCHAR},
+      DETECTION_STANDARD = #{detectionStandard,jdbcType=VARCHAR},
+      DETECTION_STANDARD_ID = #{detectionStandardId,jdbcType=VARCHAR},
+      PARENT_TASK_ID = #{parentTaskId,jdbcType=CHAR},
+      PARENT_TASK_NAME = #{parentTaskName,jdbcType=VARCHAR},
+      CREATE_ORG_ID = #{createOrgId,jdbcType=CHAR},
+      CREATE_ORG_NAME = #{createOrgName,jdbcType=VARCHAR},
+      JC_STANDARD_LINK_ID = #{jcStandardLinkId,jdbcType=VARCHAR},
+      PD_STANDARD_LINK_ID = #{pdStandardLinkId,jdbcType=VARCHAR},
+      LEVEL_ENUM = #{levelEnum,jdbcType=CHAR},
+      FILESNAME = #{filesname,jdbcType=VARCHAR},
+      JD_UNIT_ID = #{jdUnitId,jdbcType=VARCHAR},
+      JD_UNIT_NAME = #{jdUnitName,jdbcType=VARCHAR},
+      ATTACHMENT_ADDRESS = #{attachmentAddress,jdbcType=VARCHAR},
+      ATTACHMENT_NAME = #{attachmentName,jdbcType=VARCHAR},
+      FILE_NUMBER = #{fileNumber,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, TASK_NAME, TASK_TYPE, TASK_YEAR, TASK_BEGIN_TIME, TASK_END_TIME, TASK_RELEASE_UNIT, 
+    TASK_IS_SEPARATE, TASK_AREA_ID, TASK_INDUSTRY, TASK_SAMPLE_DEADLINE, FILES, FILE_CODE, 
+    REMARK, TASK_LEVEL, STATE, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, 
+    DEL_FLAG, CREATE_ORG_REGION_ID, BASE_INSPECTION_ID, CY_UNIT_ID, CY_UNIT_NAME, JC_UNIT_ID, 
+    JC_UNIT_NAME, IS_SAMPLE, JUDGE_STANDARD, JUDGE_STANDARD_ID, DETECTION_STANDARD, DETECTION_STANDARD_ID, 
+    PARENT_TASK_ID, PARENT_TASK_NAME, CREATE_ORG_ID, CREATE_ORG_NAME, JC_STANDARD_LINK_ID, 
+    PD_STANDARD_LINK_ID, LEVEL_ENUM, FILESNAME, JD_UNIT_ID, JD_UNIT_NAME, ATTACHMENT_ADDRESS,
+    ATTACHMENT_NAME, FILE_NUMBER
+    from ASMS_CHECK_TASK
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, TASK_NAME, TASK_TYPE, TASK_YEAR, TASK_BEGIN_TIME, TASK_END_TIME, TASK_RELEASE_UNIT, 
+    TASK_IS_SEPARATE, TASK_AREA_ID, TASK_INDUSTRY, TASK_SAMPLE_DEADLINE, FILES, FILE_CODE, 
+    REMARK, TASK_LEVEL, STATE, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, 
+    DEL_FLAG, CREATE_ORG_REGION_ID, BASE_INSPECTION_ID, CY_UNIT_ID, CY_UNIT_NAME, JC_UNIT_ID, 
+    JC_UNIT_NAME, IS_SAMPLE, JUDGE_STANDARD, JUDGE_STANDARD_ID, DETECTION_STANDARD, DETECTION_STANDARD_ID, 
+    PARENT_TASK_ID, PARENT_TASK_NAME, CREATE_ORG_ID, CREATE_ORG_NAME, JC_STANDARD_LINK_ID, 
+    PD_STANDARD_LINK_ID, LEVEL_ENUM, FILESNAME, JD_UNIT_ID, JD_UNIT_NAME, ATTACHMENT_ADDRESS,
+    ATTACHMENT_NAME, FILE_NUMBER
+    from ASMS_CHECK_TASK
+  </select>
+</mapper>

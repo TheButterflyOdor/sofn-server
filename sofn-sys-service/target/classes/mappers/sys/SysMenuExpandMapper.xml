@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysMenuExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysMenu" >
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="IS_SUBITEM" jdbcType="DECIMAL" property="isSubitem" />
+    <result column="MENU_TYPE" jdbcType="VARCHAR" property="menuType" />
+    <result column="MENU_VALUE" jdbcType="VARCHAR" property="menuValue" />
+    <result column="NUMBERS" jdbcType="VARCHAR" property="numbers" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="IMAGE" jdbcType="VARCHAR" property="image" />
+    <result column="DESCRIBES" jdbcType="VARCHAR" property="describes" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DEL_FLAG" jdbcType="VARCHAR" property="delFlag" />
+    <result column="RESERVED_FIELD1" jdbcType="VARCHAR" property="reservedField1" />
+    <result column="RESERVED_FIELD2" jdbcType="VARCHAR" property="reservedField2" />
+  </resultMap>
+
+  <select id="selectAllByCondition" parameterType="hashmap" resultType="map">
+    SELECT f.*,ROWNUM AS rn
+    FROM (
+    SELECT
+    s.*
+    FROM SYS_MENU s
+    WHERE 1=1
+    <if test="menuName!=null and menuName!=''">
+      AND s.MENU_NAME like '%'||#{menuName}||'%'
+    </if>
+
+    order by ROWNUM)f
+    WHERE rownum BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+
+  <select id="queryByParam" resultType="com.sofn.model.generator.SysMenu" parameterType="hashmap">
+    select *
+    from SYS_MENU
+    where (del_flag is null or del_flag!='Y')
+    <if test="sysFlag == 1">
+      AND menu_value  in ('ASMS','FXJC','QRY','DGAP') or id = '1'
+    </if>
+    <if test="sysFlag == 2">
+      AND menu_value  in ('ASMS','FXJC','QRY') or id = '1'
+    </if>
+    <if test="sysFlag == 3">
+      AND menu_value  in ('ADS','QRY','FXJC') or id = '1'
+    </if>
+    <if test="sysFlag == 4">
+      AND menu_value  in ('ALES','FXJC','QRY') or id = '1'
+    </if>
+    ORDER BY CAST(NUMBERS AS INTEGER),MENU_TYPE ASC
+  </select>
+  <select id="getSysMenuLists" resultType="com.sofn.model.generator.SysMenu">
+    SELECT * FROM
+    (
+    SELECT A.*, ROWNUM RN
+    FROM (
+    select s1.ID, s1.MENU_NAME, s1.PARENT_ID, s1.IS_SUBITEM, s1.MENU_TYPE, s1.MENU_VALUE, s1.NUMBERS, s1.URL,
+    s1.IMAGE, s1.DESCRIBES, s1.STATUS, s1.CREATE_BY, s1.CREATE_TIME, s1.UPDATE_BY, s1.UPDATE_TIME, s1.DEL_FLAG,
+    s2.MENU_NAME AS RESERVED_FIELD1, s1.RESERVED_FIELD2
+    from SYS_MENU s1 left join SYS_MENU s2 on s1.PARENT_ID=s2.ID
+    WHERE 1=1
+    <if test="menuName!=null and menuName!=''">
+      AND s1.MENU_NAME like '%'||#{menuName}||'%'
+    </if>
+    order by CAST(s1.NUMBERS AS INTEGER)
+    ) A
+    <![CDATA[
+            WHERE ROWNUM <= #{pager.pageTail}
+            ]]>
+    )
+    <![CDATA[
+        WHERE RN >= #{pager.pageOffset}
+        ]]>
+  </select>
+  <select id="getAllByDesc" resultType="com.sofn.model.generator.SysMenu">
+    select ID, MENU_NAME, PARENT_ID, IS_SUBITEM, MENU_TYPE, MENU_VALUE, NUMBERS, URL,
+    IMAGE, DESCRIBES, STATUS, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG,
+    RESERVED_FIELD1, RESERVED_FIELD2
+    from SYS_MENU ORDER BY PARENT_ID DESC
+  </select>
+  <select id="getAllCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM SYS_MENU s
+    WHERE 1=1
+    <if test="menuName!=null and menuName!=''">
+      AND s.MENU_NAME like '%'||#{menuName}||'%'
+    </if>
+
+  </select>
+  <select id="getAllByParentId" resultType="com.sofn.model.generator.SysMenu">
+    select s1.ID, s1.MENU_NAME, s1.PARENT_ID, s1.IS_SUBITEM, s1.MENU_TYPE, s1.MENU_VALUE, s1.NUMBERS, s1.URL,
+    s1.IMAGE, s1.DESCRIBES, s1.STATUS, s1.CREATE_BY, s1.CREATE_TIME, s1.UPDATE_BY, s1.UPDATE_TIME, s1.DEL_FLAG,
+    s2.MENU_NAME AS RESERVED_FIELD1, s1.RESERVED_FIELD2
+    from SYS_MENU s1 left join SYS_MENU s2 on s1.PARENT_ID=s2.ID
+    WHERE  1=1
+    <if test="parentId!=null and parentId!=''">
+      AND s1.PARENT_ID = #{parentId,jdbcType=VARCHAR}
+    </if>
+    <if test="menuName!=null and menuName!=''">
+      AND s1.MENU_NAME like '%'||#{menuName}||'%'
+    </if>
+    ORDER BY CAST(s1.NUMBERS AS INTEGER),s1.MENU_TYPE ASC
+  </select>
+  <select id="recursionQuery" resultType="com.sofn.model.generator.SysMenu">
+    SELECT
+    ID, MENU_NAME, PARENT_ID, IS_SUBITEM, MENU_TYPE, MENU_VALUE, NUMBERS, URL,
+    IMAGE, DESCRIBES, STATUS, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG,
+    RESERVED_FIELD1, RESERVED_FIELD2
+    FROM SYS_MENU s
+  <if test="id!=null and id!=''">
+    START WITH s.ID = #{id,jdbcType=VARCHAR}
+  </if>
+    CONNECT BY PRIOR s.ID = s.PARENT_ID
+    ORDER BY CAST(s.NUMBERS AS INTEGER)
+  </select>
+
+
+  <select id="getByNumber" resultType="com.sofn.model.generator.SysMenu">
+  select * from sys_menu where numbers = #{numbers,jdbcType=VARCHAR}
+  </select>
+
+  <update id="updateAllNumber" parameterType="com.sofn.model.generator.SysMenu">
+  update sys_menu ss set ss.numbers = CAST(ss.numbers AS INTEGER)+1 where CAST(ss.numbers AS INTEGER)> = #{numbers,jdbcType=VARCHAR}
+  </update>
+  <select id="getMaxNumber"  resultType="long">
+  SELECT MAX (CAST(numbers AS INTEGER)) from sys_menu
+  </select>
+</mapper>

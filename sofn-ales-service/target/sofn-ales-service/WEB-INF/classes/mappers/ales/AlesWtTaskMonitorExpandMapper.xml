@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.ales.AlesWtTaskMonitorExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesWtTaskMonitor">
+        <id column="ID" jdbcType="CHAR" property="id"/>
+        <result column="SUPERVISE_CHECK_TASK_ID" jdbcType="CHAR" property="superviseCheckTaskId"/>
+        <result column="PRODUCT_TYPE" jdbcType="VARCHAR" property="productType"/>
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName"/>
+        <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime"/>
+        <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime"/>
+        <result column="SAMPLE_UNIT_ID" jdbcType="CHAR" property="sampleUnitId"/>
+        <result column="DETECTION_UNIT_ID" jdbcType="CHAR" property="detectionUnitId"/>
+        <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard"/>
+        <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard"/>
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="ENABLE" jdbcType="CHAR" property="enable"/>
+        <result column="MONITOR_NUM" jdbcType="VARCHAR" property="monitorNum"/>
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag"/>
+        <result column="IS_SAMPLE" jdbcType="CHAR" property="isSample"/>
+        <result column="DETECTION_ITEM" jdbcType="VARCHAR" property="detectionItem"/>
+        <result column="DETECTION_ITEM_ID" jdbcType="VARCHAR" property="detectionItemId"/>
+        <result column="PRODUCT_TYPE_ID" jdbcType="CHAR" property="productTypeId"/>
+        <result column="PRODUCT_NAME_ID" jdbcType="CHAR" property="productNameId"/>
+        <result column="AREA_ID" jdbcType="CHAR" property="areaId"/>
+        <result column="INDUSTRY" jdbcType="VARCHAR" property="industry"/>
+    </resultMap>
+
+    <!--提交状态-->
+    <update id="updateIsSample" parameterType="com.sofn.model.generator.AlesWtTaskMonitor">
+        UPDATE ALES_WT_TASK_MONITOR SET IS_SAMPLE = #{isSample} WHERE ID = #{id}
+    </update>
+
+    <delete id="delByTaskId" parameterType="com.sofn.model.generator.AlesWtTaskMonitor">
+        delete from ALES_WT_TASK_MONITOR
+        where SUPERVISE_CHECK_TASK_ID = '${superviseCheckTaskId}'
+    </delete>
+
+    <select id="getOneByTaskId" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        ALES_WT_TASK_MONITOR M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND M.SUPERVISE_CHECK_TASK_ID=#{id}
+        order by M.CREATE_TIME DESC
+    </select>
+
+    <!--列表-->
+    <select id="getListByTaskId" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        ALES_WT_TASK_MONITOR M
+        WHERE 1=1 AND M.DEL_FLAG ='N' AND M.SUPERVISE_CHECK_TASK_ID=#{superviseCheckTaskId}
+        order by M.CREATE_TIME DESC
+    </select>
+
+    <!--分页-->
+    <select id="getPagesList" resultMap="BaseResultMap">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        *
+        FROM
+        ALES_WT_TASK_MONITOR M
+        WHERE 1=1 AND M.DEL_FLAG ='N' AND M.SUPERVISE_CHECK_TASK_ID=#{taskId}
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <!--判断报告状态 (2018年2月10日10:15:18)-->
+    <select id="getReportStatus" resultType="java.util.Map">
+        select amt.id,
+        amt.SAMPLE_NAME,
+        amt.SAMPLE_CODE,
+        amt.PRODUCT_TRACEABILITY_CODE,
+        amt.TESTED_DEPARMENT,
+        amt.SAMPLE_DEPARMENT,
+        amt.CHECK_ORGAN,
+        amt.RESULT,
+        amt.CHECK_REPORT
+        from ADS_CHECK_INFO amt,ADS_MONITOR_SAMPLE s
+        where 1 = 1 AND amt.DEL_FLAG != 'Y'
+       AND amt.ORGAN_TASK_ID = #{taskId}
+      AND s.id = amt.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2'
+    </select>
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ALES_WT_TASK_MONITOR M
+        WHERE 1=1 AND M.DEL_FLAG ='N' AND M.SUPERVISE_CHECK_TASK_ID=#{taskId}
+    </select>
+
+</mapper>

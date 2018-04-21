@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TestExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.qry.SysTemplate" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="TEMPLATE_NAME" property="templateName" jdbcType="VARCHAR" />
+        <result column="TEMPLATE_TYPE" property="templateType" jdbcType="VARCHAR" />
+        <result column="TEMPLATE_FILENAME" property="templateFilename" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="FILE_ADDRESS" property="fileAddress" jdbcType="VARCHAR"/>
+        <result column="PDF_ADDRESS" property="pdfAddress" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapCT" type="com.sofn.model.generator.AsmsCheckTask">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+        <result column="TASK_TYPE" jdbcType="VARCHAR" property="taskType" />
+        <result column="TASK_YEAR" jdbcType="CHAR" property="taskYear" />
+        <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+        <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+        <result column="TASK_RELEASE_UNIT" jdbcType="VARCHAR" property="taskReleaseUnit" />
+        <result column="TASK_IS_SEPARATE" jdbcType="CHAR" property="taskIsSeparate" />
+        <result column="TASK_AREA_ID" jdbcType="VARCHAR" property="taskAreaId" />
+        <result column="TASK_INDUSTRY" jdbcType="VARCHAR" property="taskIndustry" />
+        <result column="TASK_SAMPLE_DEADLINE" jdbcType="TIMESTAMP" property="taskSampleDeadline" />
+        <result column="FILES" jdbcType="VARCHAR" property="files" />
+        <result column="FILE_CODE" jdbcType="VARCHAR" property="fileCode" />
+        <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+        <result column="TASK_LEVEL" jdbcType="CHAR" property="taskLevel" />
+        <result column="STATE" jdbcType="VARCHAR" property="state" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+        <result column="BASE_INSPECTION_ID" jdbcType="VARCHAR" property="baseInspectionId" />
+        <result column="CY_UNIT_ID" jdbcType="CHAR" property="cyUnitId" />
+        <result column="CY_UNIT_NAME" jdbcType="VARCHAR" property="cyUnitName" />
+        <result column="JC_UNIT_ID" jdbcType="CHAR" property="jcUnitId" />
+        <result column="JC_UNIT_NAME" jdbcType="VARCHAR" property="jcUnitName" />
+        <result column="IS_SAMPLE" jdbcType="CHAR" property="isSample" />
+        <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard" />
+        <result column="JUDGE_STANDARD_ID" jdbcType="VARCHAR" property="judgeStandardId" />
+        <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard" />
+        <result column="DETECTION_STANDARD_ID" jdbcType="VARCHAR" property="detectionStandardId" />
+        <result column="PARENT_TASK_ID" jdbcType="CHAR" property="parentTaskId" />
+        <result column="PARENT_TASK_NAME" jdbcType="VARCHAR" property="parentTaskName" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+        <result column="JC_STANDARD_LINK_ID" jdbcType="VARCHAR" property="jcStandardLinkId" />
+        <result column="PD_STANDARD_LINK_ID" jdbcType="VARCHAR" property="pdStandardLinkId" />
+    </resultMap>
+
+    <select id="getPageInfo" parameterType="hashmap" resultType="com.sofn.model.qry.SysTemplate">
+        SELECT * FROM
+        (
+        SELECT A.*, ROWNUM RN
+        FROM (
+        SELECT * FROM SYS_TEMPLATE
+        WHERE 1=1 AND DEL_FLAG !='Y'
+        <if test="templateName!=null and templateName!=''">
+            AND TEMPLATE_NAME like '%'||#{templateName,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="templateType!=null and templateType!=''">
+            AND TEMPLATE_TYPE like '%'||#{templateType,jdbcType=VARCHAR}||'%'
+        </if>
+        order by update_time desc
+        ) A
+        <![CDATA[
+            WHERE ROWNUM <= #{pager.pageTail}
+            ]]>
+        )
+        <![CDATA[
+        WHERE RN >= #{pager.pageOffset}
+        ]]>
+    </select>
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+        select COUNT(*)
+        from SYS_TEMPLATE
+        WHERE 1=1 AND DEL_FLAG !='Y'
+        <if test="templateName!=null and templateName!=''">
+            AND TEMPLATE_NAME like '%'||#{templateName,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="templateType!=null and templateType!=''">
+            AND TEMPLATE_TYPE like '%'||#{templateType,jdbcType=VARCHAR}||'%'
+        </if>
+        order by ID
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMapCT">
+        select ID, TASK_NAME, TASK_TYPE, TASK_YEAR, TASK_BEGIN_TIME, TASK_END_TIME, TASK_RELEASE_UNIT,
+        TASK_IS_SEPARATE, TASK_AREA_ID, TASK_INDUSTRY, TASK_SAMPLE_DEADLINE, FILES, FILE_CODE,
+        REMARK, TASK_LEVEL, STATE, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE,
+        DEL_FLAG, CREATE_ORG_REGION_ID, BASE_INSPECTION_ID, CY_UNIT_ID, CY_UNIT_NAME, JC_UNIT_ID,
+        JC_UNIT_NAME, IS_SAMPLE, JUDGE_STANDARD, JUDGE_STANDARD_ID, DETECTION_STANDARD, DETECTION_STANDARD_ID,
+        PARENT_TASK_ID, PARENT_TASK_NAME, CREATE_ORG_ID, CREATE_ORG_NAME, JC_STANDARD_LINK_ID,
+        PD_STANDARD_LINK_ID
+        from ASMS_CHECK_TASK
+        where ID = #{id,jdbcType=CHAR}
+    </select>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysTestItemExpandMapper">
+    <insert id="addTestItem">
+        INSERT INTO SYS_TEST_ITEMS (
+            ID,
+            ITEM_NAME,
+            STANDARD_CODE,
+            REMARK,
+            CREATE_BY,
+            CREATE_TIME
+        )
+        VALUES
+          (
+            #{id},
+            #{itemName},
+            #{standardCode},
+            #{remark},
+            #{createBy},
+            #{createTime}
+          )
+    </insert>
+    <update id="updateTestItem">
+        UPDATE SYS_TEST_ITEMS
+        SET ITEM_NAME = #{itemName},
+            STANDARD_CODE = #{standardCode},
+            REMARK = #{remark},
+            UPDATE_BY = #{updateBy},
+            UPDATE_TIME = #{updateTime}
+        WHERE
+	      ID = #{id}
+	    AND
+	      DEL_FLAG = 'N'
+    </update>
+    <update id="deleteTestItems">
+        UPDATE SYS_TEST_ITEMS
+        SET DEL_FLAG = 'Y',
+            UPDATE_BY = #{account},
+            UPDATE_TIME = #{operateTime}
+        WHERE
+        ID IN
+        <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="updateTestItemBystandardCode">
+        UPDATE SYS_TEST_ITEMS
+        SET
+          STANDARD_CODE = #{newStandardCode}
+        WHERE
+	      STANDARD_CODE = #{oldStandardCode}
+	    AND
+	      DEL_FLAG = 'N'
+    </update>
+    <select id="getTestItems" resultType="com.sofn.model.generator.SysTestItemModel">
+        SELECT
+          *
+        FROM
+          SYS_TEST_ITEMS
+        WHERE
+          DEL_FLAG = 'N'
+        AND
+          STANDARD_CODE = #{standardCode}
+        <if test="itemName != null and itemName != ''">
+            AND ITEM_NAME LIKE '%${itemName}%'
+        </if>
+    </select>
+    <select id="getTestItem" resultType="com.sofn.model.generator.SysTestItemModel">
+        SELECT
+          *
+        FROM
+          SYS_TEST_ITEMS
+        WHERE
+          ID = #{id}
+    </select>
+    <select id="isExistTestItem" resultType="java.lang.Integer">
+        SELECT
+          COUNT(1)
+        FROM
+          SYS_TEST_ITEMS
+        WHERE
+          STANDARD_CODE = #{standardCode}
+        AND
+          ITEM_NAME = #{itemName}
+        AND
+          DEL_FLAG = 'N'
+    </select>
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsSubjDetectionMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjDetection">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="DT_NAME" jdbcType="VARCHAR" property="dtName" />
+    <result column="DT_CODE" jdbcType="VARCHAR" property="dtCode" />
+    <result column="DT_TYPE" jdbcType="VARCHAR" property="dtType" />
+    <result column="DT_NATURE" jdbcType="VARCHAR" property="dtNature" />
+    <result column="DT_QUALIFICATIONS" jdbcType="VARCHAR" property="dtQualifications" />
+    <result column="DT_RELY_ON_UNIT" jdbcType="VARCHAR" property="dtRelyOnUnit" />
+    <result column="DT_LEVEL" jdbcType="VARCHAR" property="dtLevel" />
+    <result column="DT_AREA_ID" jdbcType="VARCHAR" property="dtAreaId" />
+    <result column="DT_ADDRESS" jdbcType="VARCHAR" property="dtAddress" />
+    <result column="DT_LEGAL_MAN" jdbcType="VARCHAR" property="dtLegalMan" />
+    <result column="DT_LEADER" jdbcType="VARCHAR" property="dtLeader" />
+    <result column="DT_LEADER_PHONE" jdbcType="VARCHAR" property="dtLeaderPhone" />
+    <result column="DT_CONTACT" jdbcType="VARCHAR" property="dtContact" />
+    <result column="DT_CONTACT_PHONE" jdbcType="VARCHAR" property="dtContactPhone" />
+    <result column="DT_CONTACT_Q_Q" jdbcType="VARCHAR" property="dtContactQQ" />
+    <result column="DT_CONTACT_EMAIL" jdbcType="VARCHAR" property="dtContactEmail" />
+    <result column="DT_POSTCODE" jdbcType="CHAR" property="dtPostcode" />
+    <result column="DT_TECHNICAL_DIRECTOR" jdbcType="VARCHAR" property="dtTechnicalDirector" />
+    <result column="DT_QUALITY_DIRECTOR" jdbcType="VARCHAR" property="dtQualityDirector" />
+    <result column="DT_PARAMETER" jdbcType="VARCHAR" property="dtParameter" />
+    <result column="DT_PRODUCT_RANGE" jdbcType="VARCHAR" property="dtProductRange" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="DT_LEVEL_ID" jdbcType="VARCHAR" property="dtLevelId" />
+    <result column="DT_NATURE_ID" jdbcType="VARCHAR" property="dtNatureId" />
+    <result column="DT_QUALIFICATIONS_ID" jdbcType="VARCHAR" property="dtQualificationsId" />
+    <result column="DT_TYPE_ID" jdbcType="VARCHAR" property="dtTypeId" />
+    <result column="DT_AREA" jdbcType="VARCHAR" property="dtArea" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_SUBJ_DETECTION
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsSubjDetection">
+    insert into ASMS_SUBJ_DETECTION (ID, DT_NAME, DT_CODE, 
+      DT_TYPE, DT_NATURE, DT_QUALIFICATIONS, 
+      DT_RELY_ON_UNIT, DT_LEVEL, DT_AREA_ID, 
+      DT_ADDRESS, DT_LEGAL_MAN, DT_LEADER, 
+      DT_LEADER_PHONE, DT_CONTACT, DT_CONTACT_PHONE, 
+      DT_CONTACT_Q_Q, DT_CONTACT_EMAIL, DT_POSTCODE, 
+      DT_TECHNICAL_DIRECTOR, DT_QUALITY_DIRECTOR, 
+      DT_PARAMETER, DT_PRODUCT_RANGE, CREATE_BY, 
+      CREATE_TIME, STATUS, DEL_FLAG, 
+      DT_LEVEL_ID, DT_NATURE_ID, DT_QUALIFICATIONS_ID, 
+      DT_TYPE_ID, DT_AREA)
+    values (#{id,jdbcType=CHAR}, #{dtName,jdbcType=VARCHAR}, #{dtCode,jdbcType=VARCHAR}, 
+      #{dtType,jdbcType=VARCHAR}, #{dtNature,jdbcType=VARCHAR}, #{dtQualifications,jdbcType=VARCHAR}, 
+      #{dtRelyOnUnit,jdbcType=VARCHAR}, #{dtLevel,jdbcType=VARCHAR}, #{dtAreaId,jdbcType=VARCHAR}, 
+      #{dtAddress,jdbcType=VARCHAR}, #{dtLegalMan,jdbcType=VARCHAR}, #{dtLeader,jdbcType=VARCHAR}, 
+      #{dtLeaderPhone,jdbcType=VARCHAR}, #{dtContact,jdbcType=VARCHAR}, #{dtContactPhone,jdbcType=VARCHAR}, 
+      #{dtContactQQ,jdbcType=VARCHAR}, #{dtContactEmail,jdbcType=VARCHAR}, #{dtPostcode,jdbcType=CHAR}, 
+      #{dtTechnicalDirector,jdbcType=VARCHAR}, #{dtQualityDirector,jdbcType=VARCHAR}, 
+      #{dtParameter,jdbcType=VARCHAR}, #{dtProductRange,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, 
+      #{dtLevelId,jdbcType=VARCHAR}, #{dtNatureId,jdbcType=VARCHAR}, #{dtQualificationsId,jdbcType=VARCHAR}, 
+      #{dtTypeId,jdbcType=VARCHAR}, #{dtArea,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsSubjDetection">
+    update ASMS_SUBJ_DETECTION
+    set DT_NAME = #{dtName,jdbcType=VARCHAR},
+      DT_CODE = #{dtCode,jdbcType=VARCHAR},
+      DT_TYPE = #{dtType,jdbcType=VARCHAR},
+      DT_NATURE = #{dtNature,jdbcType=VARCHAR},
+      DT_QUALIFICATIONS = #{dtQualifications,jdbcType=VARCHAR},
+      DT_RELY_ON_UNIT = #{dtRelyOnUnit,jdbcType=VARCHAR},
+      DT_LEVEL = #{dtLevel,jdbcType=VARCHAR},
+      DT_AREA_ID = #{dtAreaId,jdbcType=VARCHAR},
+      DT_ADDRESS = #{dtAddress,jdbcType=VARCHAR},
+      DT_LEGAL_MAN = #{dtLegalMan,jdbcType=VARCHAR},
+      DT_LEADER = #{dtLeader,jdbcType=VARCHAR},
+      DT_LEADER_PHONE = #{dtLeaderPhone,jdbcType=VARCHAR},
+      DT_CONTACT = #{dtContact,jdbcType=VARCHAR},
+      DT_CONTACT_PHONE = #{dtContactPhone,jdbcType=VARCHAR},
+      DT_CONTACT_Q_Q = #{dtContactQQ,jdbcType=VARCHAR},
+      DT_CONTACT_EMAIL = #{dtContactEmail,jdbcType=VARCHAR},
+      DT_POSTCODE = #{dtPostcode,jdbcType=CHAR},
+      DT_TECHNICAL_DIRECTOR = #{dtTechnicalDirector,jdbcType=VARCHAR},
+      DT_QUALITY_DIRECTOR = #{dtQualityDirector,jdbcType=VARCHAR},
+      DT_PARAMETER = #{dtParameter,jdbcType=VARCHAR},
+      DT_PRODUCT_RANGE = #{dtProductRange,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      DT_LEVEL_ID = #{dtLevelId,jdbcType=VARCHAR},
+      DT_NATURE_ID = #{dtNatureId,jdbcType=VARCHAR},
+      DT_QUALIFICATIONS_ID = #{dtQualificationsId,jdbcType=VARCHAR},
+      DT_TYPE_ID = #{dtTypeId,jdbcType=VARCHAR},
+      DT_AREA = #{dtArea,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, DT_NAME, DT_CODE, DT_TYPE, DT_NATURE, DT_QUALIFICATIONS, DT_RELY_ON_UNIT, 
+    DT_LEVEL, DT_AREA_ID, DT_ADDRESS, DT_LEGAL_MAN, DT_LEADER, DT_LEADER_PHONE, DT_CONTACT, 
+    DT_CONTACT_PHONE, DT_CONTACT_Q_Q, DT_CONTACT_EMAIL, DT_POSTCODE, DT_TECHNICAL_DIRECTOR, 
+    DT_QUALITY_DIRECTOR, DT_PARAMETER, DT_PRODUCT_RANGE, CREATE_BY, CREATE_TIME, STATUS, 
+    DEL_FLAG, DT_LEVEL_ID, DT_NATURE_ID, DT_QUALIFICATIONS_ID, DT_TYPE_ID, DT_AREA
+    from ASMS_SUBJ_DETECTION
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, DT_NAME, DT_CODE, DT_TYPE, DT_NATURE, DT_QUALIFICATIONS, DT_RELY_ON_UNIT, 
+    DT_LEVEL, DT_AREA_ID, DT_ADDRESS, DT_LEGAL_MAN, DT_LEADER, DT_LEADER_PHONE, DT_CONTACT, 
+    DT_CONTACT_PHONE, DT_CONTACT_Q_Q, DT_CONTACT_EMAIL, DT_POSTCODE, DT_TECHNICAL_DIRECTOR, 
+    DT_QUALITY_DIRECTOR, DT_PARAMETER, DT_PRODUCT_RANGE, CREATE_BY, CREATE_TIME, STATUS, 
+    DEL_FLAG, DT_LEVEL_ID, DT_NATURE_ID, DT_QUALIFICATIONS_ID, DT_TYPE_ID, DT_AREA
+    from ASMS_SUBJ_DETECTION
+  </select>
+</mapper>

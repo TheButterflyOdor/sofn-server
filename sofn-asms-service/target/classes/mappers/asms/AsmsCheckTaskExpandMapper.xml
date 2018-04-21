@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsCheckTaskExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCheckTask">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+        <result column="TASK_TYPE" jdbcType="VARCHAR" property="taskType" />
+        <result column="TASK_YEAR" jdbcType="CHAR" property="taskYear" />
+        <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+        <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+        <result column="TASK_RELEASE_UNIT" jdbcType="VARCHAR" property="taskReleaseUnit" />
+        <result column="TASK_IS_SEPARATE" jdbcType="CHAR" property="taskIsSeparate" />
+        <result column="TASK_AREA_ID" jdbcType="VARCHAR" property="taskAreaId" />
+        <result column="TASK_INDUSTRY" jdbcType="VARCHAR" property="taskIndustry" />
+        <result column="TASK_SAMPLE_DEADLINE" jdbcType="TIMESTAMP" property="taskSampleDeadline" />
+        <result column="FILES" jdbcType="VARCHAR" property="files" />
+        <result column="FILE_CODE" jdbcType="VARCHAR" property="fileCode" />
+        <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+        <result column="TASK_LEVEL" jdbcType="CHAR" property="taskLevel" />
+        <result column="STATE" jdbcType="VARCHAR" property="state" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+        <result column="BASE_INSPECTION_ID" jdbcType="VARCHAR" property="baseInspectionId" />
+        <result column="CY_UNIT_ID" jdbcType="CHAR" property="cyUnitId" />
+        <result column="CY_UNIT_NAME" jdbcType="VARCHAR" property="cyUnitName" />
+        <result column="JC_UNIT_ID" jdbcType="CHAR" property="jcUnitId" />
+        <result column="JC_UNIT_NAME" jdbcType="VARCHAR" property="jcUnitName" />
+        <result column="IS_SAMPLE" jdbcType="CHAR" property="isSample" />
+        <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard" />
+        <result column="JUDGE_STANDARD_ID" jdbcType="VARCHAR" property="judgeStandardId" />
+        <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard" />
+        <result column="DETECTION_STANDARD_ID" jdbcType="VARCHAR" property="detectionStandardId" />
+        <result column="PARENT_TASK_ID" jdbcType="CHAR" property="parentTaskId" />
+        <result column="PARENT_TASK_NAME" jdbcType="VARCHAR" property="parentTaskName" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+        <result column="LEVEL_ENUM" jdbcType="CHAR" property="levelEnum" />
+        <result column="JD_UNIT_ID" jdbcType="CHAR" property="jdUnitId" />
+        <result column="JD_UNIT_NAME" jdbcType="VARCHAR" property="jdUnitName" />
+        <result column="ATTACHMENT_ADDRESS" jdbcType="VARCHAR" property="attachmentAddress" />
+        <result column="ATTACHMENT_NAME" jdbcType="VARCHAR" property="attachmentName" />
+        <result column="FILE_NUMBER" jdbcType="VARCHAR" property="fileNumber" />
+    </resultMap>
+
+    <!--修改任务是否已提交抽样单状态-->
+    <update id="updateIsSample" parameterType="com.sofn.model.generator.AsmsCheckTask">
+        UPDATE ASMS_CHECK_TASK SET IS_SAMPLE = #{isSample} WHERE ID = #{id}
+    </update>
+
+    <!--列表-->
+    <select id="getPagesList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.TASK_NAME AS taskName,
+        M.TASK_TYPE AS taskType,
+        M.TASK_YEAR AS taskYear,
+        M.TASK_BEGIN_TIME AS taskBeginTime,
+        M.TASK_END_TIME AS taskEndTime,
+        M.TASK_RELEASE_UNIT AS taskReleaseUnit,
+        M.FILES AS files,
+        M.FILE_CODE AS fileCode,
+        M.REMARK AS remark,
+        M.TASK_LEVEL AS taskLevel,
+        M.STATE AS state,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.UPDATE_BY AS updateBy,
+        M.UPDATE_TIME AS updateTime,
+        M.ENABLE AS enable,
+        M.DEL_FLAG AS delFlag,
+        M.CREATE_ORG_REGION_ID AS createOrgRegionId,
+        M.BASE_INSPECTION_ID AS baseInspectionId,
+        M.CY_UNIT_ID AS cyUnitId,
+        M.CY_UNIT_NAME AS cyUnitName,
+        M.JC_UNIT_ID AS jcUnitId,
+        M.JC_UNIT_NAME AS jcUnitName,
+        M.IS_SAMPLE AS isSample,
+        M.JUDGE_STANDARD AS judgeStandard,
+        M.JUDGE_STANDARD_ID AS judgeStandardId,
+        M.DETECTION_STANDARD AS detectionStandard,
+        M.DETECTION_STANDARD_ID AS detectionStandardId,
+        M.PARENT_TASK_ID AS parentTaskId,
+        M.PARENT_TASK_NAME AS parentTaskName,
+        M.CREATE_ORG_ID AS createOrgId,
+        M.CREATE_ORG_NAME AS createOrgName,
+        M.TASK_AREA_ID AS taskAreaId,
+        M.LEVEL_ENUM AS levelEnum,
+        M.JD_UNIT_ID AS jdUnitId,
+        M.JD_UNIT_NAME AS jdUnitName,
+        M.ATTACHMENT_ADDRESS AS attachmentAddress,
+        M.ATTACHMENT_NAME AS attachmentName,
+        M.FILE_NUMBER AS fileNumber
+        FROM
+        ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND CREATE_ORG_ID = #{theUserOrgId}
+        <!--AND M.TASK_LEVEL = '${taskLevel}'-->
+        <!--<if test="regParm!=null and regParm!=''">-->
+            <!--AND M.CREATE_ORG_REGION_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskAreaId!=null and taskAreaId!=''">
+            AND M.TASK_AREA_ID LIKE #{taskAreaId}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND CREATE_ORG_ID = #{theUserOrgId}
+        <!--AND M.TASK_LEVEL = '${taskLevel}'-->
+        <!--<if test="regParm!=null and regParm!=''">-->
+            <!--AND M.CREATE_ORG_REGION_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskAreaId!=null and taskAreaId!=''">
+            AND M.TASK_AREA_ID LIKE #{taskAreaId}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+    </select>
+
+    <select id="getPagesListByOrg" resultMap="BaseResultMap">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.*
+        FROM
+        (SELECT CT.* FROM ASMS_CHECK_TASK CT LEFT JOIN (SELECT
+        CT. ID,
+        COUNT (*) as cou
+        FROM
+        ASMS_CHECK_TASK CT,
+        ASMS_MONITOR_OBJECT MO,
+        ALES_TASK_SAMPLE TS
+        WHERE
+        CT. ID = MO.SUPERVISE_CHECK_TASK_ID
+        AND MO. ID = TS.ORGAN_TASK_ID
+        AND MO.DEL_FLAG = 'N'
+        AND TS.DEL_FLAG = 'N'
+        GROUP BY
+        CT. ID) MT ON MT.ID = CT.ID WHERE cou >0) M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID = #{createOrgId}
+        </if>
+        <if test="cyUnitId!=null and cyUnitId!=''">
+            AND M.CY_UNIT_ID = #{cyUnitId}
+        </if>
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskAreaId!=null and taskAreaId!=''">
+            AND M.TASK_AREA_ID LIKE #{taskAreaId}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCountByOrg" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM (
+        SELECT CT.* FROM ASMS_CHECK_TASK CT LEFT JOIN (
+        SELECT
+        CT. ID,
+        COUNT (*) as cou
+        FROM
+        ASMS_CHECK_TASK CT,
+        ASMS_MONITOR_OBJECT MO,
+        ALES_TASK_SAMPLE TS
+        WHERE
+        CT. ID = MO.SUPERVISE_CHECK_TASK_ID
+        AND MO. ID = TS.ORGAN_TASK_ID
+        AND MO.DEL_FLAG = 'N'
+        AND TS.DEL_FLAG = 'N'
+        GROUP BY
+        CT. ID) MT ON MT.ID = CT.ID WHERE cou >0) M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID = #{createOrgId}
+        </if>
+        <if test="cyUnitId!=null and cyUnitId!=''">
+            AND M.CY_UNIT_ID = #{cyUnitId}
+        </if>
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskAreaId!=null and taskAreaId!=''">
+            AND M.TASK_AREA_ID LIKE #{taskAreaId}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+    </select>
+
+    <!--父级任务列表-->
+    <select id="getParentTaskPagesList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        TASK.*
+        FROM
+        ASMS_CHECK_TASK TASK LEFT JOIN ASMS_CHECK_BEAR_UNIT UNIT ON TASK.ID = UNIT.SUPERVISE_CHECK_TASK_ID
+        WHERE 1=1 AND TASK.DEL_FLAG = 'N'
+        AND UNIT.SUPERVISE_BEAR_UNIT_ID = '${superviseBearUnitId}'
+        <if test="taskLevel!=null and taskLevel!=''">
+            AND TASK.TASK_LEVEL = ${taskLevel}
+        </if>
+        <if test="state!=null and state!=''">
+            AND TASK.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND TASK.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND TASK.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND TASK.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        order by TASK.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+${pageSize}*(${pageNum}-1) AND ${pageSize}*${pageNum}
+    </select>
+
+    <select id="getParentTaskPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM
+        ASMS_CHECK_TASK TASK LEFT JOIN ASMS_CHECK_BEAR_UNIT UNIT ON TASK.ID = UNIT.SUPERVISE_CHECK_TASK_ID
+        WHERE 1=1 AND TASK.DEL_FLAG = 'N'
+        AND UNIT.SUPERVISE_BEAR_UNIT_ID = '${superviseBearUnitId}'
+        <if test="taskLevel!=null and taskLevel!=''">
+            AND TASK.TASK_LEVEL = ${taskLevel}
+        </if>
+        <if test="state!=null and state!=''">
+            AND TASK.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND TASK.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND TASK.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND TASK.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+    </select>
+
+    <!--根据权限获取监督抽查任务-->
+    <select id="getCheckTaskByUser" resultType="java.util.Map">
+        SELECT * FROM (SELECT ID, TASK_NAME, TASK_TYPE, TASK_YEAR, TASK_BEGIN_TIME, TASK_END_TIME, TASK_RELEASE_UNIT,
+        TASK_IS_SEPARATE, TASK_AREA_ID, TASK_INDUSTRY, TASK_SAMPLE_DEADLINE, FILES, FILE_CODE,
+        REMARK, TASK_LEVEL, STATE, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE,
+        DEL_FLAG,CREATE_ORG_REGION_ID,BASE_INSPECTION_ID,CY_UNIT_ID,CY_UNIT_NAME,JC_UNIT_ID,JC_UNIT_NAME,IS_SAMPLE,
+        JUDGE_STANDARD,JUDGE_STANDARD_ID,DETECTION_STANDARD,DETECTION_STANDARD_ID,PARENT_TASK_ID,PARENT_TASK_NAME,
+        CREATE_ORG_ID,CREATE_ORG_NAME,LEVEL_ENUM,JD_UNIT_ID, JD_UNIT_NAME, ATTACHMENT_ADDRESS, ATTACHMENT_NAME, FILE_NUMBER
+         from ASMS_CHECK_TASK M WHERE M.DEL_FLAG = 'N'
+        AND M.IS_SAMPLE != '1' AND TO_CHAR(M.TASK_END_TIME,'yyyy-mm-dd') &gt;= TO_CHAR(SYSDATE,'yyyy-mm-dd')
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+           /* AND M.STATE != '0'*/
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskBeginTime!=null and taskBeginTime!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{taskBeginTime},'yyyy-MM-dd')
+        </if>
+        <if test="taskEndTime!=null and taskEndTime!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{taskEndTime},'yyyy-MM-dd')+1
+        </if>)
+        WHERE
+        JC_UNIT_ID = #{orgId} OR CY_UNIT_ID = #{orgId}
+        order by CREATE_TIME DESC
+    </select>
+    <!--执法监督抽查新任务接口-->
+    <select id="getNewCheckTaskByUser" resultType="java.util.Map">
+        SELECT * FROM (SELECT ID, TASK_NAME, TASK_TYPE, TASK_YEAR, TASK_BEGIN_TIME, TASK_END_TIME, TASK_RELEASE_UNIT,
+        TASK_IS_SEPARATE, TASK_AREA_ID, TASK_INDUSTRY, TASK_SAMPLE_DEADLINE, FILES, FILE_CODE,
+        REMARK, TASK_LEVEL, STATE, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE,
+        DEL_FLAG,CREATE_ORG_REGION_ID,BASE_INSPECTION_ID,CY_UNIT_ID,CY_UNIT_NAME,JC_UNIT_ID,JC_UNIT_NAME,IS_SAMPLE,
+        JUDGE_STANDARD,JUDGE_STANDARD_ID,DETECTION_STANDARD,DETECTION_STANDARD_ID,PARENT_TASK_ID,PARENT_TASK_NAME,
+        CREATE_ORG_ID,CREATE_ORG_NAME,LEVEL_ENUM,JD_UNIT_ID, JD_UNIT_NAME, ATTACHMENT_ADDRESS, ATTACHMENT_NAME, FILE_NUMBER
+        from ASMS_CHECK_TASK M WHERE M.DEL_FLAG = 'N'
+        AND M.IS_SAMPLE != '1' AND TO_CHAR(M.TASK_END_TIME,'yyyy-mm-dd') &gt;= TO_CHAR(SYSDATE,'yyyy-mm-dd')
+        AND M.STATE IN (1,3)
+        AND TASK_SAMPLE_DEADLINE+1 	&gt;= SYSDATE
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="taskBeginTime!=null and taskBeginTime!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{taskBeginTime},'yyyy-MM-dd')
+        </if>
+        <if test="taskEndTime!=null and taskEndTime!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{taskEndTime},'yyyy-MM-dd')+1
+        </if>)
+        WHERE
+        JC_UNIT_ID = #{orgId} OR CY_UNIT_ID = #{orgId}
+        order by CREATE_TIME DESC
+    </select>
+
+    <!--监测系统任务接口-->
+    <select id="getTaskListByADS" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.TASK_NAME AS taskName,
+        M.TASK_TYPE AS taskType,
+        M.TASK_YEAR AS taskYear,
+        M.TASK_BEGIN_TIME AS taskBeginTime,
+        M.TASK_END_TIME AS taskEndTime,
+        M.TASK_RELEASE_UNIT AS taskReleaseUnit,
+        M.FILES AS files,
+        M.FILE_CODE AS fileCode,
+        M.REMARK AS remark,
+        M.TASK_LEVEL AS taskLevel,
+        M.STATE AS state,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.UPDATE_BY AS updateBy,
+        M.UPDATE_TIME AS updateTime,
+        M.ENABLE AS enable,
+        M.DEL_FLAG AS delFlag,
+        M.CREATE_ORG_REGION_ID AS createOrgRegionId,
+        M.BASE_INSPECTION_ID AS baseInspectionId,
+        M.CY_UNIT_ID AS cyUnitId,
+        M.CY_UNIT_NAME AS cyUnitName,
+        M.JC_UNIT_ID AS jcUnitId,
+        M.JC_UNIT_NAME AS jcUnitName,
+        M.IS_SAMPLE AS isSample,
+        M.JUDGE_STANDARD AS judgeStandard,
+        M.JUDGE_STANDARD_ID AS judgeStandardId,
+        M.DETECTION_STANDARD AS detectionStandard,
+        M.DETECTION_STANDARD_ID AS detectionStandardId,
+        M.PARENT_TASK_ID AS parentTaskId,
+        M.PARENT_TASK_NAME AS parentTaskName,
+        M.CREATE_ORG_ID AS createOrgId,
+        M.CREATE_ORG_NAME AS createOrgName,
+        M.LEVEL_ENUM AS levelEnum,
+        M.JD_UNIT_ID AS jdUnitId,
+        M.JD_UNIT_NAME AS jdUnitName,
+        M.ATTACHMENT_ADDRESS AS attachmentAddress,
+        M.ATTACHMENT_NAME AS attachmentName,
+        M.FILE_NUMBER AS fileNumber
+        FROM
+        ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getTaskListCountByADS" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+    </select>
+
+    <!--执法系统-承担任务-历史任务列表-->
+    <select id="getHistoryCheckTaskList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.TASK_NAME AS taskName,
+        M.TASK_TYPE AS taskType,
+        M.TASK_YEAR AS taskYear,
+        M.TASK_BEGIN_TIME AS taskBeginTime,
+        M.TASK_END_TIME AS taskEndTime,
+        M.TASK_RELEASE_UNIT AS taskReleaseUnit,
+        M.FILES AS files,
+        M.FILE_CODE AS fileCode,
+        M.REMARK AS remark,
+        M.TASK_LEVEL AS taskLevel,
+        M.STATE AS state,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.UPDATE_BY AS updateBy,
+        M.UPDATE_TIME AS updateTime,
+        M.ENABLE AS enable,
+        M.DEL_FLAG AS delFlag,
+        M.CREATE_ORG_REGION_ID AS createOrgRegionId,
+        M.BASE_INSPECTION_ID AS baseInspectionId,
+        M.CY_UNIT_ID AS cyUnitId,
+        M.CY_UNIT_NAME AS cyUnitName,
+        M.JC_UNIT_ID AS jcUnitId,
+        M.JC_UNIT_NAME AS jcUnitName,
+        M.IS_SAMPLE AS isSample,
+        M.JUDGE_STANDARD AS judgeStandard,
+        M.JUDGE_STANDARD_ID AS judgeStandardId,
+        M.DETECTION_STANDARD AS detectionStandard,
+        M.DETECTION_STANDARD_ID AS detectionStandardId,
+        M.PARENT_TASK_ID AS parentTaskId,
+        M.PARENT_TASK_NAME AS parentTaskName,
+        M.CREATE_ORG_ID AS createOrgId,
+        M.CREATE_ORG_NAME AS createOrgName,
+        M.LEVEL_ENUM AS levelEnum,
+        M.JD_UNIT_ID AS jdUnitId,
+        M.JD_UNIT_NAME AS jdUnitName,
+        M.ATTACHMENT_ADDRESS AS attachmentAddress,
+        M.ATTACHMENT_NAME AS attachmentName,
+        M.FILE_NUMBER AS fileNumber
+        FROM
+        ASMS_CHECK_TASK M
+        WHERE 1=1
+        AND TASK_SAMPLE_DEADLINE &lt; SYSDATE
+        AND M.DEL_FLAG = 'N'
+      <!--  <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>-->
+
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        AND STATE != '0'
+        <!--<if test="isSample!=null and isSample!=''">
+            AND (M.IS_SAMPLE = #{isSample} OR TO_CHAR(M.TASK_END_TIME,'yyyy-mm-dd') &lt; TO_CHAR(SYSDATE,'yyyy-mm-dd'))
+        </if>-->
+
+
+        order by M.CREATE_TIME DESC
+        ) N
+        WHERE N .jcUnitId = #{orgId}
+        OR N .cyUnitId = #{orgId}
+        )
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getHistoryCheckTaskCount" resultType="java.lang.Long">
+        SELECT
+        COUNT (*)
+        FROM
+        (
+        SELECT * FROM ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.TASK_END_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        <if test="isSample!=null and isSample!=''">
+            AND (M.IS_SAMPLE = #{isSample} OR TO_CHAR(M.TASK_END_TIME,'yyyy-mm-dd') &lt; TO_CHAR(SYSDATE,'yyyy-mm-dd'))
+        </if>)
+        WHERE JC_UNIT_ID = #{orgId} OR CY_UNIT_ID = #{orgId}
+    </select>
+
+    <select id="getTaskList" resultMap="BaseResultMap">
+        SELECT * FROM
+        ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="taskLevel!=null and taskLevel!=''">
+            AND M.TASK_LEVEL = ${taskLevel}
+        </if>
+    </select>
+
+    <!--根据父级任务id和创建机构id获取任务列表-->
+    <select id="getTaskByCreateOrgIdAndParentTaskId" resultMap="BaseResultMap">
+        SELECT * FROM
+        ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="parentTaskId!=null and parentTaskId!=''">
+            AND M.PARENT_TASK_ID = '${parentTaskId}'
+        </if>
+        <if test="CreateOrgId!=null and CreateOrgId!=''">
+            AND M.CREATE_ORG_ID = '${CreateOrgId}'
+        </if>
+    </select>
+    <!--根据父级任务id和创建机构id获取任务列表-->
+    <select id="getTaskByParentTaskId" resultMap="BaseResultMap">
+        SELECT * FROM
+        ASMS_CHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="parentTaskId!=null and parentTaskId!=''">
+            AND M.PARENT_TASK_ID = '${parentTaskId}'
+        </if>
+    </select>
+    <!--根据追溯码查询,是否有产品在检测中-->
+    <select id="findSampleCountByProductTraceabilityCode" resultType="long">
+        SELECT
+            COUNT(*)
+        FROM
+            (
+                SELECT
+                    COUNT (*) cou
+                FROM
+                    ADS_MONITOR_TASK A
+                    LEFT JOIN ADS_ORGAN_TASK B ON A . ID = B.MONITOR_TASK_ID
+                    LEFT JOIN ADS_MONITOR_SAMPLE C ON B. ID = C.ORGAN_TASK_ID
+                WHERE
+                    1 = 1
+                    AND A .DEL_FLAG != 'Y'
+                    AND B.DEL_FLAG != 'Y'
+                    AND C.DEL_FLAG != 'Y'
+                    AND A .PUBLISH_STATUS != '5'
+                    AND A .END_TIME > SYSDATE
+                    AND C.PRODUCT_TRACEABILITY_CODE = #{productTraceabilityCode}
+                UNION ALL
+                SELECT
+                    COUNT (*) cou
+                FROM
+                    ALES_TASK_SAMPLE
+                    LEFT JOIN ALES_WT_TASK_MONITOR ON ALES_TASK_SAMPLE.ORGAN_TASK_ID = ALES_WT_TASK_MONITOR. ID
+                    LEFT JOIN ALES_ENTRUST_DETECTION ON ALES_WT_TASK_MONITOR.SUPERVISE_CHECK_TASK_ID = ALES_ENTRUST_DETECTION. ID
+                WHERE
+                    1 = 1
+                    AND ALES_TASK_SAMPLE.DEL_FLAG != 'Y'
+                    AND ALES_ENTRUST_DETECTION.DEL_FLAG != 'Y'
+                    AND ALES_WT_TASK_MONITOR.DEL_FLAG != 'Y'
+                    AND ALES_ENTRUST_DETECTION.STATE != '2'
+                    AND ALES_ENTRUST_DETECTION.TASK_END_TIME > SYSDATE
+                    AND ALES_TASK_SAMPLE.PRODUCT_TRACEABILITY_CODE = #{productTraceabilityCode}
+                UNION ALL
+                SELECT
+                    COUNT (*) cou
+                FROM
+                    ALES_TASK_SAMPLE A
+                    LEFT JOIN ASMS_MONITOR_OBJECT C ON A .ORGAN_TASK_ID = C. ID
+                    LEFT JOIN ASMS_CHECK_TASK B ON B. ID = C.SUPERVISE_CHECK_TASK_ID
+                WHERE
+                    1 = 1
+                    AND A .DEL_FLAG != 'Y'
+                    AND B.DEL_FLAG != 'Y'
+                    AND C.DEL_FLAG != 'Y'
+                    AND B.STATE != '2'
+                    AND B.TASK_END_TIME > SYSDATE
+                    AND A .PRODUCT_TRACEABILITY_CODE = #{productTraceabilityCode}
+            ) WHERE cou > 0
+    </select>
+</mapper>

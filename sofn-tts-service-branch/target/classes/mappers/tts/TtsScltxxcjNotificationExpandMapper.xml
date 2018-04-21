@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjNotificationExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjNotification" >
+     <id column="ID" property="id" jdbcType="VARCHAR" />
+     <result column="FROM_ID" property="fromId" jdbcType="VARCHAR" />
+     <result column="FROM_NAME" property="fromName" jdbcType="VARCHAR" />
+     <result column="TO_ID" property="toId" jdbcType="VARCHAR" />
+     <result column="TO_NAME" property="toName" jdbcType="VARCHAR" />
+     <result column="TITLE" property="title" jdbcType="VARCHAR" />
+     <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+     <result column="ISREAD" property="isread" jdbcType="VARCHAR" />
+     <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+     <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+     <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_NOTIFICATION_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <if test="user.userIdcode != null and user.userIdcode != ''">
+          AND T.TO_ID LIKE '%${user.userIdcode}%'
+      </if>
+
+      <if test="notification.title != null and notification.title != ''">
+          and T.TITLE LIKE '%${notification.title}%'
+      </if>
+      <if test="createTimeStart != null and createTimeStart != ''">
+          <if test="createTimeEnd == null || createTimeEnd == ''">
+              and T.CREATE_TIME  >=  "TO_DATE"(#{createTimeStart}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="createTimeEnd != null and createTimeEnd != ''">
+          <if test="createTimeStart == null || createTimeStart == ''">
+              and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{createTimeEnd}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="createTimeStart != null and createTimeStart != ''">
+          <if test="createTimeEnd != null || createTimeEnd != ''">
+              and T.CREATE_TIME BETWEEN "TO_DATE"(#{createTimeStart}, 'yyyy-mm-dd')
+              and "TO_DATE"(#{createTimeEnd}, 'yyyy-mm-dd')
+          </if>
+      </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    ORDER BY Tab.CREATE_TIME DESC
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_NOTIFICATION_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <if test="user.userIdcode != null and user.userIdcode != ''">
+          AND T.TO_ID LIKE '%${user.userIdcode}%'
+      </if>
+
+      <if test="notification.title != null and notification.title != ''">
+          and T.TITLE LIKE '%${notification.title}%'
+      </if>
+      <if test="createTimeStart != null and createTimeStart != ''">
+          <if test="createTimeEnd == null || createTimeEnd == ''">
+              and T.CREATE_TIME  >=  "TO_DATE"(#{createTimeStart}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="createTimeEnd != null and createTimeEnd != ''">
+          <if test="createTimeStart == null || createTimeStart == ''">
+              and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{createTimeEnd}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="createTimeStart != null and createTimeStart != ''">
+          <if test="createTimeEnd != null || createTimeEnd != ''">
+              and T.CREATE_TIME BETWEEN "TO_DATE"(#{createTimeStart}, 'yyyy-mm-dd')
+              and "TO_DATE"(#{createTimeEnd}, 'yyyy-mm-dd')
+          </if>
+      </if>
+  </select>
+
+
+</mapper>

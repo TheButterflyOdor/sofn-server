@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.sso.SSOLoginMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.core.constant.CurrentUser">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR"/>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR"/>
+        <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR"/>
+        <result column="POST_ID" property="postId" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="VARCHAR"/>
+        <result column="USER_TYPE" property="userType" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <!--<association property="organization" javaType="com.sofn.core.constant.Organization"  column="organization_id" select="selectOrganizationById"/>-->
+    </resultMap>
+    <insert id="register">
+        insert into sys_user (
+              id,
+              account,
+              password,
+              user_name,
+              dept_id,
+              role_id,
+              post_id,
+              phone,
+              email,
+              status,
+              user_type,
+              create_by,
+              create_time,
+              update_by,
+              update_time,
+              del_flag
+        ) values (
+            #{id},
+            #{account},
+            #{password},
+            #{userName},
+            #{deptId},
+            #{roleId},
+            #{postId},
+            #{phone},
+            #{email},
+            #{status},
+            #{userType},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime},
+            #{delFlag}
+        )
+    </insert>
+    <update id="updatePassword">
+        update sys_user
+        set password = #{password}
+        where id = #{id}
+    </update>
+    <update id="delUser">
+        update sys_user
+        set del_flag = "Y"
+        where account = #{account}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+          id,
+          account,
+          password,
+          user_name,
+          organization_id,
+          dept_id,
+          role_id,
+          post_id,
+          phone,
+          email,
+          status,
+          user_type,
+          create_by,
+          create_time,
+          update_by,
+          update_time,
+          del_flag
+        from sys_user
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="query" parameterType="java.util.Map" resultType="java.lang.String">
+        select id from sys_user
+        where 1=1
+        <if test="enable != null">and status=#{enable}</if>
+        <if test="account != null">and account=#{account}</if>
+        <if test="password != null">and password=#{password}</if>
+        <if test="keyword != null">
+            and (account like '%'||#{keyword}||'%' or user_name like '%'||#{keyword}||'%' or phone like
+            '%'||#{keyword}||'%')
+        </if>
+    </select>
+    <select id="queryByUserModel" resultType="java.lang.Integer">
+        select count(1) from sys_user
+        where account = #{account}
+    </select>
+
+    <resultMap id="OrganizationResultMap" type="com.sofn.core.constant.Organization">
+        <id column="ID" jdbcType="VARCHAR" property="id" />
+        <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+        <result column="ORG_TYPE" jdbcType="VARCHAR" property="orgType" />
+        <result column="ORG_LEVEL" jdbcType="VARCHAR" property="orgLevel" />
+        <result column="REGION_NAME" jdbcType="VARCHAR" property="regionName" />
+        <result column="TYPE_ID" jdbcType="VARCHAR" property="typeId" />
+        <result column="LEVEL_ID" jdbcType="VARCHAR" property="levelId" />
+        <result column="REGION_ID" jdbcType="VARCHAR" property="regionId" />
+        <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+    </resultMap>
+
+    <select id="selectOrganizationById" parameterType="java.lang.String" resultMap="OrganizationResultMap">
+        select ID, ORG_NAME, ORG_TYPE, ORG_LEVEL, REGION_NAME, TYPE_ID, LEVEL_ID, REGION_ID, ORG_ID
+        from SYS_ORGANIZATION
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="login" resultType="com.sofn.core.constant.CurrentUser">
+        select
+          su.id ,
+          su.account,
+          su.password,
+          su.user_name as "userName",
+          su.organization_id as "organizationId",
+          so.org_name as "orgName",
+          so.org_type as "orgType",
+          so.org_level as "orgLevel",
+          so.region_name as "regionname",
+          so.type_id as "typeId",
+          so.level_id as "levelId",
+          so.region_id as "regionId",
+          so.org_id as "orgId",
+          su.dept_id as "deptId",
+          su.role_id as "roleId",
+          su.post_id as "postId",
+          su.phone as "phone",
+          su.email as "email",
+          su.status as "status",
+          su.user_type as "userType"
+        from sys_user su left join sys_organization so on su.organization_id = so.id
+        where su.account = #{account} and su.password = #{password} and (su.del_flag is null or su.del_flag = 'N')
+    </select>
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjProposalMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjProposal" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="TIME" property="time" jdbcType="TIMESTAMP" />
+    <result column="ATTACH_NAME" property="attachName" jdbcType="VARCHAR" />
+    <result column="ATTACH_PATH" property="attachPath" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_PROPOSAL_V2
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjProposal" >
+    insert into TTS_SCLTXXCJ_PROPOSAL_V2 (ID
+    , TITLE
+    , CONTENT
+    , TIME
+    , ATTACH_NAME
+    , ATTACH_PATH
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , IP
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , TYPE_DESCRIBE
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{title,jdbcType=VARCHAR}
+    , #{content,jdbcType=VARCHAR}
+    , #{time,jdbcType=TIMESTAMP}
+    , #{attachName,jdbcType=VARCHAR}
+    , #{attachPath,jdbcType=VARCHAR}
+    , #{entityIdcode,jdbcType=VARCHAR}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{ip,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{typeDescribe,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjProposal" >
+    update TTS_SCLTXXCJ_PROPOSAL_V2
+    set
+     TITLE =  #{title,jdbcType=VARCHAR},
+     CONTENT =  #{content,jdbcType=VARCHAR},
+     TIME =  #{time,jdbcType=TIMESTAMP},
+     ATTACH_NAME =  #{attachName,jdbcType=VARCHAR},
+     ATTACH_PATH =  #{attachPath,jdbcType=VARCHAR},
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+     IP =  #{ip,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY = #{createBy,jdbcType=CHAR},
+     CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_BY = #{updateBy,jdbcType=CHAR},
+     UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , TITLE
+    , CONTENT
+    , TIME
+    , ATTACH_NAME
+    , ATTACH_PATH
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , IP
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from TTS_SCLTXXCJ_PROPOSAL_V2
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

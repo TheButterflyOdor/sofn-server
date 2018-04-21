@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsSubjSuperviseExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjSupervise">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="SV_NAME" jdbcType="VARCHAR" property="svName" />
+    <result column="SV_CODE" jdbcType="VARCHAR" property="svCode" />
+    <result column="SV_TYPE" jdbcType="VARCHAR" property="svType" />
+    <result column="SV_LEVEL" jdbcType="VARCHAR" property="svLevel" />
+    <result column="SV_LEVEL_ID" jdbcType="VARCHAR" property="svLevelId" />
+    <result column="SV_AREA_ID" jdbcType="VARCHAR" property="svAreaId" />
+    <result column="SV_ADDRESS" jdbcType="VARCHAR" property="svAddress" />
+    <result column="SV_LEADER" jdbcType="VARCHAR" property="svLeader" />
+    <result column="SV_LEADER_PHONE" jdbcType="VARCHAR" property="svLeaderPhone" />
+    <result column="SV_CONTACT" jdbcType="VARCHAR" property="svContact" />
+    <result column="SV_CONTACT_PHONE" jdbcType="VARCHAR" property="svContactPhone" />
+    <result column="SV_CONTACT_Q_Q" jdbcType="VARCHAR" property="svContactQQ" />
+    <result column="SV_CONTACT_EMAIL" jdbcType="VARCHAR" property="svContactEmail" />
+    <result column="SV_POSTCODE" jdbcType="CHAR" property="svPostcode" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="SV_TYPE_ID" jdbcType="VARCHAR" property="svTypeId" />
+    <result column="SV_AREA" jdbcType="VARCHAR" property="svArea" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapNew" type="com.sofn.model.asms.AsmsSubjSuperviseDto" extends="BaseResultMap">
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <select id="getSubjSuperviseList" resultMap="BaseResultMap">
+    SELECT * FROM (
+    SELECT
+    t.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*
+    FROM
+    ASMS_SUBJ_SUPERVISE s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="svLevelId!=null and svLevelId!=''">
+      AND s.SV_LEVEL_ID=#{svLevelId}
+    </if>
+    <if test="svLevel!=null and svLevel!=''">
+      AND s.SV_LEVEL &gt;= #{svLevel}
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND s.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND s.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    <if test="svId!=null and svId!=''">
+      AND s.ID != #{svId}
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+
+  <select id="getSubjSuperviseListByArea" resultMap="BaseResultMap">
+    SELECT
+    s.*
+    FROM
+    ASMS_SUBJ_SUPERVISE s
+    WHERE
+    s.DEL_FLAG='N'
+    AND s.SV_LEVEL = '3'
+    AND s.SV_AREA_ID = #{areaId}
+  </select>
+
+  <select id="getSubjSuperviseListNew" resultMap="BaseResultMapNew">
+    SELECT * FROM (
+    SELECT
+    t.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*,u.id as USER_ID,u.account as ACCOUNT,u.RESERVED_FIELD2 as PASSWORD
+    FROM
+    ASMS_SUBJ_SUPERVISE s left join sys_organization o on o.org_id=s.id left join SYS_USER u ON o.ID = u.ORGANIZATION_ID and USER_TYPE='SYSADMIN' and u.DEL_FLAG='N'
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="svLevelId!=null and svLevelId!=''">
+      AND s.SV_LEVEL_ID=#{svLevelId}
+    </if>
+    <if test="svLevel!=null and svLevel!=''">
+      AND s.SV_LEVEL &gt;= #{svLevel}
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND s.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND s.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    <if test="svId!=null and svId!=''">
+      AND s.ID != #{svId}
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjSuperviseCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_SUPERVISE s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="svLevelId!=null and svLevelId!=''">
+      AND s.SV_LEVEL_ID=#{svLevelId}
+    </if>
+    <if test="svLevel!=null and svLevel!=''">
+      AND s.SV_LEVEL &gt;= #{svLevel}
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND s.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND s.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    <if test="svId!=null and svId!=''">
+      AND s.ID != #{svId}
+    </if>
+  </select>
+
+  <select id="getSubjSuperviseListForSys" resultMap="BaseResultMapNew">
+    SELECT * FROM (
+    SELECT
+    t.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*,u.id as USER_ID,u.account as ACCOUNT,u.RESERVED_FIELD2 as PASSWORD
+    FROM
+    ASMS_SUBJ_SUPERVISE s left join sys_organization o on o.org_id=s.id left join SYS_USER u ON o.ID = u.ORGANIZATION_ID and USER_TYPE='SYSADMIN' and u.DEL_FLAG='N'
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="svLevelId!=null and svLevelId!=''">
+      AND s.SV_LEVEL_ID=#{svLevelId}
+    </if>
+    <if test="cUsersvLevelStart!=null and cUsersvLevelStart!=''">
+      AND s.SV_LEVEL &gt;= #{cUsersvLevelStart}
+    </if>
+    <if test="cUsersvLevelEnd!=null and cUsersvLevelEnd!=''">
+      AND s.SV_LEVEL &lt;= #{cUsersvLevelEnd}
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND s.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND s.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="cUserRegionId!=null and cUserRegionId!=''">
+      AND s.SV_AREA_ID like #{cUserRegionId}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    <if test="svId!=null and svId!=''">
+      AND s.ID != #{svId}
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjSuperviseCountForSys" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_SUPERVISE s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="svLevelId!=null and svLevelId!=''">
+      AND s.SV_LEVEL_ID=#{svLevelId}
+    </if>
+    <if test="cUsersvLevelStart!=null and cUsersvLevelStart!=''">
+      AND s.SV_LEVEL &gt;= #{cUsersvLevelStart}
+    </if>
+    <if test="cUsersvLevelEnd!=null and cUsersvLevelEnd!=''">
+      AND s.SV_LEVEL &lt;= #{cUsersvLevelEnd}
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND s.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND s.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="cUserRegionId!=null and cUserRegionId!=''">
+      AND s.SV_AREA_ID like #{cUserRegionId}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    <if test="svId!=null and svId!=''">
+      AND s.ID != #{svId}
+    </if>
+  </select>
+
+
+
+  <select id="getSubjSvChangeList" resultType="map">
+    SELECT * FROM(
+    SELECT
+    a.*,ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS id,t.SV_NAME AS svName,t.SV_AREA_ID AS svAreaId,s.APPLY_TIME AS applyTime,t.SV_LEADER AS svLeader,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_SV_CHANGE s LEFT JOIN ASMS_SUBJ_SUPERVISE t
+    ON s.APPLY_SV_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND t.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="applySvId!=null and applySvId!=''">
+      AND s.APPLY_SV_ID = #{applySvId}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjSvChangeCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_SV_CHANGE s LEFT JOIN ASMS_SUBJ_SUPERVISE t
+    ON s.APPLY_SV_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND t.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="applySvId!=null and applySvId!=''">
+      AND s.APPLY_SV_ID = #{applySvId}
+    </if>
+  </select>
+
+  <select id="getChangeListBySvId" resultType="map">
+    SELECT * FROM(
+    SELECT
+    a.*,ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    *
+    FROM
+    ASMS_SUBJ_SV_CHANGE t
+    WHERE
+    t.DEL_FLAG='N'
+    <if test="svId!=null and svId!=''">
+      AND t.APPLY_SV_ID = #{svId}
+    </if>
+    ORDER BY t.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getChangeCountBySvId" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_SV_CHANGE t
+    WHERE
+    t.DEL_FLAG='N'
+    <if test="svId!=null and svId!=''">
+      AND t.APPLY_SV_ID = #{svId}
+    </if>
+  </select>
+
+  <select id="getSubjSvCancelList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*,ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS id,t.SV_NAME AS svName,t.SV_AREA_ID AS svAreaId,s.APPLY_TIME AS applyTime,t.SV_LEADER AS svLeader,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_SV_CANCEL s LEFT JOIN ASMS_SUBJ_SUPERVISE t
+    ON s.SV_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND t.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="svLevel!=null and svLevel!=''">
+      AND t.SV_LEVEL = #{svLevel}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjSvCancelCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_SV_CANCEL s LEFT JOIN ASMS_SUBJ_SUPERVISE t
+    ON s.SV_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND t.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="svLevel!=null and svLevel!=''">
+      AND t.SV_LEVEL = #{svLevel}
+    </if>
+  </select>
+
+  <select id="getSubjSvRevokeList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*,ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS id,a.SV_NAME AS svName,a.SV_AREA_ID AS svAreaId,s.APPLY_TIME AS applyTime,a.SV_LEADER AS svLeader,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_SV_REVOKE s LEFT JOIN ASMS_SUBJ_SUPERVISE t
+    ON s.APPLY_SV_ID=t.ID
+    LEFT JOIN ASMS_SUBJ_SUPERVISE a
+    ON s.SV_ID=a.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND t.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="applySvId!=null and applySvId!=''">
+      AND s.APPLY_SV_ID = #{applySvId}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjSvRevokeCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_SV_REVOKE s LEFT JOIN ASMS_SUBJ_SUPERVISE t
+    ON s.APPLY_SV_ID=t.ID
+    LEFT JOIN ASMS_SUBJ_SUPERVISE a
+    ON s.SV_ID=a.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.SV_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="svName!=null and svName!=''">
+      AND t.SV_NAME like '%'||#{svName}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="applySvId!=null and applySvId!=''">
+      AND s.APPLY_SV_ID = #{applySvId}
+    </if>
+  </select>
+
+  <update id="updateSubjSvStatusById">
+    update ASMS_SUBJ_SUPERVISE
+    set STATUS = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getSvUserList" resultType="map">
+    SELECT a.* FROM SYS_USER a
+    INNER JOIN SYS_ORGANIZATION b
+    ON a.ORGANIZATION_ID=b.ID
+    INNER JOIN ASMS_SUBJ_SUPERVISE c
+    ON b.ORG_ID=c.ID
+    WHERE (a.DEL_FLAG='N' OR a.DEL_FLAG IS NULL)
+    AND a.USER_TYPE='SYSADMIN'
+    <if test="account!=null and account!=''">
+      AND a.ACCOUNT=#{account}
+    </if>
+    <if test="name!=null and name!=''">
+      AND c.SV_NAME=#{name}
+    </if>
+    <if test="code!=null and code!=''">
+      AND c.SV_CODE=#{code}
+    </if>
+    <if test="level!=null and level!=''">
+      AND c.SV_LEVEL=#{level}
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND c.SV_AREA_ID=#{areaId}
+    </if>
+    <if test="leader!=null and leader!=''">
+      AND c.SV_LEADER=#{leader}
+    </if>
+  </select>
+
+  <select id="getElUserList" resultType="map">
+    SELECT a.* FROM SYS_USER a
+    INNER JOIN SYS_ORGANIZATION b
+    ON a.ORGANIZATION_ID=b.ID
+    INNER JOIN ASMS_SUBJ_ENFORCE_LAW c
+    ON b.ORG_ID=c.ID
+    WHERE (a.DEL_FLAG='N' OR a.DEL_FLAG IS NULL)
+    AND a.USER_TYPE='SYSADMIN'
+    <if test="account!=null and account!=''">
+      AND a.ACCOUNT=#{account}
+    </if>
+    <if test="name!=null and name!=''">
+      AND c.EL_NAME=#{name}
+    </if>
+    <if test="code!=null and code!=''">
+      AND c.EL_CODE=#{code}
+    </if>
+    <if test="level!=null and level!=''">
+      AND c.EL_LEVEL=#{level}
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND c.EL_AREA_ID=#{areaId}
+    </if>
+    <if test="leader!=null and leader!=''">
+      AND c.EL_LEADER=#{leader}
+    </if>
+  </select>
+
+  <select id="getDtUserList" resultType="map">
+    SELECT a.* FROM SYS_USER a
+    INNER JOIN SYS_ORGANIZATION b
+    ON a.ORGANIZATION_ID=b.ID
+    INNER JOIN ASMS_SUBJ_DETECTION c
+    ON b.ORG_ID=c.ID
+    WHERE (a.DEL_FLAG='N' OR a.DEL_FLAG IS NULL)
+    AND a.USER_TYPE='SYSADMIN'
+    <if test="account!=null and account!=''">
+      AND a.ACCOUNT=#{account}
+    </if>
+    <if test="name!=null and name!=''">
+      AND c.DT_NAME=#{name}
+    </if>
+    <if test="code!=null and code!=''">
+      AND c.DT_CODE=#{code}
+    </if>
+    <if test="level!=null and level!=''">
+      AND c.DT_LEVEL=#{level}
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND c.DT_AREA_ID=#{areaId}
+    </if>
+    <if test="leader!=null and leader!=''">
+      AND c.DT_LEADER=#{leader}
+    </if>
+  </select>
+
+  <select id="getSuperiorSvList" resultType="map">
+    SELECT * FROM ASMS_SUBJ_SUPERVISE a
+    WHERE
+    (
+    a.DEL_FLAG = 'N'
+    OR a.DEL_FLAG IS NULL
+    )
+    AND a.SV_LEVEL=#{superiorLevel}
+    <if test="superiorAreaId!=null and superiorAreaId!='' and superiorLevel!='0'">
+      AND a.SV_AREA_ID LIKE #{superiorAreaId}||'%'
+    </if>
+    AND EXISTS (
+    SELECT * FROM ASMS_SUBJ_SUPERVISE c
+    WHERE (c.DEL_FLAG='N' OR c.DEL_FLAG IS NULL)
+    <if test="name!=null and name!=''">
+      AND c.SV_NAME=#{name}
+    </if>
+    <if test="code!=null and code!=''">
+      AND c.SV_CODE=#{code}
+    </if>
+    <if test="level!=null and level!=''">
+      AND c.SV_LEVEL=#{level}
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND c.SV_AREA_ID=#{areaId}
+    </if>
+    )
+  </select>
+
+  <select id="getSuperiorElList" resultType="map">
+    SELECT * FROM ASMS_SUBJ_SUPERVISE a
+    WHERE
+    (
+    a.DEL_FLAG = 'N'
+    OR a.DEL_FLAG IS NULL
+    )
+    AND a.SV_LEVEL=#{superiorLevel}
+    <if test="superiorAreaId!=null and superiorAreaId!='' and superiorLevel!='0'">
+      AND a.SV_AREA_ID LIKE #{superiorAreaId}||'%'
+    </if>
+    AND EXISTS (
+    SELECT * FROM ASMS_SUBJ_ENFORCE_LAW c
+    WHERE (c.DEL_FLAG='N' OR c.DEL_FLAG IS NULL)
+    <if test="name!=null and name!=''">
+      AND c.EL_NAME=#{name}
+    </if>
+    <if test="code!=null and code!=''">
+      AND c.EL_CODE=#{code}
+    </if>
+    <if test="level!=null and level!=''">
+      AND c.EL_LEVEL=#{level}
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND c.EL_AREA_ID=#{areaId}
+    </if>
+    )
+  </select>
+
+  <select id="getSuperiorDtList" resultType="map">
+    SELECT * FROM ASMS_SUBJ_SUPERVISE a
+    WHERE
+    (
+    a.DEL_FLAG = 'N'
+    OR a.DEL_FLAG IS NULL
+    )
+    AND a.SV_LEVEL=#{superiorLevel}
+    <if test="superiorAreaId!=null and superiorAreaId!='' and superiorLevel!='0' ">
+      AND a.SV_AREA_ID LIKE #{superiorAreaId}||'%'
+    </if>
+    AND EXISTS (
+    SELECT * FROM ASMS_SUBJ_DETECTION c
+    WHERE (c.DEL_FLAG='N' OR c.DEL_FLAG IS NULL)
+    <if test="name!=null and name!=''">
+      AND c.DT_NAME=#{name}
+    </if>
+    <if test="code!=null and code!=''">
+      AND c.DT_CODE=#{code}
+    </if>
+    <if test="level!=null and level!=''">
+      AND c.DT_LEVEL=#{level}
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND c.DT_AREA_ID=#{areaId}
+    </if>
+    )
+  </select>
+
+  <select id="getSubjSuperviseByCondition" resultMap="BaseResultMap">
+    SELECT * FROM ASMS_SUBJ_SUPERVISE a
+    WHERE a.DEL_FLAG='N'
+    <if test="areaId!=null and areaId !=''">
+      AND a.SV_AREA_ID=#{areaId}
+    </if>
+    <if test="svLevelId!=null and svLevelId !=''">
+      AND a.SV_LEVEL_ID=#{svLevelId}
+    </if>
+     <if test="industryId!=null and industryId.length>0">
+       <foreach collection="industryId" item="item" index="index">
+         AND a.INDUSTRY_ID LIKE '%'||#{item}||'%'
+       </foreach>
+     </if>
+    union
+    SELECT * FROM ASMS_SUBJ_SUPERVISE a
+    WHERE a.DEL_FLAG='N'
+    <if test="name!=null and name!=''">
+        AND a.SV_NAME=#{name}
+    </if>
+    union
+    SELECT * FROM ASMS_SUBJ_SUPERVISE a
+    WHERE a.DEL_FLAG='N' AND
+    <if test="code!=null and code!=''">
+      a.SV_CODE=#{code}
+    </if>
+  </select>
+
+  <insert id="importSubjSupervise" parameterType="java.util.ArrayList">
+    insert into ASMS_SUBJ_SUPERVISE (ID, SV_NAME, SV_CODE,
+    SV_TYPE, SV_LEVEL, SV_LEVEL_ID,
+    SV_AREA_ID, SV_ADDRESS, SV_LEADER,
+    SV_LEADER_PHONE, SV_CONTACT, SV_CONTACT_PHONE,
+    SV_CONTACT_Q_Q, SV_CONTACT_EMAIL, SV_POSTCODE,
+    CREATE_BY, CREATE_TIME, STATUS,
+    DEL_FLAG, SV_TYPE_ID, SV_AREA,
+    INDUSTRY_ID, INDUSTRY_NAME, INDUSTRY_VALUE
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{id,jdbcType=CHAR}, #{svName,jdbcType=VARCHAR}, #{svCode,jdbcType=VARCHAR},
+      #{svType,jdbcType=VARCHAR}, #{svLevel,jdbcType=VARCHAR}, #{svLevelId,jdbcType=VARCHAR},
+      #{svAreaId,jdbcType=VARCHAR}, #{svAddress,jdbcType=VARCHAR}, #{svLeader,jdbcType=VARCHAR},
+      #{svLeaderPhone,jdbcType=VARCHAR}, #{svContact,jdbcType=VARCHAR}, #{svContactPhone,jdbcType=VARCHAR},
+      #{svContactQQ,jdbcType=VARCHAR}, #{svContactEmail,jdbcType=VARCHAR}, #{svPostcode,jdbcType=CHAR},
+      #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR},
+      #{delFlag,jdbcType=CHAR}, #{svTypeId,jdbcType=VARCHAR}, #{svArea,jdbcType=VARCHAR},
+      #{industryId,jdbcType=VARCHAR}, #{industryName,jdbcType=VARCHAR}, #{industryValue,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+</mapper>

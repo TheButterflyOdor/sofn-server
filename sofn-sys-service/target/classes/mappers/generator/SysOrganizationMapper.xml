@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.SysOrganizationMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysOrganization">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="ORG_TYPE" jdbcType="VARCHAR" property="orgType" />
+    <result column="ORG_LEVEL" jdbcType="VARCHAR" property="orgLevel" />
+    <result column="REGION_NAME" jdbcType="VARCHAR" property="regionName" />
+    <result column="TYPE_ID" jdbcType="VARCHAR" property="typeId" />
+    <result column="LEVEL_ID" jdbcType="VARCHAR" property="levelId" />
+    <result column="REGION_ID" jdbcType="VARCHAR" property="regionId" />
+    <result column="RESERVED_FIELD1" jdbcType="VARCHAR" property="reservedField1" />
+    <result column="RESERVED_FIELD2" jdbcType="VARCHAR" property="reservedField2" />
+    <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SYS_ORGANIZATION
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysOrganization">
+    insert into SYS_ORGANIZATION (ID, ORG_NAME, ORG_TYPE, 
+      ORG_LEVEL, REGION_NAME, TYPE_ID, 
+      LEVEL_ID, REGION_ID, RESERVED_FIELD1, 
+      RESERVED_FIELD2, ORG_ID)
+    values (#{id,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{orgType,jdbcType=VARCHAR}, 
+      #{orgLevel,jdbcType=VARCHAR}, #{regionName,jdbcType=VARCHAR}, #{typeId,jdbcType=VARCHAR}, 
+      #{levelId,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, #{reservedField1,jdbcType=VARCHAR}, 
+      #{reservedField2,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysOrganization">
+    update SYS_ORGANIZATION
+    set ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      ORG_TYPE = #{orgType,jdbcType=VARCHAR},
+      ORG_LEVEL = #{orgLevel,jdbcType=VARCHAR},
+      REGION_NAME = #{regionName,jdbcType=VARCHAR},
+      TYPE_ID = #{typeId,jdbcType=VARCHAR},
+      LEVEL_ID = #{levelId,jdbcType=VARCHAR},
+      REGION_ID = #{regionId,jdbcType=VARCHAR},
+      RESERVED_FIELD1 = #{reservedField1,jdbcType=VARCHAR},
+      RESERVED_FIELD2 = #{reservedField2,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, ORG_NAME, ORG_TYPE, ORG_LEVEL, REGION_NAME, TYPE_ID, LEVEL_ID, REGION_ID, 
+    RESERVED_FIELD1, RESERVED_FIELD2, ORG_ID
+    from SYS_ORGANIZATION
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, ORG_NAME, ORG_TYPE, ORG_LEVEL, REGION_NAME, TYPE_ID, LEVEL_ID, REGION_ID, 
+    RESERVED_FIELD1, RESERVED_FIELD2, ORG_ID
+    from SYS_ORGANIZATION
+  </select>
+
+</mapper>

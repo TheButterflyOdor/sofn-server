@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsMonitorTaskMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsMonitorTask" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="MONITOR_CLASS" property="monitorClass" jdbcType="VARCHAR" />
+    <result column="RELEASE_UNIT" property="releaseUnit" jdbcType="VARCHAR" />
+    <result column="CHECK_MODEL" property="checkModel" jdbcType="VARCHAR" />
+    <result column="YEAR" property="year" jdbcType="VARCHAR" />
+    <result column="BATCH" property="batch" jdbcType="VARCHAR" />
+    <result column="SEPARATION" property="separation" jdbcType="DECIMAL" />
+    <result column="START_TIME" property="startTime" jdbcType="VARCHAR" />
+    <result column="END_TIME" property="endTime" jdbcType="VARCHAR" />
+    <result column="DEADLINE" property="deadline" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR" />
+    <result column="ATTACHMENTCODE" property="attachmentcode" jdbcType="VARCHAR" />
+    <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+    <result column="PUBLISH_STATUS" property="publishStatus" jdbcType="DECIMAL" />
+    <result column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+    <result column="JUDGE_STANDARD" property="judgeStandard" jdbcType="VARCHAR" />
+    <result column="SAMPLE_LINK" property="sampleLink" jdbcType="VARCHAR" />
+    <result column="CHECK_OBJECT" property="checkObject" jdbcType="VARCHAR" />
+    <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="LEVE" property="leve" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT_ADDRESS" property="attachmentAddress" jdbcType="VARCHAR" />
+    <result column="ABOLISH" property="abolish" jdbcType="VARCHAR" />
+    <result column="ORGAN_ID" property="organId" jdbcType="VARCHAR" />
+    <result column="SUP_ID" property="supId" jdbcType="VARCHAR" />
+    <result column="CREATE_ORG_REGION_ID" property="createOrgRegionId" jdbcType="VARCHAR" />
+    <result column="LEVEL_ENUM" property="levelEnum" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADS_MONITOR_TASK
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.AdsMonitorTask" >
+    insert into ADS_MONITOR_TASK (ID
+    , TASK_NAME
+    , MONITOR_CLASS
+    , RELEASE_UNIT
+    , CHECK_MODEL
+    , YEAR
+    , BATCH
+    , SEPARATION
+    , START_TIME
+    , END_TIME
+    , DEADLINE
+    , ATTACHMENT
+    , ATTACHMENTCODE
+    , COMMENT
+    , PUBLISH_STATUS
+    , INDUSTRY
+    , JUDGE_STANDARD
+    , SAMPLE_LINK
+    , CHECK_OBJECT
+    , CHECK_PROJECT
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , ABOLISH
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{taskName,jdbcType=VARCHAR}
+    , #{monitorClass,jdbcType=VARCHAR}
+    , #{releaseUnit,jdbcType=VARCHAR}
+    , #{checkModel,jdbcType=VARCHAR}
+    , #{year,jdbcType=VARCHAR}
+    , #{batch,jdbcType=VARCHAR}
+    , #{separation,jdbcType=DECIMAL}
+    , #{startTime,jdbcType=VARCHAR}
+    , #{endTime,jdbcType=VARCHAR}
+    , #{deadline,jdbcType=VARCHAR}
+    , #{attachment,jdbcType=VARCHAR}
+    , #{attachmentcode,jdbcType=VARCHAR}
+    , #{comment,jdbcType=VARCHAR}
+    , #{publishStatus,jdbcType=DECIMAL}
+    , #{industry,jdbcType=VARCHAR}
+    , #{judgeStandard,jdbcType=VARCHAR}
+    , #{sampleLink,jdbcType=VARCHAR}
+    , #{checkObject,jdbcType=VARCHAR}
+    , #{checkProject,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{abolish,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="update" parameterType="com.sofn.model.generator.AdsMonitorTask" >
+    update ADS_MONITOR_TASK
+    set
+     TASK_NAME =  #{taskName,jdbcType=VARCHAR},
+     MONITOR_CLASS =  #{monitorClass,jdbcType=VARCHAR},
+     RELEASE_UNIT =  #{releaseUnit,jdbcType=VARCHAR},
+     CHECK_MODEL =  #{checkModel,jdbcType=VARCHAR},
+     YEAR =  #{year,jdbcType=VARCHAR},
+     BATCH =  #{batch,jdbcType=VARCHAR},
+     SEPARATION =  #{separation,jdbcType=DECIMAL},
+     START_TIME = to_timestamp(#{startTime},'yyyy-mm-dd hh24:mi:ss:ff'),
+     END_TIME = to_timestamp(#{endTime},'yyyy-mm-dd hh24:mi:ss:ff'),
+     DEADLINE = to_timestamp(#{deadline},'yyyy-mm-dd hh24:mi:ss:ff'),
+     ATTACHMENT =  #{attachment,jdbcType=VARCHAR},
+     ATTACHMENTCODE =  #{attachmentcode,jdbcType=VARCHAR},
+     "COMMENT" =  #{comment,jdbcType=VARCHAR},
+     INDUSTRY = #{industry,jdbcType=VARCHAR},
+     SAMPLE_LINK = #{sampleLink,jdbcType=VARCHAR},
+     CHECK_OBJECT = #{checkObject,jdbcType=VARCHAR},
+     CHECK_PROJECT = #{checkProject,jdbcType=VARCHAR},
+     UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+     UPDATE_TIME = sysdate,
+     ATTACHMENT_ADDRESS = #{attachmentAddress,jdbcType=VARCHAR}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , TASK_NAME
+    , MONITOR_CLASS
+    , RELEASE_UNIT
+    , CHECK_MODEL
+    , YEAR
+    , BATCH
+    , SEPARATION
+    , to_char(START_TIME,'yyyy-mm-dd') START_TIME
+    , to_char(END_TIME,'yyyy-mm-dd') END_TIME
+    , to_char(DEADLINE,'yyyy-mm-dd') DEADLINE
+    , ATTACHMENT
+    , ATTACHMENTCODE
+    , "COMMENT"
+    , PUBLISH_STATUS
+    , INDUSTRY
+    , JUDGE_STANDARD
+    , SAMPLE_LINK
+    , CHECK_OBJECT
+    , CHECK_PROJECT
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , TASK_SOURCE
+    , ATTACHMENT_ADDRESS
+    , CREATE_ORG_REGION_ID
+    , LEVEL_ENUM
+    , SUP_ID
+    from ADS_MONITOR_TASK
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

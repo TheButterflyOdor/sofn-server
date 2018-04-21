@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsJcStandardExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsJcStandard">
+        <id column="ID" property="id" jdbcType="CHAR" />
+        <result column="STANDARD_ID" property="standardId" jdbcType="CHAR" />
+        <result column="STANDARD_NAME" property="standardName" jdbcType="VARCHAR" />
+        <result column="TASK_ID" property="taskId" jdbcType="CHAR" />
+        <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <delete id="delByParm">
+        DELETE FROM ASMS_JC_STANDARD M
+        WHERE 1=1
+        <if test="taskId!=null and taskId!=''">
+            AND M.TASK_ID = #{taskId}
+        </if>
+    </delete>
+
+    <select id="getListByParams" resultType="com.sofn.model.generator.AsmsJcStandard">
+        SELECT M.* FROM ASMS_JC_STANDARD M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="taskId!=null and taskId!=''">
+            AND M.TASK_ID = #{taskId}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND M.TASK_NAME LIKE #{taskName}
+        </if>
+        <if test="standardName!=null and standardName!=''">
+            AND M.STANDARD_NAME LIKE #{standardName}
+        </if>
+        order by M.CREATE_TIME DESC
+    </select>
+
+</mapper>

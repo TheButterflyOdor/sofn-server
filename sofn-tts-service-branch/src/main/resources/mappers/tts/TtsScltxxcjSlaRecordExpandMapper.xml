@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjSlaRecordExpandMapper" >
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjSlaRecord" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="SLAUGHTER_TIME" property="slaughterTime" jdbcType="TIMESTAMP" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="PRODUCT_PC" property="productPc" jdbcType="VARCHAR" />
+        <result column="SLAUGHTER_AMOUNT" property="slaughterAmount" jdbcType="VARCHAR" />
+        <result column="IP" property="ip" jdbcType="VARCHAR" />
+        <result column="INSIDE_TRACE_CODE" property="insideTraceCode" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+
+    <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_SLA_RECORD_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_SLA_RECORD_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+  </select>
+
+    <select id="findPageInfoById" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (select S.*,C1.HARVEST_UNIT,C1.HARVEST_BASENAME,
+                C1.MEDI_CHECK,ROW_NUMBER() OVER(ORDER BY S.ID DESC) AS NUM
+                from TTS_SCLTXXCJ_SLA_RECORD_V2 S
+                INNER JOIN TTS_SCLTXXCJ_SCGL_V2 C1
+                ON S.PRODUCT_PC = C1.PRODUCT_PC
+                where S.INSIDE_TRACE_CODE =
+                (select T.INSIDE_TRACE_CODE from TTS_SCLTXXCJ_SCGL_V2 T
+                where T.ID = #{id,jdbcType=VARCHAR})
+            )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="findPageInfoByIdCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM (
+          select S.*,C.HARVEST_UNIT,C.HARVEST_BASENAME,C.MEDI_CHECK
+                from TTS_SCLTXXCJ_SLA_RECORD_V2 S
+                INNER JOIN TTS_SCLTXXCJ_SCGL_V2 C
+                ON S.PRODUCT_PC = C.PRODUCT_PC
+                where S.INSIDE_TRACE_CODE =
+                (select T.INSIDE_TRACE_CODE from TTS_SCLTXXCJ_SCGL_V2 T
+                where T.ID = #{id,jdbcType=VARCHAR})
+        )
+    </select>
+
+</mapper>

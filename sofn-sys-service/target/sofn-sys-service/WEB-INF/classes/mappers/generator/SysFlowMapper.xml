@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.SysFlowMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysFlow">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="FLOW_NAME" jdbcType="VARCHAR" property="flowName" />
+    <result column="FLOW_FILE" jdbcType="VARCHAR" property="flowFile" />
+    <result column="FLOW_IMG" jdbcType="VARCHAR" property="flowImg" />
+    <result column="FLOW_URL" jdbcType="VARCHAR" property="flowUrl" />
+    <result column="FLOW_FLAG" jdbcType="VARCHAR" property="flowFlag" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DEL_FLAG" jdbcType="VARCHAR" property="delFlag" />
+    <result column="RESERVED_FIELD1" jdbcType="VARCHAR" property="reservedField1" />
+    <result column="RESERVED_FIELD2" jdbcType="VARCHAR" property="reservedField2" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SYS_FLOW
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysFlow">
+    insert into SYS_FLOW (ID, FLOW_NAME, FLOW_FILE, 
+      FLOW_IMG, FLOW_URL, FLOW_FLAG, 
+      STATUS, REMARK, CREATE_BY, 
+      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+      DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2
+      )
+    values (#{id,jdbcType=VARCHAR}, #{flowName,jdbcType=VARCHAR}, #{flowFile,jdbcType=VARCHAR}, 
+      #{flowImg,jdbcType=VARCHAR}, #{flowUrl,jdbcType=VARCHAR}, #{flowFlag,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=VARCHAR}, #{reservedField1,jdbcType=VARCHAR}, #{reservedField2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysFlow">
+    update SYS_FLOW
+    set FLOW_NAME = #{flowName,jdbcType=VARCHAR},
+      FLOW_FILE = #{flowFile,jdbcType=VARCHAR},
+      FLOW_IMG = #{flowImg,jdbcType=VARCHAR},
+      FLOW_URL = #{flowUrl,jdbcType=VARCHAR},
+      FLOW_FLAG = #{flowFlag,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+      RESERVED_FIELD1 = #{reservedField1,jdbcType=VARCHAR},
+      RESERVED_FIELD2 = #{reservedField2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, FLOW_NAME, FLOW_FILE, FLOW_IMG, FLOW_URL, FLOW_FLAG, STATUS, REMARK, CREATE_BY, 
+    CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2
+    from SYS_FLOW
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, FLOW_NAME, FLOW_FILE, FLOW_IMG, FLOW_URL, FLOW_FLAG, STATUS, REMARK, CREATE_BY, 
+    CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2
+    from SYS_FLOW
+  </select>
+
+
+</mapper>

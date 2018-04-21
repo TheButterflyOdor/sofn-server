@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AsmsCheckTaskEnterpriseMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCheckTaskEnterprise" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="CHAR" />
+    <result column="ENTERPRISE_NAME" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="CHECK_TASK_OBJECT_ID" property="checkTaskObjectId" jdbcType="CHAR" />
+    <result column="ENTITY_TYPE" property="entityType" jdbcType="VARCHAR" />
+    <result column="CREDIT_CODE" property="creditCode" jdbcType="VARCHAR" />
+    <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+    <result column="LEGAL_PHONE" property="legalPhone" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CHECK_TASK_ID" property="checkTaskId" jdbcType="CHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ASMS_CHECK_TASK_ENTERPRISE
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsCheckTaskEnterprise" >
+    insert into ASMS_CHECK_TASK_ENTERPRISE (ID, ENTERPRISE_ID, ENTERPRISE_NAME, 
+      CHECK_TASK_OBJECT_ID, ENTITY_TYPE, CREDIT_CODE, 
+      LEGAL_NAME, LEGAL_PHONE, DEL_FLAG, 
+      CREATE_BY, CREATE_TIME, UPDATE_BY, 
+      UPDATE_TIME, CHECK_TASK_ID)
+    values (#{id,jdbcType=CHAR}, #{enterpriseId,jdbcType=CHAR}, #{enterpriseName,jdbcType=VARCHAR}, 
+      #{checkTaskObjectId,jdbcType=CHAR}, #{entityType,jdbcType=VARCHAR}, #{creditCode,jdbcType=VARCHAR}, 
+      #{legalName,jdbcType=VARCHAR}, #{legalPhone,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=CHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{checkTaskId,jdbcType=CHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsCheckTaskEnterprise" >
+    update ASMS_CHECK_TASK_ENTERPRISE
+    set ENTERPRISE_ID = #{enterpriseId,jdbcType=CHAR},
+      ENTERPRISE_NAME = #{enterpriseName,jdbcType=VARCHAR},
+      CHECK_TASK_OBJECT_ID = #{checkTaskObjectId,jdbcType=CHAR},
+      ENTITY_TYPE = #{entityType,jdbcType=VARCHAR},
+      CREDIT_CODE = #{creditCode,jdbcType=VARCHAR},
+      LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+      LEGAL_PHONE = #{legalPhone,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CHECK_TASK_ID = #{checkTaskId,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, ENTERPRISE_ID, ENTERPRISE_NAME, CHECK_TASK_OBJECT_ID, ENTITY_TYPE, CREDIT_CODE, 
+    LEGAL_NAME, LEGAL_PHONE, DEL_FLAG, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    CHECK_TASK_ID
+    from ASMS_CHECK_TASK_ENTERPRISE
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, ENTERPRISE_ID, ENTERPRISE_NAME, CHECK_TASK_OBJECT_ID, ENTITY_TYPE, CREDIT_CODE, 
+    LEGAL_NAME, LEGAL_PHONE, DEL_FLAG, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    CHECK_TASK_ID
+    from ASMS_CHECK_TASK_ENTERPRISE
+  </select>
+</mapper>

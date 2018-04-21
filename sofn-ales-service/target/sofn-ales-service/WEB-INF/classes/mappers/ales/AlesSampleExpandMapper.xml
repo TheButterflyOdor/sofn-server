@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ales.AlesSampleExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesSample" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="PRODCUT_CODE" property="prodcutCode" jdbcType="VARCHAR" />
+    <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR" />
+    <result column="CHECK_TASK_ID" property="checkTaskId" jdbcType="CHAR" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="CHAR" />
+    <result column="SAMPLE_ADDRESS" property="sampleAddress" jdbcType="VARCHAR" />
+    <result column="SAMPLE_INFORMATION" property="sampleInformation" jdbcType="VARCHAR" />
+    <result column="SAMPLE_UNIT_ID" property="sampleUnitId" jdbcType="CHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ENABLE" property="enable" jdbcType="CHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+  <select id="getAlesSampleAllList" resultType="map">
+    SELECT * FROM (SELECT f.*, ROWNUM AS rn
+    FROM (
+    SELECT
+    s.*
+    FROM ALES_SAMPLE s
+    WHERE 1=1 AND s.DEL_FLAG = 'N'
+    <!--<if test="prodcutCode!=null and prodcutCode!=''">-->
+      <!--AND s.PRODCUT_CODE like '%'||#{prodcutCode}||'%'-->
+    <!--</if>-->
+    <!--<if test="sampleCode!=null and sampleCode!=''">-->
+      <!--AND s.SAMPLE_CODE  =#{sampleCode}-->
+    <!--</if>-->
+    <if test="checkTaskId!=null and checkTaskId!=''">
+      AND s.CHECK_TASK_ID =#{checkTaskId}
+    </if>
+    order by s.CREATE_TIME DESC
+    ) f)
+    WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  <select id="getAlesSampleAllCount" resultType="long">
+    SELECT COUNT(*) FROM ALES_SAMPLE s
+    WHERE 1=1 AND s.DEL_FLAG = 'N'
+    <!--<if test="prodcutCode!=null and prodcutCode!=''">-->
+      <!--AND s.PRODCUT_CODE like '%'||#{prodcutCode}||'%'-->
+    <!--</if>-->
+    <!--<if test="sampleCode!=null and sampleCode!=''">-->
+      <!--AND s.SAMPLE_CODE  =#{sampleCode}-->
+    <!--</if>-->
+    <if test="checkTaskId!=null and checkTaskId!=''">
+      AND s.CHECK_TASK_ID =#{checkTaskId}
+    </if>
+  </select>
+
+  <select id="getWtjcMaxSampleCode" resultType="map">
+    SELECT *
+    FROM (
+      SELECT T3.SAMPLE_CODE AS SAMPLECODE
+      FROM
+        ALES_TASK_SAMPLE T3
+        WHERE
+        T3.SAMPLE_CODE LIKE #{sampleCode,jdbcType=VARCHAR}||'%'
+      ORDER BY T3.SAMPLE_CODE DESC
+    )WHERE ROWNUM=1
+  </select>
+
+  <select id="getJdccMaxSampleCode" resultType="map">
+    SELECT *
+    FROM (
+      SELECT T3.SAMPLE_CODE AS SAMPLECODE
+      FROM
+        ALES_TASK_SAMPLE T3
+        INNER JOIN ASMS_MONITOR_OBJECT T1
+          ON T3.ORGAN_TASK_ID = T1.ID
+        INNER JOIN ASMS_CHECK_TASK T2
+          ON T1.SUPERVISE_CHECK_TASK_ID = T2.ID
+      WHERE
+        T3.SAMPLE_CODE LIKE #{sampleCode,jdbcType=VARCHAR}||'%'
+      ORDER BY T3.CREATE_TIME DESC
+    )WHERE ROWNUM=1
+  </select>
+
+  <select id="getCheckInfoIdBySampleId" resultType="java.lang.String">
+    SELECT T.ID FROM ADS_CHECK_INFO T
+    WHERE T.MONITOR_SAMPLE_ID=#{sampleId}
+  </select>
+</mapper>

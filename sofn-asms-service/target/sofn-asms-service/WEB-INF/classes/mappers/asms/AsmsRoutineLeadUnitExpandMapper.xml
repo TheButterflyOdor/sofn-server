@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsRoutineLeadUnitExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsRoutineLeadUnit">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="ROUTINE_MONITOR_ID" jdbcType="CHAR" property="routineMonitorId" />
+        <result column="LEAD_UNIT_ID" jdbcType="CHAR" property="leadUnitId" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="LEAD_UNIT_NAME" jdbcType="VARCHAR" property="leadUnitName" />
+    </resultMap>
+    <delete id="delByTaskId" parameterType="com.sofn.model.generator.AsmsRoutineLeadUnit">
+    delete from ASMS_ROUTINE_LEAD_UNIT
+        where ROUTINE_MONITOR_ID = '${routineMonitorId}'
+    </delete>
+
+    <select id="getUnitByTaskId" resultType="com.sofn.model.generator.AsmsRoutineLeadUnit" parameterType="com.sofn.model.generator.AsmsRoutineLeadUnit">
+        SELECT * FROM ASMS_ROUTINE_LEAD_UNIT WHERE ROUTINE_MONITOR_ID = '${routineMonitorId}'
+    </select>
+
+</mapper>

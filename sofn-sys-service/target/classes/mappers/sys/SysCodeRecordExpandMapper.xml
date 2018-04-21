@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysCodeRecordExpandMapper">
+    <select id="getMaxOrderCode" resultType="integer">
+        select NVL(max(ORDER_CODE),0) from SYS_CODE_RECORD
+        where DEL_FLAG='N'
+        and CODE_TYPE=#{codeType}
+        and MANGE_TYPE=#{mangeType}
+        and CREDIT_CODE=#{creditCode}
+    </select>
+    <select id="updateMaxOrderCode" resultType="integer">
+        update SYS_CODE_RECORD
+        set ORDER_CODE=#{orderCode}
+        where DEL_FLAG='N'
+        and CODE_TYPE=#{codeType}
+        and MANGE_TYPE=#{mangeType}
+        and CREDIT_CODE=#{creditCode}
+        and rownum=1
+    </select>
+</mapper>

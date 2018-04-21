@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SystemPrivilegeMapMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SystemPrivilegeMap" >
+    <result column="PRIVILEGE" property="privilege" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PROPERTY" property="property" jdbcType="DECIMAL" />
+  </resultMap>
+  <insert id="insert" parameterType="com.sofn.model.generator.SystemPrivilegeMap" >
+    insert into SYSTEM_PRIVILEGE_MAP (PRIVILEGE, NAME, PROPERTY
+      )
+    values (#{privilege,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{property,jdbcType=DECIMAL}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select PRIVILEGE, NAME, PROPERTY
+    from SYSTEM_PRIVILEGE_MAP
+  </select>
+</mapper>

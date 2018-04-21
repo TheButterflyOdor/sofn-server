@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjRegiterMapper" >
+
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjRegiter" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="ENTITY_SCALE_NAME" property="entityScaleName" jdbcType="VARCHAR" />
+        <result column="ENTITY_TYPE_NAME" property="entityTypeName" jdbcType="VARCHAR" />
+        <result column="ENTITY_PROPERTY_NAME" property="entityPropertyName" jdbcType="VARCHAR" />
+        <result column="ENTITY_INDUSTRY_NAME" property="entityIndustryName" jdbcType="VARCHAR" />
+        <result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+        <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+        <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+        <result column="LEGAL_IDNUMBER" property="legalIdnumber" jdbcType="VARCHAR" />
+        <result column="LEGAL_PHONE" property="legalPhone" jdbcType="VARCHAR" />
+        <result column="LEGAL_IMAGES" property="legalImages" jdbcType="VARCHAR" />
+        <result column="FAX_NUMBER" property="faxNumber" jdbcType="VARCHAR" />
+        <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+        <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+        <result column="CONTACT_EMAIL" property="contactEmail" jdbcType="VARCHAR" />
+        <result column="REGISTER_TIME" property="registerTime" jdbcType="TIMESTAMP" />
+        <result column="APPROVE_STATUS" property="approveStatus" jdbcType="CHAR" />
+        <result column="APPROVE_OPINION" property="approveOpinion" jdbcType="VARCHAR" />
+        <result column="APPROVE_USER_IDCODE" property="approveUserIdcode" jdbcType="VARCHAR" />
+        <result column="APPROVE_NAME" property="approveName" jdbcType="VARCHAR" />
+        <result column="APPROVE_TIME" property="approveTime" jdbcType="TIMESTAMP" />
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+        <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+        <result column="IDCODE" property="idcode" jdbcType="VARCHAR" />
+        <result column="ENTITY_SCALE" property="entityScale" jdbcType="VARCHAR" />
+        <result column="ENTITY_TYPE" property="entityType" jdbcType="VARCHAR" />
+        <result column="ENTITY_PROPERTY" property="entityProperty" jdbcType="VARCHAR" />
+        <result column="ENTITY_INDUSTRY" property="entityIndustry" jdbcType="VARCHAR" />
+        <result column="ENTERPRISE_NAME" property="enterpriseName" jdbcType="VARCHAR" />
+        <result column="CARD_TYPE" property="cardType" jdbcType="CHAR" />
+        <result column="CREDIT_CODE" property="creditCode" jdbcType="VARCHAR" />
+        <result column="BUSINESS_OPERATION" property="businessOperation" jdbcType="VARCHAR" />
+        <result column="BUSINESS_OPERATION_START" property="businessOperationStart" jdbcType="TIMESTAMP" />
+        <result column="BUSINESS_OPERATION_END" property="businessOperationEnd" jdbcType="TIMESTAMP" />
+        <result column="ENTERPRISE_INDUSTRY" property="enterpriseIndustry" jdbcType="VARCHAR" />
+        <result column="ANNUAL_OUTPUT" property="annualOutput" jdbcType="VARCHAR" />
+        <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+        <result column="DOCUMENT_IMAGES" property="documentImages" jdbcType="VARCHAR" />
+        <result column="AREA" property="area" jdbcType="VARCHAR" />
+        <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="BUSINESS_LICENCEIMG" property="businessLicenceimg" jdbcType="VARCHAR" />
+        <result column="ORGANIZATION_CERTIFICATEIMG" property="organizationCertificateimg" jdbcType="VARCHAR" />
+        <result column="POSITIVE_IDCARDEIMG" property="positiveIdcardeimg" jdbcType="VARCHAR" />
+        <result column="NEGATIVE_IDCARDIMG" property="negativeIdcardimg" jdbcType="VARCHAR" />
+        <result column="HAND_IDCARDIMG" property="handIdcardimg" jdbcType="VARCHAR" />
+        <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+        <result column="IS_LONG" property="isLong" jdbcType="VARCHAR" />
+        <result column="ANNUAL_OUTPUT_X" property="annualOutputX" jdbcType="VARCHAR" />
+        <result column="ANNUAL_OUTPUT_S" property="annualOutputS" jdbcType="VARCHAR" />
+        <result column="UNIT_X" property="unitX" jdbcType="VARCHAR" />
+        <result column="UNIT_S" property="unitS" jdbcType="VARCHAR" />
+        <result column="UNIT_NAME_X" property="unitNameX" jdbcType="VARCHAR" />
+        <result column="UNIT_NAME_S" property="unitNameS" jdbcType="VARCHAR" />
+        <result column="INFO_UNIQUE" property="infoUnique" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from TTS_SCLTXXCJ_REGISTER_V2
+        where ID =#{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjRegiter" >
+        insert into TTS_SCLTXXCJ_REGISTER_V2 (ID
+        , ENTITY_SCALE_NAME
+        , ENTITY_TYPE_NAME
+        , ENTITY_PROPERTY_NAME
+        , ENTITY_INDUSTRY_NAME
+        , UNIT_NAME
+        , LATITUDE
+        , LEGAL_NAME
+        , LEGAL_IDNUMBER
+        , LEGAL_PHONE
+        , LEGAL_IMAGES
+        , FAX_NUMBER
+        , CONTACT_NAME
+        , CONTACT_PHONE
+        , CONTACT_EMAIL
+        , REGISTER_TIME
+        , APPROVE_STATUS
+        , APPROVE_OPINION
+        , APPROVE_USER_IDCODE
+        , APPROVE_NAME
+        , APPROVE_TIME
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , ACCOUNT
+        , REAL_NAME
+        , IDCODE
+        , ENTITY_SCALE
+        , ENTITY_TYPE
+        , ENTITY_PROPERTY
+        , ENTITY_INDUSTRY
+        , ENTERPRISE_NAME
+        , CARD_TYPE
+        , CREDIT_CODE
+        , BUSINESS_OPERATION
+        , BUSINESS_OPERATION_START
+        , BUSINESS_OPERATION_END
+        , ENTERPRISE_INDUSTRY
+        , ANNUAL_OUTPUT
+        , UNIT
+        , ADDRESS
+        , DOCUMENT_IMAGES
+        , AREA
+        , LONGITUDE
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , BUSINESS_LICENCEIMG
+        , ORGANIZATION_CERTIFICATEIMG
+        , POSITIVE_IDCARDEIMG
+        , NEGATIVE_IDCARDIMG
+        , HAND_IDCARDIMG
+        , ORGANIZATION_CODE
+        , IS_LONG
+        , ANNUAL_OUTPUT_X
+        , ANNUAL_OUTPUT_S
+        , UNIT_X
+        , UNIT_S
+        , UNIT_NAME_X
+        , UNIT_NAME_S
+        , INFO_UNIQUE
+        )
+        values (#{id,jdbcType=VARCHAR}
+        , #{entityScaleName,jdbcType=VARCHAR}
+        , #{entityTypeName,jdbcType=VARCHAR}
+        , #{entityPropertyName,jdbcType=VARCHAR}
+        , #{entityIndustryName,jdbcType=VARCHAR}
+        , #{unitName,jdbcType=VARCHAR}
+        , #{latitude,jdbcType=DECIMAL}
+        , #{legalName,jdbcType=VARCHAR}
+        , #{legalIdnumber,jdbcType=VARCHAR}
+        , #{legalPhone,jdbcType=VARCHAR}
+        , #{legalImages,jdbcType=VARCHAR}
+        , #{faxNumber,jdbcType=VARCHAR}
+        , #{contactName,jdbcType=VARCHAR}
+        , #{contactPhone,jdbcType=VARCHAR}
+        , #{contactEmail,jdbcType=VARCHAR}
+        , #{registerTime,jdbcType=TIMESTAMP}
+        , #{approveStatus,jdbcType=CHAR}
+        , #{approveOpinion,jdbcType=VARCHAR}
+        , #{approveUserIdcode,jdbcType=VARCHAR}
+        , #{approveName,jdbcType=VARCHAR}
+        , #{approveTime,jdbcType=TIMESTAMP}
+        , #{userIdcode,jdbcType=VARCHAR}
+        , #{entityIdcode,jdbcType=VARCHAR}
+        , #{account,jdbcType=VARCHAR}
+        , #{realName,jdbcType=VARCHAR}
+        , #{idcode,jdbcType=VARCHAR}
+        , #{entityScale,jdbcType=VARCHAR}
+        , #{entityType,jdbcType=VARCHAR}
+        , #{entityProperty,jdbcType=VARCHAR}
+        , #{entityIndustry,jdbcType=VARCHAR}
+        , #{enterpriseName,jdbcType=VARCHAR}
+        , #{cardType,jdbcType=CHAR}
+        , #{creditCode,jdbcType=VARCHAR}
+        , #{businessOperation,jdbcType=VARCHAR}
+        , #{businessOperationStart,jdbcType=TIMESTAMP}
+        , #{businessOperationEnd,jdbcType=TIMESTAMP}
+        , #{enterpriseIndustry,jdbcType=VARCHAR}
+        , #{annualOutput,jdbcType=VARCHAR}
+        , #{unit,jdbcType=VARCHAR}
+        , #{address,jdbcType=VARCHAR}
+        , #{documentImages,jdbcType=VARCHAR}
+        , #{area,jdbcType=VARCHAR}
+        , #{longitude,jdbcType=DECIMAL}
+        , #{delFlag,jdbcType=VARCHAR}
+        , #{createBy,jdbcType=VARCHAR}
+        , #{updateBy,jdbcType=VARCHAR}
+        , #{createTime,jdbcType=TIMESTAMP}
+        , #{updateTime,jdbcType=TIMESTAMP}
+        , #{businessLicenceimg,jdbcType=VARCHAR}
+        , #{organizationCertificateimg,jdbcType=VARCHAR}
+        , #{positiveIdcardeimg,jdbcType=VARCHAR}
+        , #{negativeIdcardimg,jdbcType=VARCHAR}
+        , #{handIdcardimg,jdbcType=VARCHAR}
+        , #{organizationCode,jdbcType=VARCHAR}
+        , #{isLong,jdbcType=VARCHAR}
+        , #{annualOutputX,jdbcType=VARCHAR}
+        , #{annualOutputS,jdbcType=VARCHAR}
+        , #{unitX,jdbcType=VARCHAR}
+        , #{unitS,jdbcType=VARCHAR}
+        , #{unitNameX,jdbcType=VARCHAR}
+        , #{unitNameS,jdbcType=VARCHAR}
+        , #{infoUnique,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjRegiter" >
+        update TTS_SCLTXXCJ_REGISTER_V2
+        set
+        <if test="entityScaleName != null and entityScaleName != ''">
+            ENTITY_SCALE_NAME =  #{entityScaleName,jdbcType=VARCHAR},
+        </if>
+        <if test="entityTypeName != null and entityTypeName != ''">
+            ENTITY_TYPE_NAME =  #{entityTypeName,jdbcType=VARCHAR},
+        </if>
+        <if test="entityPropertyName != null and entityPropertyName != ''">
+            ENTITY_PROPERTY_NAME =  #{entityPropertyName,jdbcType=VARCHAR},
+        </if>
+        <if test="entityIndustryName != null and entityIndustryName != ''">
+            ENTITY_INDUSTRY_NAME =  #{entityIndustryName,jdbcType=VARCHAR},
+        </if>
+        <if test="latitude != null and latitude != ''">
+            LATITUDE =  #{latitude,jdbcType=DECIMAL},
+        </if>
+        <if test="legalName != null and legalName != ''">
+            LEGAL_NAME =  #{legalName,jdbcType=VARCHAR},
+        </if>
+        <if test="legalIdnumber != null and legalIdnumber != ''">
+            LEGAL_IDNUMBER =  #{legalIdnumber,jdbcType=VARCHAR},
+        </if>
+        <if test="legalPhone != null and legalPhone != ''">
+            LEGAL_PHONE =  #{legalPhone,jdbcType=VARCHAR},
+        </if>
+        <if test="legalImages != null and legalImages != ''">
+            LEGAL_IMAGES =  #{legalImages,jdbcType=VARCHAR},
+        </if>
+        <if test="faxNumber != null and faxNumber != ''">
+            FAX_NUMBER =  #{faxNumber,jdbcType=VARCHAR},
+        </if>
+        <if test="contactName != null and contactName != ''">
+            CONTACT_NAME =  #{contactName,jdbcType=VARCHAR},
+        </if>
+        <if test="contactPhone != null and contactPhone != ''">
+            CONTACT_PHONE =  #{contactPhone,jdbcType=VARCHAR},
+        </if>
+        <if test="contactEmail != null and contactEmail != ''">
+            CONTACT_EMAIL =  #{contactEmail,jdbcType=VARCHAR},
+        </if>
+        <if test="registerTime != null and registerTime != ''">
+            REGISTER_TIME =  #{registerTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="approveStatus != null and approveStatus != ''">
+            APPROVE_STATUS =  #{approveStatus,jdbcType=CHAR},
+        </if>
+        <if test="approveOpinion != null and approveOpinion != ''">
+            APPROVE_OPINION =  #{approveOpinion,jdbcType=VARCHAR},
+        </if>
+        <if test="approveUserIdcode != null and approveUserIdcode != ''">
+            APPROVE_USER_IDCODE =  #{approveUserIdcode,jdbcType=VARCHAR},
+        </if>
+        <if test="approveName != null and approveName != ''">
+            APPROVE_NAME =  #{approveName,jdbcType=VARCHAR},
+        </if>
+        <if test="approveTime != null and approveTime != ''">
+            APPROVE_TIME =  #{approveTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="userIdcode != null and userIdcode != ''">
+            USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+        </if>
+        <if test="entityIdcode != null and entityIdcode != ''">
+            ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+        </if>
+        <if test="account != null and account != ''">
+            ACCOUNT =  #{account,jdbcType=VARCHAR},
+        </if>
+        <if test="realName != null and realName != ''">
+            REAL_NAME =  #{realName,jdbcType=VARCHAR},
+        </if>
+        <if test="idcode != null and idcode != ''">
+            IDCODE =  #{idcode,jdbcType=VARCHAR},
+        </if>
+        <if test="entityScale != null and entityScale != ''">
+            ENTITY_SCALE =  #{entityScale,jdbcType=VARCHAR},
+        </if>
+        <if test="entityType != null and entityType != ''">
+            ENTITY_TYPE =  #{entityType,jdbcType=VARCHAR},
+        </if>
+        <if test="entityProperty != null and entityProperty != ''">
+            ENTITY_PROPERTY =  #{entityProperty,jdbcType=VARCHAR},
+        </if>
+        <if test="entityIndustry != null and entityIndustry != ''">
+            ENTITY_INDUSTRY =  #{entityIndustry,jdbcType=VARCHAR},
+        </if>
+        <if test="enterpriseName != null and enterpriseName != ''">
+            ENTERPRISE_NAME =  #{enterpriseName,jdbcType=VARCHAR},
+        </if>
+        <if test="cardType != null and cardType != ''">
+            CARD_TYPE =  #{cardType,jdbcType=CHAR},
+        </if>
+        <if test="creditCode != null and creditCode != ''">
+            CREDIT_CODE =  #{creditCode,jdbcType=VARCHAR},
+        </if>
+        <if test="businessOperation != null and businessOperation != ''">
+            BUSINESS_OPERATION =  #{businessOperation,jdbcType=VARCHAR},
+        </if>
+        <if test="businessOperationStart != null and businessOperationStart != ''">
+            BUSINESS_OPERATION_START =  #{businessOperationStart,jdbcType=TIMESTAMP},
+        </if>
+        <if test="businessOperationEnd != null and businessOperationEnd != ''">
+            BUSINESS_OPERATION_END =  #{businessOperationEnd,jdbcType=TIMESTAMP},
+        </if>
+        <if test="enterpriseIndustry != null and enterpriseIndustry != ''">
+            ENTERPRISE_INDUSTRY =  #{enterpriseIndustry,jdbcType=VARCHAR},
+        </if>
+        <if test="address != null and address != ''">
+            ADDRESS =  #{address,jdbcType=VARCHAR},
+        </if>
+        <if test="documentImages != null and documentImages != ''">
+            DOCUMENT_IMAGES =  #{documentImages,jdbcType=VARCHAR},
+        </if>
+        <if test="area != null and area != ''">
+            AREA =  #{area,jdbcType=VARCHAR},
+        </if>
+        <if test="longitude != null and longitude != ''">
+            LONGITUDE =  #{longitude,jdbcType=DECIMAL},
+        </if>
+        <if test="delFlag != null and delFlag != ''">
+            DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+        </if>
+        <if test="createBy != null and createBy != ''">
+            CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+        </if>
+        <if test="updateBy != null and updateBy != ''">
+            UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="businessLicenceimg != null and businessLicenceimg != ''">
+            BUSINESS_LICENCEIMG =  #{businessLicenceimg,jdbcType=VARCHAR},
+        </if>
+        <if test="organizationCertificateimg != null and organizationCertificateimg != ''">
+            ORGANIZATION_CERTIFICATEIMG =  #{organizationCertificateimg,jdbcType=VARCHAR},
+        </if>
+        <if test="positiveIdcardeimg != null and positiveIdcardeimg != ''">
+            POSITIVE_IDCARDEIMG =  #{positiveIdcardeimg,jdbcType=VARCHAR},
+        </if>
+        <if test="negativeIdcardimg != null and negativeIdcardimg != ''">
+            NEGATIVE_IDCARDIMG =  #{negativeIdcardimg,jdbcType=VARCHAR},
+        </if>
+        <if test="organizationCode != null and organizationCode != ''">
+            ORGANIZATION_CODE =  #{organizationCode,jdbcType=VARCHAR},
+        </if>
+        <if test="isLong != null and isLong != ''">
+            IS_LONG =  #{isLong,jdbcType=VARCHAR},
+        </if>
+        <if test="handIdcardimg != null and handIdcardimg != ''">
+            HAND_IDCARDIMG =  #{handIdcardimg,jdbcType=VARCHAR},
+        </if>
+        <if test="infoUnique != null and infoUnique != ''">
+            INFO_UNIQUE =  #{infoUnique,jdbcType=VARCHAR},
+        </if>
+        ANNUAL_OUTPUT =  #{annualOutput,jdbcType=VARCHAR},
+        UNIT =  #{unit,jdbcType=VARCHAR},
+        UNIT_NAME =  #{unitName,jdbcType=VARCHAR},
+        ANNUAL_OUTPUT_X =  #{annualOutputX,jdbcType=VARCHAR},
+        ANNUAL_OUTPUT_S =  #{annualOutputS,jdbcType=VARCHAR},
+        UNIT_X =  #{unitX,jdbcType=VARCHAR},
+        UNIT_S =  #{unitS,jdbcType=VARCHAR},
+        UNIT_NAME_X =  #{unitNameX,jdbcType=VARCHAR},
+        UNIT_NAME_S =  #{unitNameS,jdbcType=VARCHAR}
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , ENTITY_SCALE_NAME
+    , ENTITY_TYPE_NAME
+    , ENTITY_PROPERTY_NAME
+    , ENTITY_INDUSTRY_NAME
+    , UNIT_NAME
+    , LATITUDE
+    , LEGAL_NAME
+    , LEGAL_IDNUMBER
+    , LEGAL_PHONE
+    , LEGAL_IMAGES
+    , FAX_NUMBER
+    , CONTACT_NAME
+    , CONTACT_PHONE
+    , CONTACT_EMAIL
+    , REGISTER_TIME
+    , APPROVE_STATUS
+    , APPROVE_OPINION
+    , APPROVE_USER_IDCODE
+    , APPROVE_NAME
+    , APPROVE_TIME
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    , ACCOUNT
+    , REAL_NAME
+    , IDCODE
+    , ENTITY_SCALE
+    , ENTITY_TYPE
+    , ENTITY_PROPERTY
+    , ENTITY_INDUSTRY
+    , ENTERPRISE_NAME
+    , CARD_TYPE
+    , CREDIT_CODE
+    , BUSINESS_OPERATION
+    , BUSINESS_OPERATION_START
+    , BUSINESS_OPERATION_END
+    , ENTERPRISE_INDUSTRY
+    , ANNUAL_OUTPUT
+    , UNIT
+    , ADDRESS
+    , DOCUMENT_IMAGES
+    , AREA
+    , LONGITUDE
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , BUSINESS_LICENCEIMG
+    , ORGANIZATION_CERTIFICATEIMG
+    , POSITIVE_IDCARDEIMG
+    , NEGATIVE_IDCARDIMG
+    , HAND_IDCARDIMG
+    , ORGANIZATION_CODE
+    , IS_LONG
+    , ANNUAL_OUTPUT_X
+    , ANNUAL_OUTPUT_S
+    , UNIT_X
+    , UNIT_S
+    , UNIT_NAME_X
+    , UNIT_NAME_S
+    , INFO_UNIQUE
+    from TTS_SCLTXXCJ_REGISTER_V2
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

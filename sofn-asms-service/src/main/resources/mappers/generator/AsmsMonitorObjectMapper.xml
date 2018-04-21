@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsMonitorObjectMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsMonitorObject">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="SUPERVISE_CHECK_TASK_ID" jdbcType="CHAR" property="superviseCheckTaskId" />
+    <result column="PRODUCT_TYPE" jdbcType="VARCHAR" property="productType" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+    <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+    <result column="SAMPLE_UNIT_ID" jdbcType="CHAR" property="sampleUnitId" />
+    <result column="DETECTION_UNIT_ID" jdbcType="CHAR" property="detectionUnitId" />
+    <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard" />
+    <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="MONITOR_NUM" jdbcType="VARCHAR" property="monitorNum" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="IS_SAMPLE" jdbcType="CHAR" property="isSample" />
+    <result column="DETECTION_ITEM" jdbcType="VARCHAR" property="detectionItem" />
+    <result column="DETECTION_ITEM_ID" jdbcType="VARCHAR" property="detectionItemId" />
+    <result column="PRODUCT_TYPE_ID" jdbcType="CHAR" property="productTypeId" />
+    <result column="PRODUCT_NAME_ID" jdbcType="CHAR" property="productNameId" />
+    <result column="AREA_ID" jdbcType="CHAR" property="areaId" />
+    <result column="INDUSTRY" jdbcType="VARCHAR" property="industry" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_MONITOR_OBJECT
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsMonitorObject">
+    insert into ASMS_MONITOR_OBJECT (ID, SUPERVISE_CHECK_TASK_ID, PRODUCT_TYPE, 
+      PRODUCT_NAME, TASK_BEGIN_TIME, TASK_END_TIME, 
+      SAMPLE_UNIT_ID, DETECTION_UNIT_ID, DETECTION_STANDARD, 
+      JUDGE_STANDARD, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, ENABLE, 
+      MONITOR_NUM, DEL_FLAG, IS_SAMPLE, 
+      DETECTION_ITEM, DETECTION_ITEM_ID, PRODUCT_TYPE_ID, 
+      PRODUCT_NAME_ID, AREA_ID, INDUSTRY
+      )
+    values (#{id,jdbcType=CHAR}, #{superviseCheckTaskId,jdbcType=CHAR}, #{productType,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{taskBeginTime,jdbcType=TIMESTAMP}, #{taskEndTime,jdbcType=TIMESTAMP}, 
+      #{sampleUnitId,jdbcType=CHAR}, #{detectionUnitId,jdbcType=CHAR}, #{detectionStandard,jdbcType=VARCHAR}, 
+      #{judgeStandard,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, 
+      #{monitorNum,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{isSample,jdbcType=CHAR}, 
+      #{detectionItem,jdbcType=VARCHAR}, #{detectionItemId,jdbcType=VARCHAR}, #{productTypeId,jdbcType=CHAR}, 
+      #{productNameId,jdbcType=CHAR}, #{areaId,jdbcType=CHAR}, #{industry,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsMonitorObject">
+    update ASMS_MONITOR_OBJECT
+    set SUPERVISE_CHECK_TASK_ID = #{superviseCheckTaskId,jdbcType=CHAR},
+      PRODUCT_TYPE = #{productType,jdbcType=VARCHAR},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      TASK_BEGIN_TIME = #{taskBeginTime,jdbcType=TIMESTAMP},
+      TASK_END_TIME = #{taskEndTime,jdbcType=TIMESTAMP},
+      SAMPLE_UNIT_ID = #{sampleUnitId,jdbcType=CHAR},
+      DETECTION_UNIT_ID = #{detectionUnitId,jdbcType=CHAR},
+      DETECTION_STANDARD = #{detectionStandard,jdbcType=VARCHAR},
+      JUDGE_STANDARD = #{judgeStandard,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      MONITOR_NUM = #{monitorNum,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      IS_SAMPLE = #{isSample,jdbcType=CHAR},
+      DETECTION_ITEM = #{detectionItem,jdbcType=VARCHAR},
+      DETECTION_ITEM_ID = #{detectionItemId,jdbcType=VARCHAR},
+      PRODUCT_TYPE_ID = #{productTypeId,jdbcType=CHAR},
+      PRODUCT_NAME_ID = #{productNameId,jdbcType=CHAR},
+      AREA_ID = #{areaId,jdbcType=CHAR},
+      INDUSTRY = #{industry,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, SUPERVISE_CHECK_TASK_ID, PRODUCT_TYPE, PRODUCT_NAME, TASK_BEGIN_TIME, 
+    TASK_END_TIME, SAMPLE_UNIT_ID, DETECTION_UNIT_ID, DETECTION_STANDARD, JUDGE_STANDARD, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, MONITOR_NUM, DEL_FLAG, IS_SAMPLE, 
+    DETECTION_ITEM, DETECTION_ITEM_ID, PRODUCT_TYPE_ID, PRODUCT_NAME_ID, AREA_ID, INDUSTRY
+    from ASMS_MONITOR_OBJECT
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, SUPERVISE_CHECK_TASK_ID, PRODUCT_TYPE, PRODUCT_NAME, TASK_BEGIN_TIME, 
+    TASK_END_TIME, SAMPLE_UNIT_ID, DETECTION_UNIT_ID, DETECTION_STANDARD, JUDGE_STANDARD, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, MONITOR_NUM, DEL_FLAG, IS_SAMPLE, 
+    DETECTION_ITEM, DETECTION_ITEM_ID, PRODUCT_TYPE_ID, PRODUCT_NAME_ID, AREA_ID, INDUSTRY
+    from ASMS_MONITOR_OBJECT
+  </select>
+</mapper>

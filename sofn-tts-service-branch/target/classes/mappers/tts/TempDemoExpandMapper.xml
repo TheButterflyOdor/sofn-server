@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TempDemoExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TempDemo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="DECIMAL" />
+    <result column="CJRQ" property="cjrq" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="getTempDemoList" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    select T.*,ROW_NUMBER() OVER(ORDER BY T.cjrq DESC) AS NUM from temp_demo t
+    where 1 = 1
+    <if test="name!=null and name!='' ">
+      and name LIKE '%'||#{name}||'%'
+    </if>
+    <if test="tel!=null and tel!='' ">
+      and tel LIKE '%'||#{tel}||'%'
+    </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  <select id="getTempDemoCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM Temp_Demo s
+    where 1 = 1
+    <if test="name!=null and name!='' ">
+      and name LIKE '%'||#{name}||'%'
+    </if>
+    <if test="tel!=null and tel!='' ">
+      and tel LIKE '%'||#{tel}||'%'
+    </if>
+  </select>
+
+
+</mapper>

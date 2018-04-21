@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsFileExpandMapper">
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsFile">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR"/>
+        <result column="MONITOR_TYPE" property="monitorType" jdbcType="VARCHAR"/>
+        <result column="FILE_ADDRESS" property="fileAddress" jdbcType="VARCHAR"/>
+        <result column="MONITOR_TASK_ID" property="monitorTaskId" jdbcType="VARCHAR"/>
+        <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR" />
+        <result column="MONITOR_TASK" property="monitorTask" jdbcType="VARCHAR"/>
+        <result column="UPLOAD_DEPARTMENT" property="uploadDepartment" jdbcType="VARCHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="YEARS" property="years" jdbcType="VARCHAR"/>
+        <result column="SOURCE" property="source" jdbcType="VARCHAR"/>
+        <result column="FOLDER" property="folder" jdbcType="VARCHAR"/>
+        <result column="FIELD" property="field" jdbcType="VARCHAR"/>
+
+        <result column="RN" property="rn" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getDlReportPage" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select
+        af.id,
+        af.FILE_NAME,
+        af.MONITOR_TYPE,
+        af.FILE_ADDRESS,
+        af.MONITOR_TASK_ID,
+        af.ORGAN_TASK_ID,
+        af.MONITOR_TASK,
+        af.UPLOAD_DEPARTMENT,
+        af.years,
+        af.SOURCE,
+        af.FOLDER,
+        af.FIELD,
+        af.CREATE_TIME
+        from ADS_FILE af, ADS_MONITOR_TASK amt, ADS_ORGAN_TASK aot
+        where 1 = 1
+        and af.ORGAN_TASK_ID = aot.Id
+        and aot.MONITOR_TASK_ID = amt.ID
+        <if test="organId!=null and organId!=''">
+            and amt.ORGAN_ID=#{organId}
+        </if>
+        <if test="years!=null and years!='' ">
+            AND af.years = #{years}
+        </if>
+        <if test="fileName!=null and fileName!=''">
+            AND lower(af.FILE_NAME) like '%' || lower(trim(#{fileName})) ||'%'
+        </if>
+        <if test="field!=null and field!=''">
+            AND af.FIELD=#{field}
+        </if>
+        <if test="monitorType!=null and monitorType!=''">
+            AND af.MONITOR_TYPE=#{monitorType}
+        </if>
+        <if test="monitorTask!=null and monitorTask!=''">
+            AND af.MONITOR_TASK=#{monitorTask}
+        </if>
+        <if test="monitorTaskId != null and monitorTaskId !=''">
+            AND af.MONITOR_TASK_ID=#{monitorTaskId}
+        </if>
+        <if test="source!=null and source!='' ">
+            AND af.SOURCE=#{source}
+        </if>
+        <if test="folder!=null and folder!='' ">
+            AND af.FOLDER=#{folder}
+        </if>
+        order by af.UPDATE_TIME desc,af.CREATE_TIME desc,af.id desc
+        ) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+      where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getPageInfo" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select
+        af.id,
+        af.FILE_NAME,
+        af.MONITOR_TYPE,
+        af.FILE_ADDRESS,
+        af.MONITOR_TASK_ID,
+        af.ORGAN_TASK_ID,
+        af.MONITOR_TASK,
+        af.UPLOAD_DEPARTMENT,
+        af.years,
+        af.SOURCE,
+        af.FOLDER,
+        af.FIELD,
+        af.CREATE_TIME
+        from ADS_FILE af
+        where 1 = 1
+        <if test="years!=null and years!='' ">
+            AND af.years = #{years}
+        </if>
+        <if test="fileName!=null and fileName!=''">
+            AND lower(af.FILE_NAME) like '%' || lower(trim(#{fileName})) ||'%'
+        </if>
+        <if test="field!=null and field!=''">
+            AND af.FIELD=#{field}
+        </if>
+        <if test="monitorType!=null and monitorType!=''">
+            AND af.MONITOR_TYPE=#{monitorType}
+        </if>
+        <if test="monitorTask!=null and monitorTask!=''">
+            AND af.MONITOR_TASK=#{monitorTask}
+        </if>
+        <if test="monitorTaskId != null and monitorTaskId !=''">
+            AND af.MONITOR_TASK_ID=#{monitorTaskId}
+        </if>
+        <if test="source!=null and source!='' ">
+            AND af.SOURCE=#{source}
+        </if>
+        <if test="folder!=null and folder!='' ">
+            AND af.FOLDER=#{folder}
+        </if>
+        <if test="createBy!=null and createBy!='' ">
+            AND af.CREATE_BY=#{createBy}
+        </if>
+        order by af.UPDATE_TIME desc,af.CREATE_TIME desc,af.id desc
+        ) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+      where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(1) from  ADS_FILE af
+        where 1 = 1
+        <if test="years!=null and years!=''">
+            AND af.years = #{years}
+        </if>
+        <if test="fileName!=null and fileName!=''">
+            AND lower(af.FILE_NAME) like '%' || lower(trim(#{fileName})) ||'%'
+        </if>
+        <if test="field!=null and field!='' ">
+            AND af.FIELD=#{field}
+        </if>
+        <if test="monitorType!=null and monitorType!=''">
+            AND af.MONITOR_TYPE=#{monitorType}
+        </if>
+        <if test="monitorTask!=null and monitorTask!=''">
+            AND af.MONITOR_TASK=#{monitorTask}
+        </if>
+        <if test="monitorTaskId != null and monitorTaskId !=''">
+            AND af.MONITOR_TASK_ID=#{monitorTaskId}
+        </if>
+        <if test="source!=null and source!='' ">
+            AND af.SOURCE=#{source}
+        </if>
+        <if test="folder!=null and folder!='' ">
+            AND af.FOLDER=#{folder}
+        </if>
+        <if test="createBy!=null and createBy!='' ">
+            AND af.CREATE_BY=#{createBy}
+        </if>
+  </select>
+
+    <select id="getField" parameterType="hashmap" resultMap="BaseResultMap">
+        select DISTINCT af.FIELD
+        from ADS_FILE af
+    </select>
+
+    <select id="getIdByOrganTask" parameterType="hashmap" resultMap="BaseResultMap">
+        select DISTINCT af.ID
+        from ADS_FILE af
+        where 1 = 1
+        <if test="organTaskId!=null ">
+            and af.ORGAN_TASK_ID=#{organTaskId}
+        </if>
+    </select>
+
+    <select id="getType" parameterType="hashmap" resultMap="BaseResultMap">
+        select DISTINCT af.MONITOR_TYPE
+        from ADS_FILE af
+    </select>
+
+    <select id="getYear" parameterType="hashmap" resultMap="BaseResultMap">
+        select DISTINCT af.years
+        from ADS_FILE af
+    </select>
+
+    <select id="getTask" parameterType="hashmap" resultMap="BaseResultMap">
+        select DISTINCT af.MONITOR_TASK
+        from ADS_FILE af,
+             ADS_ORGAN_TASK aot,
+             ADS_MONITOR_TASK amt
+        where 1 = 1
+        and af.del_flag!='Y'
+        and af.ORGAN_TASK_ID = aot.Id
+        and aot.MONITOR_TASK_ID = amt.ID
+        <if test="organId!=null and organId!=''">
+            and amt.ORGAN_ID=#{organId}
+        </if>
+        <if test="field!=null and field!=''">
+            and af.field=#{field}
+        </if>
+        <if test="folder!=null and folder!=''">
+            and af.folder=#{folder}
+        </if>
+        <if test="monitorType!=null and monitorType!=''">
+            and af.monitor_type=#{monitorType}
+        </if>
+        <if test="source!=null and source!=''">
+            and af.source=#{source}
+        </if>
+    </select>
+
+
+    <select id="getPageInfoProblemFile" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select so.ID,
+        so.MONITOR_TASK,
+        so.YEARS,
+        so.FILE_ADDRESS,
+        so.FILE_NAME,
+        so.CREATE_TIME
+        from ADS_FILE so
+        where 1 = 1
+        AND so.DEL_FLAG != 'Y'
+        <if test="years!=null and years!='All' and years !=''">
+            AND so.years = #{years}
+        </if>
+        <if test="field!=null and field!=''">
+            AND lower(so.FIELD) like '%' || lower(trim(#{field})) ||'%'
+        </if>
+        <if test="monitorType!=null and monitorType!=''">
+            AND lower(so.MONITOR_TYPE) like '%' || lower(trim(#{monitorType})) ||'%'
+        </if>
+        <if test="folder != null and folder != ''">
+            AND so.FOLDER = #{folder}
+        </if>
+        <if test="monitorTask != null and monitorTask != ''">
+            AND so.MONITOR_TASK = #{monitorTask}
+        </if>
+        <if test="uploadDepartment != null and uploadDepartment != ''">
+            AND so.UPLOAD_DEPARTMENT = #{uploadDepartment}
+        </if>
+        order by so.update_time desc,
+        so.create_time desc，so.id desc) tmp
+        <![CDATA[
+          where rownum <= #{pageSize}*#{pageNum}) t
+     where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountProblemFile" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ADS_FILE so
+        where 1 = 1
+        AND so.DEL_FLAG != 'Y'
+        <if test="years!=null and years!='All' and years !=''">
+            AND so.years = #{years}
+        </if>
+        <if test="field!=null and field!=''">
+            AND lower(so.FIELD) like '%' || lower(trim(#{field})) ||'%'
+        </if>
+        <if test="monitorType!=null and monitorType!=''">
+            AND lower(so.MONITOR_TYPE) like '%' || lower(trim(#{monitorType})) ||'%'
+        </if>
+        <if test="folder != null and folder != ''">
+            AND so.FOLDER = #{folder}
+        </if>
+        <if test="monitorTask != null and monitorTask != ''">
+            AND so.MONITOR_TASK = #{monitorTask}
+        </if>
+        <if test="uploadDepartment != null and uploadDepartment != ''">
+        AND so.UPLOAD_DEPARTMENT = #{uploadDepartment}
+        </if>
+    </select>
+
+    <update id="updateForFile" parameterType="com.sofn.model.generator.AdsFile" >
+        update ADS_FILE
+        set
+        FILE_NAME =  #{fileName,jdbcType=VARCHAR},
+        FILE_ADDRESS =  #{fileAddress,jdbcType=VARCHAR},
+        UPDATE_TIME =  sysdate
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+    <!--添加MONITOR_TASK_ID作为查询条件-->
+    <select id="getAdsFileByCondition" parameterType="hashmap" resultMap="BaseResultMap">
+        select DISTINCT af.ID
+        from ADS_FILE af
+        where 1 = 1
+        <if test="monitorTaskId!=null ">
+            and af.MONITOR_TASK_ID=#{monitorTaskId}
+        </if>
+        <if test="organTaskId!=null ">
+            and af.ORGAN_TASK_ID=#{organTaskId}
+        </if>
+        <if test="source!=null and source!=''">
+            and af.source=#{source}
+        </if>
+    </select>
+
+    <select id="getAdsFileBySupId" parameterType="hashmap" resultType="java.util.Map">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select af.years
+        , af.monitor_task
+        , af.UPLOAD_DEPARTMENT
+        , af.file_name
+        , af.file_address
+        from ads_monitor_task amt,ads_file af
+        where 1=1 and af.del_flag != 'Y'
+        and amt.del_flag != 'Y'
+        and amt.id = af.monitor_task_id
+        and af.source = '牵头单位'
+        and af.folder = 'no'
+        <if test="supId != null and supId != ''">
+            and amt.sup_id = #{supId}
+        </if>
+        order by amt.year desc,amt.create_time desc,amt.update_time desc,amt.id desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+        where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountBySupId" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ads_monitor_task amt,ads_file af
+        where 1=1 and af.del_flag != 'Y'
+        and amt.del_flag != 'Y'
+        and amt.id = af.monitor_task_id
+        and af.source = '牵头单位'
+        and af.folder = 'no'
+        <if test="supId != null and supId != ''">
+            and amt.sup_id = #{supId}
+        </if>
+    </select>
+</mapper>

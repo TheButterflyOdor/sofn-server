@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsSubjEntTempMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjEntTemp">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="ENTITY_NAME" jdbcType="VARCHAR" property="entityName" />
+    <result column="ENTITY_SCALE" jdbcType="VARCHAR" property="entityScale" />
+    <result column="ENTITY_SCALE_ID" jdbcType="VARCHAR" property="entityScaleId" />
+    <result column="ENTITY_TYPE" jdbcType="VARCHAR" property="entityType" />
+    <result column="ENTITY_TYPE_ID" jdbcType="VARCHAR" property="entityTypeId" />
+    <result column="ENTITY_INDUSTRY" jdbcType="VARCHAR" property="entityIndustry" />
+    <result column="ENTITY_INDUSTRY_ID" jdbcType="VARCHAR" property="entityIndustryId" />
+    <result column="CRED_TYPE" jdbcType="VARCHAR" property="credType" />
+    <result column="CRED_TIME" jdbcType="VARCHAR" property="credTime" />
+    <result column="ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+    <result column="CONTACT_NAME" jdbcType="VARCHAR" property="contactName" />
+    <result column="CONTACT_PHONE" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="CONTACT_EMAIL" jdbcType="VARCHAR" property="contactEmail" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_SUPERVISE_ID" jdbcType="CHAR" property="createSuperviseId" />
+    <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="BUSINESS_LICENCEIMG" jdbcType="VARCHAR" property="businessLicenceimg" />
+    <result column="ORGANIZATION_CERTIFICATEIMG" jdbcType="VARCHAR" property="organizationCertificateimg" />
+    <result column="POSITIVE_IDCARDEIMG" jdbcType="VARCHAR" property="positiveIdcardeimg" />
+    <result column="NEGATIVE_IDCARDIMG" jdbcType="VARCHAR" property="negativeIdcardimg" />
+    <result column="HAND_IDCARDIMG" jdbcType="VARCHAR" property="handIdcardimg" />
+    <result column="ATTACHMENT_ADDRESS" jdbcType="VARCHAR" property="attachmentAddress" />
+    <result column="ATTACHMENT_NAME" jdbcType="VARCHAR" property="attachmentName" />
+    <result column="ORGANIZATION_CODE" jdbcType="VARCHAR" property="organizationCode" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_SUBJ_ENT_TEMP
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsSubjEntTemp">
+    insert into ASMS_SUBJ_ENT_TEMP (ID, ENTITY_NAME, ENTITY_SCALE, 
+      ENTITY_SCALE_ID, ENTITY_TYPE, ENTITY_TYPE_ID, 
+      ENTITY_INDUSTRY, ENTITY_INDUSTRY_ID, CRED_TYPE, 
+      CRED_TIME, ORG_CODE, AREA_ID, 
+      CONTACT_NAME, CONTACT_PHONE, CONTACT_EMAIL, 
+      CREATE_BY, CREATE_TIME, CREATE_SUPERVISE_ID, 
+      UPDATE_BY, UPDATE_TIME, ENABLE, 
+      DEL_FLAG, ADDRESS, IDENTITY_CODE,
+      BUSINESS_LICENCEIMG, ORGANIZATION_CERTIFICATEIMG,
+      POSITIVE_IDCARDEIMG, NEGATIVE_IDCARDIMG, HAND_IDCARDIMG,
+      ATTACHMENT_ADDRESS, ATTACHMENT_NAME, ORGANIZATION_CODE
+      )
+    values (#{id,jdbcType=CHAR}, #{entityName,jdbcType=VARCHAR}, #{entityScale,jdbcType=VARCHAR}, 
+      #{entityScaleId,jdbcType=VARCHAR}, #{entityType,jdbcType=VARCHAR}, #{entityTypeId,jdbcType=VARCHAR}, 
+      #{entityIndustry,jdbcType=VARCHAR}, #{entityIndustryId,jdbcType=VARCHAR}, #{credType,jdbcType=VARCHAR}, 
+      #{credTime,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, #{areaId,jdbcType=VARCHAR}, 
+      #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, #{contactEmail,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createSuperviseId,jdbcType=CHAR}, 
+      #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{identityCode,jdbcType=VARCHAR},
+      #{businessLicenceimg,jdbcType=VARCHAR}, #{organizationCertificateimg,jdbcType=VARCHAR},
+      #{positiveIdcardeimg,jdbcType=VARCHAR}, #{negativeIdcardimg,jdbcType=VARCHAR},
+      #{handIdcardimg,jdbcType=VARCHAR}, #{attachmentAddress,jdbcType=VARCHAR},
+      #{attachmentName,jdbcType=VARCHAR}, #{organizationCode,jdbcType=VARCHAR}
+    )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsSubjEntTemp">
+    update ASMS_SUBJ_ENT_TEMP
+    set ENTITY_NAME = #{entityName,jdbcType=VARCHAR},
+      ENTITY_SCALE = #{entityScale,jdbcType=VARCHAR},
+      ENTITY_SCALE_ID = #{entityScaleId,jdbcType=VARCHAR},
+      ENTITY_TYPE = #{entityType,jdbcType=VARCHAR},
+      ENTITY_TYPE_ID = #{entityTypeId,jdbcType=VARCHAR},
+      ENTITY_INDUSTRY = #{entityIndustry,jdbcType=VARCHAR},
+      ENTITY_INDUSTRY_ID = #{entityIndustryId,jdbcType=VARCHAR},
+      CRED_TYPE = #{credType,jdbcType=VARCHAR},
+      CRED_TIME = #{credTime,jdbcType=VARCHAR},
+      ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      AREA_ID = #{areaId,jdbcType=VARCHAR},
+      CONTACT_NAME = #{contactName,jdbcType=VARCHAR},
+      CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      CONTACT_EMAIL = #{contactEmail,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_SUPERVISE_ID = #{createSuperviseId,jdbcType=CHAR},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      IDENTITY_CODE = #{identityCode,jdbcType=VARCHAR},
+      BUSINESS_LICENCEIMG = #{businessLicenceimg,jdbcType=VARCHAR},
+      ORGANIZATION_CERTIFICATEIMG = #{organizationCertificateimg,jdbcType=VARCHAR},
+      POSITIVE_IDCARDEIMG = #{positiveIdcardeimg,jdbcType=VARCHAR},
+      NEGATIVE_IDCARDIMG = #{negativeIdcardimg,jdbcType=VARCHAR},
+      HAND_IDCARDIMG = #{handIdcardimg,jdbcType=VARCHAR},
+      ATTACHMENT_ADDRESS = #{attachmentAddress,jdbcType=VARCHAR},
+      ATTACHMENT_NAME = #{attachmentName,jdbcType=VARCHAR},
+      ORGANIZATION_CODE = #{organizationCode,jdbcType=VARCHAR},
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, ENTITY_NAME, ENTITY_SCALE, ENTITY_SCALE_ID, ENTITY_TYPE, ENTITY_TYPE_ID, 
+    ENTITY_INDUSTRY, ENTITY_INDUSTRY_ID, CRED_TYPE, CRED_TIME, ORG_CODE, AREA_ID, CONTACT_NAME, 
+    CONTACT_PHONE, CONTACT_EMAIL, CREATE_BY, CREATE_TIME, CREATE_SUPERVISE_ID, UPDATE_BY, 
+    UPDATE_TIME, ENABLE, DEL_FLAG, ADDRESS, IDENTITY_CODE, BUSINESS_LICENCEIMG, ORGANIZATION_CERTIFICATEIMG,
+    POSITIVE_IDCARDEIMG, NEGATIVE_IDCARDIMG, HAND_IDCARDIMG, ATTACHMENT_ADDRESS, ATTACHMENT_NAME, ORGANIZATION_CODE
+    from ASMS_SUBJ_ENT_TEMP
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, ENTITY_NAME, ENTITY_SCALE, ENTITY_SCALE_ID, ENTITY_TYPE, ENTITY_TYPE_ID, 
+    ENTITY_INDUSTRY, ENTITY_INDUSTRY_ID, CRED_TYPE, CRED_TIME, ORG_CODE, AREA_ID, CONTACT_NAME, 
+    CONTACT_PHONE, CONTACT_EMAIL, CREATE_BY, CREATE_TIME, CREATE_SUPERVISE_ID, UPDATE_BY, 
+    UPDATE_TIME, ENABLE, DEL_FLAG, ADDRESS, IDENTITY_CODE, BUSINESS_LICENCEIMG, ORGANIZATION_CERTIFICATEIMG,
+    POSITIVE_IDCARDEIMG, NEGATIVE_IDCARDIMG, HAND_IDCARDIMG, ATTACHMENT_ADDRESS, ATTACHMENT_NAME, ORGANIZATION_CODE
+    from ASMS_SUBJ_ENT_TEMP
+  </select>
+</mapper>

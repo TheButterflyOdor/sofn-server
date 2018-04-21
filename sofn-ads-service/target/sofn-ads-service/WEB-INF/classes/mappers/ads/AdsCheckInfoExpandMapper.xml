@@ -1,0 +1,1339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sofn.dao.ads.AdsCheckInfoExpandMapper" >
+
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsCheckInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR" />
+    <result column="SAMPLE_BAR_CODE" property="sampleBarCode" jdbcType="VARCHAR" />
+    <result column="MONITOR_SAMPLE_ID" property="monitorSampleId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TRACEABILITY_CODE" property="productTraceabilityCode" jdbcType="VARCHAR" />
+    <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR" />
+    <result column="SAMPLE_NAME" property="sampleName" jdbcType="VARCHAR" />
+    <result column="CHECK_LINK" property="checkLink" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="CHECK_ORGAN_ID" property="checkOrganId" jdbcType="VARCHAR" />
+    <result column="CHECK_ORGAN" property="checkOrgan" jdbcType="VARCHAR" />
+    <result column="CHECK_REPORT" property="checkReport" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="TESTED_DEPARMENT" property="testedDeparment" jdbcType="VARCHAR" />
+    <result column="SAMPLE_DEPARMENT" property="sampleDeparment" jdbcType="VARCHAR" />
+    <result column="SAMPLE_DATE" property="sampleDate" jdbcType="VARCHAR" />
+    <result column="MONITOR_TASK_ID" property="monitorTaskId" jdbcType="VARCHAR" />
+    <result column="YEAR" property="year" jdbcType="VARCHAR" />
+    <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR" />
+    <result column="CHECK_NUM" property="checkNum" jdbcType="VARCHAR" />
+    <result column="JUDGE_NUM" property="judgeNum" jdbcType="VARCHAR" />
+    <result column="CHECK_INFO_ID" property="checkInfoId" jdbcType="VARCHAR" />
+
+     <result column="PUBLISH_STATUS" property="publishStatus" jdbcType="DECIMAL"/>
+
+     <result column="TRADE_MARK" property="tradeMark" jdbcType="VARCHAR" />
+     <result column="PACKING" property="packing" jdbcType="VARCHAR" />
+     <result column="GRADE" property="grade" jdbcType="VARCHAR" />
+     <result column="IDENTIFY" property="identify" jdbcType="VARCHAR" />
+     <result column="SPECIFICATION" property="specification" jdbcType="VARCHAR" />
+     <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
+     <result column="PRODUCE_DATE" property="produceDate" jdbcType="VARCHAR" />
+     <result column="PRODUCE_CERTIFICATE" property="produceCertificate" jdbcType="VARCHAR" />
+     <result column="CERTIFICATE_CODE" property="certificateCode" jdbcType="VARCHAR" />
+     <result column="SAMPLE_BASE" property="sampleBase" jdbcType="DECIMAL" />
+     <result column="SAMPLE_PLACE" property="samplePlace" jdbcType="VARCHAR" />
+     <result column="TESTED_ADDRESS" property="testedAddress" jdbcType="VARCHAR" />
+     <result column="TESTED_LEGALREP" property="testedLegalrep" jdbcType="VARCHAR" />
+     <result column="TESTED_LINKMAN" property="testedLinkman" jdbcType="VARCHAR" />
+     <result column="TESTED_LINKMANPHONE" property="testedLinkmanphone" jdbcType="VARCHAR" />
+     <result column="TESTED_LINKMANFAX" property="testedLinkmanfax" jdbcType="VARCHAR" />
+     <result column="TESTED_PERSON" property="testedPerson" jdbcType="VARCHAR" />
+     <result column="TESTED_PERSONPHONE" property="testedPersonphone" jdbcType="VARCHAR" />
+     <result column="TESTED_PERSONFAX" property="testedPersonfax" jdbcType="VARCHAR" />
+     <result column="PRODUCTIONS_TATUS" property="productionsTatus" jdbcType="VARCHAR" />
+     <result column="PRODUCTION_DEPARMENT" property="productionDeparment" jdbcType="VARCHAR" />
+     <result column="PRODUCTION_ADDRESS" property="productionAddress" jdbcType="VARCHAR" />
+     <result column="PRODUCTION_ZIPCODE" property="productionZipcode" jdbcType="VARCHAR" />
+     <result column="PRODUCTION_LINKMAN" property="productionLinkman" jdbcType="VARCHAR" />
+     <result column="PRODUCTION_LINKMANPHONE" property="productionLinkmanphone" jdbcType="VARCHAR" />
+     <result column="PRODUCTION_LINKMANFAX" property="productionLinkmanfax" jdbcType="VARCHAR" />
+     <result column="SAMPLE_ID" property="sampleId" jdbcType="VARCHAR" />
+     <result column="SAMPLE_LINKMAN" property="sampleLinkman" jdbcType="VARCHAR" />
+     <result column="SAMPLE_ADDRESS" property="sampleAddress" jdbcType="VARCHAR" />
+     <result column="SAMPLE_ZIPCODE" property="sampleZipcode" jdbcType="VARCHAR" />
+     <result column="SAMPLE_PHONE" property="samplePhone" jdbcType="VARCHAR" />
+     <result column="SAMPLE_FAX" property="sampleFax" jdbcType="VARCHAR" />
+     <result column="SAMPLE_EMAIL" property="sampleEmail" jdbcType="VARCHAR" />
+     <result column="PROOF" property="proof" jdbcType="VARCHAR" />
+     <result column="SAMPLE_PERSON" property="samplePerson" jdbcType="VARCHAR" />
+     <result column="SAMPLE_REPORT" property="sampleReport" jdbcType="VARCHAR" />
+     <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+
+     <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+     <result column="PRODUCING_AREA" property="producingArea" jdbcType="VARCHAR" />
+
+     <result column="TESTED_DEPARMENT" property="testedDeparment" jdbcType="VARCHAR" />
+     <result column="SAMPLE_DEPARMENT" property="sampleDeparment" jdbcType="VARCHAR" />
+     <result column="RN" property="rn" jdbcType="INTEGER" />
+
+
+  </resultMap>
+    <resultMap id="monitorMap" type="com.sofn.model.generator.AdsMonitorSample" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR" />
+        <result column="PRODUCT_TRACEABILITY_CODE" property="productTraceabilityCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_BAR_CODE" property="sampleBarCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_NAME" property="sampleName" jdbcType="VARCHAR" />
+        <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR" />
+        <result column="TRADE_MARK" property="tradeMark" jdbcType="VARCHAR" />
+        <result column="PACKING" property="packing" jdbcType="VARCHAR" />
+        <result column="GRADE" property="grade" jdbcType="VARCHAR" />
+        <result column="IDENTIFY" property="identify" jdbcType="VARCHAR" />
+        <result column="SPECIFICATION" property="specification" jdbcType="VARCHAR" />
+        <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
+        <result column="PRODUCE_DATE" property="produceDate" jdbcType="VARCHAR" />
+        <result column="PRODUCE_CERTIFICATE" property="produceCertificate" jdbcType="VARCHAR" />
+        <result column="CERTIFICATE_CODE" property="certificateCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_BASE" property="sampleBase" jdbcType="DECIMAL" />
+        <result column="SAMPLE_PLACE" property="samplePlace" jdbcType="VARCHAR" />
+        <result column="TESTED_DEPARMENT" property="testedDeparment" jdbcType="VARCHAR" />
+        <result column="TESTED_ADDRESS" property="testedAddress" jdbcType="VARCHAR" />
+        <result column="TESTED_LEGALREP" property="testedLegalrep" jdbcType="VARCHAR" />
+        <result column="TESTED_LINKMAN" property="testedLinkman" jdbcType="VARCHAR" />
+        <result column="TESTED_LINKMANPHONE" property="testedLinkmanphone" jdbcType="VARCHAR" />
+        <result column="TESTED_LINKMANFAX" property="testedLinkmanfax" jdbcType="VARCHAR" />
+        <result column="TESTED_PERSON" property="testedPerson" jdbcType="VARCHAR" />
+        <result column="TESTED_PERSONPHONE" property="testedPersonphone" jdbcType="VARCHAR" />
+        <result column="TESTED_PERSONFAX" property="testedPersonfax" jdbcType="VARCHAR" />
+        <result column="PRODUCTIONS_TATUS" property="productionsTatus" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_DEPARMENT" property="productionDeparment" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_ADDRESS" property="productionAddress" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_ZIPCODE" property="productionZipcode" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_LINKMAN" property="productionLinkman" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_LINKMANPHONE" property="productionLinkmanphone" jdbcType="VARCHAR" />
+        <result column="PRODUCTION_LINKMANFAX" property="productionLinkmanfax" jdbcType="VARCHAR" />
+        <result column="SAMPLE_ID" property="sampleId" jdbcType="VARCHAR" />
+        <result column="SAMPLE_DEPARMENT" property="sampleDeparment" jdbcType="VARCHAR" />
+        <result column="SAMPLE_LINKMAN" property="sampleLinkman" jdbcType="VARCHAR" />
+        <result column="SAMPLE_ADDRESS" property="sampleAddress" jdbcType="VARCHAR" />
+        <result column="SAMPLE_ZIPCODE" property="sampleZipcode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_PHONE" property="samplePhone" jdbcType="VARCHAR" />
+        <result column="SAMPLE_FAX" property="sampleFax" jdbcType="VARCHAR" />
+        <result column="SAMPLE_EMAIL" property="sampleEmail" jdbcType="VARCHAR" />
+        <result column="PROOF" property="proof" jdbcType="VARCHAR" />
+        <result column="SAMPLE_PERSON" property="samplePerson" jdbcType="VARCHAR" />
+        <result column="SAMPLE_DATE" property="sampleDate" jdbcType="TIMESTAMP" />
+        <result column="SAMPLE_REPORT" property="sampleReport" jdbcType="VARCHAR" />
+        <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="SAMPLE_NUMBER" property="sampleNumber" jdbcType="DECIMAL" />
+        <result column="SAMPLE_NUMBER_UNIT" property="sampleNumberUnit" jdbcType="VARCHAR" />
+        <result column="SAMPLE_BASE_UNIT" property="sampleBaseUnit" jdbcType="VARCHAR" />
+        <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+        <result column="FILE_ADDRESS" property="fileAddress" jdbcType="VARCHAR" />
+
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+        <result column="PRODUCING_AREA" property="producingArea" jdbcType="VARCHAR" />
+        <result column="PRODUCING_AREA_NAME" property="producingAreaName" jdbcType="VARCHAR" />
+
+    </resultMap>
+    <select id="getSampleBySampleCode" parameterType="hashmap" resultMap="monitorMap">
+        select
+       a.TRADE_MARK,
+       a.PACKING,
+       a.GRADE,
+       a.IDENTIFY,
+       a.SPECIFICATION,
+       a.STANDARD,
+       to_char(a.PRODUCE_DATE,'yyyy-mm-dd hh:mm:ss') PRODUCE_DATE,
+       a.PRODUCE_CERTIFICATE,
+       a.CERTIFICATE_CODE,
+       a.SAMPLE_BASE,
+       a.SAMPLE_BASE_UNIT,
+       a.SAMPLE_NUMBER,
+       a.SAMPLE_NUMBER_UNIT,
+       a.SAMPLE_PLACE,
+       a.TESTED_DEPARMENT,
+       a.TESTED_ADDRESS,
+       a.TESTED_LEGALREP,
+       a.TESTED_LINKMAN,
+       a.TESTED_LINKMANPHONE,
+       a.TESTED_LINKMANFAX,
+       a.TESTED_PERSON,
+       a.TESTED_PERSONPHONE,
+       a.TESTED_PERSONFAX,
+       a.PRODUCTIONS_TATUS,
+       a.PRODUCTION_DEPARMENT,
+       a.PRODUCTION_ADDRESS,
+       a.PRODUCTION_ZIPCODE,
+       a.PRODUCTION_LINKMAN,
+       a.PRODUCTION_LINKMANPHONE,
+       a.PRODUCTION_LINKMANFAX,
+       a.SAMPLE_ID,
+       a.SAMPLE_DEPARMENT,
+       a.SAMPLE_LINKMAN,
+       a.SAMPLE_ADDRESS,
+       a.SAMPLE_ZIPCODE,
+       a.SAMPLE_PHONE,
+       a.SAMPLE_FAX,
+       a.SAMPLE_EMAIL,
+       a.PROOF,
+       a.SAMPLE_PERSON,
+       a.SAMPLE_DATE,
+       a.SAMPLE_REPORT,
+       a."COMMENT",
+       to_char(a.SAMPLE_NUMBER)SAMPLE_NUMBER,
+       a.SAMPLE_NUMBER_UNIT,
+       a.SAMPLE_BASE_UNIT,
+       a.FILE_NAME,
+       a.FILE_ADDRESS,
+       a.PRODUCING_AREA_NAME
+  from ads_monitor_sample a, ads_check_info b
+  where a.id = b.monitor_sample_id
+   and b.SAMPLE_CODE = #{sampleCode}
+
+    </select>
+
+  <select id="getPageInfo"
+
+          parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from ADS_CHECK_INFO T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(1) FROM
+      ads_monitor_sample a,
+      ads_check_info     b,
+      ads_organ_task     c,
+      ads_monitor_task   d
+    where 1 = 1
+      and b.ORGAN_TASK_ID = c.id
+      and c.MONITOR_TASK_ID = d.id
+      AND b.DEL_FLAG != 'Y'
+      and a.id = b.MONITOR_SAMPLE_ID
+      and d.MONITOR_CLASS=#{monitorClass}
+      <if test="year!=null and year!=''">
+          AND d.YEAR = #{year}
+      </if>
+      <if test="taskName!=null and taskName!=''">
+          AND d.TASK_NAME=#{taskName}
+      </if>
+      <if test="productTraceabilityCode!=null and productTraceabilityCode!=''">
+          AND lower(b.PRODUCT_TRACEABILITY_CODE ) like '%' || lower(trim(#{productTraceabilityCode})) ||'%'
+      </if>
+      <if test="sampleCode!=null and sampleCode!=''">
+          AND lower(b.SAMPLE_CODE) like '%' || lower(trim(#{sampleCode})) ||'%'
+      </if>
+      <if test="sampleName!=null and sampleName!=''">
+          AND lower(b.SAMPLE_NAME) like '%' || lower(trim(#{sampleName})) ||'%'
+      </if>
+      <if test="result!=null and result!=''">
+          AND b.RESULT = #{result}
+      </if>
+      <if test="sampleDeparment!=null and sampleDeparment!=''">
+          AND lower(a.SAMPLE_DEPARMENT) like '%' || lower(trim(#{sampleDeparment})) ||'%'
+      </if>
+      <if test="checkLink!=null and checkLink!=''">
+          AND b.CHECK_LINK=#{checkLink}
+      </if>
+      <if test="checkOrgan!=null and checkOrgan!=''">
+          AND lower(b.CHECK_ORGAN) like '%' || lower(trim(#{checkOrgan})) ||'%'
+      </if>
+
+      <if test="startTime!=null and startTime!=''">
+          AND b.CHECK_TIME &gt;=to_date(#{startTime},'yyyy-MM-dd')
+      </if>
+      <if test="endTime!=null and endTime!=''">
+          AND b.CHECK_TIME &lt;=to_date(#{endTime},'yyyy-MM-dd')+1
+      </if>
+      <if test="testedDeparment!=null and testedDeparment!=''">
+          AND lower(a.TESTED_DEPARMENT) like '%' || lower(trim(#{testedDeparment})) ||'%'
+      </if>
+      <if test="producingArea!=null and producingArea!=''">
+          AND lower(a.PRODUCING_AREA) like '%' || lower(trim(#{producingArea})) ||'%'
+      </if>
+      <if test="cityCode!=null and cityCode!=''">
+          AND lower(c.CITY_CODE) like '%' || lower(trim(#{cityCode})) ||'%'
+      </if>
+      <if test="checkOrganId!=null and checkOrganId!=''">
+          AND d.ORGAN_ID = #{checkOrganId}
+      </if>
+  </select>
+    <select id="getOrgNameCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(1) FROM
+        ads_monitor_sample a,
+        ads_check_info     b,
+        ads_organ_task     c,
+        ads_monitor_task   d
+        where 1 = 1
+        AND b.DEL_FLAG != 'Y'
+        and b.ORGAN_TASK_ID = c.id
+        and c.MONITOR_TASK_ID = d.id
+        and a.id = b.MONITOR_SAMPLE_ID
+        and d.MONITOR_CLASS=#{monitorClass}
+        and (c.SAMPLE_ORGAN_ID=#{orgId} or c.detection_organ_id=#{orgId})
+        <if test="year!=null and year!=''">
+            AND d.YEAR = #{year}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND d.TASK_NAME=#{taskName}
+        </if>
+        <if test="productTraceabilityCode!=null and productTraceabilityCode!=''">
+            AND lower(b.PRODUCT_TRACEABILITY_CODE ) like '%' || lower(trim(#{productTraceabilityCode})) ||'%'
+        </if>
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND lower(b.SAMPLE_CODE) like '%' || lower(trim(#{sampleCode})) ||'%'
+        </if>
+        <if test="sampleName!=null and sampleName!=''">
+            AND b.SAMPLE_NAME = #{sampleName}
+        </if>
+        <if test="result!=null and result!=''">
+            AND b.RESULT = #{result}
+        </if>
+        <if test="sampleDeparment!=null and sampleDeparment!=''">
+            AND a.SAMPLE_DEPARMENT = #{sampleDeparment}
+        </if>
+        <if test="checkLink!=null and checkLink!=''">
+            AND lower(b.CHECK_LINK) like '%' || lower(trim(#{checkLink})) ||'%'
+        </if>
+        <if test="checkOrgan!=null and checkOrgan!=''">
+            AND lower(b.CHECK_ORGAN) like '%' || lower(trim(#{checkOrgan})) ||'%'
+        </if>
+
+        <if test="startTime!=null and startTime!=''">
+            AND b.CHECK_TIME &gt;=to_date(#{startTime},'yyyy-MM-dd')
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            AND b.CHECK_TIME &lt;=to_date(#{endTime},'yyyy-MM-dd')+1
+        </if>
+        <if test="testedDeparment!=null and testedDeparment!=''">
+            AND lower(a.TESTED_DEPARMENT) like '%' || lower(trim(#{testedDeparment})) ||'%'
+        </if>
+        <if test="producingArea!=null and producingArea!=''">
+            AND lower(a.PRODUCING_AREA) like '%' || lower(trim(#{producingArea})) ||'%'
+        </if>
+        <if test="cityCode!=null and cityCode!=''">
+            AND lower(c.CITY_CODE) like '%' || lower(trim(#{cityCode})) ||'%'
+        </if>
+
+  </select>
+
+    <select id="getInfo" resultMap="BaseResultMap" parameterType="hashmap" >
+        select amt.ID
+        , amt.ORGAN_TASK_ID
+        , amt.SAMPLE_BAR_CODE
+        , amt.MONITOR_SAMPLE_ID
+        , amt.PRODUCT_TRACEABILITY_CODE
+        , amt.SAMPLE_CODE
+        , amt.SAMPLE_NAME
+        , amt.CHECK_LINK
+        , amt.RESULT
+        , amt.CHECK_ORGAN_ID
+        , amt.CHECK_ORGAN
+        , amt.SAMPLE_DEPARMENT
+        , amt.CHECK_REPORT
+        , amt.PRODUCT_TRACEABILITY_CODE
+        , amt.DEL_FLAG
+        , amt.CREATE_BY
+        , amt.UPDATE_BY
+        from ADS_CHECK_INFO amt,ADS_MONITOR_SAMPLE s
+        where amt.ORGAN_TASK_ID =#{organId} AND s.id = amt.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2' order by SAMPLE_CODE asc
+    </select>
+
+    <select id="getNextId" resultType="string" parameterType="hashmap" >
+        select tab.ID from(select amt.ID,rownum as num from ADS_CHECK_INFO amt,ADS_MONITOR_SAMPLE s <![CDATA[ where amt.SAMPLE_CODE > #{sampleCode} AND s.id = amt.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2' AND amt.DEL_FLAG != 'Y' AND amt.ORGAN_TASK_ID =#{organId} ]]> order by amt.SAMPLE_CODE DESC)tab <![CDATA[ where tab.num < 2]]>
+    </select>
+
+    <select id="getBeforeId" resultType="string" parameterType="hashmap" >
+        select aa.ID FROM (select tab.ID,rownum as num from(select amt.ID from ADS_CHECK_INFO amt,ADS_MONITOR_SAMPLE s <![CDATA[ where amt.SAMPLE_CODE < #{sampleCode} AND s.id = amt.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2' AND amt.DEL_FLAG != 'Y' AND amt.ORGAN_TASK_ID =#{organId} ]]> order by amt.SAMPLE_CODE DESC )tab)aa <![CDATA[ where aa.num < 2]]>
+    </select>
+
+    <select id="getPageInfoParam" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select a.TESTED_DEPARMENT,
+        a.SAMPLE_PLACE,
+        a.SAMPLE_DEPARMENT,
+        a.producing_area,
+        TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+        b.RESULT,
+        b.MONITOR_SAMPLE_ID,
+        b.CHECK_ORGAN,
+        b.PRODUCT_TRACEABILITY_CODE,
+        b.SAMPLE_CODE,
+        b.SAMPLE_NAME,
+        b.CHECK_LINK,
+        b.CHECK_TIME,
+        c.MONITOR_TASK_ID,
+        c.sample_organ_id,
+        d.TASK_NAME,
+        d.YEAR,
+        e.check_project,
+        e.check_num,
+        e.judge_num
+        from ads_monitor_sample a,
+        ads_check_info     b,
+        ads_organ_task     c,
+        ads_monitor_task   d,
+        Ads_Info_Project e
+        where 1 = 1
+        AND b.DEL_FLAG != 'Y'
+        and b.ORGAN_TASK_ID = c.id
+        and c.MONITOR_TASK_ID = d.id
+        and a.id = b.MONITOR_SAMPLE_ID
+        and e.check_Info_Id=b.id
+        and d.MONITOR_CLASS=#{monitorClass}
+        <if test="year!=null and year!=''">
+            AND d.YEAR = #{year}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND d.TASK_NAME=#{taskName}
+        </if>
+        <if test="productTraceabilityCode!=null and productTraceabilityCode!=''">
+            AND lower(b.PRODUCT_TRACEABILITY_CODE ) like '%' || lower(trim(#{productTraceabilityCode})) ||'%'
+        </if>
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND lower(b.SAMPLE_CODE) like '%' || lower(trim(#{sampleCode})) ||'%'
+        </if>
+        <if test="sampleName!=null and sampleName!=''">
+            AND b.SAMPLE_NAME = #{sampleName}
+        </if>
+        <if test="result!=null and result!=''">
+            AND b.RESULT = #{result}
+        </if>
+        <if test="sampleDeparment!=null and sampleDeparment!=''">
+            AND a.SAMPLE_DEPARMENT = #{sampleDeparment}
+        </if>
+        <if test="checkLink!=null and checkLink!=''">
+            AND lower(b.CHECK_LINK) like '%' || lower(trim(#{checkLink})) ||'%'
+        </if>
+        <if test="checkOrgan!=null and checkOrgan!=''">
+            AND b.CHECK_ORGAN = #{checkOrgan}
+        </if>
+
+        <if test="startTime!=null and startTime!=''">
+            AND a.SAMPLE_DATE &gt;=to_date(#{startTime},'yyyy-MM-dd')
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            AND a.SAMPLE_DATE &lt;=to_date(#{endTime},'yyyy-MM-dd')
+        </if>
+        <if test="testedDeparment!=null and testedDeparment!=''">
+            AND a.TESTED_DEPARMENT = #{testedDeparment}
+        </if>
+        <if test="producingArea!=null and producingArea!=''">
+            AND lower(a.PRODUCING_AREA) like '%' || lower(trim(#{producingArea})) ||'%'
+        </if>
+        <if test="cityCode!=null and cityCode!=''">
+            AND lower(c.CITY_CODE) like '%' || lower(trim(#{cityCode})) ||'%'
+        </if>
+        order by b.update_time desc,
+        b.create_time desc,b.id desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+
+    </select>
+
+
+    <select id="getYear" parameterType="hashmap" resultMap="BaseResultMap">
+     select
+       DISTINCT d.YEAR
+   from
+        ads_check_info     b,
+        ads_organ_task     c,
+        ads_monitor_task   d
+  where 1 = 1
+    AND b.DEL_FLAG != 'Y'
+    and b.ORGAN_TASK_ID = c.id
+    and c.MONITOR_TASK_ID = d.id
+
+    </select>
+
+    <select id="getTaskName" parameterType="hashmap" resultMap="BaseResultMap">
+     select
+        DISTINCT d.TASK_NAME
+   from
+        ads_check_info     b,
+        ads_organ_task     c,
+        ads_monitor_task   d
+  where 1 = 1
+    AND b.DEL_FLAG != 'Y'
+    and b.ORGAN_TASK_ID = c.id
+    and c.MONITOR_TASK_ID = d.id
+    and d.monitor_class =#{monitorClass}
+        <if test="organId!=null and organId!=''">
+            and d.ORGAN_ID=#{organId}
+        </if>
+    </select>
+
+    <select id="getResult" parameterType="hashmap" resultMap="BaseResultMap">
+       select DISTINCT b.result
+          from ads_check_info b
+         where 1 = 1
+           AND b.DEL_FLAG != 'Y'
+    </select>
+    <select id="getSampleName" parameterType="hashmap" resultMap="BaseResultMap">
+       select DISTINCT b.SAMPLE_NAME
+          from
+          ads_check_info     b,
+         ads_organ_task     c,
+         ads_monitor_task   d
+         where 1 = 1
+           AND b.DEL_FLAG != 'Y'
+           and b.ORGAN_TASK_ID = c.id
+            and c.MONITOR_TASK_ID = d.id
+            and d.monitor_class =#{monitorClass}
+
+    </select>
+
+    <select id="getSampleDeparment" parameterType="hashmap" resultMap="BaseResultMap">
+      select DISTINCT a.SAMPLE_DEPARMENT
+  from ads_check_info     b,
+       ads_monitor_sample a,
+       ads_organ_task     c,
+       ads_monitor_task   d
+ where 1 = 1
+   AND b.DEL_FLAG != 'Y'
+   and a.id = b.MONITOR_SAMPLE_ID
+   and b.ORGAN_TASK_ID = c.id
+   and c.MONITOR_TASK_ID = d.id
+   and d.monitor_class = #{monitorClass}
+
+    </select>
+
+    <select id="getCheckOrgan" parameterType="hashmap" resultMap="BaseResultMap">
+     select DISTINCT b.check_Organ
+  from ads_check_info b, ads_organ_task c, ads_monitor_task d
+ where 1 = 1
+   AND b.DEL_FLAG != 'Y'
+   and b.ORGAN_TASK_ID = c.id
+   and c.MONITOR_TASK_ID = d.id
+   and d.monitor_class = #{monitorClass}
+
+
+    </select>
+
+    <select id="getCheckLink" parameterType="hashmap" resultMap="BaseResultMap">
+    select DISTINCT b.check_Link
+          from ads_check_info b
+         where 1 = 1
+           AND b.DEL_FLAG != 'Y'
+
+    </select>
+
+    <select id="getTestedDeparment" parameterType="hashmap" resultMap="BaseResultMap">
+     select DISTINCT a.TESTED_DEPARMENT
+  from ads_check_info     b,
+       ads_monitor_sample a,
+       ads_organ_task     c,
+       ads_monitor_task   d
+ where 1 = 1
+   AND b.DEL_FLAG != 'Y'
+   and a.id = b.MONITOR_SAMPLE_ID
+   and b.ORGAN_TASK_ID = c.id
+   and c.MONITOR_TASK_ID = d.id
+   and d.monitor_class = #{monitorClass}
+
+    </select>
+    <select id="getPageInfoWithParam" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select a.TESTED_DEPARMENT,
+        a.ID,
+        a.SAMPLE_PLACE,
+        a.SAMPLE_DEPARMENT,
+        TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+        b.RESULT,
+        b.MONITOR_SAMPLE_ID,
+        b.CHECK_ORGAN,
+        b.PRODUCT_TRACEABILITY_CODE,
+        b.SAMPLE_CODE,
+        b.SAMPLE_NAME,
+        b.CHECK_LINK,
+        b.CHECK_TIME,
+        c.MONITOR_TASK_ID,
+        c.sample_organ_id,
+        d.TASK_NAME,
+        d.YEAR,
+        d.publish_status
+        from ads_monitor_sample a,
+        ads_check_info     b,
+        ads_organ_task     c,
+        ads_monitor_task   d
+        where 1 = 1
+        AND b.DEL_FLAG != 'Y'
+        and b.ORGAN_TASK_ID = c.id
+        and c.MONITOR_TASK_ID = d.id
+        and a.id = b.MONITOR_SAMPLE_ID
+        and d.MONITOR_CLASS=#{monitorClass}
+        <if test="year!=null and year!=''">
+            AND d.YEAR = #{year}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND d.TASK_NAME=#{taskName}
+        </if>
+        <if test="productTraceabilityCode!=null and productTraceabilityCode!=''">
+            AND lower(b.PRODUCT_TRACEABILITY_CODE ) like '%' || lower(trim(#{productTraceabilityCode})) ||'%'
+        </if>
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND lower(b.SAMPLE_CODE) like '%' || lower(trim(#{sampleCode})) ||'%'
+        </if>
+        <if test="sampleName!=null and sampleName!=''">
+            AND lower(b.SAMPLE_NAME) like '%' || lower(trim(#{sampleName})) ||'%'
+        </if>
+        <if test="result!=null and result!=''">
+            AND b.RESULT = #{result}
+        </if>
+        <if test="sampleDeparment!=null and sampleDeparment!=''">
+            AND lower(a.SAMPLE_DEPARMENT) like '%' || lower(trim(#{sampleDeparment})) ||'%'
+        </if>
+        <if test="checkLink!=null and checkLink!=''">
+            AND b.CHECK_LINK=#{checkLink}
+        </if>
+        <if test="checkOrgan!=null and checkOrgan!=''">
+            AND lower(b.CHECK_ORGAN) like '%' || lower(trim(#{checkOrgan})) ||'%'
+        </if>
+
+        <if test="startTime!=null and startTime!=''">
+            AND b.CHECK_TIME &gt;=to_date(#{startTime},'yyyy-MM-dd')
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            AND b.CHECK_TIME &lt;=to_date(#{endTime},'yyyy-MM-dd')+1
+        </if>
+        <if test="testedDeparment!=null and testedDeparment!=''">
+            AND lower(a.TESTED_DEPARMENT) like '%' || lower(trim(#{testedDeparment})) ||'%'
+        </if>
+        <if test="producingArea!=null and producingArea!=''">
+            AND lower(a.PRODUCING_AREA) like '%' || lower(trim(#{producingArea})) ||'%'
+        </if>
+        <if test="cityCode!=null and cityCode!=''">
+            AND lower(c.CITY_CODE) like '%' || lower(trim(#{cityCode})) ||'%'
+        </if>
+        <if test="checkOrganId!=null and checkOrganId!=''">
+            AND d.ORGAN_ID = #{checkOrganId}
+        </if>
+
+    order by b.update_time desc,
+        b.create_time desc,b.id desc) tmp
+    <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+    <select id="getInfoProject" parameterType="hashmap"  resultMap="BaseResultMap">
+      select t.*
+        from (select tmp.*, rownum rn
+        from (select a.check_project, a.check_num, a.judge_num, a.result
+      from Ads_Info_Project a, ads_check_info b
+      where a.check_Info_Id=b.id
+      and b.sample_code=#{sampleCode}
+       AND b.DEL_FLAG != 'Y'
+       order by b.update_time desc,
+        b.create_time desc,b.id desc) tmp
+    <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+    <select id="getCountProject" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) FROM
+        ads_Info_Project a, ads_check_info b
+        where 1 = 1
+         and a.check_Info_Id=b.id
+        and b.sample_code=#{sampleCode}
+        AND b.DEL_FLAG != 'Y'
+    </select>
+
+    <select id="queryBySampleCode" resultMap="BaseResultMap" parameterType="hashmap" >
+        select ID
+        , ORGAN_TASK_ID
+        , SAMPLE_BAR_CODE
+        , MONITOR_SAMPLE_ID
+        , SAMPLE_CODE
+        , SAMPLE_NAME
+        , CHECK_LINK
+        , RESULT
+        , CHECK_ORGAN_ID
+        , CHECK_ORGAN
+        , CHECK_REPORT
+        from ADS_CHECK_INFO
+        where SAMPLE_CODE =#{SAMPLE_CODE} AND ADS_CHECK_INFO.DEL_FLAG != 'Y'
+    </select>
+
+    <select id="queryBySampleCodeAndOrganId" resultMap="BaseResultMap" parameterType="hashmap" >
+        select c.ID
+        , c.ORGAN_TASK_ID
+        , c.SAMPLE_BAR_CODE
+        , c.MONITOR_SAMPLE_ID
+        , c.SAMPLE_CODE
+        , c.SAMPLE_NAME
+        , c.CHECK_LINK
+        , c.RESULT
+        , c.CHECK_ORGAN_ID
+        , c.CHECK_ORGAN
+        , c.CHECK_REPORT
+        from ADS_CHECK_INFO c,ADS_ORGAN_TASK o
+        where c.SAMPLE_CODE =#{SAMPLE_CODE} AND c.ORGAN_TASK_ID = o.id AND c.DEL_FLAG != 'Y'
+    </select>
+
+    <update id="updateResult" parameterType="hashmap" >
+        update ADS_CHECK_INFO
+        set
+        RESULT =  #{result,jdbcType=VARCHAR}
+        where ID =#{id}
+    </update>
+
+    <update id="deleteInFlag" parameterType="hashmap" >
+        update ADS_CHECK_INFO
+        set
+        DEL_FLAG =  "Y"
+        where ID =#{id}
+    </update>
+
+    <select id="queryByMyId" resultMap="BaseResultMap" parameterType="hashmap" >
+         SELECT
+          a.ID
+        , a.ORGAN_TASK_ID
+        , a.SAMPLE_BAR_CODE
+        , a.MONITOR_SAMPLE_ID
+        , a.SAMPLE_CODE
+        , a.SAMPLE_NAME
+        , a.CHECK_LINK
+        , a.RESULT
+        , a.CHECK_ORGAN_ID
+        , a.CHECK_REPORT
+        ,a.PRODUCT_TRACEABILITY_CODE
+        ,a.TESTED_DEPARMENT
+        ,a.SAMPLE_DEPARMENT,
+        c.DETECTION_ORGAN CHECK_ORGAN
+        FROM ADS_CHECK_INFO a ,ADS_MONITOR_SAMPLE b ,ADS_ORGAN_TASK c
+        WHERE a.MONITOR_SAMPLE_ID = b.ID and a.ORGAN_TASK_ID = c.ID and a.ID =#{id}
+    </select>
+
+    <select id="queryBySampleId" resultMap="BaseResultMap" parameterType="hashmap" >
+        select ID
+        , ORGAN_TASK_ID
+        , SAMPLE_BAR_CODE
+        , MONITOR_SAMPLE_ID
+        , SAMPLE_CODE
+        , SAMPLE_NAME
+        , CHECK_LINK
+        , RESULT
+        , CHECK_ORGAN_ID
+        , CHECK_ORGAN
+        , CHECK_REPORT
+        from ADS_CHECK_INFO
+        where MONITOR_SAMPLE_ID =#{sampleId}
+    </select>
+
+    <select id="getProducingArea" resultMap="BaseResultMap" parameterType="hashmap">
+        select DISTINCT a.producing_area
+      from ads_monitor_sample a, ads_check_info b
+      where 1 = 1
+
+       and b.monitor_sample_id = a.id
+
+    </select>
+
+    <select id="getPageInfoWithOrgTaskId" parameterType="hashmap" resultType="map">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select amt.id,
+        amt.SAMPLE_NAME,
+        amt.SAMPLE_CODE,
+        amt.PRODUCT_TRACEABILITY_CODE,
+        amt.TESTED_DEPARMENT,
+        amt.SAMPLE_DEPARMENT,
+        amt.CHECK_ORGAN,
+        amt.RESULT,
+        amt.CHECK_REPORT
+        from ADS_CHECK_INFO amt,ADS_MONITOR_SAMPLE s
+        where 1 = 1 AND amt.DEL_FLAG != 'Y' AND amt.ORGAN_TASK_ID = #{organTaskId} AND s.id = amt.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2'
+        order by amt.create_time desc,amt.update_time desc，amt.id desc) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountWithOrgTaskId" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM ADS_CHECK_INFO T,ADS_MONITOR_SAMPLE s
+        where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.ORGAN_TASK_ID = #{organTaskId} AND s.id = T.MONITOR_SAMPLE_ID AND s.SAMPLE_REPORT = '2'
+    </select>
+
+    <update id="resetResult" parameterType="hashmap" >
+        update ADS_CHECK_INFO
+        set
+        RESULT =  '-1'
+        where ID =#{id}
+    </update>
+
+<select id="getInfoByOrgName" resultMap="BaseResultMap" parameterType="hashmap">
+    select t.*
+    from (select tmp.*, rownum rn
+    from (select a.TESTED_DEPARMENT,
+    a.SAMPLE_PLACE,
+    a.SAMPLE_DEPARMENT,
+    a.producing_area,
+    TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+    b.RESULT,
+    b.MONITOR_SAMPLE_ID,
+    b.CHECK_ORGAN,
+    b.PRODUCT_TRACEABILITY_CODE,
+    b.SAMPLE_CODE,
+    b.SAMPLE_NAME,
+    b.CHECK_LINK,
+    b.CHECK_TIME,
+    c.MONITOR_TASK_ID,
+    c.sample_organ_id,
+    d.TASK_NAME,
+    d.YEAR
+    from ads_monitor_sample a,
+    ads_check_info     b,
+    ads_organ_task     c,
+    ads_monitor_task   d
+    where 1 = 1
+    AND b.DEL_FLAG != 'Y'
+    and b.ORGAN_TASK_ID = c.id
+    and c.MONITOR_TASK_ID = d.id
+    and a.id = b.MONITOR_SAMPLE_ID
+    and d.MONITOR_CLASS=#{monitorClass}
+    and (c.SAMPLE_ORGAN_ID=#{orgId} or c.detection_organ_id=#{orgId})
+    and a.SAMPLE_REPORT = '2'
+    <if test="year!=null and year!=''">
+        AND d.YEAR = #{year}
+    </if>
+    <if test="taskName!=null and taskName!=''">
+        AND d.TASK_NAME=#{taskName}
+    </if>
+    <if test="productTraceabilityCode!=null and productTraceabilityCode!=''">
+        AND lower(b.PRODUCT_TRACEABILITY_CODE ) like '%' || lower(trim(#{productTraceabilityCode})) ||'%'
+    </if>
+    <if test="sampleCode!=null and sampleCode!=''">
+        AND lower(b.SAMPLE_CODE) like '%' || lower(trim(#{sampleCode})) ||'%'
+    </if>
+    <if test="sampleName!=null and sampleName!=''">
+        AND lower(b.SAMPLE_NAME) like '%' || lower(trim(#{sampleName})) ||'%'
+    </if>
+    <if test="result!=null and result!=''">
+        AND b.RESULT = #{result}
+    </if>
+    <if test="sampleDeparment!=null and sampleDeparment!=''">
+        AND lower(a.SAMPLE_DEPARMENT) like '%' || lower(trim(#{sampleDeparment})) ||'%'
+    </if>
+    <if test="checkLink!=null and checkLink!=''">
+        AND lower(b.CHECK_LINK) like '%' || lower(trim(#{checkLink})) ||'%'
+    </if>
+    <if test="checkOrgan!=null and checkOrgan!=''">
+        AND lower(b.CHECK_ORGAN) like '%' || lower(trim(#{checkOrgan})) ||'%'
+    </if>
+
+    <if test="startTime!=null and startTime!=''">
+        AND b.CHECK_TIME &gt;=to_date(#{startTime},'yyyy-MM-dd')
+    </if>
+    <if test="endTime!=null and endTime!=''">
+        AND b.CHECK_TIME &lt;=to_date(#{endTime},'yyyy-MM-dd')+1
+    </if>
+    <if test="testedDeparment!=null and testedDeparment!=''">
+        AND lower(a.TESTED_DEPARMENT) like '%' || lower(trim(#{testedDeparment})) ||'%'
+    </if>
+    <if test="producingArea!=null and producingArea!=''">
+        AND lower(a.PRODUCING_AREA) like '%' || lower(trim(#{producingArea})) ||'%'
+    </if>
+    <if test="cityCode!=null and cityCode!=''">
+        AND lower(c.CITY_CODE) like '%' || lower(trim(#{cityCode})) ||'%'
+    </if>
+    order by b.update_time desc,
+    b.create_time desc,b.id desc) tmp
+    <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+</select>
+
+    <select id="getInfoByOrgNameAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select t.*
+    from (select tmp.*, rownum rn
+    from (select a.TESTED_DEPARMENT,
+    a.SAMPLE_PLACE,
+    a.SAMPLE_DEPARMENT,
+    a.producing_area,
+    TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+    b.RESULT,
+    b.MONITOR_SAMPLE_ID,
+    b.CHECK_ORGAN,
+    b.PRODUCT_TRACEABILITY_CODE,
+    b.SAMPLE_CODE,
+    b.SAMPLE_NAME,
+    b.CHECK_LINK,
+    b.CHECK_TIME,
+    c.MONITOR_TASK_ID,
+    c.sample_organ_id,
+    d.TASK_NAME,
+    d.YEAR,
+      e.check_project,
+      e.check_num,
+      e.judge_num
+      from ads_monitor_sample a,
+      ads_check_info     b,
+      ads_organ_task     c,
+      ads_monitor_task   d,
+      Ads_Info_Project e
+        where 1 = 1
+        AND b.DEL_FLAG != 'Y'
+        and b.ORGAN_TASK_ID = c.id
+        and c.MONITOR_TASK_ID = d.id
+        and a.id = b.MONITOR_SAMPLE_ID
+        and e.check_Info_Id=b.id
+        and d.MONITOR_CLASS=#{monitorClass}
+        and c.SAMPLE_ORGAN_ID=#{orgId}
+        or c.detection_organ_id=#{orgId}
+    <if test="year!=null and year!=''">
+        AND d.YEAR = #{year}
+    </if>
+    <if test="taskName!=null and taskName!=''">
+        AND d.TASK_NAME=#{taskName}
+    </if>
+    <if test="productTraceabilityCode!=null and productTraceabilityCode!=''">
+        AND lower(b.PRODUCT_TRACEABILITY_CODE ) like '%' || lower(trim(#{productTraceabilityCode})) ||'%'
+    </if>
+    <if test="sampleCode!=null and sampleCode!=''">
+        AND lower(b.SAMPLE_CODE) like '%' || lower(trim(#{sampleCode})) ||'%'
+    </if>
+    <if test="sampleName!=null and sampleName!=''">
+        AND b.SAMPLE_NAME = #{sampleName}
+    </if>
+    <if test="result!=null and result!=''">
+        AND b.RESULT = #{result}
+    </if>
+    <if test="sampleDeparment!=null and sampleDeparment!=''">
+        AND a.SAMPLE_DEPARMENT = #{sampleDeparment}
+    </if>
+    <if test="checkLink!=null and checkLink!=''">
+        AND lower(b.CHECK_LINK) like '%' || lower(trim(#{checkLink})) ||'%'
+    </if>
+    <if test="checkOrgan!=null and checkOrgan!=''">
+        AND b.CHECK_ORGAN = #{checkOrgan}
+    </if>
+
+    <if test="startTime!=null and startTime!=''">
+        AND a.SAMPLE_DATE &gt;=to_date(#{startTime},'yyyy-MM-dd')
+    </if>
+    <if test="endTime!=null and endTime!=''">
+        AND a.SAMPLE_DATE &lt;=to_date(#{endTime},'yyyy-MM-dd')
+    </if>
+    <if test="testedDeparment!=null and testedDeparment!=''">
+        AND a.TESTED_DEPARMENT = #{testedDeparment}
+    </if>
+    <if test="producingArea!=null and producingArea!=''">
+        AND lower(a.PRODUCING_AREA) like '%' || lower(trim(#{producingArea})) ||'%'
+    </if>
+    <if test="cityCode!=null and cityCode!=''">
+        AND lower(c.CITY_CODE) like '%' || lower(trim(#{cityCode})) ||'%'
+    </if>
+    order by b.update_time desc,
+    b.create_time desc,b.id desc) tmp
+    <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+</select>
+
+    <select id="getCheckList" resultMap="BaseResultMap" parameterType="hashmap">
+
+        select rownum rn,
+         a.TESTED_DEPARMENT,
+        a.SAMPLE_PLACE,
+        a.SAMPLE_DEPARMENT,
+        TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+        b.RESULT,
+        b.ORGAN_TASK_ID,
+        b.MONITOR_SAMPLE_ID,
+        b.CHECK_ORGAN,
+        b.PRODUCT_TRACEABILITY_CODE,
+        b.SAMPLE_CODE,
+        b.SAMPLE_NAME,
+        b.CHECK_LINK,
+        b.CHECK_TIME,
+        c.MONITOR_TASK_ID,
+        c.sample_organ_id,
+        d.TASK_NAME,
+        d.YEAR
+        from ads_monitor_sample a,
+        ads_check_info     b,
+        ads_organ_task     c,
+        ads_monitor_task   d
+        where 1 = 1
+        AND b.DEL_FLAG != 'Y'
+        and b.ORGAN_TASK_ID = c.id
+        and c.MONITOR_TASK_ID = d.id
+        and a.id = b.MONITOR_SAMPLE_ID
+        and d.MONITOR_CLASS=#{monitorClass}
+    </select>
+
+    <select id="getCheckListWithParam" parameterType="hashmap" resultMap="BaseResultMap">
+        select rownum rn,
+        a.TESTED_DEPARMENT,
+        a.SAMPLE_PLACE,
+        a.SAMPLE_DEPARMENT,
+        TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+        b.RESULT,
+        b.ORGAN_TASK_ID,
+        b.MONITOR_SAMPLE_ID,
+        b.CHECK_ORGAN,
+        b.PRODUCT_TRACEABILITY_CODE,
+        b.SAMPLE_CODE,
+        b.SAMPLE_NAME,
+        b.CHECK_LINK,
+        b.CHECK_TIME,
+        c.MONITOR_TASK_ID,
+        c.sample_organ_id,
+        d.TASK_NAME,
+        d.YEAR
+        from ads_monitor_sample a,
+        ads_check_info     b,
+        ads_organ_task     c,
+        ads_monitor_task   d
+        where 1 = 1
+        AND b.DEL_FLAG != 'Y'
+        and b.ORGAN_TASK_ID = c.id
+        and c.MONITOR_TASK_ID = d.id
+        and a.id = b.MONITOR_SAMPLE_ID
+        and d.MONITOR_CLASS=#{monitorClass}
+        <if test="year!=null and year!=''">
+            AND d.YEAR = #{year}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND d.TASK_NAME=#{taskName}
+        </if>
+        <if test="productTraceabilityCode!=null and productTraceabilityCode!=''">
+            AND lower(b.PRODUCT_TRACEABILITY_CODE ) like '%' || lower(trim(#{productTraceabilityCode})) ||'%'
+        </if>
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND lower(b.SAMPLE_CODE) like '%' || lower(trim(#{sampleCode})) ||'%'
+        </if>
+        <if test="sampleName!=null and sampleName!=''">
+            AND lower(b.SAMPLE_NAME) like '%' || lower(trim(#{sampleName})) ||'%'
+        </if>
+        <if test="result!=null and result!=''">
+            AND b.RESULT = #{result}
+        </if>
+        <if test="sampleDeparment!=null and sampleDeparment!=''">
+            AND lower(a.SAMPLE_DEPARMENT) like '%' || lower(trim(#{sampleDeparment})) ||'%'
+        </if>
+        <if test="checkLink!=null and checkLink!=''">
+            AND b.CHECK_LINK=#{checkLink}
+        </if>
+        <if test="checkOrgan!=null and checkOrgan!=''">
+            AND lower(b.CHECK_ORGAN) like '%' || lower(trim(#{checkOrgan})) ||'%'
+        </if>
+
+        <if test="startTime!=null and startTime!=''">
+            AND b.CHECK_TIME &gt;=to_date(#{startTime},'yyyy-MM-dd')
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            AND b.CHECK_TIME &lt;=to_date(#{endTime},'yyyy-MM-dd')+1
+        </if>
+        <if test="testedDeparment!=null and testedDeparment!=''">
+            AND lower(a.TESTED_DEPARMENT) like '%' || lower(trim(#{testedDeparment})) ||'%'
+        </if>
+        <if test="producingArea!=null and producingArea!=''">
+            AND lower(a.PRODUCING_AREA) like '%' || lower(trim(#{producingArea})) ||'%'
+        </if>
+        <if test="cityCode!=null and cityCode!=''">
+            AND lower(c.CITY_CODE) like '%' || lower(trim(#{cityCode})) ||'%'
+        </if>
+        <if test="checkOrganId!=null and checkOrganId!=''">
+            AND d.ORGAN_ID = #{checkOrganId}
+        </if>
+    </select>
+    <select id="getCheckListByCheck" parameterType="hashmap" resultMap="BaseResultMap">
+        select rownum rn,
+        a.TESTED_DEPARMENT,
+        a.SAMPLE_PLACE,
+        a.SAMPLE_DEPARMENT,
+        TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+        b.RESULT,
+        b.ORGAN_TASK_ID,
+        b.MONITOR_SAMPLE_ID,
+        b.CHECK_ORGAN,
+        b.PRODUCT_TRACEABILITY_CODE,
+        b.SAMPLE_CODE,
+        b.SAMPLE_NAME,
+        b.CHECK_LINK,
+        b.CHECK_TIME,
+        c.MONITOR_TASK_ID,
+        c.sample_organ_id,
+        d.TASK_NAME,
+        d.YEAR
+        from ads_monitor_sample a,
+        ads_check_info     b,
+        ads_organ_task     c,
+        ads_monitor_task   d
+        where 1 = 1
+        AND b.DEL_FLAG != 'Y'
+        and b.ORGAN_TASK_ID = c.id
+        and c.MONITOR_TASK_ID = d.id
+        and a.id = b.MONITOR_SAMPLE_ID
+        and  a.id  IN
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </select>
+
+    <update id="updateReport" parameterType="hashmap" >
+        update ADS_CHECK_INFO
+        set
+        <choose>
+            <when test='receiptClass == "D"'>
+                CHECK_REPORT = '0'
+            </when>
+            <otherwise>
+                CHECK_REPORT = '1'
+            </otherwise>
+        </choose>
+        where ID =#{id}
+    </update>
+
+    <select id="getCheckListAll" resultMap="BaseResultMap" parameterType="hashmap">
+
+        select rownum rn,
+        a.TESTED_DEPARMENT,
+        a.SAMPLE_PLACE,
+        a.SAMPLE_DEPARMENT,
+        a.producing_area,
+        TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+        b.RESULT,
+        b.MONITOR_SAMPLE_ID,
+        b.CHECK_ORGAN,
+        b.PRODUCT_TRACEABILITY_CODE,
+        b.SAMPLE_CODE,
+        b.SAMPLE_NAME,
+        b.CHECK_LINK,
+        b.CHECK_TIME,
+        c.MONITOR_TASK_ID,
+        c.sample_organ_id,
+        d.TASK_NAME,
+        d.YEAR,
+        e.check_project,
+        e.check_num,
+        e.judge_num
+        from ads_monitor_sample a,
+        ads_check_info     b,
+        ads_organ_task     c,
+        ads_monitor_task   d,
+        Ads_Info_Project e
+        where 1 = 1
+        AND b.DEL_FLAG != 'Y'
+        and b.ORGAN_TASK_ID = c.id
+        and c.MONITOR_TASK_ID = d.id
+        and a.id = b.MONITOR_SAMPLE_ID
+        and e.check_Info_Id=b.id
+        and d.MONITOR_CLASS=#{monitorClass}
+    </select>
+    <select id="getOrgList" resultMap="BaseResultMap" parameterType="hashmap">
+
+    select rownum rn,
+    a.TESTED_DEPARMENT,
+    a.SAMPLE_PLACE,
+    a.SAMPLE_DEPARMENT,
+    a.producing_area,
+    TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+    b.RESULT,
+    b.MONITOR_SAMPLE_ID,
+    b.CHECK_ORGAN,
+    b.PRODUCT_TRACEABILITY_CODE,
+    b.SAMPLE_CODE,
+    b.SAMPLE_NAME,
+    b.CHECK_LINK,
+    b.CHECK_TIME,
+    c.MONITOR_TASK_ID,
+    c.sample_organ_id,
+    d.TASK_NAME,
+    d.YEAR
+    from ads_monitor_sample a,
+    ads_check_info     b,
+    ads_organ_task     c,
+    ads_monitor_task   d
+    where 1 = 1
+    AND b.DEL_FLAG != 'Y'
+    and b.ORGAN_TASK_ID = c.id
+    and c.MONITOR_TASK_ID = d.id
+    and a.id = b.MONITOR_SAMPLE_ID
+    and d.MONITOR_CLASS=#{monitorClass}
+    and c.SAMPLE_ORGAN_ID=#{orgId}
+    or c.detection_organ_id=#{orgId}
+    </select>
+    <select id="getOrgListAll" resultMap="BaseResultMap" parameterType="hashmap">
+
+    select rownum rn,
+    a.TESTED_DEPARMENT,
+    a.SAMPLE_PLACE,
+    a.SAMPLE_DEPARMENT,
+    a.producing_area,
+    TO_CHAR(a.SAMPLE_DATE, 'yyyy-mm-dd') SAMPLE_DATE,
+    b.RESULT,
+    b.MONITOR_SAMPLE_ID,
+    b.CHECK_ORGAN,
+    b.PRODUCT_TRACEABILITY_CODE,
+    b.SAMPLE_CODE,
+    b.SAMPLE_NAME,
+    b.CHECK_LINK,
+    b.CHECK_TIME,
+    c.MONITOR_TASK_ID,
+    c.sample_organ_id,
+    d.TASK_NAME,
+    d.YEAR,
+      e.check_project,
+      e.check_num,
+      e.judge_num
+      from ads_monitor_sample a,
+      ads_check_info     b,
+      ads_organ_task     c,
+      ads_monitor_task   d,
+      Ads_Info_Project e
+        where 1 = 1
+        AND b.DEL_FLAG != 'Y'
+        and b.ORGAN_TASK_ID = c.id
+        and c.MONITOR_TASK_ID = d.id
+        and a.id = b.MONITOR_SAMPLE_ID
+        and e.check_Info_Id=b.id
+        and d.MONITOR_CLASS=#{monitorClass}
+        and c.SAMPLE_ORGAN_ID=#{orgId}
+        or c.detection_organ_id=#{orgId}
+    </select>
+
+    <select id="getProjectList" resultMap="BaseResultMap" parameterType="hashmap">
+
+      select rownum rn,
+      a.check_project, a.check_num, a.judge_num, a.result
+      from Ads_Info_Project a, ads_check_info b
+      where a.check_Info_Id=b.id
+      and b.sample_code=#{sampleCode}
+    </select>
+
+    <select id="getSampleList" resultMap="BaseResultMap" parameterType="hashmap">
+     select rownum rn,
+      b.sample_name,
+      b.sample_code,
+       a.TRADE_MARK,
+       a.PACKING,
+       a.GRADE,
+       a.IDENTIFY,
+       a.SPECIFICATION,
+       a.STANDARD,
+       a.PRODUCE_DATE,
+       a.PRODUCE_CERTIFICATE,
+       a.CERTIFICATE_CODE,
+       a.SAMPLE_BASE,
+       a.SAMPLE_PLACE,
+       a.TESTED_DEPARMENT,
+       a.TESTED_ADDRESS,
+       a.TESTED_LEGALREP,
+       a.TESTED_LINKMAN,
+       a.TESTED_LINKMANPHONE,
+       a.TESTED_LINKMANFAX,
+       a.TESTED_PERSON,
+       a.TESTED_PERSONPHONE,
+       a.TESTED_PERSONFAX,
+       a.PRODUCTIONS_TATUS,
+       a.PRODUCTION_DEPARMENT,
+       a.PRODUCTION_ADDRESS,
+       a.PRODUCTION_ZIPCODE,
+       a.PRODUCTION_LINKMAN,
+       a.PRODUCTION_LINKMANPHONE,
+       a.PRODUCTION_LINKMANFAX,
+       a.SAMPLE_ID,
+       a.SAMPLE_DEPARMENT,
+       a.SAMPLE_LINKMAN,
+       a.SAMPLE_ADDRESS,
+       a.SAMPLE_ZIPCODE,
+       a.SAMPLE_PHONE,
+       a.SAMPLE_FAX,
+       a.SAMPLE_EMAIL,
+       a.PROOF,
+       a.SAMPLE_PERSON,
+       a.SAMPLE_DATE,
+       a.SAMPLE_REPORT
+
+  from ads_monitor_sample a, ads_check_info b
+  where a.id = b.monitor_sample_id
+   and b.SAMPLE_CODE = #{sampleCode}
+    </select>
+
+    <select id="getFinish" parameterType="hashmap" resultType="int">
+        SELECT COUNT(1) FROM
+        ads_check_info
+        where 1 = 1
+        AND ads_check_info.ORGAN_TASK_ID = #{organTaskId}
+        AND ads_check_info.CHECK_REPORT = '1'
+        AND DEL_FLAG != 'Y'
+    </select>
+
+    <select id="queryTaskName" parameterType="string" resultType="string">
+        SELECT a.task_name FROM
+        ADS_MONITOR_TASK a,ADS_ORGAN_TASK b
+        where 1 = 1
+        AND b.ID = #{organTaskId}
+        AND a.ID = b.MONITOR_TASK_ID
+    </select>
+
+    <insert id="addAdsCheckInfo" parameterType="com.sofn.model.generator.AdsCheckInfo" >
+        insert into ADS_CHECK_INFO (ID
+        ,PRODUCT_TRACEABILITY_CODE
+        , ORGAN_TASK_ID
+        , SAMPLE_BAR_CODE
+        , MONITOR_SAMPLE_ID
+        , SAMPLE_CODE
+        , SAMPLE_NAME
+        , CHECK_LINK
+        , RESULT
+        , CHECK_ORGAN_ID
+        , CHECK_ORGAN
+        , CHECK_REPORT
+        , CHECK_TIME
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        ,TESTED_DEPARMENT
+        ,SAMPLE_DEPARMENT
+        )
+        values (#{id,jdbcType=VARCHAR}
+        , #{productTraceabilityCode,jdbcType=VARCHAR}
+        , #{organTaskId,jdbcType=VARCHAR}
+        , #{sampleBarCode,jdbcType=VARCHAR}
+        , #{monitorSampleId,jdbcType=VARCHAR}
+        , #{sampleCode,jdbcType=VARCHAR}
+        , #{sampleName,jdbcType=VARCHAR}
+        , #{checkLink,jdbcType=VARCHAR}
+        , #{result,jdbcType=VARCHAR}
+        , #{checkOrganId,jdbcType=VARCHAR}
+        , #{checkOrgan,jdbcType=VARCHAR}
+        , #{checkReport,jdbcType=VARCHAR}
+        , #{checkTime,jdbcType=VARCHAR}
+        , #{delFlag,jdbcType=VARCHAR}
+        , #{createBy,jdbcType=VARCHAR}
+        , #{updateBy,jdbcType=VARCHAR}
+        , #{createTime,jdbcType=TIMESTAMP}
+        , #{updateTime,jdbcType=TIMESTAMP}
+        , #{testedDeparment,jdbcType=VARCHAR}
+        , #{sampleDeparment,jdbcType=VARCHAR}
+        )
+    </insert>
+
+</mapper>

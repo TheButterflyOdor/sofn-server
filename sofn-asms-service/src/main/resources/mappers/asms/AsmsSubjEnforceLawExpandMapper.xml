@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsSubjEnforceLawExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjEnforceLaw">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="EL_NAME" jdbcType="VARCHAR" property="elName" />
+    <result column="EL_CODE" jdbcType="VARCHAR" property="elCode" />
+    <result column="EL_TYPE" jdbcType="VARCHAR" property="elType" />
+    <result column="EL_LEVEL" jdbcType="VARCHAR" property="elLevel" />
+    <result column="EL_AREA_ID" jdbcType="VARCHAR" property="elAreaId" />
+    <result column="EL_ADDRESS" jdbcType="VARCHAR" property="elAddress" />
+    <result column="EL_LEADER" jdbcType="VARCHAR" property="elLeader" />
+    <result column="EL_LEADER_PHONE" jdbcType="VARCHAR" property="elLeaderPhone" />
+    <result column="EL_CONTACT" jdbcType="VARCHAR" property="elContact" />
+    <result column="EL_CONTACT_PHONE" jdbcType="VARCHAR" property="elContactPhone" />
+    <result column="EL_CONTACT_Q_Q" jdbcType="VARCHAR" property="elContactQQ" />
+    <result column="EL_CONTACT_EMAIL" jdbcType="VARCHAR" property="elContactEmail" />
+    <result column="EL_POSTCODE" jdbcType="CHAR" property="elPostcode" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="EL_UNIT_NATURE" jdbcType="VARCHAR" property="elUnitNature" />
+    <result column="EL_WORK_BODY" jdbcType="VARCHAR" property="elWorkBody" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="EL_LEVEL_ID" jdbcType="VARCHAR" property="elLevelId" />
+    <result column="EL_TYPE_ID" jdbcType="VARCHAR" property="elTypeId" />
+    <result column="EL_AREA" jdbcType="VARCHAR" property="elArea" />
+    <result column="EL_PEOPLE_NUM" jdbcType="VARCHAR" property="elPeopleNum" />
+  </resultMap>
+  <resultMap id="changeMap" type="com.sofn.model.generator.AsmsSubjElChange">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="EL_NAME" jdbcType="VARCHAR" property="elName" />
+    <result column="EL_CODE" jdbcType="VARCHAR" property="elCode" />
+    <result column="EL_TYPE" jdbcType="CHAR" property="elType" />
+    <result column="EL_LEVEL" jdbcType="VARCHAR" property="elLevel" />
+    <result column="EL_AREA_ID" jdbcType="VARCHAR" property="elAreaId" />
+    <result column="EL_ADDRESS" jdbcType="VARCHAR" property="elAddress" />
+    <result column="EL_LEADER" jdbcType="VARCHAR" property="elLeader" />
+    <result column="EL_LEADER_PHONE" jdbcType="VARCHAR" property="elLeaderPhone" />
+    <result column="EL_CONTACT" jdbcType="VARCHAR" property="elContact" />
+    <result column="EL_CONTACT_PHONE" jdbcType="VARCHAR" property="elContactPhone" />
+    <result column="EL_CONTACT_Q_Q" jdbcType="VARCHAR" property="elContactQQ" />
+    <result column="EL_CONTACT_EMAIL" jdbcType="VARCHAR" property="elContactEmail" />
+    <result column="EL_POSTCODE" jdbcType="CHAR" property="elPostcode" />
+    <result column="EL_UNIT_NATURE" jdbcType="CHAR" property="elUnitNature" />
+    <result column="EL_WORK_BODY" jdbcType="CHAR" property="elWorkBody" />
+    <result column="EL_FILE" jdbcType="VARCHAR" property="elFile" />
+    <result column="CHANGE_BEFORE_FIELD" jdbcType="VARCHAR" property="changeBeforeField" />
+    <result column="CHANGE_CONTENT" jdbcType="VARCHAR" property="changeContent" />
+    <result column="APPLY_TIME" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="APPLY_USER_ID" jdbcType="CHAR" property="applyUserId" />
+    <result column="APPLY_EL_ID" jdbcType="CHAR" property="applyElId" />
+    <result column="APPLY_REASON" jdbcType="VARCHAR" property="applyReason" />
+    <result column="AUDIT_USER_ID" jdbcType="CHAR" property="auditUserId" />
+    <result column="AUDIT_SV_ID" jdbcType="CHAR" property="auditSvId" />
+    <result column="AUDIT_TIME" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="AUDIT_SUGGESTION" jdbcType="VARCHAR" property="auditSuggestion" />
+    <result column="AUDIT_STATE" jdbcType="CHAR" property="auditState" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="EL_LEVEL_ID" jdbcType="VARCHAR" property="elLevelId" />
+    <result column="EL_TYPE_ID" jdbcType="VARCHAR" property="elTypeId" />
+    <result column="EL_AREA" jdbcType="VARCHAR" property="elArea" />
+    <result column="EL_PEOPLE_NUM" jdbcType="VARCHAR" property="elPeopleNum" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapNew" type="com.sofn.model.asms.AsmsSubjEnforceLawDto" extends="BaseResultMap">
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <select id="getSubjectEnforceLawList" resultMap="BaseResultMap">
+    SELECT * FROM (
+    SELECT
+    t.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*
+    FROM
+    ASMS_SUBJ_ENFORCE_LAW s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="elAreaId!=null and elAreaId!=''">
+      AND s.EL_AREA_ID like #{elAreaId}||'%'
+    </if>
+    <if test="elName!=null and elName!=''">
+      AND s.EL_NAME like '%'||#{elName}||'%'
+    </if>
+    <if test="elLevel!=null and elLevel!=''">
+      AND s.EL_LEVEL &gt;= #{elLevel}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjectEnforceLawListNew" resultMap="BaseResultMapNew">
+    SELECT * FROM (
+    SELECT
+    t.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*
+    FROM
+    ASMS_SUBJ_ENFORCE_LAW s left join sys_organization o on o.org_id=s.id left join SYS_USER u ON o.ID = u.ORGANIZATION_ID and USER_TYPE='SYSADMIN' and u.DEL_FLAG='N'
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="elAreaId!=null and elAreaId!=''">
+      AND s.EL_AREA_ID like #{elAreaId}||'%'
+    </if>
+    <if test="elName!=null and elName!=''">
+      AND s.EL_NAME like '%'||#{elName}||'%'
+    </if>
+    <if test="elLevel!=null and elLevel!=''">
+      AND s.EL_LEVEL &gt;= #{elLevel}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjectEnforceLawCount" resultType="long" >
+    SELECT
+      COUNT(*)
+    FROM
+      ASMS_SUBJ_ENFORCE_LAW s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="elAreaId!=null and elAreaId!=''">
+      AND s.EL_AREA_ID like #{elAreaId}||'%'
+    </if>
+    <if test="elName!=null and elName!=''">
+      AND s.EL_NAME like '%'||#{elName}||'%'
+    </if>
+    <if test="elLevel!=null and elLevel!=''">
+      AND s.EL_LEVEL &gt;= #{elLevel}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+  </select>
+
+  <select id="getSubjectEnforceLawListForSys" resultMap="BaseResultMapNew">
+    SELECT * FROM (
+    SELECT
+    t.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*,u.id as USER_ID,u.account as ACCOUNT,u.RESERVED_FIELD2 as PASSWORD
+    FROM
+    ASMS_SUBJ_ENFORCE_LAW s left join sys_organization o on o.org_id=s.id left join SYS_USER u ON o.ID = u.ORGANIZATION_ID and USER_TYPE='SYSADMIN' and u.DEL_FLAG='N'
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="elAreaId!=null and elAreaId!=''">
+      AND s.EL_AREA_ID like #{elAreaId}||'%'
+    </if>
+    <if test="elName!=null and elName!=''">
+      AND s.EL_NAME like '%'||#{elName}||'%'
+    </if>
+    <if test="cUserLevel!=null and cUserLevel!=''">
+      AND s.EL_LEVEL = #{cUserLevel}
+    </if>
+    <if test="cUserRegionId!=null and cUserRegionId!=''">
+      AND s.EL_AREA_ID like #{cUserRegionId}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjectEnforceLawCountForSys" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_ENFORCE_LAW s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="elAreaId!=null and elAreaId!=''">
+      AND s.EL_AREA_ID like #{elAreaId}||'%'
+    </if>
+    <if test="elName!=null and elName!=''">
+      AND s.EL_NAME like '%'||#{elName}||'%'
+    </if>
+    <if test="cUserLevel!=null and cUserLevel!=''">
+      AND s.EL_LEVEL = #{cUserLevel}
+    </if>
+    <if test="cUserRegionId!=null and cUserRegionId!=''">
+      AND s.EL_AREA_ID like #{cUserRegionId}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+  </select>
+
+
+  <select id="getSubjElChangeList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*,ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS id,t.EL_NAME AS elName,t.EL_AREA_ID AS elAreaId,t.EL_LEADER AS elLeader,s.APPLY_TIME AS applyTime,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_EL_CHANGE s LEFT JOIN ASMS_SUBJ_ENFORCE_LAW t
+    ON s.APPLY_EL_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="elName!=null and elName!=''">
+      AND t.EL_NAME like '%'||#{elName}||'%'
+    </if>
+    <if test="elAreaId!=null and elAreaId!=''">
+      AND t.EL_AREA_ID like #{elAreaId}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="elLevel!=null and elLevel!=''">
+      AND t.EL_LEVEL = #{elLevel}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjElChangeCount" resultType="long" >
+    SELECT
+      COUNT(*)
+    FROM
+      ASMS_SUBJ_EL_CHANGE s LEFT JOIN ASMS_SUBJ_ENFORCE_LAW t
+        ON s.APPLY_EL_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+      <if test="date!=null and date!=''">
+        AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+        AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+      </if>
+      <if test="elName!=null and elName!=''">
+        AND t.EL_NAME like '%'||#{elName}||'%'
+      </if>
+      <if test="elAreaId!=null and elAreaId!=''">
+        AND t.EL_AREA_ID like #{elAreaId}||'%'
+      </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="elLevel!=null and elLevel!=''">
+      AND t.EL_LEVEL = #{elLevel}
+    </if>
+  </select>
+
+  <select id="getSubjElCancelList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS id,t.EL_NAME AS elName,t.EL_AREA_ID AS elAreaId,t.EL_LEADER AS elLeader,s.APPLY_TIME AS applyTime,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_EL_CANCEL s LEFT JOIN ASMS_SUBJ_ENFORCE_LAW t
+    ON s.EL_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="elName!=null and elName!=''">
+      AND t.EL_NAME like '%'||#{elName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND t.EL_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="elLevel!=null and elLevel!=''">
+      AND t.EL_LEVEL = #{elLevel}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjElCancelCount" resultType="long" >
+    SELECT
+      COUNT(*)
+    FROM
+      ASMS_SUBJ_EL_CANCEL s LEFT JOIN ASMS_SUBJ_ENFORCE_LAW t
+        ON s.EL_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+      <if test="date!=null and date!=''">
+        AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+        AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+      </if>
+      <if test="elName!=null and elName!=''">
+        AND t.EL_NAME like '%'||#{elName}||'%'
+      </if>
+      <if test="areaId!=null and areaId!=''">
+        AND t.EL_AREA_ID like #{areaId}||'%'
+      </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="elLevel!=null and elLevel!=''">
+      AND t.EL_LEVEL = #{elLevel}
+    </if>
+  </select>
+
+  <select id="getSubjElRevokeList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS id,t.EL_NAME AS elName,t.EL_AREA_ID AS elAreaId,t.EL_LEADER AS elLeader,s.APPLY_TIME AS applyTime,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_EL_REVOKE s LEFT JOIN ASMS_SUBJ_ENFORCE_LAW t
+    ON s.EL_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="elName!=null and elName!=''">
+      AND t.EL_NAME like '%'||#{elName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND t.EL_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="applySvId!=null and applySvId!=''">
+      AND s.APPLY_SV_ID = #{applySvId}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjElRevokeCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_EL_REVOKE s LEFT JOIN ASMS_SUBJ_ENFORCE_LAW t
+    ON s.EL_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= TO_DATE(#{date}, 'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= TO_DATE(#{date}, 'yyyy-MM-dd')+1
+    </if>
+    <if test="elName!=null and elName!=''">
+      AND t.EL_NAME like '%'||#{elName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND t.EL_AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="applySvId!=null and applySvId!=''">
+      AND s.APPLY_SV_ID = #{applySvId}
+    </if>
+  </select>
+
+  <select id="getChangeListByElId" resultMap="changeMap">
+    SELECT * FROM(
+    SELECT f.*, ROWNUM AS rn
+    FROM (
+    SELECT
+    s.*
+    FROM ASMS_SUBJ_EL_CHANGE s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="applyElId!=null and applyElId!=''">
+      AND s.APPLY_EL_ID =#{applyElId}
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND t.EL_AREA_ID like #{areaId}||'%'
+    </if>
+    order by s.APPLY_TIME DESC
+    ) f
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+
+  <select id="getChangeCountByElId" resultType="long">
+    SELECT COUNT(*) FROM ASMS_SUBJ_EL_CHANGE s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="applyElId!=null and applyElId!=''">
+      AND s.APPLY_EL_ID =#{applyElId}
+    </if>
+  </select>
+
+  <update id="updateSubjElStatusById">
+    update ASMS_SUBJ_ENFORCE_LAW
+    set STATUS = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <!--去除区域和机构级别唯一性限制-->
+  <!--SELECT * FROM ASMS_SUBJ_ENFORCE_LAW a-->
+  <!--WHERE a.DEL_FLAG='N' AND a.EL_AREA_ID=#{areaId} AND a.EL_LEVEL_ID=#{elLevelId}-->
+  <!--UNION-->
+  <select id="getSubjEnforceLawByCondition" resultMap="BaseResultMap">
+    SELECT * FROM ASMS_SUBJ_ENFORCE_LAW a
+    WHERE a.DEL_FLAG='N' AND a.EL_NAME=#{name}
+    UNION
+    SELECT * FROM ASMS_SUBJ_ENFORCE_LAW a
+    WHERE a.DEL_FLAG='N' AND a.EL_CODE=#{code}
+  </select>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjSlaProductExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjSlaProduct" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_UNIT" property="productUnit" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="CREATEBY" property="createby" jdbcType="CHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEBY" property="updateby" jdbcType="CHAR" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_SLAUGHTER_NAME" property="productSlaughterName" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_PRODUCTYPENAME T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <if test="productName != null and productName != ''">
+          and T.PRODUCT_NAME = #{productName}
+      </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_PRODUCTYPENAME T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <if test="productName != null and productName != ''">
+          and T.PRODUCT_NAME = #{productName}
+      </if>
+  </select>
+  <select id="getProductList" resultType="map">
+      SELECT ID,PRODUCT_SLAUGHTER_NAME FROM TTS_SCLTXXCJ_PRODUCTYPENAME T
+      where T.DEL_FLAG != 'Y'
+  </select>
+
+</mapper>

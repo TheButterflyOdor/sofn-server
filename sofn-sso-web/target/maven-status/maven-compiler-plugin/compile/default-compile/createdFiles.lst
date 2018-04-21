@@ -1,0 +1,14 @@
+com\sofn\core\shiro\StatelessToken.class
+com\sofn\core\shiro\StatelessAuthcFilter.class
+com\sofn\core\listener\SessionListener.class
+com\sofn\service\sso\SSOAppService.class
+com\sofn\service\sso\SSOLoginService.class
+com\sofn\web\sso\SSOAppController.class
+com\sofn\core\config\SwaggerConfig.class
+com\sofn\core\shiro\StatelessRealm.class
+com\sofn\service\sso\SysOrganizationService.class
+com\sofn\web\sso\LoginController.class
+com\sofn\core\shiro\AccessToken.class
+com\sofn\web\sso\SSOUserMenuController.class
+com\sofn\core\shiro\StatelessDefaultSubjectFactory.class
+com\sofn\service\sso\SSOMenuService.class

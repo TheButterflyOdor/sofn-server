@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.ales.AlesEntrustSampleExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesEntrustSample">
+        <id column="ID" property="id" jdbcType="CHAR" />
+        <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+        <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR" />
+        <result column="ENTRUST_DETECTION_ID" property="entrustDetectionId" jdbcType="CHAR" />
+        <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="CHAR" />
+        <result column="SAMPLE_ADDRESS" property="sampleAddress" jdbcType="VARCHAR" />
+        <result column="SAMPLE_INFORMATION" property="sampleInformation" jdbcType="VARCHAR" />
+        <result column="SAMPLE_UNIT_ID" property="sampleUnitId" jdbcType="CHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="ENABLE" property="enable" jdbcType="CHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    </resultMap>
+
+    <delete id="delByTaskId" parameterType="com.sofn.model.generator.AlesEntrustSample">
+    delete from ASMS_RECHECK_OBJECT
+        where RECHECK_TASK_ID = '${recheckTaskId}'
+    </delete>
+
+    <select id="getObjById" resultType="java.util.Map">
+        SELECT
+        M.ID AS id,
+        M.RECHECK_TASK_ID AS recheckTaskId,
+        M.RECHECK_SAMPLE_NAME AS recheckSampleName,
+        M.RECHECK_SAMPLE_CODE AS recheckSampleCode,
+        M.RECHECK_UNIT_ID AS recheckUnitId,
+        M.RECHECK_STANDARD AS recheckStandard,
+        M.RECHECK_JUDGE_STANDARD AS recheckJudgeStandard,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.ENABLE AS enable
+        FROM
+        ASMS_RECHECK_OBJECT M
+        WHERE 1=1 AND M.RECHECK_TASK_ID=#{id}
+    </select>
+
+</mapper>

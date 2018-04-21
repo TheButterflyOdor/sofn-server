@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsCheckPackageExpandMapper" >
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsCheckPackage">
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <id column="PACKAGE_NAME" property="packageName" jdbcType="VARCHAR" />
+        <id column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+        <id column="TEMP_TIME" property="tempTime" jdbcType="VARCHAR" />
+        <id column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+        <id column="CHECK_ITEMS" property="checkItems" jdbcType="VARCHAR" />
+        <id column="UPDATE_DATE" property="updateDate" jdbcType="DATE" />
+        <id column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <id column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <id column="ORGAN_ID" property="organId" jdbcType="VARCHAR" />
+        <id column="CHECK_ITEM_IDS" property="checkIds" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap1" type="com.sofn.model.generator.AdsCheckObjectPackage">
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <id column="OBJECT_PACKAGE_NAME" property="objectPackageName" jdbcType="VARCHAR" />
+        <id column="TEMP_TIME" property="tempTime" jdbcType="VARCHAR" />
+        <id column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+        <id column="CHECK_OBJECTS" property="checkObjects" jdbcType="VARCHAR" />
+        <id column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+        <id column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <id column="UPDATE_DATE" property="updateDate" jdbcType="DATE" />
+        <id column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <id column="ORGAN_ID" property="organId" jdbcType="VARCHAR" />
+        <id column="PRODUCT_IDS" property="productIds" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select *
+        from ADS_CHECK_PACKAGE
+        WHERE 1=1 AND DEL_FLAG != 'Y' AND ID =#{id,jdbcType=VARCHAR}
+    </select>
+    <insert id="addCheckPackage" parameterType="com.sofn.model.generator.AdsCheckPackage" >
+       insert into ADS_CHECK_PACKAGE (ID,PACKAGE_NAME,INDUSTRY,CREATE_DATE,CREATE_BY,DEL_FLAG,ORGAN_ID,CHECK_ITEM_IDS,CHECK_ITEMS)
+        values (#{id,jdbcType=VARCHAR},#{packageName,jdbcType=VARCHAR},#{industry,jdbcType=VARCHAR},#{createDate,jdbcType=DATE},#{createBy,jdbcType=VARCHAR},'N',#{organId,jdbcType=VARCHAR},#{checkIds,jdbcType=VARCHAR},#{checkItems,jdbcType=VARCHAR})
+    </insert>
+    <select id="getPageInfoAll" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ac.ID,
+        ac.PACKAGE_NAME,
+        ac.INDUSTRY,
+        to_char(ac.CREATE_DATE,'yyyy-mm-dd') TEMP_TIME
+        from ADS_CHECK_PACKAGE ac
+        where 1=1 and ac.DEL_FLAG != 'Y'
+        <if test="packageName != null and packageName !=''">
+            AND lower(ac.PACKAGE_NAME) like '%' || lower(trim(#{packageName})) ||'%'
+        </if>
+        <if test="industry != null and industry !=''">
+            AND lower(ac.INDUSTRY) like '%' || lower(trim(#{industry})) ||'%'
+        </if>
+        AND ORGAN_ID=#{organId}
+        order by CREATE_DATE desc) tmp
+        <![CDATA[
+          where rownum <= #{pageSize}*#{pageNum}) t
+     where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+    <select id="getCountAll" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ADS_CHECK_PACKAGE ac
+        where 1 = 1 and ac.DEL_FLAG != 'Y'
+        <if test="checkName != null and checkName !=''">
+            AND lower(ac.CHECK_NAME) like '%' || lower(trim(#{checkName})) ||'%'
+        </if>
+        <if test="industry != null and industry !=''">
+            AND lower(ac.INDUSTRY) like '%' || lower(trim(#{industry})) ||'%'
+        </if>
+        and ac.ORGAN_ID= #{organId}
+    </select>
+    <update id="deleteByID" parameterType="com.sofn.model.generator.AdsCheckPackage">
+        update ADS_CHECK_PACKAGE set DEL_FLAG = 'Y'
+        ,CREATE_DATE = #{createDate}
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+    <update id="deleteByObjectId" parameterType="com.sofn.model.generator.AdsCheckObjectPackage">
+        update ADS_CHECK_OBJECT_PACKAGE set DEL_FLAG ='Y',
+        CREATE_DATE = #{createDate}
+        where ID = #{id,jdbcType = VARCHAR}
+    </update>
+    <select id="getCheckPackageCount" parameterType="com.sofn.model.generator.AdsCheckPackage" resultType="long">
+        SELECT COUNT(1) from ADS_CHECK_PACKAGE ac WHERE
+           ac.PACKAGE_NAME = #{packageName} and ac.DEL_FLAG != 'Y' and ac.ORGAN_ID= #{organId}
+    </select>
+    <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsCheckPackage" >
+        update ADS_CHECK_PACKAGE
+        set
+        PACKAGE_NAME =  #{packageName,jdbcType=VARCHAR},
+        INDUSTRY =  #{industry,jdbcType=VARCHAR},
+        CHECK_ITEMS =  #{checkItems,jdbcType=VARCHAR},
+        UPDATE_DATE=#{updateDate,jdbcType=DATE},
+        UPDATE_BY =  #{updateBy,jdbcType=VARCHAR}
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateObjectPackageByPrimaryKey" parameterType="com.sofn.model.generator.AdsCheckObjectPackage" >
+        update ADS_CHECK_OBJECT_PACKAGE
+        set
+        OBJECT_PACKAGE_NAME =  #{objectPackageName,jdbcType=VARCHAR},
+        INDUSTRY =  #{industry,jdbcType=VARCHAR},
+        CHECK_OBJECTS =  #{checkObjects,jdbcType=VARCHAR},
+        UPDATE_DATE=#{updateDate,jdbcType=DATE},
+        UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+        PRODUCT_IDS = #{productIds,jdbcType=VARCHAR}
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+    <insert id="insertAll" parameterType="com.sofn.model.generator.AdsCheckPackage" >
+        insert into ADS_PACKAGE_MAPPING (PACKAGE_ID,CHECK_ID)
+        values (#{packageId,jdbcType=VARCHAR},#{checkId,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateAll" parameterType="com.sofn.model.generator.AdsCheckPackage" >
+        update ADS_PACKAGE_MAPPING
+        set
+        PACKAGE_ID =  #{packageId,jdbcType=VARCHAR},
+        CHECK_ID =  #{checkId,jdbcType=VARCHAR}
+        where PACKAGE_ID =#{packageId,jdbcType=VARCHAR}
+    </update>
+    <update id="deleteAll" parameterType="com.sofn.model.generator.AdsCheckPackage">
+        delete from ADS_PACKAGE_MAPPING
+        where  PACKAGE_ID =#{id,jdbcType=VARCHAR}
+    </update>
+
+
+
+    <select id="selectObjectPackageByPrimaryKey" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select *
+        from ADS_CHECK_OBJECT_PACKAGE
+        WHERE 1=1 AND DEL_FLAG != 'Y' AND ID =#{id, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="addCheckObjectPackage" parameterType="com.sofn.model.generator.AdsCheckObjectPackage" >
+        insert into ADS_CHECK_OBJECT_PACKAGE (ID,OBJECT_PACKAGE_NAME,INDUSTRY,CREATE_DATE,CREATE_BY,CHECK_OBJECTS,DEL_FLAG,ORGAN_ID,PRODUCT_IDS)
+        values (#{id,jdbcType=VARCHAR},#{objectPackageName,jdbcType=VARCHAR},#{industry,jdbcType=VARCHAR},#{createDate,jdbcType=DATE},#{createBy,jdbcType=VARCHAR},#{checkObjects,jdbcType=VARCHAR},'N',#{organId,jdbcType=VARCHAR},#{productIds,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getObjectPackagePageInfoAll" parameterType="hashmap" resultMap="BaseResultMap1">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ac.ID,
+        ac.OBJECT_PACKAGE_NAME,
+        ac.INDUSTRY,
+        ac.PRODUCT_IDS,
+        to_char(ac.CREATE_DATE,'yyyy-mm-dd') TEMP_TIME
+        from ADS_CHECK_OBJECT_PACKAGE ac
+        where 1=1 and ac.DEL_FLAG != 'Y'
+        <if test="objectPackageName != null and objectPackageName !=''">
+            AND lower(ac.OBJECT_PACKAGE_NAME) like '%' || lower(trim(#{objectPackageName})) ||'%'
+        </if>
+        <if test="industry != null and industry !=''">
+            AND lower(ac.INDUSTRY) like '%' || lower(trim(#{industry})) ||'%'
+        </if>
+        AND ORGAN_ID=#{organId}
+        order by CREATE_DATE desc) tmp
+        <![CDATA[
+          where rownum <= #{pageSize}*#{pageNum}) t
+     where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getObjectPackageCountAll" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ADS_CHECK_OBJECT_PACKAGE ac
+        where 1 = 1 and ac.DEL_FLAG != 'Y'
+        <if test="objectPackageName != null and objectPackageName !=''">
+            AND lower(ac.OBJECT_PACKAGE_NAME) like '%' || lower(trim(#{objectPackageName})) ||'%'
+        </if>
+        <if test="industry != null and industry !=''">
+            AND lower(ac.INDUSTRY) like '%' || lower(trim(#{industry})) ||'%'
+        </if>
+        and ac.ORGAN_ID= #{organId}
+    </select>
+
+</mapper>

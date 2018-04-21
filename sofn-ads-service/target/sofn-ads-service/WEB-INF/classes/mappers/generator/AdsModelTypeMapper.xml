@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsModelTypeMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsModelType" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADS_MODEL_TYPE
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.AdsModelType" >
+    insert into ADS_MODEL_TYPE (ID
+    , NAME
+    , CREATE_BY
+    , CREATE_TIME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{name,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , sysdate
+      )
+  </insert>
+  
+   <update id="update" parameterType="com.sofn.model.generator.AdsModelType" >
+    update ADS_MODEL_TYPE
+    set
+     NAME =  #{name,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     UPDATE_TIME =  sysdate
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , NAME
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from ADS_MODEL_TYPE
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+
+    <update id="deleteByID" parameterType="com.sofn.model.generator.AdsModelType">
+        update ADS_MODEL_TYPE set DEL_FLAG = 'Y'
+        ,UPDATE_BY = #{updateBy}
+        ,UPDATE_TIME = sysdate
+        where id =#{id,jdbcType=VARCHAR}
+    </update>
+  
+  </mapper>

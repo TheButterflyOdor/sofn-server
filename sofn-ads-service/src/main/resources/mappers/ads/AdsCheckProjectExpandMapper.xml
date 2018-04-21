@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsCheckProjectExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsCheckProject" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR" />
+    <result column="CHECK_NUM" property="checkNum" jdbcType="VARCHAR" />
+    <result column="JUDGE_NUM" property="judgeNum" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="CHECK_INFO_ID" property="checkInfoId" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from ADS_CHECK_PROJECT T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM ADS_CHECK_PROJECT T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+  </select>
+
+
+</mapper>

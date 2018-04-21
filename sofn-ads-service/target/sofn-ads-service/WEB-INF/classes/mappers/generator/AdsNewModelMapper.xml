@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsNewModelMapper" >
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsCheckModelMapping">
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <id column="MODEL_ID" property="modelId" jdbcType="VARCHAR" />
+        <id column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+        <id column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <id column="CHECK_ID" property="checkId" jdbcType="VARCHAR" />
+        <id column="CHECK_NAME" property="checkName" jdbcType="VARCHAR" />
+        <id column="MAX_VALUE" property="maxValue" jdbcType="FLOAT" />
+        <id column="IS_ENABLE" property="isEnable" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from ADS_CHECK_ITEMS
+        where check_id =#{checkId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.sofn.model.generator.AdsCheckModelMapping" >
+        insert into ADS_CHECK_ITEMS (CHECK_ID,CHECK_NAME)
+        values (#{checkId,jdbcType=VARCHAR},#{checkName,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsCheckInfo" >
+        update ADS_CHECK_ITEMS
+        set
+        CHECK_ID =  #{checkId,jdbcType=VARCHAR},
+        CHECK_NAME =  #{checkName,jdbcType=VARCHAR},
+        where CHECK_ID =#{checkId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select CHECK_ID
+        , CHECK_NAME
+        from ADS_CHECK_ITEMS
+        where CHECK_ID =#{checkId,jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>

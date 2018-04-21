@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.ales.AlesWtObjectCriterionExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesWtObjectCriterion">
+        <id column="ID" property="id" jdbcType="CHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="ENABLE" property="enable" jdbcType="CHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR"/>
+        <result column="OBJECT_ID" property="objectId" jdbcType="CHAR"/>
+        <result column="TASK_ID" property="taskId" jdbcType="CHAR"/>
+        <result column="CRITERION_NAME" property="criterionName" jdbcType="VARCHAR"/>
+        <result column="CRITERION_ID" property="criterionId" jdbcType="CHAR"/>
+        <result column="SPPER_LIMIT" jdbcType="DECIMAL" property="spperLimit"/>
+    </resultMap>
+
+    <delete id="delByParm">
+        DELETE FROM ALES_WT_OBJECT_CRITERION M
+        WHERE 1=1
+        <if test="checkTaskObjectId!=null and checkTaskObjectId!=''">
+            AND M.OBJECT_ID = #{checkTaskObjectId}
+        </if>
+    </delete>
+
+    <update id="updateSpperLimitById">
+        UPDATE ALES_WT_OBJECT_CRITERION
+        SET SPPER_LIMIT = #{spperLimit}
+        WHERE
+        ID = #{id}
+    </update>
+
+    <select id="getListByParams" resultType="com.sofn.model.generator.AlesWtObjectCriterion">
+        SELECT M.* FROM ALES_WT_OBJECT_CRITERION M
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="checkTaskObjectId!=null and checkTaskObjectId!=''">
+            AND M.OBJECT_ID = #{checkTaskObjectId}
+        </if>
+        <if test="taskId!=null and taskId!=''">
+            AND M.TASK_ID = #{taskId}
+        </if>
+        <!--<if test="criterionName!=null and criterionName!=''">-->
+        <!--AND M.CRITERION_NAME LIKE #{criterionName}-->
+        <!--</if>-->
+        <!--<if test="criterionId!=null and criterionId!=''">-->
+        <!--AND M.CRITERION_ID LIKE #{criterionId}-->
+        <!--</if>-->
+        order by M.CREATE_TIME DESC
+    </select>
+
+    <select id="queryByTaskId" parameterType="hashmap" resultType="com.sofn.model.generator.AlesWtObjectCriterion">
+        SELECT
+        T1.*
+        FROM
+        ALES_WT_OBJECT_CRITERION T1
+        LEFT JOIN ALES_WT_TASK_MONITOR T2 ON T1.OBJECT_ID=T2.ID
+        LEFT JOIN ALES_TASK_SAMPLE T3 ON T2.ID=T3.ORGAN_TASK_ID
+        WHERE 1=1 AND M.DEL_FLAG = 'N'
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND   T3.SAMPLE_CODE = #{sampleCode}
+        </if>
+    </select>
+
+</mapper>

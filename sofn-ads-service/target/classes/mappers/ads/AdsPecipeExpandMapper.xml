@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsPecipeExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsPecipe" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORGAN_NAME" property="organName" jdbcType="VARCHAR" />
+    <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR" />
+    <result column="ORGAN_ID" property="organId" jdbcType="VARCHAR" />
+    <result column="TASK_NUM" property="taskNum" jdbcType="DECIMAL" />
+    <result column="RECEIPT_CLASS" property="receiptClass" jdbcType="VARCHAR" />
+    <result column="RECEIPT_TIME" property="receiptTime" jdbcType="VARCHAR" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="FINISH_NUM" property="finishNum" jdbcType="DECIMAL" />
+    <result column="S_NAME" property="sName" jdbcType="VARCHAR" />
+    <result column="S_CODE" property="sCode" jdbcType="VARCHAR" />
+ </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from ADS_RECIPE T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+
+    <select id="getAdsPecipePageInfo" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.ID,T.ORGAN_NAME,T.ORGAN_TASK_ID,T.ORGAN_ID,T.TASK_NUM,T.RECEIPT_CLASS,amt.TASK_NAME,
+        to_char(T.RECEIPT_TIME,'yyyy-mm-dd')  RECEIPT_TIME,to_char(T.CREATE_TIME,'yyyy-mm-dd')  CREATE_TIME,T.REASON,T.DEL_FLAG,T.CREATE_BY,T.UPDATE_BY,
+        T.FINISH_NUM,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from ADS_RECIPE T,ADS_ORGAN_TASK ads,ADS_MONITOR_TASK amt
+       where T.ORGAN_TASK_ID=ads.ID AND amt.ID=ads.MONITOR_TASK_ID AND 1 = 1 AND T.DEL_FLAG != 'Y'AND ads.DEL_FLAG != 'Y' AND amt.DEL_FLAG != 'Y'
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM ADS_RECIPE T,ADS_ORGAN_TASK ads,ADS_MONITOR_TASK amt
+      where T.ORGAN_TASK_ID=ads.ID AND amt.ID=ads.MONITOR_TASK_ID AND 1 = 1 AND T.DEL_FLAG != 'Y' AND ads.DEL_FLAG != 'Y' AND amt.DEL_FLAG != 'Y'
+  </select>
+
+  <update id="updateStatusByID" parameterType="com.sofn.model.generator.AdsOrganTask" >
+        update Ads_Organ_Task
+        set
+        <if test="sampleReportStatus != null and sampleReportStatus !=''">
+            SAMPLE_REPORT_STATUS = #{sampleReportStatus},
+            SAMPLE_FINISH_Num = #{sampleFinishNum},
+        </if>
+        <if test="checkReportStatus != null and checkReportStatus !=''">
+            CHECK_REPORT_STATUS = #{checkReportStatus},
+            CHECK_FINISH_NUM = #{checkFinishNum},
+        </if>
+            UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+            UPDATE_TIME = sysdate
+        where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

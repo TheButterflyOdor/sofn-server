@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjXsthExpandMapper" >
+    <resultMap id="TtsScltxxcjXsthAndCustomer" type="com.sofn.model.generator.TtsScltxxcjXsthAndCustomer" extends="BaseResultMap">
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+        <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+        <result column="XSNAME" property="xsName" jdbcType="VARCHAR" />
+        <result column="NUM" property="num" jdbcType="VARCHAR" />
+    </resultMap>
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjXsth" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="XSJLID" property="xsjlid" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+    <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP" />
+    <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR" />
+    <result column="PRODUCT_XSPC" property="productXspc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_XSPC_SL" property="productXspcSl" jdbcType="VARCHAR" />
+    <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ENTITY_IDCODE" property="customerEntityIdcode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_USER_IDCODE" property="customerUserIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="XSTHYY" property="xsthyy" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_XSTH T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_XSTH T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+  </select>
+  <select id="queryByXsjlId" parameterType="string" resultMap="TtsScltxxcjXsthAndCustomer">
+        SELECT
+            X.PRODUCT_NAME,
+            X.SALE_TIME,
+            X.SALE_AMOUNT,
+            X.PRODUCT_SORT,
+            X.PRODUCT_XSPC,
+            X.XSTHYY,
+            X.CUSTOMER_ENTITY_IDCODE,
+            X.CUSTOMER_USER_IDCODE,
+            C.USER_NAME,
+            C.NAME,
+            C.ADDRESS,
+            C.PHONE
+        FROM
+            TTS_SCLTXXCJ_XSTH X
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER C ON C.CUSTOMER_ENTITY_ID_CODE = X.CUSTOMER_ENTITY_IDCODE AND C.USER_ID_CODE = X.USER_IDCODE
+        WHERE 1=1
+        AND X.XSJLID = #{id}
+        AND X.DEL_FLAG != 'Y'
+  </select>
+
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysNoticereleaseExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysNoticerelease" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="RELEASE_TIME" property="releaseTime" jdbcType="TIMESTAMP" />
+    <result column="RELEASE_PERSON" property="releasePerson" jdbcType="VARCHAR" />
+    <result column="ORGAN_ID" property="organId" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+    <result column="RELEASE_RANGE" property="releaseRange" jdbcType="VARCHAR" />
+    <result column="NOTICE_TYPE" property="noticeType" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+    <select id="getPageInfo" parameterType="hashmap" resultType="com.sofn.model.generator.SysNoticerelease">
+        SELECT * FROM
+        (
+        SELECT A.*, ROWNUM RN
+        FROM (
+        SELECT * FROM SYS_NOTICERELEASE
+        WHERE 1=1 AND DEL_FLAG !='Y'
+        <if test="noticeType!=null and noticeType!=''">
+            AND NOTICE_TYPE = #{noticeType,jdbcType=VARCHAR}
+        </if>
+        <if test="title!=null and title!=''">
+            AND TITLE like '%'||#{title,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="releaseTime!=null and releaseTime!=''">
+            AND to_char(RELEASE_TIME,'YYYY-mm-dd') = #{releaseTime,jdbcType=VARCHAR}
+        </if>
+        <if test="releasePerson!=null and releasePerson!=''">
+            AND RELEASE_PERSON like '%'||#{releasePerson,jdbcType=VARCHAR}||'%'
+        </if>
+        order by RELEASE_TIME
+        ) A
+        <![CDATA[
+            WHERE ROWNUM <= #{pager.pageTail}
+            ]]>
+        )
+        <![CDATA[
+        WHERE RN >= #{pager.pageOffset}
+        ]]>
+
+    </select>
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+        select COUNT(*)
+        from SYS_NOTICERELEASE
+        WHERE 1=1 AND DEL_FLAG !='Y'
+        <if test="noticeType!=null and noticeType!=''">
+            AND NOTICE_TYPE = #{noticeType,jdbcType=VARCHAR}
+        </if>
+        <if test="title!=null and title!=''">
+            AND TITLE like '%'||#{title,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="releaseTime!=null and releaseTime!=''">
+            AND to_char(RELEASE_TIME,'YYYY-mm-dd') = #{releaseTime,jdbcType=VARCHAR}
+        </if>
+        <if test="releasePerson!=null and releasePerson!=''">
+            AND RELEASE_PERSON like '%'||#{releasePerson,jdbcType=VARCHAR}||'%'
+        </if>
+    </select>
+</mapper>

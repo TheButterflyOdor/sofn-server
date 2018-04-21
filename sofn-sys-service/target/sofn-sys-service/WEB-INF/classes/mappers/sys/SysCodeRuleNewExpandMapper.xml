@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysCodeRuleNewExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysCodeRuleNew" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+        <result column="RULE_CODE" property="ruleCode" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="DEMO_IMG" property="demoImg" jdbcType="BLOB" />
+        <collection property="fieldList" javaType="list" ofType="com.sofn.model.generator.SysCodeRuleFieldNew">
+            <id column="sysCodeRuleFieldNew.id" property="id" jdbcType="VARCHAR" />
+            <result column="sysCodeRuleFieldNew.name" property="name" jdbcType="VARCHAR" />
+            <result column="sysCodeRuleFieldNew.length" property="length" jdbcType="DECIMAL" />
+            <result column="sysCodeRuleFieldNew.component" property="component" jdbcType="VARCHAR" />
+            <result column="sysCodeRuleFieldNew.num" property="num" jdbcType="DECIMAL" />
+        </collection>
+    </resultMap>
+
+    <sql id="ruleAndField">
+    	r.RULE_NAME,
+        f.ID as "sysCodeRuleFieldNew.ID",
+        f.RULE_ID as "sysCodeRuleFieldNew.ruleId",
+        f.NAME as "sysCodeRuleFieldNew.name",
+        f.LENGTH as "sysCodeRuleFieldNew.length",
+        f.COMPONENT as "sysCodeRuleFieldNew.component",
+        f.NUM as  "sysCodeRuleFieldNew.num"
+    </sql>
+    <select id="getSysCodeListByPage" resultType="com.sofn.model.generator.SysCodeRuleNew">
+        select r.* from
+        (select * from (select  ID, RULE_NAME, RULE_CODE,ROWNUM RN from (
+        select ID, RULE_NAME, RULE_CODE from SYS_CODE_RULE_NEW s where (del_flag is null or del_flag!='Y')
+        order by CREATE_TIME
+        ) a
+        <![CDATA[
+        where ROWNUM<= #{page.pageTail}
+        ]]>)
+        <![CDATA[
+        where RN >= #{page.pageOffset}
+        ]]>) r
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1)
+        from SYS_CODE_RULE_NEW s
+        where del_flag is null or del_flag!='Y'
+    </select>
+
+    <select id="getDemoImg" resultMap="BaseResultMap">
+        select demo_img
+        from SYS_CODE_RULE_NEW r
+        where (del_flag is null or del_flag!='Y')
+        and id=#{ruleId}
+    </select>
+
+    <select id="queryRuleAndField" resultMap="BaseResultMap">
+        SELECT
+        <include refid="ruleAndField"/>
+        FROM
+        SYS_CODE_RULE_NEW r left join
+        SYS_CODE_RULE_FIELD_NEW f
+        on (r.id=f.RULE_ID and f.DEL_FLAG='N')
+        WHERE
+        RULE_ID = #{ruleId}
+        AND r.DEL_FLAG = 'N'
+        order by f.num
+    </select>
+</mapper>

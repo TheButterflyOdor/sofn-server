@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsSpecialLeadUnitMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSpecialLeadUnit">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="SPECIAL_MONITOR_ID" jdbcType="CHAR" property="specialMonitorId" />
+    <result column="LEAD_UNIT_ID" jdbcType="CHAR" property="leadUnitId" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="LEAD_UNIT_NAME" jdbcType="VARCHAR" property="leadUnitName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_SPECIAL_LEAD_UNIT
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsSpecialLeadUnit">
+    insert into ASMS_SPECIAL_LEAD_UNIT (ID, SPECIAL_MONITOR_ID, LEAD_UNIT_ID, 
+      DEL_FLAG, LEAD_UNIT_NAME)
+    values (#{id,jdbcType=CHAR}, #{specialMonitorId,jdbcType=CHAR}, #{leadUnitId,jdbcType=CHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{leadUnitName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsSpecialLeadUnit">
+    update ASMS_SPECIAL_LEAD_UNIT
+    set SPECIAL_MONITOR_ID = #{specialMonitorId,jdbcType=CHAR},
+      LEAD_UNIT_ID = #{leadUnitId,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      LEAD_UNIT_NAME = #{leadUnitName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, SPECIAL_MONITOR_ID, LEAD_UNIT_ID, DEL_FLAG, LEAD_UNIT_NAME
+    from ASMS_SPECIAL_LEAD_UNIT
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, SPECIAL_MONITOR_ID, LEAD_UNIT_ID, DEL_FLAG, LEAD_UNIT_NAME
+    from ASMS_SPECIAL_LEAD_UNIT
+  </select>
+</mapper>

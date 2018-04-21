@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjCustomerMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjCustomer" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID_CODE" property="userIdCode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ENTITY_ID_CODE" property="customerEntityIdCode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_USER_ID_CODE" property="customerUserIdCode" jdbcType="VARCHAR" />
+    <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="DELFLAG" property="delflag" jdbcType="VARCHAR" />
+    <result column="CREATEBY" property="createby" jdbcType="VARCHAR" />
+    <result column="UPDATEBY" property="updateby" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_TYPE" property="organizationType" jdbcType="VARCHAR" />
+    <result column="LEGAL_REPRESENTATIVE" property="legalRepresentative" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="ID_CARD_NO" property="idCardNo" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="ENTITY_ID_CODE" property="entityIdCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_CUSTOMER_V2
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>-->
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        update TTS_SCLTXXCJ_CUSTOMER_V2 T
+        set T.DELFLAG = 'Y'
+        WHERE T.ID = #{id}
+    </update>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjCustomer" >
+    insert into TTS_SCLTXXCJ_CUSTOMER_V2 (ID
+    , USER_ID_CODE
+    , CUSTOMER_ENTITY_ID_CODE
+    , CUSTOMER_USER_ID_CODE
+    , IP_ADDRESS
+    , DELFLAG
+    , CREATEBY
+    , UPDATEBY
+    , UPDATETIME
+    , NAME
+    , TYPE
+    , ORGANIZATION_TYPE
+    , LEGAL_REPRESENTATIVE
+    , USER_NAME
+    , ID_CARD_NO
+    , PHONE
+    , EMAIL
+    , ADDRESS
+    , STATUS
+    , CREATETIME
+    , ENTITY_ID_CODE
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{userIdCode,jdbcType=VARCHAR}
+    , #{customerEntityIdCode,jdbcType=VARCHAR}
+    , #{customerUserIdCode,jdbcType=VARCHAR}
+    , #{ipAddress,jdbcType=VARCHAR}
+    , #{delflag,jdbcType=VARCHAR}
+    , #{createby,jdbcType=VARCHAR}
+    , #{updateby,jdbcType=TIMESTAMP}
+    , #{updatetime,jdbcType=TIMESTAMP}
+    , #{name,jdbcType=VARCHAR}
+    , #{type,jdbcType=VARCHAR}
+    , #{organizationType,jdbcType=VARCHAR}
+    , #{legalRepresentative,jdbcType=VARCHAR}
+    , #{userName,jdbcType=VARCHAR}
+    , #{idCardNo,jdbcType=VARCHAR}
+    , #{phone,jdbcType=VARCHAR}
+    , #{email,jdbcType=VARCHAR}
+    , #{address,jdbcType=VARCHAR}
+    , #{status,jdbcType=VARCHAR}
+    , #{createtime,jdbcType=TIMESTAMP}
+    , #{entityIdCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjCustomer" >
+    update TTS_SCLTXXCJ_CUSTOMER_V2
+    set
+     USER_ID_CODE =  #{userIdCode,jdbcType=VARCHAR},
+     CUSTOMER_ENTITY_ID_CODE =  #{customerEntityIdCode,jdbcType=VARCHAR},
+     CUSTOMER_USER_ID_CODE =  #{customerUserIdCode,jdbcType=VARCHAR},
+     IP_ADDRESS =  #{ipAddress,jdbcType=VARCHAR},
+     UPDATEBY =  #{updateby,jdbcType=TIMESTAMP},
+     UPDATETIME =  #{updatetime,jdbcType=TIMESTAMP},
+     NAME =  #{name,jdbcType=VARCHAR},
+     TYPE =  #{type,jdbcType=VARCHAR},
+     ORGANIZATION_TYPE =  #{organizationType,jdbcType=VARCHAR},
+     LEGAL_REPRESENTATIVE =  #{legalRepresentative,jdbcType=VARCHAR},
+     USER_NAME =  #{userName,jdbcType=VARCHAR},
+     ID_CARD_NO =  #{idCardNo,jdbcType=VARCHAR},
+     PHONE =  #{phone,jdbcType=VARCHAR},
+     EMAIL =  #{email,jdbcType=VARCHAR},
+     ADDRESS =  #{address,jdbcType=VARCHAR},
+     STATUS =  #{status,jdbcType=VARCHAR},
+     ENTITY_ID_CODE =  #{entityIdCode,jdbcType=VARCHAR},
+     DELFLAG = #{delFlag,jdbcType=VARCHAR}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , USER_ID_CODE
+    , CUSTOMER_ENTITY_ID_CODE
+    , CUSTOMER_USER_ID_CODE
+    , IP_ADDRESS
+    , DELFLAG
+    , CREATEBY
+    , UPDATEBY
+    , UPDATETIME
+    , NAME
+    , TYPE
+    , ORGANIZATION_TYPE
+    , LEGAL_REPRESENTATIVE
+    , USER_NAME
+    , ID_CARD_NO
+    , PHONE
+    , EMAIL
+    , ADDRESS
+    , STATUS
+    , CREATETIME
+    , ENTITY_ID_CODE
+    from TTS_SCLTXXCJ_CUSTOMER_V2
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

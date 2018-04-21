@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysSuggestionExpandMapper">
+
+    <select id="getSuggestionList" resultType="com.sofn.model.sys.SysSuggestionQueryResultDTO">
+        SELECT
+            t1.ID,
+            t2.ENTERPRISE_NAME,
+            t2.AREA,
+            t1.CREATE_TIME,
+            t1.TYPE_DESCRIBE,
+            t1.TITLE,
+            t1.CONTENT
+        FROM
+          TTS_SCLTXXCJ_PROPOSAL_V2 t1 LEFT JOIN TTS_SCLTXXCJ_REGISTER_V2 t2 ON t1.ENTITY_IDCODE = t2.ENTITY_IDCODE
+        WHERE
+          t1.DEL_FLAG = 'N'
+          AND t2.DEL_FLAG = 'N'
+        <if test="regionCode != null and regionCode != ''">
+          AND t2.AREA LIKE #{regionCode} || '%'
+        </if>
+        <if test="suggestionType != null and suggestionType != ''">
+          AND t1.TYPE_DESCRIBE = #{suggestionType}
+        </if>
+        <if test="feedbackTimeBeginning != null and feedbackTimeBeginning != ''">
+         <![CDATA[
+          AND TRUNC(t1.CREATE_TIME) >= TO_DATE( #{feedbackTimeBeginning},'yyyy-mm-dd' )
+          ]]>
+        </if>
+        <if test="feedbackTimeEnding != null and feedbackTimeEnding != ''">
+         <![CDATA[
+          AND TRUNC(t1.CREATE_TIME) <= TO_DATE( #{feedbackTimeEnding},'yyyy-mm-dd' )
+          ]]>
+        </if>
+        ORDER BY
+          t1.CREATE_TIME DESC
+    </select>
+    <select id="getSuggestion" resultType="com.sofn.model.sys.SysSuggestionQueryResultDTO">
+        SELECT
+            t1.ID,
+            t2.ENTERPRISE_NAME,
+            t2.AREA,
+            t1.CREATE_TIME,
+            t1.TYPE_DESCRIBE,
+            t1.TITLE,
+            t1.CONTENT,
+            t1.ATTACH_NAME,
+            t1.ATTACH_PATH
+        FROM
+            TTS_SCLTXXCJ_PROPOSAL_V2 t1 LEFT JOIN TTS_SCLTXXCJ_REGISTER_V2 t2 ON t1.ENTITY_IDCODE = t2.ENTITY_IDCODE
+        WHERE
+            t1.ID = #{id}
+    </select>
+</mapper>

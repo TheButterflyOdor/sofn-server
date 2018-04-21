@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsMQInfoExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.asms.MQInfo">
+        <id column="ID" jdbcType="CHAR" property="id"/>
+        <result column="PROVIDER" jdbcType="VARCHAR" property="provider"/>
+        <result column="CONSUMER" jdbcType="VARCHAR" property="consumer"/>
+        <result column="TITLE" jdbcType="VARCHAR" property="title"/>
+        <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
+        <result column="RECEIVE_FLAG" jdbcType="CHAR" property="receiveFlag"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.sofn.model.asms.MQInfo">
+    insert into MQ_INFO (ID, PROVIDER, CONSUMER,
+      TITLE, CONTENT, RECEIVE_FLAG, REMARK,
+      CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME,
+      DEL_FLAG)
+    values (#{id,jdbcType=CHAR}, #{provider,jdbcType=VARCHAR}, #{consumer,jdbcType=VARCHAR},
+      #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{receiveFlag,jdbcType=CHAR},
+      #{remark,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR})
+  </insert>
+
+    <select id="selectByRecevieFlag" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, PROVIDER, CONSUMER, TITLE, CONTENT, RECEIVE_FLAG,
+    REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG
+    from MQ_INFO
+    where RECEIVE_FLAG = #{flag,jdbcType=CHAR}
+  </select>
+
+    <select id="queryByConsumer" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select ID, PROVIDER, CONSUMER, TITLE, CONTENT, RECEIVE_FLAG,
+        REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG
+        from MQ_INFO
+        where CONSUMER = #{consumer,jdbcType=VARCHAR}
+        AND RECEIVE_FLAG != 'Y'
+        AND DEL_FLAG != 'Y'
+    </select>
+
+    <update id="updateReceiveFlag">
+        UPDATE MQ_INFO
+        SET RECEIVE_FLAG='Y'
+        WHERE CONSUMER=#{consumer,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

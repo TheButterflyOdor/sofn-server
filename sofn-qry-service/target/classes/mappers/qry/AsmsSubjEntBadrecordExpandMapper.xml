@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.qry.AsmsSubjEntBadrecordExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjEntBadrecord" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="VARCHAR" />
+    <result column="BADRECORD_CONTENT" property="badrecordContent" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="BADRECORD_FILE" property="badrecordFile" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="SOURCE_ID" property="sourceId" jdbcType="VARCHAR" />
+    <result column="SOURCE_TYPE" property="sourceType" jdbcType="CHAR" />
+  </resultMap>
+  <select id="selectAllByCondition" parameterType="hashmap" resultType="map">
+    select * from(
+    SELECT f.* ,ROWNUM AS rn FROM(
+    SELECT t1.* FROM
+    TTS_SCLTXXCJ_REGISTER_V2 t1 WHERE t1.id IN (
+    SELECT distinct enterprise_id FROM ASMS_SUBJ_ENT_BADRECORD)
+    <if test="area!=null and area!=''">
+        AND t1.AREA like '%'||#{area}||'%'
+    </if>
+    <if test="queryCon!=null and queryCon!=''">
+      AND t1.ENTERPRISE_NAME like '%'||#{queryCon}||'%'OR t1.ENTITY_INDUSTRY_NAME like '%'||#{queryCon}||'%'OR t1.ENTITY_SCALE_NAME like '%'||#{queryCon}||'%'OR t1.ENTITY_TYPE_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND t1.ENTITY_INDUSTRY like '%'||#{entityIndustry}||'%'
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND t1.ENTITY_INDUSTRY  =#{entityIndustry}
+    </if>
+    ORDER BY t1.create_time DESC) f)
+    WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+
+  <select id="getAsmsSubjEntBadrecordCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM
+    TTS_SCLTXXCJ_REGISTER_V2 t1 WHERE t1.id IN (
+    SELECT distinct enterprise_id FROM ASMS_SUBJ_ENT_BADRECORD)
+    <if test="area!=null and area!=''">
+      AND t1.AREA like '%'||#{area}||'%'
+    </if>
+    <if test="queryCon!=null and queryCon!=''">
+      AND t1.ENTERPRISE_NAME like '%'||#{queryCon}||'%'OR t1.ENTITY_INDUSTRY_NAME like '%'||#{queryCon}||'%'OR t1.ENTITY_SCALE_NAME like '%'||#{queryCon}||'%'OR t1.ENTITY_TYPE_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND t1.ENTITY_INDUSTRY like '%'||#{entityIndustry}||'%'
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND t1.ENTITY_TYPE=#{entityType}
+    </if>
+  </select>
+
+  <select id="findEnterpriseById" resultType="map" parameterType="java.lang.String" >
+    SELECT * FROM TTS_SCLTXXCJ_REGISTER_V2 T
+    WHERE t.ENTITY_IDCODE=#{enterpriseId}
+  </select>
+
+  <select id="findSubjEntBadrecodeById" resultMap="BaseResultMap">
+    SELECT * FROM (
+    SELECT t.*,ROWNUM AS rn FROM(
+    SELECT s.* FROM
+    ASMS_SUBJ_ENT_BADRECORD s
+    WHERE
+    s.ENTERPRISE_ID=#{enterpriseId}
+    AND s.DEL_FLAG='N'
+    ORDER BY s.CREATE_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+
+  <select id="getSubjEntBadrecordByIdCount" resultType="long">
+    SELECT COUNT(*) FROM ASMS_SUBJ_ENT_BADRECORD s
+   WHERE s.ENTERPRISE_ID=#{enterpriseId}
+  </select>
+
+  <delete id="deleteBadrecordByPrimaryKey" parameterType="java.lang.String" >
+    delete from ASMS_SUBJ_ENT_BADRECORD
+    where SOURCE_ID = #{sourceId,jdbcType=CHAR}
+  </delete>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsCheckProjectMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsCheckProject" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR" />
+    <result column="CHECK_NUM" property="checkNum" jdbcType="VARCHAR" />
+    <result column="JUDGE_NUM" property="judgeNum" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="CHECK_INFO_ID" property="checkInfoId" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADS_CHECK_PROJECT
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.AdsCheckProject" >
+    insert into ADS_CHECK_PROJECT (ID
+    , CHECK_PROJECT
+    , CHECK_NUM
+    , JUDGE_NUM
+    , RESULT
+    , CHECK_INFO_ID
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{checkProject,jdbcType=VARCHAR}
+    , #{checkNum,jdbcType=VARCHAR}
+    , #{judgeNum,jdbcType=VARCHAR}
+    , #{result,jdbcType=VARCHAR}
+    , #{checkInfoId,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsCheckProject" >
+    update ADS_CHECK_PROJECT
+    set
+     CHECK_PROJECT =  #{checkProject,jdbcType=VARCHAR},
+     CHECK_NUM =  #{checkNum,jdbcType=VARCHAR},
+     JUDGE_NUM =  #{judgeNum,jdbcType=VARCHAR},
+     RESULT =  #{result,jdbcType=VARCHAR},
+     CHECK_INFO_ID =  #{checkInfoId,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , CHECK_PROJECT
+    , CHECK_NUM
+    , JUDGE_NUM
+    , RESULT
+    , CHECK_INFO_ID
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from ADS_CHECK_PROJECT
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

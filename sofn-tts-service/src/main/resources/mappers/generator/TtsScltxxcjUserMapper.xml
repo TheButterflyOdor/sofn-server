@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjUserMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjUser" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="IS_MAIN" property="isMain" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+  </resultMap>
+  
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        UPDATE TTS_SCLTXXCJ_USER
+        SET  DEL_FLAG = 'Y'
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjUser" >
+    insert into TTS_SCLTXXCJ_USER (ID
+    , ACCOUNT
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    , IS_MAIN
+    , STATUS
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , NAME
+    , PHONE
+    , EMAIL
+    , PASSWORD
+    , ID_CARD
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{account,jdbcType=VARCHAR}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{entityIdcode,jdbcType=VARCHAR}
+    , #{isMain,jdbcType=CHAR}
+    , #{status,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{name,jdbcType=VARCHAR}
+    , #{phone,jdbcType=VARCHAR}
+    , #{email,jdbcType=VARCHAR}
+    , #{password,jdbcType=VARCHAR}
+    , #{idCard,jdbcType=VARCHAR}
+      )
+  </insert>
+
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjUser" >
+    update TTS_SCLTXXCJ_USER
+    set
+     ACCOUNT =  #{account,jdbcType=VARCHAR},
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+     IS_MAIN =  #{isMain,jdbcType=CHAR},
+     STATUS =  #{status,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+     NAME =  #{name,jdbcType=VARCHAR},
+     PHONE =  #{phone,jdbcType=VARCHAR},
+     EMAIL =  #{email,jdbcType=VARCHAR},
+     PASSWORD =  #{password,jdbcType=VARCHAR},
+     ID_CARD =  #{idCard,jdbcType=VARCHAR}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , ACCOUNT
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    , IS_MAIN
+    , STATUS
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , NAME
+    , PHONE
+    , EMAIL
+    from TTS_SCLTXXCJ_USER
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

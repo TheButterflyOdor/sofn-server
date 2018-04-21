@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysCodeRuleFieldExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysCodeRuleField" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR" />
+        <result column="RULE_ID" property="ruleId" jdbcType="VARCHAR" />
+        <result column="SORT_ID" property="sortId" jdbcType="VARCHAR" />
+        <result column="FIXED" property="fixed" jdbcType="VARCHAR" />
+        <result column="GROUP_MODE" property="groupMode" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR" />
+        <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="queryByRuleId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select ID, FIELD_NAME, RULE_ID, SORT_ID, FIXED, GROUP_MODE, CREATE_TIME, UPDATE_BY, UPDATE_TIME,
+        DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2
+        from SYS_CODE_RULE_FIELD
+        where RULE_ID = #{ruleId,jdbcType=VARCHAR}
+    </select>
+    <select id="deleteByRuleId"  parameterType="java.lang.String" >
+        delete from SYS_CODE_RULE_FIELD
+        where RULE_ID = #{ruleId,jdbcType=VARCHAR}
+    </select>
+</mapper>

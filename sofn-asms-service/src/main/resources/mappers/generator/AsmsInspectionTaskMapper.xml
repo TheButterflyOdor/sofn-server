@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsInspectionTaskMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsInspectionTask">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="TASK_TYPE" jdbcType="CHAR" property="taskType" />
+    <result column="TASK_DATE_TYPE" jdbcType="CHAR" property="taskDateType" />
+    <result column="TASK_DATE" jdbcType="VARCHAR" property="taskDate" />
+    <result column="INSPECTION_AREA_ID" jdbcType="VARCHAR" property="inspectionAreaId" />
+    <result column="INSPECTION_COUNT" jdbcType="DECIMAL" property="inspectionCount" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="TASK_DATE_YEAR" jdbcType="VARCHAR" property="taskDateYear" />
+    <result column="TASK_DATE_MONTHS" jdbcType="VARCHAR" property="taskDateMonths" />
+    <result column="TASK_DATE_QUARTER" jdbcType="VARCHAR" property="taskDateQuarter" />
+    <result column="TASK_TYPE_NAME" jdbcType="VARCHAR" property="taskTypeName" />
+    <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+    <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+    <result column="ATTACHMENT_ADDRESS" jdbcType="VARCHAR" property="attachmentAddress" />
+    <result column="ATTACHMENT_NAME" jdbcType="VARCHAR" property="attachmentName" />
+    <result column="DETAIL_CONTENT" jdbcType="VARCHAR" property="detailContent" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_INSPECTION_TASK
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsInspectionTask">
+    insert into ASMS_INSPECTION_TASK (ID, TASK_TYPE, TASK_DATE_TYPE, 
+      TASK_DATE, INSPECTION_AREA_ID, INSPECTION_COUNT, 
+      CREATE_BY, CREATE_TIME, UPDATE_BY, 
+      UPDATE_TIME, ENABLE, DEL_FLAG, 
+      TASK_DATE_YEAR, TASK_DATE_MONTHS, TASK_DATE_QUARTER, 
+      TASK_TYPE_NAME, CREATE_ORG_ID, CREATE_ORG_NAME, ATTACHMENT_ADDRESS, ATTACHMENT_NAME, DETAIL_CONTENT
+      )
+    values (#{id,jdbcType=CHAR}, #{taskType,jdbcType=CHAR}, #{taskDateType,jdbcType=CHAR}, 
+      #{taskDate,jdbcType=VARCHAR}, #{inspectionAreaId,jdbcType=VARCHAR}, #{inspectionCount,jdbcType=DECIMAL}, 
+      #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=CHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, 
+      #{taskDateYear,jdbcType=VARCHAR}, #{taskDateMonths,jdbcType=VARCHAR}, #{taskDateQuarter,jdbcType=VARCHAR}, 
+      #{taskTypeName,jdbcType=VARCHAR}, #{createOrgId,jdbcType=CHAR}, #{createOrgName,jdbcType=VARCHAR},
+      #{attachmentAddress,jdbcType=VARCHAR}, #{attachmentName,jdbcType=VARCHAR}, #{detailContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsInspectionTask">
+    update ASMS_INSPECTION_TASK
+    set TASK_TYPE = #{taskType,jdbcType=CHAR},
+      TASK_DATE_TYPE = #{taskDateType,jdbcType=CHAR},
+      TASK_DATE = #{taskDate,jdbcType=VARCHAR},
+      INSPECTION_AREA_ID = #{inspectionAreaId,jdbcType=VARCHAR},
+      INSPECTION_COUNT = #{inspectionCount,jdbcType=DECIMAL},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      TASK_DATE_YEAR = #{taskDateYear,jdbcType=VARCHAR},
+      TASK_DATE_MONTHS = #{taskDateMonths,jdbcType=VARCHAR},
+      TASK_DATE_QUARTER = #{taskDateQuarter,jdbcType=VARCHAR},
+      TASK_TYPE_NAME = #{taskTypeName,jdbcType=VARCHAR},
+      CREATE_ORG_ID = #{createOrgId,jdbcType=CHAR},
+      CREATE_ORG_NAME = #{createOrgName,jdbcType=VARCHAR},
+      ATTACHMENT_ADDRESS = #{attachmentAddress,jdbcType=VARCHAR},
+      ATTACHMENT_NAME = #{attachmentName,jdbcType=VARCHAR},
+      DETAIL_CONTENT = #{detailContent,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, TASK_TYPE, TASK_DATE_TYPE, TASK_DATE, INSPECTION_AREA_ID, INSPECTION_COUNT, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, DEL_FLAG, TASK_DATE_YEAR, 
+    TASK_DATE_MONTHS, TASK_DATE_QUARTER, TASK_TYPE_NAME, CREATE_ORG_ID, CREATE_ORG_NAME,
+    ATTACHMENT_ADDRESS, ATTACHMENT_NAME, DETAIL_CONTENT
+    from ASMS_INSPECTION_TASK
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, TASK_TYPE, TASK_DATE_TYPE, TASK_DATE, INSPECTION_AREA_ID, INSPECTION_COUNT, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, DEL_FLAG, TASK_DATE_YEAR, 
+    TASK_DATE_MONTHS, TASK_DATE_QUARTER, TASK_TYPE_NAME, CREATE_ORG_ID, CREATE_ORG_NAME,
+    ATTACHMENT_ADDRESS, ATTACHMENT_NAME, DETAIL_CONTENT
+    from ASMS_INSPECTION_TASK
+  </select>
+</mapper>

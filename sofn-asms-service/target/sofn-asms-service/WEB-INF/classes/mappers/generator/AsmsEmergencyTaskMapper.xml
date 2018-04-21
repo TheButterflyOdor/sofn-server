@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsEmergencyTaskMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsEmergencyTask">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_TYPE" jdbcType="VARCHAR" property="taskType" />
+    <result column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+    <result column="TASK_BEGIN" jdbcType="TIMESTAMP" property="taskBegin" />
+    <result column="TASK_END" jdbcType="TIMESTAMP" property="taskEnd" />
+    <result column="RELEASE_UNIT" jdbcType="VARCHAR" property="releaseUnit" />
+    <result column="RELEASE_UNIT_LEVEL" jdbcType="VARCHAR" property="releaseUnitLevel" />
+    <result column="IS_BEAR_UNIT" jdbcType="VARCHAR" property="isBearUnit" />
+    <result column="BEAR_UNIT" jdbcType="VARCHAR" property="bearUnit" />
+    <result column="FILES" jdbcType="VARCHAR" property="files" />
+    <result column="FILE_CODE" jdbcType="VARCHAR" property="fileCode" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="EXPERT_NAME" jdbcType="VARCHAR" property="expertName" />
+    <result column="FILES_NAME" jdbcType="VARCHAR" property="filesName" />
+    <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+    <result column="TASK_CODE" jdbcType="VARCHAR" property="taskCode" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_EMERGENCY_TASK
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsEmergencyTask">
+    insert into ASMS_EMERGENCY_TASK (ID, TASK_NAME, TASK_TYPE, 
+      AREA_ID, TASK_BEGIN, TASK_END, 
+      RELEASE_UNIT, RELEASE_UNIT_LEVEL, IS_BEAR_UNIT, 
+      BEAR_UNIT, FILES, FILE_CODE, 
+      REMARK, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, ENABLE, 
+      DEL_FLAG, EXPERT_NAME, FILES_NAME, 
+      CREATE_ORG_ID, TASK_CODE, STATUS
+      )
+    values (#{id,jdbcType=CHAR}, #{taskName,jdbcType=VARCHAR}, #{taskType,jdbcType=VARCHAR}, 
+      #{areaId,jdbcType=VARCHAR}, #{taskBegin,jdbcType=TIMESTAMP}, #{taskEnd,jdbcType=TIMESTAMP}, 
+      #{releaseUnit,jdbcType=VARCHAR}, #{releaseUnitLevel,jdbcType=VARCHAR}, #{isBearUnit,jdbcType=VARCHAR}, 
+      #{bearUnit,jdbcType=VARCHAR}, #{files,jdbcType=VARCHAR}, #{fileCode,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{expertName,jdbcType=VARCHAR}, #{filesName,jdbcType=VARCHAR}, 
+      #{createOrgId,jdbcType=CHAR}, #{taskCode,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsEmergencyTask">
+    update ASMS_EMERGENCY_TASK
+    set TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      TASK_TYPE = #{taskType,jdbcType=VARCHAR},
+      AREA_ID = #{areaId,jdbcType=VARCHAR},
+      TASK_BEGIN = #{taskBegin,jdbcType=TIMESTAMP},
+      TASK_END = #{taskEnd,jdbcType=TIMESTAMP},
+      RELEASE_UNIT = #{releaseUnit,jdbcType=VARCHAR},
+      RELEASE_UNIT_LEVEL = #{releaseUnitLevel,jdbcType=VARCHAR},
+      IS_BEAR_UNIT = #{isBearUnit,jdbcType=VARCHAR},
+      BEAR_UNIT = #{bearUnit,jdbcType=VARCHAR},
+      FILES = #{files,jdbcType=VARCHAR},
+      FILE_CODE = #{fileCode,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      EXPERT_NAME = #{expertName,jdbcType=VARCHAR},
+      FILES_NAME = #{filesName,jdbcType=VARCHAR},
+      CREATE_ORG_ID = #{createOrgId,jdbcType=CHAR},
+      TASK_CODE = #{taskCode,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, TASK_NAME, TASK_TYPE, AREA_ID, TASK_BEGIN, TASK_END, RELEASE_UNIT, RELEASE_UNIT_LEVEL, 
+    IS_BEAR_UNIT, BEAR_UNIT, FILES, FILE_CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, 
+    UPDATE_TIME, ENABLE, DEL_FLAG, EXPERT_NAME, FILES_NAME, CREATE_ORG_ID, TASK_CODE, 
+    STATUS
+    from ASMS_EMERGENCY_TASK
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, TASK_NAME, TASK_TYPE, AREA_ID, TASK_BEGIN, TASK_END, RELEASE_UNIT, RELEASE_UNIT_LEVEL, 
+    IS_BEAR_UNIT, BEAR_UNIT, FILES, FILE_CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, 
+    UPDATE_TIME, ENABLE, DEL_FLAG, EXPERT_NAME, FILES_NAME, CREATE_ORG_ID, TASK_CODE, 
+    STATUS
+    from ASMS_EMERGENCY_TASK
+  </select>
+</mapper>

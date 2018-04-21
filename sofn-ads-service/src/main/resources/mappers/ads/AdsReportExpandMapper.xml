@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsReportExpandMapper" >
+
+    <select id="getSamplingLinkReportList" parameterType="hashmap" resultType="java.util.Map">
+      select t.* ,round(t.return_num/t.total_num,2) as scrap_rate , round(t.report_num/t.total_num,2) as pass_rate
+        from (
+          select a.sample_place,
+                 count(a.id) total_num,
+                 sum(case when a.sample_report ='0' then 1 else 0 end) no_num,
+                 sum(case when a.sample_report ='1' then 1 else 0 end) in_num,
+                 sum(case when a.sample_report ='2' then 1 else 0 end) report_num,
+                 sum(case when a.sample_report ='3' then 1 else 0 end) return_num
+            from ads_monitor_sample a, ads_monitor_task b, ads_organ_task c
+           where b.id = #{monitorTaskId}
+             and c.monitor_task_id = b.id
+             and a.organ_task_id = c.id
+             and c.del_flag!='Y'
+             and b.del_flag!='Y'
+             and a.del_flag!='Y'
+           group by a.sample_place ) t order by pass_rate desc
+    </select>
+
+    <select id="getCheckLinkReportList" parameterType="hashmap" resultType="java.util.Map">
+     select t.*, round(t.qualifie_num / t.detection_num,2) as pass
+      from (
+      select b.check_link,
+                  count(b.id) as detection_num,
+                  sum(case when b.result = '1' then 1 else 0 end) as qualifie_num
+              from ads_check_info b, ads_organ_task c, ads_monitor_task d
+             where d.id=#{monitorTaskId}
+             and
+               b.del_flag != 'Y'
+               and c.del_flag != 'Y'
+               and d.del_flag != 'Y'
+               and b.organ_task_id = c.id
+               and c.monitor_task_id = d.id
+         group by b.check_link ) t order by pass desc
+    </select>
+
+    <select id="getCheckObjectReportCount" parameterType="hashmap" resultType="int">
+      select count(1)
+          from (select count(b.sample_name)
+                  from ads_check_info b, ads_organ_task c, ads_monitor_task d
+                 where d.id = #{monitorTaskId}
+                   and b.del_flag != 'Y'
+                   and c.del_flag != 'Y'
+                   and d.del_flag != 'Y'
+                   and b.organ_task_id = c.id
+                   and c.monitor_task_id = d.id
+                 group by b.sample_name) t
+    </select>
+
+    <select id="getCheckObjectReportList" parameterType="hashmap" resultType="java.util.Map">
+        select ta.*
+            from (select rownum rn, tmp.*
+                    from (select t.*, round(t.qualifie_num / t.detection_num,2) as pass
+                            from (select b.sample_name,
+                                    count(b.id) as detection_num,
+                                    sum(case
+                                        when b.result = '1' then
+                                        1
+                                        else
+                                        0
+                                        end) as qualifie_num
+                                    from ads_check_info   b,
+                                          ads_organ_task   c,
+                                          ads_monitor_task d
+                                    where d.id = #{monitorTaskId}
+                                    and b.del_flag != 'Y'
+                                    and c.del_flag != 'Y'
+                                    and d.del_flag != 'Y'
+                                    and b.organ_task_id = c.id
+                                    and c.monitor_task_id = d.id
+                    group by b.sample_name) t
+                    order by pass desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) ta
+        where ta.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getSamplingAreaReportList" parameterType="hashmap" resultType="java.util.Map">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select tp.* ,round(tp.return_num/tp.total_num,2) as scrap_rate , round(tp.report_num/tp.total_num,2) as pass_rate
+        from (
+          select a.PRODUCING_AREA_NAME,
+                 count(a.id) total_num,
+                 sum(case when a.sample_report ='0' then 1 else 0 end) no_num,
+                 sum(case when a.sample_report ='1' then 1 else 0 end) in_num,
+                 sum(case when a.sample_report ='2' then 1 else 0 end) report_num,
+                 sum(case when a.sample_report ='3' then 1 else 0 end) return_num
+            from ads_monitor_sample a, ads_monitor_task b, ads_organ_task c
+           where b.id = #{monitorTaskId}
+             and c.monitor_task_id = b.id
+             and a.organ_task_id = c.id
+             and c.del_flag!='Y'
+             and b.del_flag!='Y'
+             and a.del_flag!='Y'
+           group by a.PRODUCING_AREA_NAME ) tp order by pass_rate desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountSamplingAreaReport" parameterType="hashmap" resultType="long">
+      SELECT COUNT(1)from(
+        SELECT COUNT(a.PRODUCING_AREA_NAME) from ads_monitor_sample a, ads_monitor_task b, ads_organ_task c
+        where b.id =  #{monitorTaskId}
+        and c.monitor_task_id = b.id
+        and a.organ_task_id = c.id
+        and c.del_flag!='Y'
+        and b.del_flag!='Y'
+        and a.del_flag!='Y'
+        group by a.PRODUCING_AREA_NAME)
+    </select>
+
+    <select id="getCheckAreaReportList" parameterType="hashmap" resultType="java.util.Map">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select tp.*, round(tp.qualifie_num / tp.detection_num,2) as pass
+        from (select c.city_name,
+                     count(b.id) as detection_num,
+                     sum(case when b.result = '1' then 1 else 0 end) as qualifie_num
+                     from ads_check_info   b,
+                          ads_organ_task   c,
+                          ads_monitor_task d
+                          where d.id = #{monitorTaskId}
+                          and b.del_flag != 'Y'
+                          and c.del_flag != 'Y'
+                          and d.del_flag != 'Y'
+                          and b.organ_task_id = c.id
+                          and c.monitor_task_id = d.id
+                    group by c.city_name) tp order by pass desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountCheckAreaReport" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1)from(
+        SELECT COUNT(c.city_name)
+        from ads_check_info   b,
+             ads_organ_task   c,
+             ads_monitor_task d
+             where d.id = #{monitorTaskId}
+             and b.del_flag != 'Y'
+             and c.del_flag != 'Y'
+             and d.del_flag != 'Y'
+             and b.organ_task_id = c.id
+             and c.monitor_task_id = d.id
+             group by c.city_name)
+    </select>
+
+    <select id="getSamplingOrganReportList" parameterType="hashmap" resultType="java.util.Map">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select tp.* ,round(tp.return_num/tp.total_num,2) as scrap_rate , round(tp.report_num/tp.total_num,2) as pass_rate
+        from (
+        select a.SAMPLE_DEPARMENT,
+        count(a.id) total_num,
+        sum(case when a.sample_report ='0' then 1 else 0 end) no_num,
+        sum(case when a.sample_report ='1' then 1 else 0 end) in_num,
+        sum(case when a.sample_report ='2' then 1 else 0 end) report_num,
+        sum(case when a.sample_report ='3' then 1 else 0 end) return_num
+        from ads_monitor_sample a, ads_monitor_task b, ads_organ_task c
+        where b.id = #{monitorTaskId}
+        and c.monitor_task_id = b.id
+        and a.organ_task_id = c.id
+        and c.del_flag!='Y'
+        and b.del_flag!='Y'
+        and a.del_flag!='Y'
+        group by a.SAMPLE_DEPARMENT ) tp order by pass_rate desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountSamplingOrganReport" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1)from(
+        SELECT COUNT(a.SAMPLE_DEPARMENT) from ads_monitor_sample a, ads_monitor_task b, ads_organ_task c
+        where b.id =  #{monitorTaskId}
+        and c.monitor_task_id = b.id
+        and a.organ_task_id = c.id
+        and c.del_flag!='Y'
+        and b.del_flag!='Y'
+        and a.del_flag!='Y'
+        group by a.SAMPLE_DEPARMENT)
+    </select>
+
+    <select id="getCheckOrganReportList" parameterType="hashmap" resultType="java.util.Map">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select tp.*, round(tp.qualifie_num / tp.detection_num,2) as pass
+        from (select c.DETECTION_ORGAN,
+        count(b.id) as detection_num,
+        sum(case when b.result = '1' then 1 else 0 end) as qualifie_num
+        from ads_check_info   b,
+        ads_organ_task   c,
+        ads_monitor_task d
+        where d.id = #{monitorTaskId}
+        and b.del_flag != 'Y'
+        and c.del_flag != 'Y'
+        and d.del_flag != 'Y'
+        and b.organ_task_id = c.id
+        and c.monitor_task_id = d.id
+        group by c.DETECTION_ORGAN) tp order by pass desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountCheckOrganReport" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1)from(
+        SELECT COUNT(c.DETECTION_ORGAN)
+        from ads_check_info   b,
+             ads_organ_task   c,
+             ads_monitor_task d
+             where d.id = #{monitorTaskId}
+             and b.del_flag != 'Y'
+             and c.del_flag != 'Y'
+             and d.del_flag != 'Y'
+             and b.organ_task_id = c.id
+             and c.monitor_task_id = d.id
+             group by c.DETECTION_ORGAN)
+    </select>
+
+
+    <select id="getSamplingTypeListByCondition" parameterType="hashmap" resultType="java.util.Map">
+        select tp.* ,round(tp.return_num/tp.total_num,2) as scrap_rate , round(tp.report_num/tp.total_num,2) as pass_rate
+        from (
+          select
+            <if test='type == "area"'>
+                a.PRODUCING_AREA_NAME,
+            </if>
+            <if test='type == "organ"'>
+                a.SAMPLE_DEPARMENT,
+            </if>
+                 count(a.id) total_num,
+                 sum(case when a.sample_report ='0' then 1 else 0 end) no_num,
+                 sum(case when a.sample_report ='1' then 1 else 0 end) in_num,
+                 sum(case when a.sample_report ='2' then 1 else 0 end) report_num,
+                 sum(case when a.sample_report ='3' then 1 else 0 end) return_num
+            from ads_monitor_sample a, ads_monitor_task b, ads_organ_task c
+           where b.id = #{monitorTaskId}
+             and c.monitor_task_id = b.id
+             and a.organ_task_id = c.id
+             and c.del_flag!='Y'
+             and b.del_flag!='Y'
+             and a.del_flag!='Y'
+           group by
+            <if test='type == "area"'>
+              a.PRODUCING_AREA_NAME
+            </if>
+            <if test='type == "organ"'>
+              a.SAMPLE_DEPARMENT
+            </if>
+        ) tp order by pass_rate desc
+    </select>
+
+    <select id="getCheckTypeListByCondition" parameterType="hashmap" resultType="java.util.Map">
+        select tp.*, round(tp.qualifie_num / tp.detection_num,2) as pass
+        from (select
+        <if test='type == "area"'>
+            c.city_name,
+        </if>
+        <if test='type == "organ"'>
+            c.DETECTION_ORGAN,
+        </if>
+        count(b.id) as detection_num,
+        sum(case when b.result = '1' then 1 else 0 end) as qualifie_num
+        from ads_check_info   b,
+        ads_organ_task   c,
+        ads_monitor_task d
+        where d.id = #{monitorTaskId}
+        and b.del_flag != 'Y'
+        and c.del_flag != 'Y'
+        and d.del_flag != 'Y'
+        and b.organ_task_id = c.id
+        and c.monitor_task_id = d.id
+        group by
+        <if test='type == "area"'>
+            c.city_name
+        </if>
+        <if test='type == "organ"'>
+            c.DETECTION_ORGAN
+        </if>
+        ) tp order by pass desc
+    </select>
+
+    <select id="getCheckObjectListByCondition" parameterType="hashmap" resultType="java.util.Map">
+        select t.*, round(t.qualifie_num / t.detection_num,2) as pass
+        from (select b.sample_name,
+                count(b.id) as detection_num,
+                sum(case when b.result = '1' then 1 else 0 end) as qualifie_num
+              from ads_check_info   b,
+                   ads_organ_task   c,
+                   ads_monitor_task d
+              where d.id = #{monitorTaskId}
+                    and b.del_flag != 'Y'
+                    and c.del_flag != 'Y'
+                    and d.del_flag != 'Y'
+                    and b.organ_task_id = c.id
+                    and c.monitor_task_id = d.id
+              group by b.sample_name) t
+        order by pass desc
+    </select>
+
+    <select id="getCheckAreaObjListByCondition" parameterType="hashmap" resultType="java.util.Map">
+        select t.*, round(t.qualifie_num / t.detection_num,2) as pass
+                            from (select c.city_name,
+                                    b.sample_name,
+                                    count(b.id) as detection_num,
+                                    sum(case when b.result = '1' then 1 else 0 end) as qualifie_num
+                                    from ads_check_info   b,
+                                    ads_organ_task   c,
+                                    ads_monitor_task d
+                                    where d.id = #{monitorTaskId}
+                                    and b.del_flag != 'Y'
+                                    and c.del_flag != 'Y'
+                                    and d.del_flag != 'Y'
+                            and b.organ_task_id = c.id
+                            and c.monitor_task_id = d.id
+            group by c.city_name,b.sample_name) t
+            order by pass desc
+    </select>
+
+    <select id="getCheckAreaObjCount" parameterType="hashmap" resultType="int">
+        select count(1)
+            from (select t.*, t.qualifie_num / t.detection_num as pass
+                    from (select c.city_name,
+                                b.sample_name,
+                                count(b.id) as detection_num,
+                                sum(case when b.result = '1' then 1 else 0 end) as qualifie_num
+                                from ads_check_info b, ads_organ_task c, ads_monitor_task d
+                                where d.id = #{monitorTaskId}
+                                and b.del_flag != 'Y'
+                                and c.del_flag != 'Y'
+                                and d.del_flag != 'Y'
+                                and b.organ_task_id = c.id
+                                and c.monitor_task_id = d.id
+            group by c.city_name, b.sample_name) t
+        order by pass desc) tmp
+    </select>
+
+    <select id="getCheckAreaObjList" parameterType="hashmap" resultType="java.util.Map">
+        select ta.*
+            from (select rownum rn, tmp.*
+                    from (select t.*, round(t.qualifie_num / t.detection_num,2) as pass
+                            from (select c.city_name,
+                                    b.sample_name,
+                                    count(b.id) as detection_num,
+                                    sum(case when b.result = '1' then 1 else 0 end) as qualifie_num
+                                    from ads_check_info   b,
+                                    ads_organ_task   c,
+                                    ads_monitor_task d
+                                    where d.id = #{monitorTaskId}
+                                    and b.del_flag != 'Y'
+                                    and c.del_flag != 'Y'
+                                    and d.del_flag != 'Y'
+                            and b.organ_task_id = c.id
+                            and c.monitor_task_id = d.id
+            group by c.city_name,b.sample_name) t
+            order by pass desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) ta
+        where ta.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+</mapper>

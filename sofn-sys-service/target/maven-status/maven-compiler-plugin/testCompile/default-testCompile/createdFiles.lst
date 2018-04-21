@@ -1,0 +1,4 @@
+com\sofn\provider\sys\SysResourceProviderImplTest.class
+com\sofn\provider\sys\SysCodeGeneratorProviderImplTest.class
+com\sofn\dao\sys\TestExpandMapperTest.class
+com\sofn\provider\sys\SysDictProviderImplTest.class

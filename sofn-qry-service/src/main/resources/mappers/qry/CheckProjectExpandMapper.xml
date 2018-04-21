@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.qry.CheckProjectExpandMapper">
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.qry.CheckProject">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR"/>
+        <result column="MONITOR_CLASS" property="monitorClass" jdbcType="VARCHAR"/>
+        <result column="RELEASE_UNIT" property="releaseUnit" jdbcType="VARCHAR"/>
+        <result column="CHECK_MODEL" property="checkModel" jdbcType="VARCHAR"/>
+        <result column="MODEL_TITLE" property="modelTitle" jdbcType="VARCHAR"/>
+        <result column="YEAR" property="year" jdbcType="VARCHAR"/>
+        <result column="BATCH" property="batch" jdbcType="VARCHAR"/>
+        <result column="SEPARATION" property="separation" jdbcType="DECIMAL"/>
+        <result column="START_TIME" property="startTime" jdbcType="VARCHAR"/>
+        <result column="END_TIME" property="endTime" jdbcType="VARCHAR"/>
+        <result column="DEADLINE" property="deadline" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENTCODE" property="attachmentcode" jdbcType="VARCHAR"/>
+        <result column="COMMENT" property="comment" jdbcType="VARCHAR"/>
+        <result column="PUBLISH_STATUS" property="publishStatus" jdbcType="DECIMAL"/>
+        <result column="INDUSTRY" property="industry" jdbcType="VARCHAR"/>
+        <result column="JUDGE_STANDARD" property="judgeStandard" jdbcType="VARCHAR"/>
+        <result column="SAMPLE_LINK" property="sampleLink" jdbcType="VARCHAR"/>
+        <result column="CHECK_OBJECT" property="checkObject" jdbcType="VARCHAR"/>
+        <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR"/>
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="RN" property="rn" jdbcType="INTEGER"/>
+        <result column="LEVE" property="leve" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_ADDRESS" property="attachmentAddress" jdbcType="VARCHAR"/>
+        <result column="ABOLISH" property="abolish" jdbcType="VARCHAR"/>
+        <result column="ORGAN_ID" property="organId" jdbcType="VARCHAR"/>
+        <result column="TASK_SOURCE" property="taskSource" jdbcType="VARCHAR"/>
+        <result column="SUP_ID" property="supId" jdbcType="VARCHAR"/>
+
+        <result column="PRODUCT_TRACEABILITY_CODE" property="productTraceabilityCode" jdbcType="VARCHAR"/>
+        <result column="check_name" property="checkName" jdbcType="VARCHAR"/>
+        <result column="sample_name" property="sampleName" jdbcType="VARCHAR"/>
+        <result column="sample_code" property="sampleCode" jdbcType="VARCHAR"/>
+        <result column="RESULT" property="result" jdbcType="VARCHAR"/>
+        <result column="REPORT_TIME" property="reportTime" jdbcType="TIMESTAMP"/>
+        <result column="city_code" property="cityCode" jdbcType="VARCHAR"/>
+        <result column="check_num" property="checkNum" jdbcType="VARCHAR"/>
+        <result column="judge_num" property="judgeNum" jdbcType="VARCHAR"/>
+        <result column="check_info_id" property="checkInfoId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+        <result column="sample_organ_id" property="sampleOrganId" jdbcType="VARCHAR"/>
+        <result column="detection_organ_id" property="detectionOrganId" jdbcType="VARCHAR"/>
+        <result column="create_org_region_id" property="createOrgRegionId" jdbcType="VARCHAR"/>
+        <result column="level_enum" property="levelEnum" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getPageInfo" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ord.*
+        from (
+        select DISTINCT
+        d.id,
+        a.year,
+        d.sample_name,
+        d.PRODUCT_TRACEABILITY_CODE,
+        d.sample_code,
+        a.check_project,
+        c.result
+        from
+        ads_monitor_task a,
+        ads_organ_task b,
+        ads_check_info c,
+        ads_monitor_sample d,
+        ads_info_project e
+        where a.id = b.monitor_task_id
+        and b.id = c.organ_task_id
+        and c.monitor_sample_id=d.id
+        and c.id=e.check_info_id
+        and a.del_flag != 'Y'
+        and b.del_flag != 'Y'
+        and c.del_flag != 'Y'
+        and d.del_flag != 'Y'
+        and e.del_flag != 'Y'
+        <if test="industry!=null and industry!=''">
+            AND a.industry = #{industry}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            AND b.report_time    <![CDATA[ >=to_date(#{startTime},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            AND b.report_time     <![CDATA[ <=to_date(#{endTime},'yyyy-MM-dd') ]]>
+        </if>
+
+        <if test="checkProjects!=null and checkProjects!=''">
+            AND e.check_project in
+            <foreach item="checkProject" index="index" collection="checkProjects" open="("
+                     separator="," close=")">
+                #{checkProject}
+            </foreach>
+
+        </if>
+        <if test="result!=null and result!=''">
+            AND c.result = #{result}
+        </if>
+        <if test="cityCode!=null and cityCode!=''">
+            AND lower(a.create_org_region_id) like '%' || lower(trim(#{cityCode})) ||'%'
+        </if>
+
+        <if test="names!=null and names!=''">
+            AND d.sample_name in
+            <foreach item="name" index="index" collection="names" open="("
+                     separator="," close=")">
+                #{name}
+            </foreach>
+        </if>
+
+        <if test="year!=null and year!=''">
+            AND a.year = #{year}
+        </if>
+
+        <if test="orgId!=null and orgId!=''">
+            AND (b.sample_organ_id = #{orgId}
+            OR b.detection_organ_id= #{orgId})
+        </if>
+
+        <if test="regionId!=null and regionId!=''">
+            AND lower(a.create_org_region_id) like '%' || lower(trim(#{createOrgRegionId})) ||'%'
+        </if>
+        ) ord order by ord.year desc,ord.id desc
+        ) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getTestedDeaparment" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ord.*
+        from (
+        select DISTINCT
+        d.id,
+        a.year,
+        a.create_time,
+        a.update_time,
+        a.MONITOR_CLASS,
+        a.TASK_NAME,
+        d.sample_name,
+        d.PRODUCT_TRACEABILITY_CODE,
+        d.sample_code,
+        a.check_project,
+        c.TESTED_DEPARMENT,
+        c.result
+        from
+        ads_monitor_task a,
+        ads_organ_task b,
+        ads_check_info c,
+        ads_monitor_sample d,
+        ads_info_project e
+        where a.id = b.monitor_task_id
+        and b.id = c.organ_task_id
+        and c.monitor_sample_id=d.id
+        and c.id=e.check_info_id
+        and a.del_flag != 'Y'
+        and b.del_flag != 'Y'
+        and c.del_flag != 'Y'
+        and d.del_flag != 'Y'
+        and e.del_flag != 'Y'
+        <if test="result!=null and result!=''">
+            AND c.result = #{result}
+        </if>
+        <if test="sampleName!=null and sampleName!=''">
+            AND lower(d.sample_name ) like '%' || lower(trim(#{sampleName})) ||'%'
+        </if>
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND d.sample_code = #{sampleCode}
+        </if>
+        <if test="year!=null and year!=''">
+            AND a.year = #{year}
+        </if>
+        <if test="testedDeparment!=null and testedDeparment!=''">
+            AND lower(c.TESTED_DEPARMENT) like '%' ||lower(trim(#{testedDeparment})) ||'%'
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND lower( a.TASK_NAME) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND a.MONITOR_CLASS= #{monitorClass}
+        </if>
+        ) ord order by ord.year desc,ord.create_time desc,ord.update_time desc,ord.id desc
+        ) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountByTestedDeaparment" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM ( select DISTINCT
+        d.id,
+        a.year,
+        a.create_time,
+        a.update_time,
+        a.MONITOR_CLASS,
+        a.TASK_NAME,
+        d.sample_name,
+        d.PRODUCT_TRACEABILITY_CODE,
+        d.sample_code,
+        a.check_project,
+        c.TESTED_DEPARMENT,
+        c.result
+        from
+        ads_monitor_task a,
+        ads_organ_task b,
+        ads_check_info c,
+        ads_monitor_sample d,
+        ads_info_project e
+        where a.id = b.monitor_task_id
+        and b.id = c.organ_task_id
+        and c.monitor_sample_id=d.id
+        and c.id=e.check_info_id
+        and a.del_flag != 'Y'
+        and b.del_flag != 'Y'
+        and c.del_flag != 'Y'
+        and d.del_flag != 'Y'
+        and e.del_flag != 'Y'
+        <if test="result!=null and result!=''">
+            AND c.result = #{result}
+        </if>
+        <if test="sampleName!=null and sampleName!=''">
+            AND lower(d.sample_name ) like '%' || lower(trim(#{sampleName})) ||'%'
+        </if>
+        <if test="sampleCode!=null and sampleCode!=''">
+            AND d.sample_code = #{sampleCode}
+        </if>
+        <if test="year!=null and year!=''">
+            AND a.year = #{year}
+        </if>
+        <if test="testedDeparment!=null and testedDeparment!=''">
+            AND lower(c.TESTED_DEPARMENT) like '%' ||lower(trim(#{testedDeparment})) ||'%'
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            AND lower( a.TASK_NAME) like '%' || lower(trim(#{taskName})) ||'%'
+        </if>
+        <if test="monitorClass!=null and monitorClass!=''">
+            AND a.MONITOR_CLASS= #{monitorClass}
+        </if>
+        )
+    </select>
+
+    <select id="getCheckList" resultMap="BaseResultMap" parameterType="hashmap">
+        select
+        rownum rn,
+        d.id,
+        a.year,
+        d.sample_name,
+        d.sample_code,
+        a.check_project,
+        c.result
+        from
+        ads_monitor_task a,
+        ads_organ_task b,
+        ads_check_info c,
+        ads_monitor_sample d
+        where a.id = b.monitor_task_id
+        and b.id = c.organ_task_id
+        and c.monitor_sample_id=d.id
+        and a.del_flag != 'Y'
+        and b.del_flag != 'Y'
+        and c.del_flag != 'Y'
+        and d.del_flag != 'Y'
+        <if test="orgId!=null and orgId!=''">
+            AND (b.sample_organ_id = #{orgId}
+            OR b.detection_organ_id= #{orgId})
+        </if>
+
+        <if test="regionId!=null and regionId!=''">
+            AND lower(a.create_org_region_id) like '%' || lower(trim(#{createOrgRegionId})) ||'%'
+        </if>
+
+    </select>
+    <select id="getCount" parameterType="hashmap" resultType="long">
+        SELECT count(*) FROM (
+        select DISTINCT
+        d.id,
+        a.year,
+        d.sample_name,
+        d.PRODUCT_TRACEABILITY_CODE,
+        d.sample_code,
+        a.check_project,
+        c.result
+        from
+        ads_monitor_task a,
+        ads_organ_task b,
+        ads_check_info c,
+        ads_monitor_sample d,
+        ads_info_project e
+        where a.id = b.monitor_task_id
+        and b.id = c.organ_task_id
+        and c.monitor_sample_id=d.id
+        and c.id=e.check_info_id
+        and a.del_flag != 'Y'
+        and b.del_flag != 'Y'
+        and c.del_flag != 'Y'
+        and d.del_flag != 'Y'
+        and e.del_flag != 'Y'
+        <if test="industry!=null and industry!=''">
+            AND a.industry = #{industry}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            AND b.report_time    <![CDATA[ >=to_date(#{startTime},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            AND b.report_time     <![CDATA[ <=to_date(#{endTime},'yyyy-MM-dd') ]]>
+        </if>
+
+        <if test="checkProjects!=null and checkProjects!=''">
+            AND e.check_project in
+            <foreach item="checkProject" index="index" collection="checkProjects" open="("
+                     separator="," close=")">
+                #{checkProject}
+            </foreach>
+
+        </if>
+        <if test="result!=null and result!=''">
+            AND c.result = #{result}
+        </if>
+        <if test="cityCode!=null and cityCode!=''">
+            AND lower(a.create_org_region_id) like '%' || lower(trim(#{cityCode})) ||'%'
+        </if>
+
+        <if test="names!=null and names!=''">
+            AND d.sample_name in
+            <foreach item="name" index="index" collection="names" open="("
+                     separator="," close=")">
+                #{name}
+            </foreach>
+        </if>
+
+        <if test="year!=null and year!=''">
+            AND a.year = #{year}
+        </if>
+
+        <if test="orgId!=null and orgId!=''">
+            AND (b.sample_organ_id = #{orgId}
+            OR b.detection_organ_id= #{orgId})
+        </if>
+
+        <if test="regionId!=null and regionId!=''">
+            AND lower(a.create_org_region_id) like '%' || lower(trim(#{createOrgRegionId})) ||'%'
+        </if>
+        )
+        <!--SELECT COUNT (1-->
+        <!--)-->
+        <!--from-->
+        <!--ads_monitor_task a,-->
+        <!--ads_organ_task b,-->
+        <!--ads_check_info c,-->
+        <!--ads_monitor_sample d,-->
+        <!--ads_info_project e-->
+        <!--where a.id = b.monitor_task_id-->
+        <!--and b.id = c.organ_task_id-->
+        <!--and c.monitor_sample_id=d.id-->
+        <!--and c.id=e.check_info_id-->
+        <!--and a.del_flag != 'Y'-->
+        <!--and b.del_flag != 'Y'-->
+        <!--and c.del_flag != 'Y'-->
+        <!--and d.del_flag != 'Y'-->
+        <!--and e.del_flag != 'Y'-->
+        <!--<if test="industry!=null and industry!=''">-->
+            <!--AND a.industry = #{industry}-->
+        <!--</if>-->
+        <!--<if test="startTime!=null and startTime!=''">-->
+            <!--AND b.report_time    <![CDATA[ >=to_date(#{startTime},'yyyy-MM-dd') ]]>-->
+        <!--</if>-->
+        <!--<if test="endTime!=null and endTime!=''">-->
+            <!--AND b.report_time     <![CDATA[ <=to_date(#{endTime},'yyyy-MM-dd') ]]>-->
+        <!--</if>-->
+
+        <!--<if test="checkProjects!=null and checkProjects!=''">-->
+            <!--AND e.check_project in-->
+            <!--<foreach item="checkProject" index="index" collection="checkProjects" open="("-->
+                     <!--separator="," close=")">-->
+                <!--#{checkProject}-->
+            <!--</foreach>-->
+
+        <!--</if>-->
+        <!--<if test="result!=null and result!=''">-->
+            <!--AND c.result = #{result}-->
+        <!--</if>-->
+        <!--<if test="cityCode!=null and cityCode!=''">-->
+            <!--AND lower(a.create_org_region_id) like '%' || lower(trim(#{cityCode})) ||'%'-->
+        <!--</if>-->
+
+        <!--<if test="names!=null and names!=''">-->
+            <!--AND d.sample_name in-->
+            <!--<foreach item="name" index="index" collection="names" open="("-->
+                     <!--separator="," close=")">-->
+                <!--#{name}-->
+            <!--</foreach>-->
+        <!--</if>-->
+
+        <!--<if test="year!=null and year!=''">-->
+            <!--AND a.year = #{year}-->
+        <!--</if>-->
+
+        <!--<if test="orgId!=null and orgId!=''">-->
+            <!--AND (b.sample_organ_id = #{orgId}-->
+            <!--OR b.detection_organ_id= #{orgId})-->
+        <!--</if>-->
+
+        <!--<if test="regionId!=null and regionId!=''">-->
+            <!--AND lower(a.create_org_region_id) like '%' || lower(trim(#{createOrgRegionId})) ||'%'-->
+        <!--</if>-->
+
+
+    </select>
+
+    <select id="getHangye" parameterType="hashmap" resultType="map">
+        select DISTINCT amt.INDUSTRY
+        from ADS_MONITOR_TASK amt
+        where INDUSTRY is not null
+    </select>
+
+    <select id="getSampleName" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (
+        select distinct b.product_name,a.industry
+        from ads_monitor_model a,ADS_CHECK_MODEL_MAPPING b
+        where a.model_id=b.model_id
+        and a.del_flag!='Y'
+        <if test="name!=null and name!=''">
+            AND lower(b.product_name) like '%' || lower(trim(#{name})) ||'%'
+        </if>
+        order by b.product_name desc) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+    <select id="getNameCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT (distinct b.product_name)
+        from ads_monitor_model a,ADS_CHECK_MODEL_MAPPING b
+        where a.model_id=b.model_id
+        <if test="name!=null and name!=''">
+            AND lower(b.product_name) like '%' || lower(trim(#{name})) ||'%'
+        </if>
+        order by b.product_name desc
+    </select>
+
+    <select id="getCkeckById" parameterType="hashmap" resultMap="BaseResultMap">
+        SELECT
+        d.CHECK_PROJECT,
+        d.CHECK_NUM,
+        d.JUDGE_NUM,
+        d.RESULT,
+        d.CHECK_INFO_ID
+        from
+        ads_monitor_task a left join
+        ads_organ_task b on a.id = b.monitor_task_id left join
+        ads_check_info c on b.id = c.organ_task_id left join
+        ads_info_project d on c.id = d.check_info_id left JOIN
+        ads_monitor_sample e on c.monitor_sample_id=e.id
+        where 1=1
+        and a.del_flag!='Y'
+        and b.del_flag!='Y'
+        and c.del_flag!='Y'
+        and d.del_flag!='Y'
+        <if test="id!=null and id!=''">
+            and e.id=#{id}
+        </if>
+
+    </select>
+
+    <select id="getCheckInfo" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (
+        select DISTINCT a.ITEM_NAME check_name
+        from SYS_TEST_ITEMS a
+        where a.DEL_FLAG='N'
+        <if test="checkProject !=null and checkProject!=''">
+            AND lower(a.ITEM_NAME) like '%' || lower(trim(#{checkProject})) ||'%'
+        </if>
+        order by a.ITEM_NAME desc) tmp
+        <![CDATA[
+        where rownum <= #{pageSize}*#{pageNum}) t
+    where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+    <select id="getCheckCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT ( DISTINCT a.ITEM_NAME)
+        from SYS_TEST_ITEMS a
+        where a.DEL_FLAG='N'
+        <if test="checkProject !=null and checkProject!=''">
+            AND lower(a.ITEM_NAME) like '%' || lower(trim(#{checkProject})) ||'%'
+        </if>
+        order by a.ITEM_NAME desc
+
+    </select>
+
+
+    <select id="getTypeCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT (1)
+        from
+        ads_monitor_task a,
+        ads_organ_task b,
+        ads_check_info c,
+        ads_info_project d,
+        ads_check_model e,
+        ads_model_attribute_mapping f,
+        ads_model_check_object g
+        where a.id = b.monitor_task_id
+        and a.check_model = e.id
+        and b.id = c.organ_task_id
+        and c.id = d.check_info_id
+        and f.model_id = e.id
+        and f.object_id = g.id
+        and a.del_flag != 'Y'
+        and b.del_flag != 'Y'
+        and c.del_flag != 'Y'
+        and d.del_flag != 'Y'
+        and e.del_flag != 'Y'
+        and f.del_flag != 'Y'
+        and g.del_flag != 'Y'
+
+        <if test="productName!=null and productName!=''">
+            AND g.product_name = #{productName}
+        </if>
+
+
+    </select>
+
+
+</mapper>

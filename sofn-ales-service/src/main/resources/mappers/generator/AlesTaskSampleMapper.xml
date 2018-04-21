@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AlesTaskSampleMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesTaskSample">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="ORGAN_TASK_ID" jdbcType="VARCHAR" property="organTaskId" />
+    <result column="PRODUCT_TRACEABILITY_CODE" jdbcType="VARCHAR" property="productTraceabilityCode" />
+    <result column="SAMPLE_BAR_CODE" jdbcType="DECIMAL" property="sampleBarCode" />
+    <result column="SAMPLE_NAME" jdbcType="VARCHAR" property="sampleName" />
+    <result column="SAMPLE_CODE" jdbcType="VARCHAR" property="sampleCode" />
+    <result column="TRADE_MARK" jdbcType="VARCHAR" property="tradeMark" />
+    <result column="PACKING" jdbcType="VARCHAR" property="packing" />
+    <result column="GRADE" jdbcType="VARCHAR" property="grade" />
+    <result column="IDENTIFY" jdbcType="VARCHAR" property="identify" />
+    <result column="SPECIFICATION_GX" jdbcType="VARCHAR" property="specificationGx" />
+    <result column="STANDARD" jdbcType="VARCHAR" property="standard" />
+    <result column="PRODUCE_DATE" jdbcType="TIMESTAMP" property="produceDate" />
+    <result column="PRODUCE_CERTIFICATE" jdbcType="VARCHAR" property="produceCertificate" />
+    <result column="CERTIFICATE_CODE" jdbcType="VARCHAR" property="certificateCode" />
+    <result column="SAMPLE_BASE" jdbcType="DECIMAL" property="sampleBase" />
+    <result column="SAMPLE_PLACE" jdbcType="VARCHAR" property="samplePlace" />
+    <result column="TESTED_DEPARMENT" jdbcType="VARCHAR" property="testedDeparment" />
+    <result column="TESTED_ADDRESS" jdbcType="VARCHAR" property="testedAddress" />
+    <result column="TESTED_LEGALREP" jdbcType="VARCHAR" property="testedLegalrep" />
+    <result column="TESTED_LINKMAN" jdbcType="VARCHAR" property="testedLinkman" />
+    <result column="TESTED_LINKMANPHONE" jdbcType="VARCHAR" property="testedLinkmanphone" />
+    <result column="TESTED_LINKMANFAX" jdbcType="VARCHAR" property="testedLinkmanfax" />
+    <result column="TESTED_PERSON" jdbcType="VARCHAR" property="testedPerson" />
+    <result column="TESTED_PERSONPHONE" jdbcType="VARCHAR" property="testedPersonphone" />
+    <result column="TESTED_PERSONFAX" jdbcType="VARCHAR" property="testedPersonfax" />
+    <result column="PRODUCTIONS_TATUS" jdbcType="VARCHAR" property="productionsTatus" />
+    <result column="PRODUCTION_DEPARMENT" jdbcType="VARCHAR" property="productionDeparment" />
+    <result column="PRODUCTION_ADDRESS" jdbcType="VARCHAR" property="productionAddress" />
+    <result column="PRODUCTION_ZIPCODE" jdbcType="VARCHAR" property="productionZipcode" />
+    <result column="PRODUCTION_LINKMAN" jdbcType="VARCHAR" property="productionLinkman" />
+    <result column="PRODUCTION_LINKMANPHONE" jdbcType="VARCHAR" property="productionLinkmanphone" />
+    <result column="PRODUCTION_LINKMANFAX" jdbcType="VARCHAR" property="productionLinkmanfax" />
+    <result column="SAMPLE_ID" jdbcType="VARCHAR" property="sampleId" />
+    <result column="SAMPLE_DEPARMENT" jdbcType="VARCHAR" property="sampleDeparment" />
+    <result column="SAMPLE_LINKMAN" jdbcType="VARCHAR" property="sampleLinkman" />
+    <result column="SAMPLE_ADDRESS" jdbcType="VARCHAR" property="sampleAddress" />
+    <result column="SAMPLE_ZIPCODE" jdbcType="VARCHAR" property="sampleZipcode" />
+    <result column="SAMPLE_PHONE" jdbcType="VARCHAR" property="samplePhone" />
+    <result column="SAMPLE_FAX" jdbcType="VARCHAR" property="sampleFax" />
+    <result column="SAMPLE_EMAIL" jdbcType="VARCHAR" property="sampleEmail" />
+    <result column="PROOF" jdbcType="VARCHAR" property="proof" />
+    <result column="SAMPLE_PERSON" jdbcType="VARCHAR" property="samplePerson" />
+    <result column="SAMPLE_DATE" jdbcType="TIMESTAMP" property="sampleDate" />
+    <result column="SAMPLE_REPORT" jdbcType="VARCHAR" property="sampleReport" />
+    <result column="COMMENT_GX" jdbcType="VARCHAR" property="commentGx" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DEL_FLAG" jdbcType="VARCHAR" property="delFlag" />
+    <result column="RESERVED_FIELD1" jdbcType="VARCHAR" property="reservedField1" />
+    <result column="RESERVED_FIELD2" jdbcType="VARCHAR" property="reservedField2" />
+    <result column="PRODUCING_AREA" jdbcType="VARCHAR" property="producingArea" />
+    <result column="PRODUCING_AREA_NAME" jdbcType="VARCHAR" property="producingAreaName" />
+    <result column="IS_SYNC" jdbcType="VARCHAR" property="isSync" />
+    <result column="RESULT" jdbcType="CHAR" property="result" />
+    <result column="SAMPLE_AMOUNT" jdbcType="DECIMAL" property="sampleAmount" />
+    <result column="ATTACHMENTS" jdbcType="VARCHAR" property="attachments" />
+    <result column="ATTACHMENT_NAMES" jdbcType="VARCHAR" property="attachmentNames" />
+    <result column="SAMPLE_UNIT_TYPE" jdbcType="VARCHAR" property="sampleUnitType" />
+    <result column="SAMPLE_BASE_UNIT_TYPE" jdbcType="VARCHAR" property="sampleBaseUnitType" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ALES_TASK_SAMPLE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AlesTaskSample">
+    insert into ALES_TASK_SAMPLE (ID, ORGAN_TASK_ID, PRODUCT_TRACEABILITY_CODE, 
+      SAMPLE_BAR_CODE, SAMPLE_NAME, SAMPLE_CODE, 
+      TRADE_MARK, PACKING, GRADE, 
+      IDENTIFY, SPECIFICATION_GX, STANDARD, 
+      PRODUCE_DATE, PRODUCE_CERTIFICATE, CERTIFICATE_CODE, 
+      SAMPLE_BASE, SAMPLE_PLACE, TESTED_DEPARMENT, 
+      TESTED_ADDRESS, TESTED_LEGALREP, TESTED_LINKMAN, 
+      TESTED_LINKMANPHONE, TESTED_LINKMANFAX, TESTED_PERSON, 
+      TESTED_PERSONPHONE, TESTED_PERSONFAX, PRODUCTIONS_TATUS, 
+      PRODUCTION_DEPARMENT, PRODUCTION_ADDRESS, 
+      PRODUCTION_ZIPCODE, PRODUCTION_LINKMAN, PRODUCTION_LINKMANPHONE, 
+      PRODUCTION_LINKMANFAX, SAMPLE_ID, SAMPLE_DEPARMENT, 
+      SAMPLE_LINKMAN, SAMPLE_ADDRESS, SAMPLE_ZIPCODE, 
+      SAMPLE_PHONE, SAMPLE_FAX, SAMPLE_EMAIL, 
+      PROOF, SAMPLE_PERSON, SAMPLE_DATE, 
+      SAMPLE_REPORT, COMMENT_GX, CREATE_BY, 
+      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+      DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2, 
+      PRODUCING_AREA, PRODUCING_AREA_NAME, IS_SYNC, 
+      RESULT, SAMPLE_AMOUNT, ATTACHMENTS, ATTACHMENT_NAMES, SAMPLE_UNIT_TYPE,SAMPLE_BASE_UNIT_TYPE)
+    values (#{id,jdbcType=VARCHAR}, #{organTaskId,jdbcType=VARCHAR}, #{productTraceabilityCode,jdbcType=VARCHAR}, 
+      #{sampleBarCode,jdbcType=DECIMAL}, #{sampleName,jdbcType=VARCHAR}, #{sampleCode,jdbcType=VARCHAR}, 
+      #{tradeMark,jdbcType=VARCHAR}, #{packing,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
+      #{identify,jdbcType=VARCHAR}, #{specificationGx,jdbcType=VARCHAR}, #{standard,jdbcType=VARCHAR}, 
+      #{produceDate,jdbcType=TIMESTAMP}, #{produceCertificate,jdbcType=VARCHAR}, #{certificateCode,jdbcType=VARCHAR}, 
+      #{sampleBase,jdbcType=DECIMAL}, #{samplePlace,jdbcType=VARCHAR}, #{testedDeparment,jdbcType=VARCHAR}, 
+      #{testedAddress,jdbcType=VARCHAR}, #{testedLegalrep,jdbcType=VARCHAR}, #{testedLinkman,jdbcType=VARCHAR}, 
+      #{testedLinkmanphone,jdbcType=VARCHAR}, #{testedLinkmanfax,jdbcType=VARCHAR}, #{testedPerson,jdbcType=VARCHAR}, 
+      #{testedPersonphone,jdbcType=VARCHAR}, #{testedPersonfax,jdbcType=VARCHAR}, #{productionsTatus,jdbcType=VARCHAR}, 
+      #{productionDeparment,jdbcType=VARCHAR}, #{productionAddress,jdbcType=VARCHAR}, 
+      #{productionZipcode,jdbcType=VARCHAR}, #{productionLinkman,jdbcType=VARCHAR}, #{productionLinkmanphone,jdbcType=VARCHAR}, 
+      #{productionLinkmanfax,jdbcType=VARCHAR}, #{sampleId,jdbcType=VARCHAR}, #{sampleDeparment,jdbcType=VARCHAR}, 
+      #{sampleLinkman,jdbcType=VARCHAR}, #{sampleAddress,jdbcType=VARCHAR}, #{sampleZipcode,jdbcType=VARCHAR}, 
+      #{samplePhone,jdbcType=VARCHAR}, #{sampleFax,jdbcType=VARCHAR}, #{sampleEmail,jdbcType=VARCHAR}, 
+      #{proof,jdbcType=VARCHAR}, #{samplePerson,jdbcType=VARCHAR}, #{sampleDate,jdbcType=TIMESTAMP}, 
+      #{sampleReport,jdbcType=VARCHAR}, #{commentGx,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=VARCHAR}, #{reservedField1,jdbcType=VARCHAR}, #{reservedField2,jdbcType=VARCHAR}, 
+      #{producingArea,jdbcType=VARCHAR}, #{producingAreaName,jdbcType=VARCHAR}, #{isSync,jdbcType=VARCHAR}, 
+      #{result,jdbcType=CHAR}, #{sampleAmount,jdbcType=DECIMAL}, #{attachments,jdbcType=VARCHAR}, #{attachmentNames,jdbcType=VARCHAR}, #{sampleUnitType,jdbcType=VARCHAR}, #{sampleBaseUnitType,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AlesTaskSample">
+    update ALES_TASK_SAMPLE
+    set ORGAN_TASK_ID = #{organTaskId,jdbcType=VARCHAR},
+      PRODUCT_TRACEABILITY_CODE = #{productTraceabilityCode,jdbcType=VARCHAR},
+      SAMPLE_BAR_CODE = #{sampleBarCode,jdbcType=DECIMAL},
+      SAMPLE_NAME = #{sampleName,jdbcType=VARCHAR},
+      SAMPLE_CODE = #{sampleCode,jdbcType=VARCHAR},
+      TRADE_MARK = #{tradeMark,jdbcType=VARCHAR},
+      PACKING = #{packing,jdbcType=VARCHAR},
+      GRADE = #{grade,jdbcType=VARCHAR},
+      IDENTIFY = #{identify,jdbcType=VARCHAR},
+      SPECIFICATION_GX = #{specificationGx,jdbcType=VARCHAR},
+      STANDARD = #{standard,jdbcType=VARCHAR},
+      PRODUCE_DATE = #{produceDate,jdbcType=TIMESTAMP},
+      PRODUCE_CERTIFICATE = #{produceCertificate,jdbcType=VARCHAR},
+      CERTIFICATE_CODE = #{certificateCode,jdbcType=VARCHAR},
+      SAMPLE_BASE = #{sampleBase,jdbcType=DECIMAL},
+      SAMPLE_PLACE = #{samplePlace,jdbcType=VARCHAR},
+      TESTED_DEPARMENT = #{testedDeparment,jdbcType=VARCHAR},
+      TESTED_ADDRESS = #{testedAddress,jdbcType=VARCHAR},
+      TESTED_LEGALREP = #{testedLegalrep,jdbcType=VARCHAR},
+      TESTED_LINKMAN = #{testedLinkman,jdbcType=VARCHAR},
+      TESTED_LINKMANPHONE = #{testedLinkmanphone,jdbcType=VARCHAR},
+      TESTED_LINKMANFAX = #{testedLinkmanfax,jdbcType=VARCHAR},
+      TESTED_PERSON = #{testedPerson,jdbcType=VARCHAR},
+      TESTED_PERSONPHONE = #{testedPersonphone,jdbcType=VARCHAR},
+      TESTED_PERSONFAX = #{testedPersonfax,jdbcType=VARCHAR},
+      PRODUCTIONS_TATUS = #{productionsTatus,jdbcType=VARCHAR},
+      PRODUCTION_DEPARMENT = #{productionDeparment,jdbcType=VARCHAR},
+      PRODUCTION_ADDRESS = #{productionAddress,jdbcType=VARCHAR},
+      PRODUCTION_ZIPCODE = #{productionZipcode,jdbcType=VARCHAR},
+      PRODUCTION_LINKMAN = #{productionLinkman,jdbcType=VARCHAR},
+      PRODUCTION_LINKMANPHONE = #{productionLinkmanphone,jdbcType=VARCHAR},
+      PRODUCTION_LINKMANFAX = #{productionLinkmanfax,jdbcType=VARCHAR},
+      SAMPLE_ID = #{sampleId,jdbcType=VARCHAR},
+      SAMPLE_DEPARMENT = #{sampleDeparment,jdbcType=VARCHAR},
+      SAMPLE_LINKMAN = #{sampleLinkman,jdbcType=VARCHAR},
+      SAMPLE_ADDRESS = #{sampleAddress,jdbcType=VARCHAR},
+      SAMPLE_ZIPCODE = #{sampleZipcode,jdbcType=VARCHAR},
+      SAMPLE_PHONE = #{samplePhone,jdbcType=VARCHAR},
+      SAMPLE_FAX = #{sampleFax,jdbcType=VARCHAR},
+      SAMPLE_EMAIL = #{sampleEmail,jdbcType=VARCHAR},
+      PROOF = #{proof,jdbcType=VARCHAR},
+      SAMPLE_PERSON = #{samplePerson,jdbcType=VARCHAR},
+      SAMPLE_DATE = #{sampleDate,jdbcType=TIMESTAMP},
+      SAMPLE_REPORT = #{sampleReport,jdbcType=VARCHAR},
+      COMMENT_GX = #{commentGx,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+      RESERVED_FIELD1 = #{reservedField1,jdbcType=VARCHAR},
+      RESERVED_FIELD2 = #{reservedField2,jdbcType=VARCHAR},
+      PRODUCING_AREA = #{producingArea,jdbcType=VARCHAR},
+      PRODUCING_AREA_NAME = #{producingAreaName,jdbcType=VARCHAR},
+      IS_SYNC = #{isSync,jdbcType=VARCHAR},
+      RESULT = #{result,jdbcType=CHAR},
+      SAMPLE_AMOUNT = #{sampleAmount,jdbcType=DECIMAL},
+      ATTACHMENTS = #{attachments,jdbcType=VARCHAR},
+      ATTACHMENT_NAMES = #{attachmentNames,jdbcType=VARCHAR},
+      SAMPLE_UNIT_TYPE = #{sampleUnitType,jdbcType=VARCHAR},
+      SAMPLE_BASE_UNIT_TYPE = #{sampleBaseUnitType,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, ORGAN_TASK_ID, PRODUCT_TRACEABILITY_CODE, SAMPLE_BAR_CODE, SAMPLE_NAME, 
+    SAMPLE_CODE, TRADE_MARK, PACKING, GRADE, IDENTIFY, SPECIFICATION_GX, STANDARD, PRODUCE_DATE, 
+    PRODUCE_CERTIFICATE, CERTIFICATE_CODE, SAMPLE_BASE, SAMPLE_PLACE, TESTED_DEPARMENT, 
+    TESTED_ADDRESS, TESTED_LEGALREP, TESTED_LINKMAN, TESTED_LINKMANPHONE, TESTED_LINKMANFAX, 
+    TESTED_PERSON, TESTED_PERSONPHONE, TESTED_PERSONFAX, PRODUCTIONS_TATUS, PRODUCTION_DEPARMENT, 
+    PRODUCTION_ADDRESS, PRODUCTION_ZIPCODE, PRODUCTION_LINKMAN, PRODUCTION_LINKMANPHONE, 
+    PRODUCTION_LINKMANFAX, SAMPLE_ID, SAMPLE_DEPARMENT, SAMPLE_LINKMAN, SAMPLE_ADDRESS, 
+    SAMPLE_ZIPCODE, SAMPLE_PHONE, SAMPLE_FAX, SAMPLE_EMAIL, PROOF, SAMPLE_PERSON, SAMPLE_DATE, 
+    SAMPLE_REPORT, COMMENT_GX, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, 
+    RESERVED_FIELD1, RESERVED_FIELD2, PRODUCING_AREA, PRODUCING_AREA_NAME, IS_SYNC, RESULT,
+    SAMPLE_AMOUNT,ATTACHMENTS,ATTACHMENT_NAMES,SAMPLE_UNIT_TYPE,SAMPLE_BASE_UNIT_TYPE
+    from ALES_TASK_SAMPLE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, ORGAN_TASK_ID, PRODUCT_TRACEABILITY_CODE, SAMPLE_BAR_CODE, SAMPLE_NAME, 
+    SAMPLE_CODE, TRADE_MARK, PACKING, GRADE, IDENTIFY, SPECIFICATION_GX, STANDARD, PRODUCE_DATE, 
+    PRODUCE_CERTIFICATE, CERTIFICATE_CODE, SAMPLE_BASE, SAMPLE_PLACE, TESTED_DEPARMENT, 
+    TESTED_ADDRESS, TESTED_LEGALREP, TESTED_LINKMAN, TESTED_LINKMANPHONE, TESTED_LINKMANFAX, 
+    TESTED_PERSON, TESTED_PERSONPHONE, TESTED_PERSONFAX, PRODUCTIONS_TATUS, PRODUCTION_DEPARMENT, 
+    PRODUCTION_ADDRESS, PRODUCTION_ZIPCODE, PRODUCTION_LINKMAN, PRODUCTION_LINKMANPHONE, 
+    PRODUCTION_LINKMANFAX, SAMPLE_ID, SAMPLE_DEPARMENT, SAMPLE_LINKMAN, SAMPLE_ADDRESS, 
+    SAMPLE_ZIPCODE, SAMPLE_PHONE, SAMPLE_FAX, SAMPLE_EMAIL, PROOF, SAMPLE_PERSON, SAMPLE_DATE, 
+    SAMPLE_REPORT, COMMENT_GX, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, 
+    RESERVED_FIELD1, RESERVED_FIELD2, PRODUCING_AREA, PRODUCING_AREA_NAME, IS_SYNC, RESULT,
+    SAMPLE_AMOUNT,ATTACHMENTS,ATTACHMENT_NAMES,SAMPLE_UNIT_TYPE,SAMPLE_BASE_UNIT_TYPE
+    from ALES_TASK_SAMPLE
+  </select>
+</mapper>

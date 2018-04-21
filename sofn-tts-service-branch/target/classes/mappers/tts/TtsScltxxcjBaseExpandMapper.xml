@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjBaseExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjBase" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PICTURE_TWO" property="pictureTwo" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="MANAGER" property="manager" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAMES" property="productNames" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="VARCHAR" />
+    <result column="LATITUDE" property="latitude" jdbcType="VARCHAR" />
+    <result column="PICTURE" property="picture" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+     <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+     <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+     <result column="ADDRESS_CODE" property="addressCode" jdbcType="VARCHAR" />
+     <result column="ADDRESS_NAME" property="addressName" jdbcType="VARCHAR" />
+     <result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+
+ </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from T_SCLTXXCJ_BASE_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.ENTITY_IDCODE = #{user.entityIdcode}
+        <if test="base.status != null and base.status != ''">
+            and T.STATUS = #{base.status}
+        </if>
+        <if test="status != null and status != ''">
+            and T.STATUS = #{status}
+        </if>
+        <if test="base.name != null and base.name != ''">
+            and T.NAME LIKE '%${base.name}%'
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+        ORDER BY Tab.CREATE_TIME DESC
+  </select>
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM T_SCLTXXCJ_BASE_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.ENTITY_IDCODE = #{user.entityIdcode}
+      <if test="base.status != null and base.status != ''">
+          and T.STATUS = #{base.status}
+      </if>
+      <if test="base.name != null and base.name != ''">
+          and T.NAME LIKE '%${base.name}%'
+      </if>
+  </select>
+  <update id="changeStatus" parameterType="com.sofn.model.generator.TtsScltxxcjBase">
+        update T_SCLTXXCJ_BASE_V2
+        set STATUS = #{status,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="removeById" parameterType="hashmap">
+      update T_SCLTXXCJ_BASE_V2
+        set DEL_FLAG = 'Y'
+        where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <update id="batchRemoveByIds" parameterType="String">
+        update T_SCLTXXCJ_BASE_V2 set DEL_FLAG = 'Y' where ID in
+        <foreach collection="array" item = "id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findBaseByEntityCode" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from T_SCLTXXCJ_BASE_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="entityCode != null and entityCode != ''">
+            AND T.ENTITY_IDCODE = #{entityCode}
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+        ORDER BY Tab.CREATE_TIME DESC
+    </select>
+
+    <select id="findBaseCountByEntityCode" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM T_SCLTXXCJ_BASE_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="entityCode != null and entityCode != ''">
+            AND T.ENTITY_IDCODE = #{entityCode}
+        </if>
+    </select>
+
+    <select id="findBaseMainProcById" parameterType="hashmap" resultType="java.lang.String">
+        SELECT  PRODUCT_NAMES FROM T_SCLTXXCJ_BASE_V2 T
+        where T.ID = #{id}
+    </select>
+    <update id="updateMainProcs" parameterType="hashmap">
+        update T_SCLTXXCJ_BASE_V2
+        set
+         PRODUCT_NAMES =  #{procNames}
+         where ID =#{id}
+    </update>
+
+    <select id="isExistedBase" parameterType="com.sofn.model.generator.TtsScltxxcjBase" resultType="long">
+        SELECT COUNT(*) FROM T_SCLTXXCJ_BASE_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="id != null and id != ''">
+            AND T.ID != #{id}
+        </if>
+        <if test="entityIdcode != null and entityIdcode != ''">
+            AND T.ENTITY_IDCODE = #{entityIdcode}
+        </if>
+        <if test="name != null and name != ''">
+            AND T.NAME = #{name}
+        </if>
+    </select>
+
+    <insert id="addBase" parameterType="com.sofn.model.generator.TtsScltxxcjBase">
+        insert into T_SCLTXXCJ_BASE_V2 (ID
+            , PICTURE_TWO
+            , NAME
+            , AREA
+            , ADDRESS
+            , MANAGER
+            , PHONE
+            , PRODUCT_NAMES
+            , LONGITUDE
+            , LATITUDE
+            , PICTURE
+            , STATUS
+            , IP
+            , DEL_FLAG
+            , CREATE_BY
+            , UPDATE_BY
+            , CREATE_TIME
+            , UPDATE_TIME
+            , USER_IDCODE
+            , ENTITY_IDCODE
+            , ADDRESS_CODE
+            , ADDRESS_NAME
+            , DICT_NAME
+            )
+            values (#{id,jdbcType=VARCHAR}
+            , #{pictureTwo,jdbcType=VARCHAR}
+            , #{name,jdbcType=VARCHAR}
+            , #{area,jdbcType=VARCHAR}
+            , #{address,jdbcType=VARCHAR}
+            , #{manager,jdbcType=VARCHAR}
+            , #{phone,jdbcType=VARCHAR}
+            , #{productNames,jdbcType=VARCHAR}
+            , #{longitude,jdbcType=VARCHAR}
+            , #{latitude,jdbcType=VARCHAR}
+            , #{picture,jdbcType=VARCHAR}
+            , #{status,jdbcType=VARCHAR}
+            , #{ip,jdbcType=VARCHAR}
+            , #{delFlag,jdbcType=VARCHAR}
+            , #{createBy,jdbcType=VARCHAR}
+            , #{updateBy,jdbcType=VARCHAR}
+            , #{createTime,jdbcType=TIMESTAMP}
+            , #{updateTime,jdbcType=TIMESTAMP}
+            , #{userIdcode,jdbcType=TIMESTAMP}
+            , #{entityIdcode,jdbcType=TIMESTAMP}
+            , #{addressCode,jdbcType=VARCHAR}
+            , #{addressName,jdbcType=VARCHAR}
+            , #{dictName,jdbcType=VARCHAR}
+              )
+    </insert>
+</mapper>

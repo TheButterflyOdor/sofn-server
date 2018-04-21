@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjCgglMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjCggl" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />
+    <result column="CG_AMOUNT" property="cgAmount" jdbcType="DECIMAL" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="SALE_ENTITY_IDCODE" property="saleEntityIdcode" jdbcType="VARCHAR" />
+    <result column="SALE_USER_IDCODE" property="saleUserIdcode" jdbcType="VARCHAR" />
+    <result column="CG_DW" property="cgDw" jdbcType="VARCHAR" />
+    <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR" />
+    <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR" />
+    <result column="ZJRESULT" property="zjresult" jdbcType="VARCHAR" />
+    <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP" />
+    <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR" />
+    <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+    <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR" />
+    <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+    <result column="TOZSM" property="tozsm" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CGPC" property="productCgpc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CGPC_SL" property="productCgpcSl" jdbcType="VARCHAR" />
+    <result column="XSDJID" property="xsdjid" jdbcType="VARCHAR" />
+    <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_CGGL
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjCggl" >
+    insert into TTS_SCLTXXCJ_CGGL (ID
+    , PRODUCT_NAME
+    , PRODUCT_ID
+    , PRODUCT_INDUSTRY
+    , PRODUCT_SORT
+    , PRODUCT_SCGL_ID
+    , CG_AMOUNT
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , SALE_ENTITY_IDCODE
+    , SALE_USER_IDCODE
+    , CG_DW
+    , CONFIRM_STATE
+    , TRACE_CODE
+    , ZJRESULT
+    , SALE_TIME
+    , CONFIRM_TIME
+    , PRODUCT_MODEL
+    , BUY_COM_USER_ID
+    , SALE_USER
+    , IP_ADDRESS
+    , FROMZSM
+    , TOZSM
+    , PRODUCT_CGPC
+    , PRODUCT_CGPC_SL
+    , XSDJID
+    , ZJCHECK
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{productName,jdbcType=VARCHAR}
+    , #{productId,jdbcType=VARCHAR}
+    , #{productIndustry,jdbcType=VARCHAR}
+    , #{productSort,jdbcType=VARCHAR}
+    , #{productScglId,jdbcType=VARCHAR}
+    , #{cgAmount,jdbcType=DECIMAL}
+    , #{entityIdcode,jdbcType=VARCHAR}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{saleEntityIdcode,jdbcType=VARCHAR}
+    , #{saleUserIdcode,jdbcType=VARCHAR}
+    , #{cgDw,jdbcType=VARCHAR}
+    , #{confirmState,jdbcType=VARCHAR}
+    , #{traceCode,jdbcType=VARCHAR}
+    , #{zjresult,jdbcType=VARCHAR}
+    , #{saleTime,jdbcType=TIMESTAMP}
+    , #{confirmTime,jdbcType=TIMESTAMP}
+    , #{productModel,jdbcType=VARCHAR}
+    , #{buyComUserId,jdbcType=VARCHAR}
+    , #{saleUser,jdbcType=VARCHAR}
+    , #{ipAddress,jdbcType=VARCHAR}
+    , #{fromzsm,jdbcType=VARCHAR}
+    , #{tozsm,jdbcType=VARCHAR}
+    , #{productCgpc,jdbcType=VARCHAR}
+    , #{productCgpcSl,jdbcType=VARCHAR}
+    , #{xsdjid,jdbcType=VARCHAR}
+    , #{zjcheck,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjCggl" >
+    update TTS_SCLTXXCJ_CGGL
+    set
+     PRODUCT_NAME =  #{productName,jdbcType=VARCHAR},
+     PRODUCT_ID =  #{productId,jdbcType=VARCHAR},
+     PRODUCT_INDUSTRY =  #{productIndustry,jdbcType=VARCHAR},
+     PRODUCT_SORT =  #{productSort,jdbcType=VARCHAR},
+     PRODUCT_SCGL_ID =  #{productScglId,jdbcType=VARCHAR},
+     CG_AMOUNT =  #{cgAmount,jdbcType=DECIMAL},
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+     SALE_ENTITY_IDCODE =  #{saleEntityIdcode,jdbcType=VARCHAR},
+     SALE_USER_IDCODE =  #{saleUserIdcode,jdbcType=VARCHAR},
+     CG_DW =  #{cgDw,jdbcType=VARCHAR},
+     CONFIRM_STATE =  #{confirmState,jdbcType=VARCHAR},
+     TRACE_CODE =  #{traceCode,jdbcType=VARCHAR},
+     ZJRESULT =  #{zjresult,jdbcType=VARCHAR},
+     SALE_TIME =  #{saleTime,jdbcType=TIMESTAMP},
+     CONFIRM_TIME =  #{confirmTime,jdbcType=TIMESTAMP},
+     PRODUCT_MODEL =  #{productModel,jdbcType=VARCHAR},
+     BUY_COM_USER_ID =  #{buyComUserId,jdbcType=VARCHAR},
+     SALE_USER =  #{saleUser,jdbcType=VARCHAR},
+     IP_ADDRESS =  #{ipAddress,jdbcType=VARCHAR},
+     FROMZSM =  #{fromzsm,jdbcType=VARCHAR},
+     TOZSM =  #{tozsm,jdbcType=VARCHAR},
+     PRODUCT_CGPC =  #{productCgpc,jdbcType=VARCHAR},
+     PRODUCT_CGPC_SL =  #{productCgpcSl,jdbcType=VARCHAR},
+     XSDJID =  #{xsdjid,jdbcType=VARCHAR},
+     ZJCHECK =  #{zjcheck,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , PRODUCT_NAME
+    , PRODUCT_ID
+    , PRODUCT_INDUSTRY
+    , PRODUCT_SORT
+    , PRODUCT_SCGL_ID
+    , CG_AMOUNT
+    , ENTITY_IDCODE
+    , USER_IDCODE
+    , SALE_ENTITY_IDCODE
+    , SALE_USER_IDCODE
+    , CG_DW
+    , CONFIRM_STATE
+    , TRACE_CODE
+    , ZJRESULT
+    , SALE_TIME
+    , CONFIRM_TIME
+    , PRODUCT_MODEL
+    , BUY_COM_USER_ID
+    , SALE_USER
+    , IP_ADDRESS
+    , FROMZSM
+    , TOZSM
+    , PRODUCT_CGPC
+    , PRODUCT_CGPC_SL
+    , XSDJID
+    , ZJCHECK
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from TTS_SCLTXXCJ_CGGL
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

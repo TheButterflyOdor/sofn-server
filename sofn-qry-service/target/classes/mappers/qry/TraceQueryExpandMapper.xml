@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.qry.TraceQueryExpandMapper">
+    <!--销售企业信息-->
+    <resultMap id="saleInfoData" type="com.sofn.model.qry.SaleInfoData">
+        <result column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="PRODUCTBATCHCODE" property="productBatchCode" jdbcType="VARCHAR"/>
+        <result column="PRODUCTNAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="PRODUCTTYPE" property="productType" jdbcType="VARCHAR"/>
+        <result column="SALESNUM" property="salesNum" jdbcType="DECIMAL"/>
+        <result column="SALESUNIT" property="salesUnit" jdbcType="VARCHAR"/>
+        <result column="QUALITYINSPECTION" property="qualityInspection" jdbcType="VARCHAR"/>
+        <result column="SUBJECTIDENTITYCODE" property="subjectIdentityCode" jdbcType="VARCHAR"/>
+        <result column="SUBJECTNAME" property="subjectName" jdbcType="VARCHAR"/>
+        <result column="SUBJECTADDRESS" property="subjectAddress" jdbcType="VARCHAR"/>
+        <result column="LEGALNAME" property="legalName" jdbcType="VARCHAR"/>
+        <result column="CONTACTNAME" property="contactName" jdbcType="VARCHAR"/>
+        <result column="CONTACTINFORMATION" property="contactInformation" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--通过追溯码获取该企业信息-->
+    <select id="findByTraceCode" resultMap="saleInfoData">
+        select t.product_pc      as PRODUCTBATCHCODE,
+               t.product_name    as PRODUCTNAME,
+               t.product_sort    as PRODUCTTYPE,
+               t.product_amount as SALESNUM,
+               t.harvest_unit as SALESUNIT,
+               t.medi_result     as QUALITYINSPECTION,
+               t.USER_IDCODE   as SUBJECTIDENTITYCODE,
+               r.enterprise_name as SUBJECTNAME,
+               r.address         as SUBJECTADDRESS,
+               r.legal_name      as LEGALNAME,
+               r.contact_name       as CONTACTNAME,
+               r.legal_phone     as CONTACTINFORMATION
+          from TTS_SCLTXXCJ_SCGL_V2 t
+         inner join TTS_SCLTXXCJ_REGISTER_V2 r
+            on t.USER_IDCODE = r.USER_IDCODE
+           and t.fromzsm = #{traceCode}
+    </select>
+    <!--通过批次码获取该企业信息-->
+    <select id="findByBatchCode" resultMap="saleInfoData">
+        select t.product_pc      as PRODUCTBATCHCODE,
+        t.product_name    as PRODUCTNAME,
+        t.product_sort    as PRODUCTTYPE,
+        t.product_amount as SALESNUM,
+        t.harvest_unit as SALESUNIT,
+        t.medi_result     as QUALITYINSPECTION,
+        t.USER_IDCODE   as SUBJECTIDENTITYCODE,
+        r.enterprise_name as SUBJECTNAME,
+        r.address         as SUBJECTADDRESS,
+        r.legal_name      as LEGALNAME,
+        r.contact_name as CONTACTNAME,
+        r.legal_phone     as CONTACTINFORMATION
+        from TTS_SCLTXXCJ_SCGL_V2 t
+        inner join TTS_SCLTXXCJ_REGISTER_V2 r
+        on t.USER_IDCODE = r.USER_IDCODE
+        and t.product_pc = #{batchCode}
+    </select>
+    <!--通过批次码获取合成后企业信息-->
+    <select id="findHcByBatchCode" resultMap="saleInfoData">
+        select t.product_pc      as PRODUCTBATCHCODE,
+               t.product_name    as PRODUCTNAME,
+               t.product_sort    as PRODUCTTYPE,
+               t.product_amount as SALESNUM,
+               t.harvest_unit as SALESUNIT,
+               t.medi_result     as QUALITYINSPECTION,
+               t.USER_IDCODE   as SUBJECTIDENTITYCODE,
+               r.enterprise_name as SUBJECTNAME,
+               r.address         as SUBJECTADDRESS,
+               r.legal_name      as LEGALNAME,
+        r.contact_name as CONTACTNAME,
+               r.legal_phone     as CONTACTINFORMATION
+          from TTS_SCLTXXCJ_SCGL_V2 t
+         inner join TTS_SCLTXXCJ_REGISTER_V2 r
+            on t.USER_IDCODE = r.USER_IDCODE
+         inner join TTS_SCLTXXCJ_CPPCHC_V2 c
+            on t.product_pc = c.product_pc_new
+           and c.product_pc = #{batchCode}
+    </select>
+    <!--通过批次码获取入市企业信息-->
+    <select id="findIntoCityByBatchCode" resultMap="saleInfoData">
+        select t.customer_id  as PRODUCTBATCHCODE,
+               t.product_name as PRODUCTNAME,
+               t.product_sort as PRODUCTTYPE,
+               t.sale_amount as SALESNUM,
+               t.harvest_unit as SALESUNIT,
+               r.name         as SUBJECTNAME,
+               r.address      as SUBJECTADDRESS,
+               r.user_name    as LEGALNAME,
+        r.user_name as CONTACTNAME,
+               r.phone        as CONTACTINFORMATION
+          from TTS_SCLTXXCJ_XSDJJL_V2 t
+         inner join TTS_SCLTXXCJ_CUSTOMER_V2 r
+            on t.customer_id = r.id
+           and t.is_circulates_end = 'Y'
+           and t.product_scgl_id = #{batchCode}
+         group by t.customer_id,
+                  t.product_name,
+                  t.product_sort,
+                  t.sale_amount,
+                  t.harvest_unit,
+                  r.name,
+                  r.address,
+                  r.user_name,
+                  r.phone
+    </select>
+    <!--通过批次码获取流通企业信息-->
+    <select id="findCirculationByBatchCode" resultMap="saleInfoData">
+        select t.product_pc      as ID,
+               t.product_pc      as PRODUCTBATCHCODE,
+               t.product_name    as PRODUCTNAME,
+               t.product_sort    as PRODUCTTYPE,
+               x.sale_amount as SALESNUM,
+               x.harvest_unit as SALESUNIT,
+               t.medi_result     as QUALITYINSPECTION,
+               t.USER_IDCODE   as SUBJECTIDENTITYCODE,
+               r.enterprise_name as SUBJECTNAME,
+               r.address         as SUBJECTADDRESS,
+               r.legal_name      as LEGALNAME,
+        r.contact_name as CONTACTNAME,
+               r.legal_phone     as CONTACTINFORMATION
+          from TTS_SCLTXXCJ_SCGL_V2 t
+         inner join TTS_SCLTXXCJ_XSDJJL_V2 x
+            on t.fromzsm = x.tozsm
+         inner join TTS_SCLTXXCJ_REGISTER_V2 r
+            on t.USER_IDCODE = r.USER_IDCODE
+           and x.is_circulates_end = 'N'
+           and x.confirm_state = 'Y'
+           and x.product_scgl_id = #{batchCode}
+    </select>
+    <!--通过批次码获取合成前企业信息-->
+    <select id="findBeforeHcByBatchCode" resultMap="saleInfoData">
+        select c.product_pc as PRODUCTBATCHCODE,
+        t.product_name as PRODUCTNAME,
+        t.product_sort as PRODUCTTYPE,
+        t.product_amount as SALESNUM,
+        t.harvest_unit as SALESUNIT,
+        t.medi_result as QUALITYINSPECTION,
+        t.USER_IDCODE as SUBJECTIDENTITYCODE,
+        r.enterprise_name as SUBJECTNAME,
+        r.address as SUBJECTADDRESS,
+        r.legal_name as LEGALNAME,
+        r.contact_name as CONTACTNAME,
+        r.legal_phone as CONTACTINFORMATION
+        from TTS_SCLTXXCJ_SCGL_V2 t
+        inner join TTS_SCLTXXCJ_REGISTER_V2 r
+        on t.USER_IDCODE = r.USER_IDCODE
+        inner join TTS_SCLTXXCJ_CPPCHC_V2 c
+        on t.product_pc = c.product_pc_new
+        and c.product_pc_new = #{batchCode}
+    </select>
+    <!--通过批次码获取上游企业信息-->
+    <select id="findUpByBatchCode" resultMap="saleInfoData">
+        select t.product_pc as ID,
+        t.product_pc as PRODUCTBATCHCODE,
+               t.product_name    as PRODUCTNAME,
+               t.product_sort    as PRODUCTTYPE,
+               t.product_amount as SALESNUM,
+               t.harvest_unit as SALESUNIT,
+               t.medi_result     as QUALITYINSPECTION,
+               t.USER_IDCODE   as SUBJECTIDENTITYCODE,
+               r.enterprise_name as SUBJECTNAME,
+               r.address         as SUBJECTADDRESS,
+               r.legal_name      as LEGALNAME,
+        r.contact_name as CONTACTNAME,
+               r.legal_phone     as CONTACTINFORMATION
+          from TTS_SCLTXXCJ_SCGL_V2 t
+         inner join TTS_SCLTXXCJ_REGISTER_V2 r
+            on t.USER_IDCODE = r.USER_IDCODE
+         inner join (select x.product_scgl_id
+                       from TTS_SCLTXXCJ_XSDJJL_V2 x
+                      inner join TTS_SCLTXXCJ_SCGL_V2 s
+                         on x.tozsm = s.fromzsm
+                        and s.fromzsm is not null
+                        and s.product_pc = #{batchCode}
+                      group by x.product_scgl_id) b
+            on t.product_pc = b.product_scgl_id
+    </select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsCheckBearUnitMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCheckBearUnit">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="SUPERVISE_CHECK_TASK_ID" jdbcType="CHAR" property="superviseCheckTaskId" />
+    <result column="SUPERVISE_BEAR_UNIT_ID" jdbcType="CHAR" property="superviseBearUnitId" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="LEAD_UNIT_NAME" jdbcType="VARCHAR" property="leadUnitName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_CHECK_BEAR_UNIT
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsCheckBearUnit">
+    insert into ASMS_CHECK_BEAR_UNIT (ID, SUPERVISE_CHECK_TASK_ID, SUPERVISE_BEAR_UNIT_ID, 
+      DEL_FLAG, LEAD_UNIT_NAME)
+    values (#{id,jdbcType=CHAR}, #{superviseCheckTaskId,jdbcType=CHAR}, #{superviseBearUnitId,jdbcType=CHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{leadUnitName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsCheckBearUnit">
+    update ASMS_CHECK_BEAR_UNIT
+    set SUPERVISE_CHECK_TASK_ID = #{superviseCheckTaskId,jdbcType=CHAR},
+      SUPERVISE_BEAR_UNIT_ID = #{superviseBearUnitId,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      LEAD_UNIT_NAME = #{leadUnitName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, SUPERVISE_CHECK_TASK_ID, SUPERVISE_BEAR_UNIT_ID, DEL_FLAG, LEAD_UNIT_NAME
+    from ASMS_CHECK_BEAR_UNIT
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, SUPERVISE_CHECK_TASK_ID, SUPERVISE_BEAR_UNIT_ID, DEL_FLAG, LEAD_UNIT_NAME
+    from ASMS_CHECK_BEAR_UNIT
+  </select>
+</mapper>

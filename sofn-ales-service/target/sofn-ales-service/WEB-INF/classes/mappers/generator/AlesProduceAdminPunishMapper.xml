@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AlesProduceAdminPunishMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesProduceAdminPunish">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="PUNISH_CODE" jdbcType="VARCHAR" property="punishCode" />
+    <result column="LEGAL_PERSON" jdbcType="VARCHAR" property="legalPerson" />
+    <result column="CASE_NAME" jdbcType="VARCHAR" property="caseName" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="ENTERPRISE_NAME" jdbcType="CHAR" property="enterpriseName" />
+    <result column="MANUFACTURE_DATE" jdbcType="VARCHAR" property="manufactureDate" />
+    <result column="PUNISH_QUALITATIVE" jdbcType="VARCHAR" property="punishQualitative" />
+    <result column="PUNISH_RESULT" jdbcType="VARCHAR" property="punishResult" />
+    <result column="PUNISH_FILES" jdbcType="VARCHAR" property="punishFiles" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="ENTERPRISE_ID" jdbcType="CHAR" property="enterpriseId" />
+    <result column="ENTERPRISE_CODE" jdbcType="VARCHAR" property="enterpriseCode" />
+    <result column="ENFORCE_LAW_ID" jdbcType="CHAR" property="enforceLawId" />
+    <result column="ENFORCE_LAW_PEOPLE" jdbcType="VARCHAR" property="enforceLawPeople" />
+    <result column="ENFORCE_LAW_TIME" jdbcType="TIMESTAMP" property="enforceLawTime" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="PUNISH_FILES_NAME" jdbcType="VARCHAR" property="punishFilesName" />
+    <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+    <result column="ENTERPRISE_ID_NAME" jdbcType="CHAR" property="enterpriseIdName" />
+    <result column="DAILY_TASK_CODE" jdbcType="VARCHAR" property="dailyTaskCode" />
+    <result column="PENALTY_SOURCE" jdbcType="VARCHAR" property="penaltySource" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ALES_PRODUCE_ADMIN_PUNISH
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AlesProduceAdminPunish">
+    insert into ALES_PRODUCE_ADMIN_PUNISH (ID, PUNISH_CODE, LEGAL_PERSON, 
+      CASE_NAME, PRODUCT_NAME, ENTERPRISE_NAME, 
+      MANUFACTURE_DATE, PUNISH_QUALITATIVE, PUNISH_RESULT, 
+      PUNISH_FILES, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, ENABLE, 
+      ENTERPRISE_ID, ENTERPRISE_CODE, ENFORCE_LAW_ID, 
+      ENFORCE_LAW_PEOPLE, ENFORCE_LAW_TIME, DEL_FLAG, 
+      PUNISH_FILES_NAME, CREATE_ORG_ID, ENTERPRISE_ID_NAME, 
+      DAILY_TASK_CODE,PENALTY_SOURCE)
+    values (#{id,jdbcType=CHAR}, #{punishCode,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, 
+      #{caseName,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{enterpriseName,jdbcType=CHAR}, 
+      #{manufactureDate,jdbcType=VARCHAR}, #{punishQualitative,jdbcType=VARCHAR}, #{punishResult,jdbcType=VARCHAR}, 
+      #{punishFiles,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, 
+      #{enterpriseId,jdbcType=CHAR}, #{enterpriseCode,jdbcType=VARCHAR}, #{enforceLawId,jdbcType=CHAR}, 
+      #{enforceLawPeople,jdbcType=VARCHAR}, #{enforceLawTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR}, 
+      #{punishFilesName,jdbcType=VARCHAR}, #{createOrgId,jdbcType=CHAR}, #{enterpriseIdName,jdbcType=CHAR}, 
+      #{dailyTaskCode,jdbcType=VARCHAR},#{penaltySource,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AlesProduceAdminPunish">
+    update ALES_PRODUCE_ADMIN_PUNISH
+    set PUNISH_CODE = #{punishCode,jdbcType=VARCHAR},
+      LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
+      CASE_NAME = #{caseName,jdbcType=VARCHAR},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      ENTERPRISE_NAME = #{enterpriseName,jdbcType=CHAR},
+      MANUFACTURE_DATE = #{manufactureDate,jdbcType=VARCHAR},
+      PUNISH_QUALITATIVE = #{punishQualitative,jdbcType=VARCHAR},
+      PUNISH_RESULT = #{punishResult,jdbcType=VARCHAR},
+      PUNISH_FILES = #{punishFiles,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      ENTERPRISE_ID = #{enterpriseId,jdbcType=CHAR},
+      ENTERPRISE_CODE = #{enterpriseCode,jdbcType=VARCHAR},
+      ENFORCE_LAW_ID = #{enforceLawId,jdbcType=CHAR},
+      ENFORCE_LAW_PEOPLE = #{enforceLawPeople,jdbcType=VARCHAR},
+      ENFORCE_LAW_TIME = #{enforceLawTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      PUNISH_FILES_NAME = #{punishFilesName,jdbcType=VARCHAR},
+      CREATE_ORG_ID = #{createOrgId,jdbcType=CHAR},
+      ENTERPRISE_ID_NAME = #{enterpriseIdName,jdbcType=CHAR},
+      DAILY_TASK_CODE = #{dailyTaskCode,jdbcType=VARCHAR},
+      PENALTY_SOURCE = #{penaltySource,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, PUNISH_CODE, LEGAL_PERSON, CASE_NAME, PRODUCT_NAME, ENTERPRISE_NAME, MANUFACTURE_DATE, 
+    PUNISH_QUALITATIVE, PUNISH_RESULT, PUNISH_FILES, CREATE_BY, CREATE_TIME, UPDATE_BY, 
+    UPDATE_TIME, ENABLE, ENTERPRISE_ID, ENTERPRISE_CODE, ENFORCE_LAW_ID, ENFORCE_LAW_PEOPLE, 
+    ENFORCE_LAW_TIME, DEL_FLAG, PUNISH_FILES_NAME, CREATE_ORG_ID, ENTERPRISE_ID_NAME, 
+    DAILY_TASK_CODE,PENALTY_SOURCE
+    from ALES_PRODUCE_ADMIN_PUNISH
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, PUNISH_CODE, LEGAL_PERSON, CASE_NAME, PRODUCT_NAME, ENTERPRISE_NAME, MANUFACTURE_DATE, 
+    PUNISH_QUALITATIVE, PUNISH_RESULT, PUNISH_FILES, CREATE_BY, CREATE_TIME, UPDATE_BY, 
+    UPDATE_TIME, ENABLE, ENTERPRISE_ID, ENTERPRISE_CODE, ENFORCE_LAW_ID, ENFORCE_LAW_PEOPLE, 
+    ENFORCE_LAW_TIME, DEL_FLAG, PUNISH_FILES_NAME, CREATE_ORG_ID, ENTERPRISE_ID_NAME, 
+    DAILY_TASK_CODE,PENALTY_SOURCE
+    from ALES_PRODUCE_ADMIN_PUNISH
+  </select>
+</mapper>

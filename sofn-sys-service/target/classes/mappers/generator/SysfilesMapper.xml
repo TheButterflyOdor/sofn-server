@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SysfilesMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.Sysfiles" >
+    <result column="TSNAME" property="tsname" jdbcType="VARCHAR" />
+    <result column="FNAME" property="fname" jdbcType="VARCHAR" />
+    <result column="BLOCKS" property="blocks" jdbcType="DECIMAL" />
+  </resultMap>
+  <insert id="insert" parameterType="com.sofn.model.generator.Sysfiles" >
+    insert into SYSFILES (TSNAME, FNAME, BLOCKS
+      )
+    values (#{tsname,jdbcType=VARCHAR}, #{fname,jdbcType=VARCHAR}, #{blocks,jdbcType=DECIMAL}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select TSNAME, FNAME, BLOCKS
+    from SYSFILES
+  </select>
+</mapper>

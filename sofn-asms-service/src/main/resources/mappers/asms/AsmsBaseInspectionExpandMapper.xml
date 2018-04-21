@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsBaseInspectionExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsBaseInspection" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="CHAR" />
+    <result column="INSPECTION_TYPE" property="inspectionType" jdbcType="VARCHAR" />
+    <result column="INSPECTION_RESULT" property="inspectionResult" jdbcType="VARCHAR" />
+    <result column="INSPECTION_VIEW" property="inspectionView" jdbcType="VARCHAR" />
+    <result column="INSPECTION_IMAGES" property="inspectionImages" jdbcType="VARCHAR" />
+    <result column="INSPECTION_TIME" property="inspectionTime" jdbcType="TIMESTAMP" />
+    <result column="INSPECTION_SV_NAME" property="inspectionSvName" jdbcType="VARCHAR" />
+    <result column="INSPECTION_SV_ID" property="inspectionSvId" jdbcType="CHAR" />
+    <result column="INSPECTION_USER_NAME" property="inspectionUserName" jdbcType="VARCHAR" />
+    <result column="EL_CHECK_STATE" property="elCheckState" jdbcType="VARCHAR" />
+    <result column="HEAD_SIGN" property="headSign" jdbcType="VARCHAR" />
+    <result column="HEAD_SIGN_FILE" property="headSignFile" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ENABLE" property="enable" jdbcType="CHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="INSPECTION_TYPE_NAME" property="inspectionTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getBaseInspectionList" resultType="map">
+    SELECT * FROM (
+    SELECT b.*, ROWNUM AS rn
+    FROM (
+    SELECT *
+    FROM (
+    SELECT
+    s.ID,t.ENTERPRISE_NAME,t.ENTITY_INDUSTRY,t.AREA,t.CONTACT_NAME,s.INSPECTION_TYPE,s.INSPECTION_TYPE_NAME,s.INSPECTION_RESULT,
+    s.INSPECTION_TIME,s.INSPECTION_USER_NAME,s.CREATE_BY,s.CREATE_TIME
+    FROM ASMS_BASE_INSPECTION s
+    INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 t
+    ON s.ENTERPRISE_ID = t.ID
+    LEFT JOIN ASMS_BASE_USER bu
+    ON s.ID=bu.BASE_INSPECTION_ID
+    WHERE 1=1
+    <if test="enterpriseIndustryId!=null and enterpriseIndustryId!=''">
+      AND t.ENTITY_INDUSTRY LIKE '%'|| #{enterpriseIndustryId}||'%'
+    </if>
+    <if test="entityScaleId!=null and entityScaleId!=''">
+      AND t.ENTITY_SCALE = #{entityScaleId}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="inspectionResult!=null and inspectionResult!=''">
+      AND s.INSPECTION_RESULT = #{inspectionResult}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.INSPECTION_TIME &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="area!=null and area!=''">
+      AND t.AREA LIKE #{area}||'%'
+    </if>
+    <if test="inspectionPersonId!=null and inspectionPersonId!=''">
+      AND bu.INSPECTION_USER_ID = #{inspectionPersonId}
+    </if>
+    <if test="inspectionType!=null and inspectionType!=''">
+      AND s.INSPECTION_TYPE = #{inspectionType}
+    </if>
+    <if test="taskDateBegin!=null and taskDateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{taskDateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="taskDateEnd!=null and taskDateEnd!=''">
+      AND s.INSPECTION_TIME &lt;to_date(#{taskDateEnd},'yyyy-MM-dd')
+    </if>
+    UNION ALL
+    SELECT
+    s.ID,t.ENTITY_NAME AS ENTERPRISE_NAME,t.ENTITY_INDUSTRY AS ENTERPRISE_INDUSTRY,t.AREA_ID AS
+    AREA,t.CONTACT_NAME,s.INSPECTION_TYPE,s.INSPECTION_TYPE_NAME,s.INSPECTION_RESULT,
+    s.INSPECTION_TIME,s.INSPECTION_USER_NAME,s.CREATE_BY,s.CREATE_TIME
+    FROM ASMS_BASE_INSPECTION s
+    INNER JOIN ASMS_SUBJ_ENT_TEMP t
+    ON s.ENTERPRISE_ID = t.ID
+    LEFT JOIN ASMS_BASE_USER bu
+    ON s.ID=bu.BASE_INSPECTION_ID
+    WHERE 1=1
+    <if test="enterpriseIndustryId!=null and enterpriseIndustryId!=''">
+      AND t.ENTITY_INDUSTRY_ID LIKE '%'|| #{enterpriseIndustryId}||'%'
+    </if>
+    <if test="entityScaleId!=null and entityScaleId!=''">
+      AND t.ENTITY_SCALE_ID = #{entityScaleId}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTITY_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="inspectionResult!=null and inspectionResult!=''">
+      AND s.INSPECTION_RESULT = #{inspectionResult}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.INSPECTION_TIME &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="area!=null and area!=''">
+      AND t.AREA_ID LIKE #{area}||'%'
+    </if>
+    <if test="inspectionPersonId!=null and inspectionPersonId!=''">
+      AND bu.INSPECTION_USER_ID = #{inspectionPersonId}
+    </if>
+    <if test="inspectionType!=null and inspectionType!=''">
+      AND s.INSPECTION_TYPE = #{inspectionType}
+    </if>
+    <if test="taskDateBegin!=null and taskDateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{taskDateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="taskDateEnd!=null and taskDateEnd!=''">
+      AND s.INSPECTION_TIME &lt;to_date(#{taskDateEnd},'yyyy-MM-dd')
+    </if>
+    ) a
+    ORDER BY a.INSPECTION_TIME DESC
+    ) b
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getBaseInspectionCount" resultType="long">
+    SELECT sum(c) FROM (
+    SELECT COUNT(*) AS c FROM ASMS_BASE_INSPECTION s
+    INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 t
+    ON s.ENTERPRISE_ID=t.ID
+    LEFT JOIN ASMS_BASE_USER bu
+    ON s.ID=bu.BASE_INSPECTION_ID
+    WHERE 1=1
+    <if test="enterpriseIndustryId!=null and enterpriseIndustryId!=''">
+      AND t.ENTITY_INDUSTRY LIKE '%'|| #{enterpriseIndustryId}||'%'
+    </if>
+    <if test="entityScaleId!=null and entityScaleId!=''">
+      AND t.ENTITY_SCALE = #{entityScaleId}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="inspectionResult!=null and inspectionResult!=''">
+      AND s.INSPECTION_RESULT = #{inspectionResult}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.INSPECTION_TIME &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="area!=null and area!=''">
+      AND t.AREA LIKE #{area}||'%'
+    </if>
+    <if test="inspectionPersonId!=null and inspectionPersonId!=''">
+      AND bu.INSPECTION_USER_ID = #{inspectionPersonId}
+    </if>
+    <if test="inspectionType!=null and inspectionType!=''">
+      AND s.INSPECTION_TYPE = #{inspectionType}
+    </if>
+    <if test="taskDateBegin!=null and taskDateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{taskDateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="taskDateEnd!=null and taskDateEnd!=''">
+      AND s.INSPECTION_TIME &lt;to_date(#{taskDateEnd},'yyyy-MM-dd')
+    </if>
+    UNION ALL
+    SELECT COUNT(*) AS c FROM ASMS_BASE_INSPECTION s
+    INNER JOIN ASMS_SUBJ_ENT_TEMP t
+    ON s.ENTERPRISE_ID=t.ID
+    LEFT JOIN ASMS_BASE_USER bu
+    ON s.ID=bu.BASE_INSPECTION_ID
+    WHERE 1=1
+    <if test="enterpriseIndustryId!=null and enterpriseIndustryId!=''">
+      AND t.ENTITY_INDUSTRY_ID LIKE '%'|| #{enterpriseIndustryId}||'%'
+    </if>
+    <if test="entityScaleId!=null and entityScaleId!=''">
+      AND t.ENTITY_SCALE_ID = #{entityScaleId}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTITY_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="inspectionResult!=null and inspectionResult!=''">
+      AND s.INSPECTION_RESULT = #{inspectionResult}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.INSPECTION_TIME &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="area!=null and area!=''">
+      AND t.AREA_ID LIKE #{area}||'%'
+    </if>
+    <if test="inspectionPersonId!=null and inspectionPersonId!=''">
+      AND bu.INSPECTION_USER_ID = #{inspectionPersonId}
+    </if>
+    <if test="inspectionType!=null and inspectionType!=''">
+      AND s.INSPECTION_TYPE = #{inspectionType}
+    </if>
+    <if test="taskDateBegin!=null and taskDateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{taskDateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="taskDateEnd!=null and taskDateEnd!=''">
+      AND s.INSPECTION_TIME &lt;to_date(#{taskDateEnd},'yyyy-MM-dd')
+    </if>
+    )
+  </select>
+
+  <select id="getBaseInspectionAllList" resultType="map">
+    SELECT * FROM (
+    SELECT b.*, ROWNUM AS rn
+    FROM (
+    SELECT *
+    FROM (
+    SELECT
+    s.ID,t.ENTERPRISE_NAME,t.ENTITY_INDUSTRY,t.AREA,t.CONTACT_NAME,s.INSPECTION_TYPE,s.INSPECTION_TYPE_NAME,s.INSPECTION_RESULT,
+    s.INSPECTION_TIME,s.INSPECTION_USER_NAME,s.CREATE_BY,s.CREATE_TIME
+    FROM ASMS_BASE_INSPECTION s
+    INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 t
+    ON s.ENTERPRISE_ID = t.ID
+    WHERE s.DEL_FLAG='N'
+    <if test="enterpriseIndustryId!=null and enterpriseIndustryId.length>0">
+      AND
+      <foreach collection="enterpriseIndustryId" item="item" index="index" open="(" close=")" separator="or">
+        t.ENTITY_INDUSTRY like '%'||#{item}||'%'
+      </foreach>
+    </if>
+    <if test="inspectionSvId!=null and inspectionSvId!=''">
+      AND s.INSPECTION_SV_ID = #{inspectionSvId}
+    </if>
+    <if test="entityScaleId!=null and entityScaleId!=''">
+      AND t.ENTITY_SCALE = #{entityScaleId}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="inspectionResult!=null and inspectionResult!=''">
+      AND s.INSPECTION_RESULT = #{inspectionResult}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.INSPECTION_TIME &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="area!=null and area!=''">
+      AND t.AREA LIKE #{area}||'%'
+    </if>
+    UNION ALL
+    SELECT
+    s.ID,t.ENTITY_NAME AS ENTERPRISE_NAME,t.ENTITY_INDUSTRY AS ENTERPRISE_INDUSTRY,t.AREA_ID AS
+    AREA,t.CONTACT_NAME,s.INSPECTION_TYPE,s.INSPECTION_TYPE_NAME,s.INSPECTION_RESULT,
+    s.INSPECTION_TIME,s.INSPECTION_USER_NAME,s.CREATE_BY,s.CREATE_TIME
+    FROM ASMS_BASE_INSPECTION s
+    INNER JOIN ASMS_SUBJ_ENT_TEMP t
+    ON s.ENTERPRISE_ID = t.ID
+    WHERE s.DEL_FLAG='N'
+    <if test="enterpriseIndustryId!=null and enterpriseIndustryId.length>0">
+      AND
+      <foreach collection="enterpriseIndustryId" item="item" index="index" open="(" close=")" separator="or">
+        t.ENTITY_INDUSTRY_ID like '%'||#{item}||'%'
+      </foreach>
+    </if>
+    <if test="inspectionSvId!=null and inspectionSvId!=''">
+      AND s.INSPECTION_SV_ID = #{inspectionSvId}
+    </if>
+    <!--<if test="enterpriseIndustryId!=null and enterpriseIndustryId!=''">-->
+      <!--AND t.ENTITY_INDUSTRY_ID LIKE '%'|| #{enterpriseIndustryId}||'%'-->
+    <!--</if>-->
+    <if test="entityScaleId!=null and entityScaleId!=''">
+      AND t.ENTITY_SCALE_ID = #{entityScaleId}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTITY_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="inspectionResult!=null and inspectionResult!=''">
+      AND s.INSPECTION_RESULT = #{inspectionResult}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.INSPECTION_TIME &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="area!=null and area!=''">
+      AND t.AREA_ID LIKE #{area}||'%'
+    </if>
+    ) a
+    ORDER BY a.INSPECTION_TIME DESC
+    ) b
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getBaseInspectionAllCount" resultType="long">
+    SELECT sum(c) FROM (
+    SELECT COUNT(*) AS c FROM ASMS_BASE_INSPECTION s
+    INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 t
+    ON s.ENTERPRISE_ID=t.ID
+    WHERE s.DEL_FLAG='N'
+    <if test="enterpriseIndustryId!=null and enterpriseIndustryId.length>0">
+      AND
+      <foreach collection="enterpriseIndustryId" item="item" index="index" open="(" close=")" separator="or">
+        t.ENTITY_INDUSTRY like '%'||#{item}||'%'
+      </foreach>
+    </if>
+    <if test="inspectionSvId!=null and inspectionSvId!=''">
+      AND s.INSPECTION_SV_ID = #{inspectionSvId}
+    </if>
+    <!--<if test="enterpriseIndustryId!=null and enterpriseIndustryId!=''">-->
+      <!--AND t.ENTITY_INDUSTRY LIKE '%'|| #{enterpriseIndustryId}||'%'-->
+    <!--</if>-->
+    <if test="entityScaleId!=null and entityScaleId!=''">
+      AND t.ENTITY_SCALE = #{entityScaleId}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="inspectionResult!=null and inspectionResult!=''">
+      AND s.INSPECTION_RESULT = #{inspectionResult}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.INSPECTION_TIME &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="area!=null and area!=''">
+      AND t.AREA LIKE #{area}||'%'
+    </if>
+    UNION ALL
+    SELECT COUNT(*) AS c FROM ASMS_BASE_INSPECTION s
+    INNER JOIN ASMS_SUBJ_ENT_TEMP t
+    ON s.ENTERPRISE_ID=t.ID
+    WHERE s.DEL_FLAG='N'
+    <if test="enterpriseIndustryId!=null and enterpriseIndustryId.length>0">
+      AND
+      <foreach collection="enterpriseIndustryId" item="item" index="index" open="(" close=")" separator="or">
+        t.ENTITY_INDUSTRY_ID like '%'||#{item}||'%'
+      </foreach>
+    </if>
+    <if test="inspectionSvId!=null and inspectionSvId!=''">
+      AND s.INSPECTION_SV_ID = #{inspectionSvId}
+    </if>
+    <!--<if test="enterpriseIndustryId!=null and enterpriseIndustryId!=''">-->
+      <!--AND t.ENTITY_INDUSTRY_ID LIKE '%'|| #{enterpriseIndustryId}||'%'-->
+    <!--</if>-->
+    <if test="entityScaleId!=null and entityScaleId!=''">
+      AND t.ENTITY_SCALE_ID = #{entityScaleId}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTITY_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="inspectionResult!=null and inspectionResult!=''">
+      AND s.INSPECTION_RESULT = #{inspectionResult}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.INSPECTION_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.INSPECTION_TIME &lt;=to_date(#{dateEnd},'yyyy-MM-dd')
+    </if>
+    <if test="area!=null and area!=''">
+      AND t.AREA_ID LIKE #{area}||'%'
+    </if>
+    )
+  </select>
+
+  <select id="findEntTempById" resultType="map" parameterType="java.lang.String" >
+    SELECT * FROM ASMS_SUBJ_ENT_TEMP T
+    WHERE t.ID=#{enterpriseId}
+  </select>
+
+  <delete id="deleteBaseUserByInspectionId" parameterType="java.lang.String">
+    delete from ASMS_BASE_USER
+    where BASE_INSPECTION_ID = #{inspectionId,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="updateElState">
+    UPDATE ASMS_BASE_INSPECTION a
+    SET a.EL_CHECK_STATE=#{elState,jdbcType=VARCHAR}
+    WHERE a.ID=#{baseInspectionId,jdbcType=VARCHAR}
+  </update>
+
+  <!--基地巡查巡查人员添加-->
+  <resultMap id="UserBaseResultMap" type="com.sofn.model.sys.SysUserBean" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_ID" property="organizationId" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="POST_ID" property="postId" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR" />
+    <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR" />
+    <result column="POST_NAME" property="postName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getSysUserCountByOrgId" resultType="java.lang.Integer">
+    select count(*) from sys_user u
+    left join SYS_ORGANIZATION o on u.ORGANIZATION_ID=o.id
+    left join SYS_DICT_DATA d on u.post_id=d.id
+    where u.del_flag='N'
+    <if test="keyword != null and keyword != ''">
+      AND u.USER_NAME LIKE '%' || #{keyword} || '%'
+    </if>
+    <if test="status != null and status != ''">
+      AND u.STATUS = #{status}
+    </if>
+    <if test="userType != null and userType != ''">
+      AND u.USER_TYPE = #{userType}
+    </if>
+    <if test="organizationId == null ">
+      AND u.ORGANIZATION_ID is null
+    </if>
+    <if test="organizationId != null and organizationId != ''">
+      AND o.ORG_ID = #{organizationId}
+    </if>
+  </select>
+
+  <select id="getSysUserListByOrgId"  resultMap="UserBaseResultMap">
+    select * from (
+    select a.*,ROWNUM RN from (
+    select u.*,d.dict_name as post_name from sys_user u
+    left join SYS_ORGANIZATION o on u.ORGANIZATION_ID=o.id
+    left join SYS_DICT_DATA d on u.post_id=d.id
+    where u.del_flag='N'
+    <if test="userName != null and userName != ''">
+      AND u.USER_NAME LIKE '%' || #{userName} || '%'
+    </if>
+    <if test="status != null and status != ''">
+      AND u.STATUS = #{status}
+    </if>
+    <if test="userType != null and userType != ''">
+      AND u.USER_TYPE = #{userType}
+    </if>
+    <if test="organizationId == null ">
+      AND u.ORGANIZATION_ID is null
+    </if>
+    <if test="organizationId != null and organizationId != ''">
+      AND o.ORG_ID = #{organizationId}
+    </if>
+    order by u.CREATE_TIME desc
+    ) a
+    <![CDATA[
+        where ROWNUM<= #{pageTail}
+        ]]>
+    )
+    <![CDATA[
+        where RN >= #{pageOffset}
+        ]]>
+  </select>
+
+</mapper>

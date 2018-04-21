@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsModelCheckItemMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsModelCheckItem" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="STANDARD_ID" property="standardId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADS_MODEL_CHECK_ITEM
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="deleteByLogic" parameterType="com.sofn.model.generator.AdsModelCheckItem">
+    update ADS_MODEL_CHECK_ITEM set DEL_FLAG = 'Y',UPDATE_BY=#{updateBy},UPDATE_TIME=sysdate
+      where id=#{id}
+  </update>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.AdsModelCheckItem" >
+    insert into ADS_MODEL_CHECK_ITEM (ID
+    , STANDARD_ID
+    , NAME
+    , CREATE_BY
+    , CREATE_TIME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{standardId,jdbcType=VARCHAR}
+    , #{name,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , sysdate
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsModelCheckItem" >
+    update ADS_MODEL_CHECK_ITEM
+    set
+     STANDARD_ID =  #{standardId,jdbcType=VARCHAR},
+     NAME =  #{name,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     UPDATE_TIME =  sysdate
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , STANDARD_ID
+    , NAME
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from ADS_MODEL_CHECK_ITEM
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertIntoMapping" parameterType="com.sofn.model.generator.AdsModelObjectItemMapping" >
+    insert into ADS_MODEL_OBJECT_ITEM_MAPPING (ID
+    , OBJECT_ID
+    , ITEM_ID
+    , CREATE_BY
+    , CREATE_TIME
+    )
+    values (#{id,jdbcType=VARCHAR}
+    , #{objectId,jdbcType=VARCHAR}
+    , #{itemId,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , sysdate
+    )
+  </insert>
+
+  <update id="deleteMappingByID" parameterType="com.sofn.model.generator.AdsModelObjectItemMapping">
+    delete
+    from ADS_MODEL_OBJECT_ITEM_MAPPING
+    where id =#{id,jdbcType=VARCHAR}
+  </update>
+  </mapper>

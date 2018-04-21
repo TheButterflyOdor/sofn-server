@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjCgglExpandMapper" >
+
+
+
+    <resultMap id="CgglAndCustomer" type="com.sofn.model.generator.TtsScltxxcjCgglAndCustomer" extends="BaseResultMap">
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+        <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+        <result column="XSNAME" property="xsName" jdbcType="VARCHAR" />
+        <result column="NUM" property="num" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="TtsScltxxcjCgglAndUserInfo" type="com.sofn.model.generator.TtsScltxxcjCgglAndUserInfo" extends="BaseResultMap">
+        <result column="EN_TYPE" property="enType" jdbcType="VARCHAR" />
+        <result column="EN_NAME" property="enName" jdbcType="VARCHAR" />
+        <result column="EN_INDUSTRY" property="enIndustry" jdbcType="VARCHAR" />
+        <result column="EN_AREA" property="enArea" jdbcType="VARCHAR" />
+    </resultMap>
+
+ <!--<resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjCggl" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />
+    <result column="CG_AMOUNT" property="cgAmount" jdbcType="DECIMAL" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="SALE_ENTITY_IDCODE" property="saleEntityIdcode" jdbcType="VARCHAR" />
+    <result column="SALE_USER_IDCODE" property="saleUserIdcode" jdbcType="VARCHAR" />
+    <result column="CG_DW" property="cgDw" jdbcType="VARCHAR" />
+    <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR" />
+    <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR" />
+    <result column="ZJRESULT" property="zjresult" jdbcType="VARCHAR" />
+    <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP" />
+    <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR" />
+    <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+    <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR" />
+    <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+    <result column="TOZSM" property="tozsm" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CGPC" property="productCgpc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CGPC_SL" property="productCgpcSl" jdbcType="VARCHAR" />
+    <result column="XSDJID" property="xsdjid" jdbcType="VARCHAR" />
+    <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>-->
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjCggl" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="SHORT_CODE" property="shortCode" jdbcType="VARCHAR" />
+        <result column="PROOF_NUMBER" property="proofNumber" jdbcType="VARCHAR" />
+        <result column="FROM_SHORT_CODE" property="fromShortCode" jdbcType="VARCHAR" />
+        <result column="TO_SHORT_CODE" property="toShortCode" jdbcType="VARCHAR" />
+        <result column="TRACE_PROOF_SHORT" property="traceProofShort" jdbcType="VARCHAR" />
+        <!--<result column="UNIT_ID" property="unitId" jdbcType="VARCHAR" />-->
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+        <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+        <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+        <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />
+        <result column="CG_AMOUNT" property="cgAmount" jdbcType="DECIMAL" />
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+        <result column="SALE_ENTITY_IDCODE" property="saleEntityIdcode" jdbcType="VARCHAR" />
+        <result column="SALE_USER_IDCODE" property="saleUserIdcode" jdbcType="VARCHAR" />
+        <result column="CG_DW" property="cgDw" jdbcType="VARCHAR" />
+        <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR" />
+        <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR" />
+        <result column="ZJRESULT" property="zjresult" jdbcType="VARCHAR" />
+        <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP" />
+        <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP" />
+        <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR" />
+        <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+        <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR" />
+        <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+        <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+        <result column="TOZSM" property="tozsm" jdbcType="VARCHAR" />
+        <result column="PRODUCT_CGPC" property="productCgpc" jdbcType="VARCHAR" />
+        <result column="PRODUCT_CGPC_SL" property="productCgpcSl" jdbcType="VARCHAR" />
+        <result column="XSDJID" property="xsdjid" jdbcType="VARCHAR" />
+        <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="SOURCE_ENTITY" property="sourceEntity" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_CGGL_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_CGGL_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+  </select>
+
+  <select id="getCgglForZsm"  parameterType="hashmap" resultMap="CgglAndCustomer">
+     SELECT T.*,C.NAME,C.USER_NAME,
+      C.PHONE,C.ADDRESS
+     from TTS_SCLTXXCJ_CGGL_V2 T
+     INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C ON
+      T .SALE_ENTITY_IDCODE = C.ENTITY_ID_CODE
+      AND T .USER_IDCODE = C.CUSTOMER_USER_ID_CODE
+     <if test="fromzsm != null and fromzsm != ''">
+        and T.FROMZSM = #{fromzsm}
+    </if>
+  </select>
+
+
+  <select id="zsmIsCgOrXs" parameterType="hashmap" resultType="long">
+       SELECT COUNT(1) FROM tts_scltxxcj_cggl_V2 C
+       where C.fromzsm = #{zsm}
+      <if test="entity_id != null and entity_id != ''">
+          and c.entity_idcode = #{entity_id}
+      </if>
+  </select>
+
+    <select id="isExists" parameterType="string" resultType="long">
+        SELECT COUNT(1) FROM tts_scltxxcj_cggl_V2 C
+        where C.fromzsm = #{code} and C.DEL_FLAG != 'Y'
+    </select>
+
+    <select id="getInfoByTraceCodeFromCg"  parameterType="string" resultMap="TtsScltxxcjCgglAndUserInfo">
+        SELECT X.PRODUCT_NAME,X.SALE_TIME,X.CG_AMOUNT,X.ZJCHECK,X.PRODUCT_SCGL_ID,X.DEL_FLAG,X.SALE_USER_IDCODE,
+        C.ENTERPRISE_NAME AS EN_NAME,
+        C.ENTITY_TYPE AS EN_TYPE,
+        C.ENTITY_INDUSTRY AS EN_INDUSTRY,
+        C.AREA AS EN_AREA
+        FROM TTS_SCLTXXCJ_CGGL_V2 X
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 C ON X.ENTITY_IDCODE = C.ENTITY_IDCODE
+        AND X.USER_IDCODE = C.USER_IDCODE
+        WHERE X.FROMZSM =#{code,jdbcType=VARCHAR} AND X.DEL_FLAG != 'Y'
+    </select>
+    <select id="getInfoByTraceCodeFromCgforUsual" resultMap="TtsScltxxcjCgglAndUserInfo" parameterType="java.lang.String">
+        SELECT X.PRODUCT_NAME,X.SALE_TIME,X.ZJCHECK,X.DEL_FLAG
+        FROM TTS_SCLTXXCJ_CGGL_V2 X
+        WHERE X.FROMZSM =#{code,jdbcType=VARCHAR} AND X.DEL_FLAG != 'Y'
+    </select>
+
+    <select id="getInfoByTraceCode" parameterType="hashmap" resultMap="TtsScltxxcjCgglAndUserInfo">
+        SELECT
+        <if test='userType != "4"'>
+            X.PRODUCT_NAME,X.SALE_TIME,X.CG_AMOUNT,X.ZJCHECK,X.PRODUCT_SCGL_ID,X.DEL_FLAG,X.SALE_USER_IDCODE,
+            C.ENTERPRISE_NAME AS EN_NAME,
+            C.ENTITY_TYPE AS EN_TYPE,
+            C.ENTITY_INDUSTRY AS EN_INDUSTRY,
+            C.AREA AS EN_AREA
+        </if>
+        <if test='userType == "4"'>
+            X.PRODUCT_NAME,X.SALE_TIME,X.ZJCHECK,X.DEL_FLAG
+        </if>
+        FROM TTS_SCLTXXCJ_CGGL_V2 X
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 C ON X.ENTITY_IDCODE = C.ENTITY_IDCODE
+        AND X.USER_IDCODE = C.USER_IDCODE
+        WHERE X.FROMZSM =#{code,jdbcType=VARCHAR} AND X.DEL_FLAG != 'Y'
+    </select>
+
+
+    <resultMap id="samplingInfo" type="com.sofn.model.tts.SamplingInfo">
+        <result column="PRODUCTNAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="PRODUCTID" property="productId" jdbcType="VARCHAR"/>
+        <result column="HARVESTTIME" property="proTime" jdbcType="TIMESTAMP"/>
+        <result column="ENTERPRISENAME" property="enterpriseName" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="LEGALNAME" property="legalName" jdbcType="VARCHAR"/>
+        <result column="CONTACTNAME" property="contactName" jdbcType="VARCHAR"/>
+        <result column="CONTACTPHONE" property="contactPhone" jdbcType="VARCHAR"/>
+        <result column="FAXNUMBER" property="faxNumber" jdbcType="VARCHAR"/>
+        <result column="ENTITYTYPEID" property="entityTypeId" jdbcType="VARCHAR"/>
+        <result column="ENTITYTYPENAME" property="entityTypeName" jdbcType="VARCHAR"/>
+        <result column="ENTITYSCALEID" property="entityScaleId" jdbcType="VARCHAR"/>
+        <result column="ENTITYSCALENAME" property="entityScaleName" jdbcType="VARCHAR"/>
+        <result column="ENTITYIDCODE" property="entityIdCode" jdbcType="VARCHAR"/>
+        <result column="PRODUCTPC" property="productPc" jdbcType="VARCHAR"/>
+        <result column="PROENTERPRISENAME" property="proEnterpriseName" jdbcType="VARCHAR"/>
+        <result column="PROADDRESS" property="proAddress" jdbcType="VARCHAR"/>
+        <result column="PROZIPCODE" property="proZipcode" jdbcType="VARCHAR"/>
+        <result column="PROCONTACTNAME" property="proContactName" jdbcType="VARCHAR"/>
+        <result column="PROCONTACTPHONE" property="proContactPhone" jdbcType="VARCHAR"/>
+        <result column="PROFAXNUMBER" property="proFaxNumber" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <!--根据追溯码获取抽样信息-->
+    <select id="getSamplingInfoByTraceCode" parameterType="string" resultMap="samplingInfo">
+        SELECT C.PRODUCT_PC        AS PRODUCTPC,
+        S.PRODUCT_NAME      AS PRODUCTNAME,
+        S.PRODUCT_ID        AS PRODUCTID,
+        S.SALE_TIME         AS HARVESTTIME,
+        R.ENTERPRISE_NAME   AS ENTERPRISENAME,
+        R.ADDRESS,
+        R.LEGAL_NAME        AS LEGALNAME,
+        R.CONTACT_NAME      AS CONTACTNAME,
+        R.CONTACT_PHONE     AS CONTACTPHONE,
+        R.FAX_NUMBER        AS FAXNUMBER,
+        R.ENTITY_TYPE       AS ENTITYTYPEID,
+        R.ENTITY_TYPE_NAME  AS ENTITYTYPENAME,
+        R.ENTITY_SCALE      AS ENTITYSCALEID,
+        R.ENTITY_SCALE_NAME AS ENTITYSCALENAME,
+        R.ENTITY_IDCODE     AS ENTITYIDCODE
+        FROM TTS_SCLTXXCJ_CGGL_V2 S
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R
+        ON S.ENTITY_IDCODE = R.ENTITY_IDCODE
+        INNER JOIN TTS_SCLTXXCJ_SCGL_V2 C
+        ON C.FROMZSM = S.FROMZSM
+        AND S.USER_IDCODE = R.USER_IDCODE
+        AND S.FROMZSM = #{code}
+        AND S.DEL_FLAG != 'Y'
+    </select>
+
+    <select id="getAllPurchase" resultType="com.sofn.model.generator.TtsScltxxcjXsdjAndCustomer" parameterType="hashmap">
+        SELECT X.*,C2.ENTERPRISE_NAME AS XSNAME,C1.NAME,C1.USER_NAME,
+        C1.PHONE,C1.ADDRESS,ROW_NUMBER() OVER(ORDER BY X.SALE_TIME DESC) AS NUM
+        FROM TTS_SCLTXXCJ_XSDJ_V2 X
+        INNER JOIN TTS_SCLTXXCJ_CUSTOMER_V2 C1 ON TRIM(X.BUY_COM_USER_ID) = TRIM(C1.ID)
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 C2 ON TRIM(X.SALE_USER) = TRIM(C2.ID)
+        WHERE 1=1 and X.CONFIRM_STATE = 'N'
+              and X.IS_CIRCULATES_END = 'N'
+        <if test="entityIdcode != null and entityIdcode != ''">
+            and X.CUSTOMER_ENTITY_IDCODE = #{entityIdcode}
+        </if>
+        <if test="productName != null and productName != ''">
+            and X.PRODUCT_NAME LIKE '%${productName}%'
+        </if>
+        <if test="shrq_q != null and shrq_q != ''">
+            and to_char(X.SALE_TIME,'yyyy-MM-dd') &gt;= #{shrq_q}
+        </if>
+        <if test="shrq_h != null and shrq_h != ''">
+            and to_char(X.SALE_TIME,'yyyy-MM-dd') &lt;= #{shrq_h}
+        </if>
+        <if test="keyWord != null and keyWord != ''">
+            and (X.PRODUCT_NAME LIKE '%${keyWord}%' OR C2.ENTERPRISE_NAME LIKE '%${keyWord}%')
+        </if>
+        <if test="productSort != null and productSort != ''">
+            and X.PRODUCT_SORT = #{productSort}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjProductTypeMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjProductType" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_PRODUCT_TYPE
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>-->
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        update TTS_SCLTXXCJ_PRODUCT_TYPE
+        SET  DEL_FLAG='Y'
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjProductType" >
+    insert into TTS_SCLTXXCJ_PRODUCT_TYPE (ID
+    , NAME
+    , STATUS
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , TYPE_CODE
+    , USER_IDCODE
+    , ENTITY_IDCODE
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{name,jdbcType=VARCHAR}
+    , #{status,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{typeCode,jdbcType=VARCHAR}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{entityIdcode,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjProductType" >
+    update TTS_SCLTXXCJ_PRODUCT_TYPE
+    set
+     NAME =  #{name,jdbcType=VARCHAR},
+     STATUS =  #{status,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     TYPE_CODE =  #{typeCode,jdbcType=VARCHAR}
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR}
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , NAME
+    , STATUS
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , TYPE_CODE
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    from TTS_SCLTXXCJ_PRODUCT_TYPE
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

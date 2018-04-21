@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysRoleMenuExpandMapper">
+    <select id="queryByParam" resultType="com.sofn.model.generator.SysRoleMenu">
+        select *
+        from SYS_ROLE_MENU
+        where 1=1
+        <if test="delFlag != null and delFlag == 'Y'.toString()">
+            AND del_flag=#{delFlag}
+        </if>
+        <if test="delFlag != null and delFlag == 'N'.toString()">
+            AND (del_flag IS NULL OR del_flag=#{delFlag})
+        </if>
+        <if test="roleId != null and roleId != ''">
+            AND ROLE_ID=#{roleId}
+        </if>
+        <if test="menuId != null and menuId != ''">
+            AND MENU_ID=#{menuId}
+        </if>
+    </select>
+</mapper>

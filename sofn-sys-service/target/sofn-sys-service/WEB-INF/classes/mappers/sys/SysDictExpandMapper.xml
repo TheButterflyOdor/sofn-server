@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysDictExpandMapper">
+    <update id="updateEnable">
+        update sys_dict_type
+        set enable = #{enable}
+        where id = #{id}
+    </update>
+    <delete id="deleteDictData">
+        UPDATE SYS_DICT_DATA
+        SET DEL_FLAG = 'Y'
+        WHERE ID = #{id}
+    </delete>
+    <select id="getDictTypes" resultType="com.sofn.model.sys.SysDictTypeDto">
+
+    </select>
+    <select id="getParentList" resultType="com.sofn.model.sys.SysDictTypeDto">
+        SELECT
+          id,
+          name,
+          enable
+        FROM sys_dict_type
+        WHERE 1=1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="id == null or id ==''">
+            and pid IS NULL OR pid = '' AND DEL_FLAG = 'N'
+        </if>
+    </select>
+    <select id="getDictTypeByPid" resultType="com.sofn.model.generator.SysDictType">
+        SELECT
+          id,
+          name,
+          enable
+        FROM sys_dict_type
+        WHERE pid = #{pid} AND DEL_FLAG = 'N'
+        <if test="keyWord != null and keyWord != ''">
+            and name like '%'||#{keyWord}||'%'
+        </if>
+    </select>
+    <select id="getRecordsTotal" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM SYS_DICT_DATA
+        where DEL_FLAG = 'N'
+        <if test="id != null and id != ''">
+            and TYPE_ID = #{id}
+        </if>
+        <if test="keyWord != null and keyWord != ''">
+            and (DICT_NAME like '%'||#{keyWord}||'%' or DICT_CODE like '%'||#{keyWord}||'%' or DICT_VALUE like '%'||#{keyWord}||'%'
+            or spell_name like '%'||#{keyWord}||'%')
+        </if>
+    </select>
+    <select id="getDictDataByType" resultType="com.sofn.model.generator.SysDictData">
+        SELECT *
+            FROM
+            (
+            SELECT
+            tmp_page.*,
+            ROWNUM row_id
+            FROM
+            (
+              SELECT
+                ID,
+                DICT_NAME,
+                DICT_VALUE,
+                SPELL_NAME,
+                ENABLE,
+                DICT_CODE,
+                REMARK
+              FROM
+                SYS_DICT_DATA
+              WHERE
+                DEL_FLAG = 'N'
+                <if test="id != null and id != ''">
+                    and TYPE_ID = #{id}
+                </if>
+                <if test="keyWord != null and keyWord != ''">
+                    and (DICT_NAME like '%'||#{keyWord}||'%' or DICT_CODE like '%'||#{keyWord}||'%' or DICT_VALUE like '%'||#{keyWord}||'%'
+                    or SPELL_NAME like '%'||#{keyWord}||'%')
+                </if>
+              ORDER BY
+                CREATE_TIME DESC
+            ) tmp_page
+            WHERE
+              <![CDATA[
+              ROWNUM <= #{page.pageTail}
+              ]]>
+            )
+        WHERE
+            <![CDATA[
+            row_id >= #{page.pageOffset}
+            ]]>
+    </select>
+    <select id="getDictTypesTotal" resultType="java.lang.Integer">
+
+    </select>
+    <select id="getDictByType" resultType="com.sofn.model.generator.SysDictData">
+        SELECT
+            t1.ID AS "id",
+            t1.DICT_NAME AS "dictName",
+            t1.DICT_VALUE AS "dictValue",
+            t1.DICT_CODE AS "dictCode"
+        FROM
+            SYS_DICT_DATA t1
+        INNER JOIN SYS_DICT_TYPE t2 ON t1.TYPE_ID = t2.ID
+        WHERE
+            t1.DEL_FLAG = 'N'
+            AND t1.ENABLE = 'Y'
+            AND t2.DEL_FLAG = 'N'
+            AND t2.ENABLE = 'Y'
+            AND t2.CODE = #{code}
+    </select>
+    <select id="getUnits" resultType="com.sofn.model.generator.SysDictData">
+        SELECT
+          id         AS "id",
+          DICT_NAME       AS "dictName",
+          DICT_VALUE AS "dictValue",
+          DICT_CODE       AS "dictCode"
+        FROM (
+          SELECT *
+          FROM SYS_DICT_DATA
+          WHERE TYPE_ID = (
+            SELECT ID
+            FROM SYS_DICT_TYPE
+            WHERE CODE = #{code}
+                  AND DEL_FLAG = 'N' AND ENABLE = 'Y')
+                AND DEL_FLAG = 'N' AND ENABLE = 'Y')
+        WHERE CATEGORIE_ID IS NULL OR CATEGORIE_ID = #{id}
+    </select>
+    <select id="getIdByName" resultType="com.sofn.model.generator.SysDictData" parameterType="string">
+        SELECT * FROM SYS_DICT_DATA WHERE DICT_NAME = #{name}
+    </select>
+    <select id="getDictByName" resultType="com.sofn.model.generator.SysDictData">
+        SELECT
+            t1.ID AS "id",
+            t1.DICT_NAME AS "dictName",
+            t1.DICT_VALUE AS "dictValue",
+            t1.DICT_CODE AS "dictCode"
+        FROM
+            SYS_DICT_DATA t1
+        INNER JOIN SYS_DICT_TYPE t2 ON t1.TYPE_ID = t2.ID
+        WHERE
+            t1.DEL_FLAG = 'N'
+            AND t1.ENABLE = 'Y'
+            AND t2.DEL_FLAG = 'N'
+            AND t2.ENABLE = 'Y'
+            AND t2.NAME = #{dictTypeName}
+    </select>
+</mapper>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjUserExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjUser" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="IS_MAIN" property="isMain" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+    <result column="WHETHER_PASSWORD" property="whetherPassword" jdbcType="VARCHAR" />
+    <result column="CHECK_EDIT_PASSWORD" property="checkEditPassword" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+    <select id="getPageInfo" parameterType="hashmap" resultType="map">
+            SELECT Tab.*
+            FROM (
+            SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_USER_V2 T
+            where 1 = 1 AND T.DEL_FLAG != 'Y' AND t.IS_MAIN !='1' AND
+            T.ENTITY_IDCODE = #{admin.entityIdcode}
+            <if test="user.name != null and user.name != ''">
+                and (T.NAME LIKE '%${user.name}%' OR  T.ACCOUNT LIKE '%${user.name}%')
+            </if>
+            <if test="createTimeStart != null and createTimeStart != ''">
+                <if test="createTimeEnd == null || createTimeEnd == ''">
+                    and T.CREATE_TIME  >=  "TO_DATE"(#{createTimeStart}, 'yyyy-mm-dd')
+                </if>
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''">
+                <if test="createTimeStart == null || createTimeStart == ''">
+                    and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{createTimeEnd}, 'yyyy-mm-dd')
+                </if>
+            </if>
+            <if test="createTimeStart != null and createTimeStart != ''">
+                <if test="createTimeEnd != null || createTimeEnd != ''">
+                    and T.CREATE_TIME BETWEEN "TO_DATE"(#{createTimeStart}, 'yyyy-mm-dd')
+                    and "TO_DATE"(#{createTimeEnd}, 'yyyy-mm-dd')
+                </if>
+            </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+        ORDER BY Tab.CREATE_TIME DESC
+  </select>
+    <select id="getCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_USER_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        AND t.IS_MAIN !='1' AND T.ENTITY_IDCODE = #{admin.entityIdcode}
+        <if test="user.name != null and user.name != ''">
+            and T.NAME LIKE '%${user.name}%' OR  T.ACCOUNT LIKE '%${user.name}%'
+        </if>
+        <if test="createTimeStart != null and createTimeStart != ''">
+            <if test="createTimeEnd == null || createTimeEnd == ''">
+                and T.CREATE_TIME  >=  "TO_DATE"(#{createTimeStart}, 'yyyy-mm-dd')
+            </if>
+        </if>
+        <if test="createTimeEnd != null and createTimeEnd != ''">
+            <if test="createTimeStart == null || createTimeStart == ''">
+                and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{createTimeStart}, 'yyyy-mm-dd')
+            </if>
+        </if>
+        <if test="createTimeStart != null and createTimeStart != ''">
+            <if test="createTimeEnd != null || createTimeEnd != ''">
+                and T.CREATE_TIME BETWEEN "TO_DATE"(#{createTimeStart}, 'yyyy-mm-dd')
+                and "TO_DATE"(#{createTimeEnd}, 'yyyy-mm-dd')
+            </if>
+        </if>
+  </select>
+    <update id="resetUserPassword" parameterType="hashmap">
+        update TTS_SCLTXXCJ_USER_V2
+        set
+         PASSWORD =  #{user.password,jdbcType=TIMESTAMP}
+         where ID =#{user.id,jdbcType=VARCHAR}
+    </update>
+    <select id="findUserByAccount" resultMap="BaseResultMap" parameterType="map">
+      select ID
+    , ACCOUNT
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    , IS_MAIN
+    , STATUS
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , NAME
+    , PHONE
+    , EMAIL
+    , ID_CARD
+    , WHETHER_PASSWORD
+    , CHECK_EDIT_PASSWORD
+    from TTS_SCLTXXCJ_USER_V2
+     where ACCOUNT =#{account,jdbcType=VARCHAR}
+    </select>
+    <select id="getUserByTokenAccount" resultMap="BaseResultMap" parameterType="map">
+        select ID
+    , ACCOUNT
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    , IS_MAIN
+    , STATUS
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , NAME
+    , PHONE
+    , EMAIL
+    , ID_CARD
+    , WHETHER_PASSWORD
+    , CHECK_EDIT_PASSWORD
+    from TTS_SCLTXXCJ_USER_V2
+     where ACCOUNT =#{account,jdbcType=VARCHAR}
+    </select>
+
+
+
+
+    <select id="queryUsers" resultMap="BaseResultMap" parameterType="map">
+        select ID
+        , ACCOUNT
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , IS_MAIN
+        , STATUS
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , NAME
+        , PHONE
+        , EMAIL
+        , ID_CARD
+        , WHETHER_PASSWORD
+        , CHECK_EDIT_PASSWORD
+        from TTS_SCLTXXCJ_USER_V2
+        where IS_MAIN=0 AND DEL_FLAG='N'
+          <if test="idCARD !=null and idCARD !='' ">
+             and ID_CARD = #{idCARD ,jdbcType=VARCHAR}
+          </if>
+          <if test="entityIdCode !=null and entityIdCode !='' ">
+            and ENTITY_IDCODE = #{entityIdCode ,jdbcType=VARCHAR}
+          </if>
+
+    </select>
+
+
+
+
+
+
+
+
+    <update id="queryById" parameterType="hashmap">
+        update TTS_SCLTXXCJ_USER_V2
+        SET DEL_FLAG = 'Y'
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="batchUpdateDelFlag" parameterType="String">
+        update TTS_SCLTXXCJ_USER_V2 T set T.DEL_FLAG = 'Y' where T.ID in
+        <foreach collection="array" item = "id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="getUserByIdCard" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from  TTS_SCLTXXCJ_USER_V2 where ID_CARD = #{idCard} and DEL_FLAG != 'Y'
+    </select>
+
+    <select id="findUserByIdCard" parameterType="hashmap" resultMap="BaseResultMap">
+         select * from  TTS_SCLTXXCJ_USER_V2 where ID_CARD = #{idCard} and DEL_FLAG != 'Y' and ACCOUNT != #{ACCOUNT}
+    </select>
+
+    <update id="updateByAccount" parameterType="com.sofn.model.generator.TtsScltxxcjUser" >
+        update TTS_SCLTXXCJ_USER_V2
+        set
+        USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+        ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+        DEL_FLAG =  #{delFlag,jdbcType=VARCHAR}
+        where ACCOUNT =#{account,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateUserInfo" parameterType="com.sofn.model.generator.TtsScltxxcjUser">
+      update TTS_SCLTXXCJ_USER_V2
+        set
+         NAME =  #{name,jdbcType=VARCHAR},
+         PHONE =  #{phone,jdbcType=VARCHAR},
+         EMAIL =  #{email,jdbcType=VARCHAR},
+         ID_CARD =  #{idCard,jdbcType=VARCHAR}
+         where ACCOUNT =#{account,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByacc" parameterType="com.sofn.model.generator.TtsScltxxcjUser" >
+        update TTS_SCLTXXCJ_USER_V2
+        set
+         UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+         NAME =  #{name,jdbcType=VARCHAR},
+         PHONE =  #{phone,jdbcType=VARCHAR},
+         ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+         EMAIL =  #{email,jdbcType=VARCHAR},
+         DEL_FLAG =  #{delFlag,jdbcType=VARCHAR}
+        where ACCOUNT =#{account,jdbcType=VARCHAR}
+    </update>
+    <update id="updateUserByAcc" parameterType="com.sofn.model.generator.TtsScltxxcjUser" >
+        update TTS_SCLTXXCJ_USER_V2
+        set
+        <if test="updateTime != null and updateTime != ''">
+            UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateBy != null and updateBy != ''">
+            UPDATE_BY =  #{updateBy,jdbcType=TIMESTAMP},
+        </if>
+        <if test="name != null and name != ''">
+            NAME =  #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="phone != null and phone != ''">
+            PHONE =  #{phone,jdbcType=VARCHAR},
+        </if>
+        <if test="idCard != null and idCard != ''">
+            ID_CARD =  #{idCard,jdbcType=VARCHAR},
+        </if>
+        <if test="email != null and email != ''">
+            EMAIL =  #{email,jdbcType=VARCHAR},
+        </if>
+        <if test="delFlag != null and delFlag != ''">
+            DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+        </if>
+        <if test="whetherPassword != null and whetherPassword != ''">
+            WHETHER_PASSWORD =  #{whetherPassword,jdbcType=VARCHAR},
+        </if>
+        <if test="checkEditPassword != null and checkEditPassword != ''">
+            CHECK_EDIT_PASSWORD =  #{checkEditPassword,jdbcType=VARCHAR}
+        </if>
+        where ACCOUNT =#{account,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectUserById" parameterType="string" resultMap="BaseResultMap">
+        SELECT ID, ACCOUNT, ID_CARD, PHONE, EMAIL
+        FROM TTS_SCLTXXCJ_USER_V2
+        WHERE ID = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <update id = "updateUserInfoById" parameterType="com.sofn.model.generator.TtsScltxxcjUser">
+      update TTS_SCLTXXCJ_USER_V2
+      set
+      PHONE = #{phone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR}
+      where ID = #{id, jdbcType=VARCHAR}
+    </update>
+
+</mapper>

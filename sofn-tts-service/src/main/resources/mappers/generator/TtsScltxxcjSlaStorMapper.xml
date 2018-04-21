@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjSlaStorMapper" >
+
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjSlaStor" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+        <result column="FREEZE_COUNT" property="freezeCount" jdbcType="DECIMAL" />
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+        <result column="BILL_STRATRUS" property="billStratrus" jdbcType="VARCHAR" />
+        <result column="HARVEST_TIME" property="harvestTime" jdbcType="TIMESTAMP" />
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCT_UNIT" property="productUnit" jdbcType="VARCHAR" />
+        <result column="PRODUCT_TYPE" property="productType" jdbcType="VARCHAR" />
+        <result column="SLAUGHTER_BATCH_NO" property="slaughterBatchNo" jdbcType="VARCHAR" />
+        <result column="INIT_AMOUNT" property="initAmount" jdbcType="DECIMAL" />
+        <result column="CURRENT_AMOUNT" property="currentAmount" jdbcType="DECIMAL" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="INSIDE_TRACE_CODE" property="insideTraceCode" jdbcType="VARCHAR" />
+        <result column="IP" property="ip" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="FROM_TRACE_CODE" property="fromTraceCode" jdbcType="VARCHAR" />
+        <result column="TO_TRACE_CODE" property="toTraceCode" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from TTS_SCLTXXCJ_SLAUGHTER_STOR
+        where ID =#{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjSlaStor" >
+        insert into TTS_SCLTXXCJ_SLAUGHTER_STOR (ID
+        , SALE_AMOUNT
+        , USER_IDCODE
+        , FREEZE_COUNT
+        , ENTITY_IDCODE
+        , BILL_STRATRUS
+        , HARVEST_TIME
+        , PRODUCT_NAME
+        , PRODUCT_UNIT
+        , PRODUCT_TYPE
+        , SLAUGHTER_BATCH_NO
+        , INIT_AMOUNT
+        , CURRENT_AMOUNT
+        , STATUS
+        , INSIDE_TRACE_CODE
+        , IP
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        )
+        values (#{id,jdbcType=VARCHAR}
+        , #{saleAmount,jdbcType=DECIMAL}
+        , #{userIdcode,jdbcType=VARCHAR}
+        , #{freezeCount,jdbcType=DECIMAL}
+        , #{entityIdcode,jdbcType=VARCHAR}
+        , #{billStratrus,jdbcType=VARCHAR}
+        , #{harvestTime,jdbcType=TIMESTAMP}
+        , #{productName,jdbcType=VARCHAR}
+        , #{productUnit,jdbcType=VARCHAR}
+        , #{productType,jdbcType=VARCHAR}
+        , #{slaughterBatchNo,jdbcType=VARCHAR}
+        , #{initAmount,jdbcType=DECIMAL}
+        , #{currentAmount,jdbcType=DECIMAL}
+        , #{status,jdbcType=VARCHAR}
+        , #{insideTraceCode,jdbcType=VARCHAR}
+        , #{ip,jdbcType=VARCHAR}
+        , #{delFlag,jdbcType=VARCHAR}
+        , #{createBy,jdbcType=VARCHAR}
+        , #{updateBy,jdbcType=VARCHAR}
+        , #{createTime,jdbcType=TIMESTAMP}
+        , #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjSlaStor" >
+        update TTS_SCLTXXCJ_SLAUGHTER_STOR
+        set
+        SALE_AMOUNT =  #{saleAmount,jdbcType=DECIMAL},
+        USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+        FREEZE_COUNT =  #{freezeCount,jdbcType=DECIMAL},
+        ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+        BILL_STRATRUS =  #{billStratrus,jdbcType=VARCHAR},
+        HARVEST_TIME =  #{harvestTime,jdbcType=TIMESTAMP},
+        PRODUCT_NAME =  #{productName,jdbcType=VARCHAR},
+        PRODUCT_UNIT =  #{productUnit,jdbcType=VARCHAR},
+        PRODUCT_TYPE =  #{productType,jdbcType=VARCHAR},
+        SLAUGHTER_BATCH_NO =  #{slaughterBatchNo,jdbcType=VARCHAR},
+        INIT_AMOUNT =  #{initAmount,jdbcType=DECIMAL},
+        CURRENT_AMOUNT =  #{currentAmount,jdbcType=DECIMAL},
+        STATUS =  #{status,jdbcType=VARCHAR},
+        INSIDE_TRACE_CODE =  #{insideTraceCode,jdbcType=VARCHAR},
+        IP =  #{ip,jdbcType=VARCHAR},
+        DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+        CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+        UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+        CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , SALE_AMOUNT
+    , USER_IDCODE
+    , FREEZE_COUNT
+    , ENTITY_IDCODE
+    , BILL_STRATRUS
+    , HARVEST_TIME
+    , PRODUCT_NAME
+    , PRODUCT_UNIT
+    , PRODUCT_TYPE
+    , SLAUGHTER_BATCH_NO
+    , INIT_AMOUNT
+    , CURRENT_AMOUNT
+    , STATUS
+    , INSIDE_TRACE_CODE
+    , IP
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from TTS_SCLTXXCJ_SLAUGHTER_STOR
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

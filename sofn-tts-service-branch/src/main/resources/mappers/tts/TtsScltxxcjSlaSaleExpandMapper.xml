@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjSlaSaleExpandMapper" >
+    <resultMap id="XsdjAndCustomer" type="com.sofn.model.generator.TtsScltxxcjSlaCustomer" extends="BaseResultMap">
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+        <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+        <result column="XSNAME" property="xsName" jdbcType="VARCHAR" />
+    </resultMap>
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjSlaSale" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_XSPC" property="productXspc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_XSPC_SL" property="productXspcSl" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR" />
+    <result column="STOCKID" property="stockid" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />
+    <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ENTITY_IDCODE" property="customerEntityIdcode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_USER_IDCODE" property="customerUserIdcode" jdbcType="VARCHAR" />
+    <result column="IS_CIRCULATES_END" property="isCirculatesEnd" jdbcType="VARCHAR" />
+    <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR" />
+    <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR" />
+    <result column="TRACE_PROOF" property="traceProof" jdbcType="VARCHAR" />
+    <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP" />
+    <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR" />
+    <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+    <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR" />
+    <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="FROMID" property="fromid" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+     <result column="FROM_TRACE_CODE" property="fromTraceCode" jdbcType="VARCHAR" />
+     <result column="TO_TRACE_CODE" property="toTraceCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_SLAUGHTER_SALE T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <if test="productType != null and productType != ''">
+          and T.PRODUCT_SORT = #{productType}
+      </if>
+      <if test="confirmState != null and confirmState != ''">
+          and T.CONFIRM_STATE = #{confirmState}
+      </if>
+      <if test="productName != null and productName != ''">
+          and T.PRODUCT_NAME = #{productName}
+      </if>
+      <if test="keyWord != null and keyWord != ''">
+          and T.PRODUCT_NAME LIKE '%${keyWord}%' OR T.TRACE_PROOF LIKE '%${keyWord}%' OR T.TRACE_CODE
+          LIKE '%${keyWord}%'
+      </if>
+      <if test="startTime != null and startTime != ''">
+          <if test="endTime == null || endTime == ''">
+              and T.CREATE_TIME  >=  "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="endTime != null and endTime != ''">
+          <if test="startTime == null || startTime == ''">
+              and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="startTime != null and startTime != ''">
+          <if test="endTime != null || endTime != ''">
+              and T.CREATE_TIME BETWEEN "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+              and "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_SLAUGHTER_SALE T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <if test="productType != null and productType != ''">
+          and T.PRODUCT_SORT = #{productType}
+      </if>
+      <if test="productName != null and productName != ''">
+          and T.PRODUCT_NAME = #{productName}
+      </if>
+      <if test="keyWord != null and keyWord != ''">
+          and T.PRODUCT_NAME LIKE '%${keyWord}%' OR T.TRACE_PROOF LIKE '%${keyWord}%' OR T.TRACE_CODE
+          LIKE '%${keyWord}%'
+      </if>
+      <if test="startTime != null and startTime != ''">
+          <if test="endTime == null || endTime == ''">
+              and T.CREATE_TIME  >=  "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="endTime != null and endTime != ''">
+          <if test="startTime == null || startTime == ''">
+              and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="startTime != null and startTime != ''">
+          <if test="endTime != null || endTime != ''">
+              and T.CREATE_TIME BETWEEN "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+              and "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+  </select>
+
+  <select id="getSaleAndCustomerById" resultMap="XsdjAndCustomer" parameterType="java.lang.String">
+    SELECT X.*,C.USER_NAME,C.NAME,C.ADDRESS,C.PHONE
+    FROM TTS_SCLTXXCJ_SLAUGHTER_SALE X
+    INNER JOIN TTS_SCLTXXCJ_CUSTOMER C ON C.ID = X.BUY_COM_USER_ID
+    WHERE X.ID =#{id,jdbcType=VARCHAR}
+  </select>
+    <!--采购确认列表信息-->
+  <select id="getPurchasePageInfo" resultMap="XsdjAndCustomer" parameterType="hashmap">
+    SELECT Tab.*
+    FROM (
+    SELECT X.*,C2.NAME AS XSNAME,C1.NAME,C1.USER_NAME,
+    C1.PHONE,C1.ADDRESS,ROW_NUMBER() OVER(ORDER BY X.SALE_TIME DESC) AS NUM
+    FROM TTS_SCLTXXCJ_SLAUGHTER_SALE X
+    INNER JOIN TTS_SCLTXXCJ_CUSTOMER C1 ON X.BUY_COM_USER_ID = C1.ID
+    INNER JOIN TTS_SCLTXXCJ_CUSTOMER C2 ON X.ENTITY_IDCODE = C2.ENTITY_ID_CODE AND X.USER_IDCODE = C2.USER_ID_CODE
+    WHERE X.DEL_FLAG = 'N'
+    <if test="confirmState != null and confirmState != ''">
+        and X.CONFIRM_STATE = #{confirmState}
+    </if>
+      <if test="isCirculatesEnd != null and isCirculatesEnd != ''">
+          and X.IS_CIRCULATES_END = #{isCirculatesEnd}
+      </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+
+  <select id="getPurchaseCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_SLAUGHTER_SALE X
+    INNER JOIN TTS_SCLTXXCJ_CUSTOMER C1 ON X.BUY_COM_USER_ID = C1.ID
+    INNER JOIN TTS_SCLTXXCJ_CUSTOMER C2 ON X.ENTITY_IDCODE = C2.ENTITY_ID_CODE AND X.USER_IDCODE = C2.USER_ID_CODE
+    WHERE X.DEL_FLAG = 'N'
+    <if test="confirmState != null and confirmState != ''">
+        and X.CONFIRM_STATE = #{confirmState}
+    </if>
+      <if test="isCirculatesEnd != null and isCirculatesEnd != ''">
+          and X.IS_CIRCULATES_END = #{isCirculatesEnd}
+      </if>
+  </select>
+</mapper>

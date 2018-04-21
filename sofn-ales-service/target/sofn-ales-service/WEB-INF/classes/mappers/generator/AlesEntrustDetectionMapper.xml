@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AlesEntrustDetectionMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesEntrustDetection">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+    <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+    <result column="DETECTION_ID" jdbcType="CHAR" property="detectionId" />
+    <result column="FILE_URL" jdbcType="VARCHAR" property="fileUrl" />
+    <result column="FILE_CODE" jdbcType="VARCHAR" property="fileCode" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="TASKYEAR" jdbcType="CHAR" property="taskyear" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="TASK_TYPE" jdbcType="VARCHAR" property="taskType" />
+    <result column="TASK_RELEASE_UNIT" jdbcType="VARCHAR" property="taskReleaseUnit" />
+    <result column="TASK_AREA_ID" jdbcType="VARCHAR" property="taskAreaId" />
+    <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+    <result column="CY_UNIT_ID" jdbcType="CHAR" property="cyUnitId" />
+    <result column="CY_UNIT_NAME" jdbcType="VARCHAR" property="cyUnitName" />
+    <result column="JC_UNIT_ID" jdbcType="CHAR" property="jcUnitId" />
+    <result column="JC_UNIT_NAME" jdbcType="VARCHAR" property="jcUnitName" />
+    <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard" />
+    <result column="JUDGE_STANDARD_ID" jdbcType="VARCHAR" property="judgeStandardId" />
+    <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard" />
+    <result column="DETECTION_STANDARD_ID" jdbcType="VARCHAR" property="detectionStandardId" />
+    <result column="PARENT_TASK_ID" jdbcType="CHAR" property="parentTaskId" />
+    <result column="PARENT_TASK_NAME" jdbcType="VARCHAR" property="parentTaskName" />
+    <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+    <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+    <result column="ST_UNIT_ID" jdbcType="CHAR" property="stUnitId" />
+    <result column="ST_UNIT_NAME" jdbcType="VARCHAR" property="stUnitName" />
+    <result column="ATTACHMENTS" jdbcType="VARCHAR" property="attachments" />
+    <result column="ATTACHMENT_NAMES" jdbcType="VARCHAR" property="attachmentNames" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ALES_ENTRUST_DETECTION
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AlesEntrustDetection">
+    insert into ALES_ENTRUST_DETECTION (ID, TASK_NAME, TASK_BEGIN_TIME, 
+      TASK_END_TIME, DETECTION_ID, FILE_URL, 
+      FILE_CODE, REMARK, CREATE_BY, 
+      CREATE_TIME, ENABLE, STATE, 
+      TASKYEAR, DEL_FLAG, TASK_TYPE, 
+      TASK_RELEASE_UNIT, TASK_AREA_ID, CREATE_ORG_REGION_ID, 
+      CY_UNIT_ID, CY_UNIT_NAME, JC_UNIT_ID, 
+      JC_UNIT_NAME, JUDGE_STANDARD, JUDGE_STANDARD_ID, 
+      DETECTION_STANDARD, DETECTION_STANDARD_ID, 
+      PARENT_TASK_ID, PARENT_TASK_NAME, CREATE_ORG_ID, 
+      CREATE_ORG_NAME, ST_UNIT_ID, ST_UNIT_NAME,ATTACHMENTS,ATTACHMENT_NAMES
+      )
+    values (#{id,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, #{taskBeginTime,jdbcType=TIMESTAMP}, 
+      #{taskEndTime,jdbcType=TIMESTAMP}, #{detectionId,jdbcType=CHAR}, #{fileUrl,jdbcType=VARCHAR}, 
+      #{fileCode,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, #{state,jdbcType=VARCHAR}, 
+      #{taskyear,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{taskType,jdbcType=VARCHAR}, 
+      #{taskReleaseUnit,jdbcType=VARCHAR}, #{taskAreaId,jdbcType=VARCHAR}, #{createOrgRegionId,jdbcType=VARCHAR}, 
+      #{cyUnitId,jdbcType=CHAR}, #{cyUnitName,jdbcType=VARCHAR}, #{jcUnitId,jdbcType=CHAR}, 
+      #{jcUnitName,jdbcType=VARCHAR}, #{judgeStandard,jdbcType=VARCHAR}, #{judgeStandardId,jdbcType=VARCHAR}, 
+      #{detectionStandard,jdbcType=VARCHAR}, #{detectionStandardId,jdbcType=VARCHAR}, 
+      #{parentTaskId,jdbcType=CHAR}, #{parentTaskName,jdbcType=VARCHAR}, #{createOrgId,jdbcType=CHAR}, 
+      #{createOrgName,jdbcType=VARCHAR}, #{stUnitId,jdbcType=CHAR}, #{stUnitName,jdbcType=VARCHAR}, #{attachments,jdbcType=VARCHAR}, #{attachmentNames,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AlesEntrustDetection">
+    update ALES_ENTRUST_DETECTION
+    set TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      TASK_BEGIN_TIME = #{taskBeginTime,jdbcType=TIMESTAMP},
+      TASK_END_TIME = #{taskEndTime,jdbcType=TIMESTAMP},
+      DETECTION_ID = #{detectionId,jdbcType=CHAR},
+      FILE_URL = #{fileUrl,jdbcType=VARCHAR},
+      FILE_CODE = #{fileCode,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      TASKYEAR = #{taskyear,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      TASK_TYPE = #{taskType,jdbcType=VARCHAR},
+      TASK_RELEASE_UNIT = #{taskReleaseUnit,jdbcType=VARCHAR},
+      TASK_AREA_ID = #{taskAreaId,jdbcType=VARCHAR},
+      CREATE_ORG_REGION_ID = #{createOrgRegionId,jdbcType=VARCHAR},
+      CY_UNIT_ID = #{cyUnitId,jdbcType=CHAR},
+      CY_UNIT_NAME = #{cyUnitName,jdbcType=VARCHAR},
+      JC_UNIT_ID = #{jcUnitId,jdbcType=CHAR},
+      JC_UNIT_NAME = #{jcUnitName,jdbcType=VARCHAR},
+      JUDGE_STANDARD = #{judgeStandard,jdbcType=VARCHAR},
+      JUDGE_STANDARD_ID = #{judgeStandardId,jdbcType=VARCHAR},
+      DETECTION_STANDARD = #{detectionStandard,jdbcType=VARCHAR},
+      DETECTION_STANDARD_ID = #{detectionStandardId,jdbcType=VARCHAR},
+      PARENT_TASK_ID = #{parentTaskId,jdbcType=CHAR},
+      PARENT_TASK_NAME = #{parentTaskName,jdbcType=VARCHAR},
+      CREATE_ORG_ID = #{createOrgId,jdbcType=CHAR},
+      CREATE_ORG_NAME = #{createOrgName,jdbcType=VARCHAR},
+      ST_UNIT_ID = #{stUnitId,jdbcType=CHAR},
+      ST_UNIT_NAME = #{stUnitName,jdbcType=VARCHAR},
+      ATTACHMENTS = #{attachments,jdbcType=VARCHAR},
+      ATTACHMENT_NAMES = #{attachmentNames,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, TASK_NAME, TASK_BEGIN_TIME, TASK_END_TIME, DETECTION_ID, FILE_URL, FILE_CODE, 
+    REMARK, CREATE_BY, CREATE_TIME, ENABLE, STATE, TASKYEAR, DEL_FLAG, TASK_TYPE, TASK_RELEASE_UNIT, 
+    TASK_AREA_ID, CREATE_ORG_REGION_ID, CY_UNIT_ID, CY_UNIT_NAME, JC_UNIT_ID, JC_UNIT_NAME, 
+    JUDGE_STANDARD, JUDGE_STANDARD_ID, DETECTION_STANDARD, DETECTION_STANDARD_ID, PARENT_TASK_ID, 
+    PARENT_TASK_NAME, CREATE_ORG_ID, CREATE_ORG_NAME, ST_UNIT_ID, ST_UNIT_NAME, ATTACHMENTS, ATTACHMENT_NAMES
+    from ALES_ENTRUST_DETECTION
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, TASK_NAME, TASK_BEGIN_TIME, TASK_END_TIME, DETECTION_ID, FILE_URL, FILE_CODE, 
+    REMARK, CREATE_BY, CREATE_TIME, ENABLE, STATE, TASKYEAR, DEL_FLAG, TASK_TYPE, TASK_RELEASE_UNIT, 
+    TASK_AREA_ID, CREATE_ORG_REGION_ID, CY_UNIT_ID, CY_UNIT_NAME, JC_UNIT_ID, JC_UNIT_NAME, 
+    JUDGE_STANDARD, JUDGE_STANDARD_ID, DETECTION_STANDARD, DETECTION_STANDARD_ID, PARENT_TASK_ID, 
+    PARENT_TASK_NAME, CREATE_ORG_ID, CREATE_ORG_NAME, ST_UNIT_ID, ST_UNIT_NAME, ATTACHMENTS, ATTACHMENT_NAMES
+    from ALES_ENTRUST_DETECTION
+  </select>
+</mapper>

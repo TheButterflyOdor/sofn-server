@@ -1,0 +1,67 @@
+package com.sofn.provider.asms;
+
+import com.github.pagehelper.PageInfo;
+import com.sofn.core.base.BaseProviderImpl;
+import com.sofn.core.support.dubbo.spring.annotation.DubboService;
+import com.sofn.dao.asms.AsmsSubjEntBadrecordExpandMapper;
+import com.sofn.dao.generator.AsmsSubjEntBadrecordMapper;
+import com.sofn.model.generator.AsmsSubjEntBadrecord;
+import com.sofn.model.generator.AsmsSubjEntTemp;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Administrator on 2016/10/14.
+ */
+@DubboService(interfaceClass = AsmsSubjEntBadrecordProvider.class)
+public class AsmsSubjEntBadrecordImpl extends BaseProviderImpl<AsmsSubjEntBadrecord> implements AsmsSubjEntBadrecordProvider {
+    @Autowired
+    private AsmsSubjEntBadrecordMapper asmsSubjEntBadrecordMapper;
+    @Autowired
+    private AsmsSubjEntBadrecordExpandMapper asmsSubjEntBadrecordExpandMapper;
+
+    @Override
+    public PageInfo<AsmsSubjEntBadrecord> getAsmsSubjEntBadrecordList(Map<String, Object> map) {
+        PageInfo pageInfo = new PageInfo();
+        List<Map<String, Object>> list = asmsSubjEntBadrecordExpandMapper.selectAllByCondition(map);
+        long count = asmsSubjEntBadrecordExpandMapper.getAsmsSubjEntBadrecordCount(map);
+        pageInfo.setList(list);
+        pageInfo.setTotal(count);
+        return pageInfo;
+    }
+    @Override
+    //暂加
+    public Map<String, Object> findEnterpriseById(String enterpriseId) {
+        return asmsSubjEntBadrecordExpandMapper.findEnterpriseById(enterpriseId);
+    }
+
+    @Override
+    public AsmsSubjEntBadrecord findBadrecordById(String id) {
+        return asmsSubjEntBadrecordMapper.selectByPrimaryKey(id);
+    }
+
+
+    @Override
+    public PageInfo<AsmsSubjEntBadrecord> getAsmsSubjEntBadrecordByIdList(Map<String, Object> map) {
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setTotal(asmsSubjEntBadrecordExpandMapper.getSubjEntBadrecordByIdCount(map));
+        pageInfo.setList(asmsSubjEntBadrecordExpandMapper.findSubjEntBadrecodeById(map));
+        return pageInfo;
+    }
+
+    @Override
+    public int addSubjEntBadrecord(AsmsSubjEntBadrecord asmsSubjEntBadrecord) {
+        return asmsSubjEntBadrecordMapper.insert(asmsSubjEntBadrecord);
+    }
+
+    @Override
+    public int deleteBadrecordByPrimaryKey(String id) {
+        return asmsSubjEntBadrecordExpandMapper.deleteBadrecordByPrimaryKey(id);
+    }
+    @Override
+    public AsmsSubjEntTemp selectByEntityIdCode(Map<String, Object> map) {
+        return asmsSubjEntBadrecordExpandMapper.selectByEntityIdCode(map);
+    }
+}

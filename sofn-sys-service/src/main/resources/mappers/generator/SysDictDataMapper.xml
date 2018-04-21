@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SysDictDataMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysDictData" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TYPE_ID" property="typeId" jdbcType="VARCHAR" />
+    <result column="CATEGORIE_ID" property="categorieId" jdbcType="VARCHAR" />
+    <result column="DICT_CODE" property="dictCode" jdbcType="VARCHAR" />
+    <result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+    <result column="SPELL_NAME" property="spellName" jdbcType="VARCHAR" />
+    <result column="DICT_VALUE" property="dictValue" jdbcType="VARCHAR" />
+    <result column="FIXED" property="fixed" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="ENABLE" property="enable" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR" />
+    <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR" />
+    <result column="SIMPLE_NAME" property="simpleName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_DICT_DATA
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysDictData" >
+    insert into SYS_DICT_DATA (ID, TYPE_ID, CATEGORIE_ID, 
+      DICT_CODE, DICT_NAME, SPELL_NAME, 
+      DICT_VALUE, FIXED, DEL_FLAG, 
+      ENABLE, REMARK, CREATE_BY, 
+      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+      RESERVED_FIELD1, RESERVED_FIELD2, SIMPLE_NAME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{typeId,jdbcType=VARCHAR}, #{categorieId,jdbcType=VARCHAR}, 
+      #{dictCode,jdbcType=VARCHAR}, #{dictName,jdbcType=VARCHAR}, #{spellName,jdbcType=VARCHAR},
+      #{dictValue,jdbcType=VARCHAR}, #{fixed,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, 
+      #{enable,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{reservedField1,jdbcType=VARCHAR}, #{reservedField2,jdbcType=VARCHAR}, #{simpleName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysDictData" >
+    update SYS_DICT_DATA
+    set TYPE_ID = #{typeId,jdbcType=VARCHAR},
+      CATEGORIE_ID = #{categorieId,jdbcType=VARCHAR},
+      DICT_CODE = #{dictCode,jdbcType=VARCHAR},
+      DICT_NAME = #{dictName,jdbcType=VARCHAR},
+      SPELL_NAME = #{spellName,jdbcType=VARCHAR},
+      DICT_VALUE = #{dictValue,jdbcType=VARCHAR},
+      FIXED = #{fixed,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+      ENABLE = #{enable,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      RESERVED_FIELD1 = #{reservedField1,jdbcType=VARCHAR},
+      RESERVED_FIELD2 = #{reservedField2,jdbcType=VARCHAR},
+      SIMPLE_NAME = #{simpleName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, TYPE_ID, CATEGORIE_ID, DICT_CODE, DICT_NAME, SPELL_NAME, DICT_VALUE, FIXED, 
+    DEL_FLAG, ENABLE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, RESERVED_FIELD1, 
+    RESERVED_FIELD2, SIMPLE_NAME
+    from SYS_DICT_DATA
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, TYPE_ID, CATEGORIE_ID, DICT_CODE, DICT_NAME, SPELL_NAME, DICT_VALUE, FIXED, 
+    DEL_FLAG, ENABLE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, RESERVED_FIELD1, 
+    RESERVED_FIELD2, SIMPLE_NAME
+    from SYS_DICT_DATA
+  </select>
+
+  <select id="selectByTypeId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, TYPE_ID, CATEGORIE_ID, DICT_CODE, DICT_NAME, SPELL_NAME, DICT_VALUE, FIXED,
+    DEL_FLAG, ENABLE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, RESERVED_FIELD1,
+    RESERVED_FIELD2, SIMPLE_NAME
+    from SYS_DICT_DATA
+    where TYPE_ID = #{id,jdbcType=VARCHAR}
+  </select>
+</mapper>

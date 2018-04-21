@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsCheckInfoMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsCheckInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORGAN_TASK_ID" property="organTaskId" jdbcType="VARCHAR" />
+    <result column="SAMPLE_BAR_CODE" property="sampleBarCode" jdbcType="VARCHAR" />
+    <result column="MONITOR_SAMPLE_ID" property="monitorSampleId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+    <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR" />
+    <result column="SAMPLE_NAME" property="sampleName" jdbcType="VARCHAR" />
+    <result column="CHECK_LINK" property="checkLink" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="CHECK_ORGAN_ID" property="checkOrganId" jdbcType="VARCHAR" />
+    <result column="CHECK_ORGAN" property="checkOrgan" jdbcType="VARCHAR" />
+    <result column="CHECK_REPORT" property="checkReport" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="TESTED_DEPARMENT" property="testedDeparment" jdbcType="VARCHAR" />
+    <result column="SAMPLE_DEPARMENT" property="sampleDeparment" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADS_CHECK_INFO
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.AdsCheckInfo" >
+    insert into ADS_CHECK_INFO (ID
+    ,PRODUCT_TRACEABILITY_CODE
+    , ORGAN_TASK_ID
+    , SAMPLE_BAR_CODE
+    , MONITOR_SAMPLE_ID
+    , SAMPLE_CODE
+    , SAMPLE_NAME
+    , CHECK_LINK
+    , RESULT
+    , CHECK_ORGAN_ID
+    , CHECK_ORGAN
+    , CHECK_REPORT
+    , CHECK_TIME
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    ,TESTED_DEPARMENT
+    ,SAMPLE_DEPARMENT
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{productTraceabilityCode,jdbcType=VARCHAR}
+    , #{organTaskId,jdbcType=VARCHAR}
+    , #{sampleBarCode,jdbcType=VARCHAR}
+    , #{monitorSampleId,jdbcType=VARCHAR}
+    , #{sampleCode,jdbcType=VARCHAR}
+    , #{sampleName,jdbcType=VARCHAR}
+    , #{checkLink,jdbcType=VARCHAR}
+    , #{result,jdbcType=VARCHAR}
+    , #{checkOrganId,jdbcType=VARCHAR}
+    , #{checkOrgan,jdbcType=VARCHAR}
+    , #{checkReport,jdbcType=VARCHAR}
+    , #{checkTime,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{testedDeparment,jdbcType=VARCHAR}
+    , #{sampleDeparment,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsCheckInfo" >
+    update ADS_CHECK_INFO
+    set
+     ORGAN_TASK_ID =  #{organTaskId,jdbcType=VARCHAR},
+     SAMPLE_BAR_CODE =  #{sampleBarCode,jdbcType=VARCHAR},
+     MONITOR_SAMPLE_ID =  #{monitorSampleId,jdbcType=VARCHAR},
+     PRODUCT_CODE =  #{productCode,jdbcType=VARCHAR},
+     SAMPLE_CODE =  #{sampleCode,jdbcType=VARCHAR},
+     SAMPLE_NAME =  #{sampleName,jdbcType=VARCHAR},
+     CHECK_LINK =  #{checkLink,jdbcType=VARCHAR},
+     RESULT =  #{result,jdbcType=VARCHAR},
+     CHECK_ORGAN_ID =  #{checkOrganId,jdbcType=VARCHAR},
+     CHECK_ORGAN =  #{checkOrgan,jdbcType=VARCHAR},
+     CHECK_REPORT =  #{checkReport,jdbcType=VARCHAR},
+     CHECK_TIME =  #{checkTime,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , ORGAN_TASK_ID
+    , SAMPLE_BAR_CODE
+    , MONITOR_SAMPLE_ID
+    , PRODUCT_TRACEABILITY_CODE
+    , SAMPLE_CODE
+    , SAMPLE_NAME
+    , CHECK_LINK
+    , RESULT
+    , CHECK_ORGAN_ID
+    , CHECK_ORGAN
+    , CHECK_REPORT
+    , CHECK_TIME
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from ADS_CHECK_INFO
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

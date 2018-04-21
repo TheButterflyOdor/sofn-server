@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AlesWtTaskMonitorMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesWtTaskMonitor" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="SUPERVISE_CHECK_TASK_ID" property="superviseCheckTaskId" jdbcType="CHAR" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="TASK_BEGIN_TIME" property="taskBeginTime" jdbcType="TIMESTAMP" />
+    <result column="TASK_END_TIME" property="taskEndTime" jdbcType="TIMESTAMP" />
+    <result column="SAMPLE_UNIT_ID" property="sampleUnitId" jdbcType="CHAR" />
+    <result column="DETECTION_UNIT_ID" property="detectionUnitId" jdbcType="CHAR" />
+    <result column="DETECTION_STANDARD" property="detectionStandard" jdbcType="VARCHAR" />
+    <result column="JUDGE_STANDARD" property="judgeStandard" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ENABLE" property="enable" jdbcType="CHAR" />
+    <result column="MONITOR_NUM" property="monitorNum" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="IS_SAMPLE" property="isSample" jdbcType="CHAR" />
+    <result column="DETECTION_ITEM" property="detectionItem" jdbcType="VARCHAR" />
+    <result column="DETECTION_ITEM_ID" property="detectionItemId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TYPE_ID" property="productTypeId" jdbcType="CHAR" />
+    <result column="PRODUCT_NAME_ID" property="productNameId" jdbcType="CHAR" />
+    <result column="AREA_ID" property="areaId" jdbcType="CHAR" />
+    <result column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ALES_WT_TASK_MONITOR
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AlesWtTaskMonitor" >
+    insert into ALES_WT_TASK_MONITOR (ID, SUPERVISE_CHECK_TASK_ID, PRODUCT_TYPE, 
+      PRODUCT_NAME, TASK_BEGIN_TIME, TASK_END_TIME, 
+      SAMPLE_UNIT_ID, DETECTION_UNIT_ID, DETECTION_STANDARD, 
+      JUDGE_STANDARD, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, ENABLE, 
+      MONITOR_NUM, DEL_FLAG, IS_SAMPLE, 
+      DETECTION_ITEM, DETECTION_ITEM_ID, PRODUCT_TYPE_ID, 
+      PRODUCT_NAME_ID, AREA_ID, INDUSTRY
+      )
+    values (#{id,jdbcType=CHAR}, #{superviseCheckTaskId,jdbcType=CHAR}, #{productType,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{taskBeginTime,jdbcType=TIMESTAMP}, #{taskEndTime,jdbcType=TIMESTAMP}, 
+      #{sampleUnitId,jdbcType=CHAR}, #{detectionUnitId,jdbcType=CHAR}, #{detectionStandard,jdbcType=VARCHAR}, 
+      #{judgeStandard,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, 
+      #{monitorNum,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{isSample,jdbcType=CHAR}, 
+      #{detectionItem,jdbcType=VARCHAR}, #{detectionItemId,jdbcType=VARCHAR}, #{productTypeId,jdbcType=CHAR}, 
+      #{productNameId,jdbcType=CHAR}, #{areaId,jdbcType=CHAR}, #{industry,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AlesWtTaskMonitor" >
+    update ALES_WT_TASK_MONITOR
+    set SUPERVISE_CHECK_TASK_ID = #{superviseCheckTaskId,jdbcType=CHAR},
+      PRODUCT_TYPE = #{productType,jdbcType=VARCHAR},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      TASK_BEGIN_TIME = #{taskBeginTime,jdbcType=TIMESTAMP},
+      TASK_END_TIME = #{taskEndTime,jdbcType=TIMESTAMP},
+      SAMPLE_UNIT_ID = #{sampleUnitId,jdbcType=CHAR},
+      DETECTION_UNIT_ID = #{detectionUnitId,jdbcType=CHAR},
+      DETECTION_STANDARD = #{detectionStandard,jdbcType=VARCHAR},
+      JUDGE_STANDARD = #{judgeStandard,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      MONITOR_NUM = #{monitorNum,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      IS_SAMPLE = #{isSample,jdbcType=CHAR},
+      DETECTION_ITEM = #{detectionItem,jdbcType=VARCHAR},
+      DETECTION_ITEM_ID = #{detectionItemId,jdbcType=VARCHAR},
+      PRODUCT_TYPE_ID = #{productTypeId,jdbcType=CHAR},
+      PRODUCT_NAME_ID = #{productNameId,jdbcType=CHAR},
+      AREA_ID = #{areaId,jdbcType=CHAR},
+      INDUSTRY = #{industry,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, SUPERVISE_CHECK_TASK_ID, PRODUCT_TYPE, PRODUCT_NAME, TASK_BEGIN_TIME, 
+    TASK_END_TIME, SAMPLE_UNIT_ID, DETECTION_UNIT_ID, DETECTION_STANDARD, JUDGE_STANDARD, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, MONITOR_NUM, DEL_FLAG, IS_SAMPLE, 
+    DETECTION_ITEM, DETECTION_ITEM_ID, PRODUCT_TYPE_ID, PRODUCT_NAME_ID, AREA_ID, INDUSTRY
+    from ALES_WT_TASK_MONITOR
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, SUPERVISE_CHECK_TASK_ID, PRODUCT_TYPE, PRODUCT_NAME, TASK_BEGIN_TIME, 
+    TASK_END_TIME, SAMPLE_UNIT_ID, DETECTION_UNIT_ID, DETECTION_STANDARD, JUDGE_STANDARD, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, MONITOR_NUM, DEL_FLAG, IS_SAMPLE, 
+    DETECTION_ITEM, DETECTION_ITEM_ID, PRODUCT_TYPE_ID, PRODUCT_NAME_ID, AREA_ID, INDUSTRY
+    from ALES_WT_TASK_MONITOR
+  </select>
+</mapper>

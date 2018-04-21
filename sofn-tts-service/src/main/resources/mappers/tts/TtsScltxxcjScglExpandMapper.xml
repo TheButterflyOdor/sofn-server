@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjScglExpandMapper" >
+
+    <resultMap id="TtsScltxxcjScglAndUserInfo" type="com.sofn.model.generator.TtsScltxxcjScglAndUserInfo" extends="BaseResultMap">
+        <result column="EN_TYPE" property="enType" jdbcType="VARCHAR" />
+        <result column="EN_NAME" property="enName" jdbcType="VARCHAR" />
+        <result column="EN_INDUSTRY" property="enIndustry" jdbcType="VARCHAR" />
+        <result column="EN_AREA" property="enArea" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjScgl" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="BILL_STRATRUS" property="billStratrus" jdbcType="VARCHAR" />
+        <result column="IP" property="ip" jdbcType="VARCHAR" />
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+        <result column="PRODUCT_INNER_KEY" property="productInnerKey" jdbcType="VARCHAR" />
+        <result column="MEDI_RESULT" property="mediResult" jdbcType="VARCHAR" />
+        <result column="PRODUCT_SOURCE" property="productSource" jdbcType="VARCHAR" />
+        <result column="HARVEST_BASEID" property="harvestBaseid" jdbcType="VARCHAR" />
+        <result column="HARVEST_BASENAME" property="harvestBasename" jdbcType="VARCHAR" />
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+        <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+        <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+        <result column="PRODUCT_AMOUNT" property="productAmount" jdbcType="DECIMAL" />
+        <result column="STORE_COUNT" property="storeCount" jdbcType="DECIMAL" />
+        <result column="FREEZE_COUNT" property="freezeCount" jdbcType="DECIMAL" />
+        <result column="HARVEST_UNIT" property="harvestUnit" jdbcType="VARCHAR" />
+        <result column="HARVEST_TIME" property="harvestTime" jdbcType="TIMESTAMP" />
+        <result column="PRODUCT_PC" property="productPc" jdbcType="VARCHAR" />
+        <result column="MEDI_CHECK" property="mediCheck" jdbcType="VARCHAR" />
+        <result column="CHECK_IMAGENAME" property="checkImagename" jdbcType="VARCHAR" />
+        <result column="CHECK_IMAGEPATH" property="checkImagepath" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="JOIN_FLAG" property="joinFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+        <result column="UNIT_ID" property="unitId" jdbcType="VARCHAR" />
+        <result column="INSIDE_TRACE_CODE" property="insideTraceCode" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getPageInfo" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_SCGL T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="zero != null and zero != ''">
+            AND T.STORE_COUNT &gt;0
+        </if>
+        <if test="noBillStratrus != null and noBillStratrus != ''">
+            and T.BILL_STRATRUS != #{noBillStratrus}
+        </if>
+        <if test="productSource != null and productSource != ''">
+            and T.PRODUCT_SOURCE = #{productSource}
+        </if>
+        <if test="billStratrus != null and billStratrus != ''">
+            and T.BILL_STRATRUS = #{billStratrus}
+        </if>
+        <if test="joinFlag != null and joinFlag != ''">
+            and T.JOIN_FLAG = #{joinFlag}
+        </if>
+        <if test="status != null and status != ''">
+            and T.status = #{status}
+        </if>
+        <if test="not_status != null and not_status != ''">
+            and T.status != #{not_status}
+        </if>
+        <if test="mediResult != null and mediResult != ''">
+            and T.MEDI_RESULT = #{mediResult}
+        </if>
+        <if test="productId != null and productId != ''">
+            and T.PRODUCT_ID = #{productId}
+        </if>
+        <if test="productName != null and productName != ''">
+            and T.PRODUCT_NAME LIKE '%${productName}%'
+        </if>
+        <if test="harvestUnit != null and harvestUnit != ''">
+            and T.HARVEST_UNIT = #{harvestUnit}
+        </if>
+        <if test="productSort != null and productSort != ''">
+            and T.PRODUCT_SORT = #{productSort}
+        </if>
+        <if test="shrq_q != null and shrq_q != ''">
+            and to_char(t.HARVEST_TIME,'yyyy-MM-dd') &gt;= #{shrq_q}
+        </if>
+        <if test="shrq_h != null and shrq_h != ''">
+            and to_char(t.HARVEST_TIME,'yyyy-MM-dd') &lt;= #{shrq_h}
+        </if>
+        <if test="noJoinFlag != null and noJoinFlag != ''">
+            and T.JOIN_FLAG != #{noJoinFlag}
+        </if>
+        <if test="freezeCount != null and freezeCount != ''">
+            and T.FREEZE_COUNT = 0
+        </if>
+        <if test="entityIdcode != null and entityIdcode != ''">
+            and T.ENTITY_IDCODE = #{entityIdcode}
+        </if>
+        <if test="keyWord != null and keyWord != ''">
+            and T.PRODUCT_NAME LIKE '%${keyWord}%' OR T.PRODUCT_PC LIKE '%${keyWord}%' OR T.FROMZSM LIKE '%${keyWord}%'
+        </if>
+        <if test="productSort != null and productSort != ''">
+            and T.PRODUCT_SORT = #{productSort}
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_SCGL T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="zero != null and zero != ''">
+            AND T.STORE_COUNT &gt;0
+        </if>
+        <if test="noBillStratrus != null and noBillStratrus != ''">
+            and T.BILL_STRATRUS != #{noBillStratrus}
+        </if>
+        <if test="productSource != null and productSource != ''">
+            and T.PRODUCT_SOURCE = #{productSource}
+        </if>
+        <if test="billStratrus != null and billStratrus != ''">
+            and T.BILL_STRATRUS = #{billStratrus}
+        </if>
+        <if test="joinFlag != null and joinFlag != ''">
+            and T.JOIN_FLAG = #{joinFlag}
+        </if>
+        <if test="status != null and status != ''">
+            and T.status = #{status}
+        </if>
+        <if test="not_status != null and not_status != ''">
+            and T.status != #{not_status}
+        </if>
+        <if test="mediResult != null and mediResult != ''">
+            and T.MEDI_RESULT = #{mediResult}
+        </if>
+        <if test="productId != null and productId != ''">
+            and T.PRODUCT_ID = #{productId}
+        </if>
+        <if test="productName != null and productName != ''">
+            and T.PRODUCT_NAME = #{productName}
+        </if>
+        <if test="harvestUnit != null and harvestUnit != ''">
+            and T.HARVEST_UNIT = #{harvestUnit}
+        </if>
+        <if test="productSort != null and productSort != ''">
+            and T.PRODUCT_SORT = #{productSort}
+        </if>
+        <if test="shrq_q != null and shrq_q != ''">
+            and to_char(t.HARVEST_TIME,'yyyy-MM-dd') &gt;= #{shrq_q}
+        </if>
+        <if test="shrq_h != null and shrq_h != ''">
+            and to_char(t.HARVEST_TIME,'yyyy-MM-dd') &lt;= #{shrq_h}
+        </if>
+        <if test="noJoinFlag != null and noJoinFlag != ''">
+            and T.JOIN_FLAG != #{noJoinFlag}
+        </if>
+        <if test="freezeCount != null and freezeCount != ''">
+            and T.FREEZE_COUNT = 0
+        </if>
+        <if test="entityIdcode != null and entityIdcode != ''">
+            and T.ENTITY_IDCODE = #{entityIdcode}
+        </if>
+        <if test="keyWord != null and keyWord != ''">
+            and T.PRODUCT_NAME LIKE '%${keyWord}%' OR T.PRODUCT_PC LIKE '%${keyWord}%' OR T.FROMZSM LIKE '%${keyWord}%'
+        </if>
+        <if test="productSort != null and productSort != ''">
+            and T.PRODUCT_SORT = #{productSort}
+        </if>
+    </select>
+
+
+    <select id="getSphcByIds" parameterType="hashmap" resultType="com.sofn.model.generator.TtsScltxxcjScgl">
+        select * from tts_scltxxcj_scgl t where
+        t.id in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and t.status != 4
+    </select>
+
+
+    <select id="getCheckProduct" parameterType="hashmap" resultType="map">
+        select t.product_id,t.product_name,t.product_sort,t.product_industry,t.unit_id,
+        t.harvest_unit,t.join_flag,sum(PRODUCT_AMOUNT) PRODUCT_AMOUNT,sum(STORE_COUNT) STORE_COUNT
+        from tts_scltxxcj_scgl t
+        where t.status != 4 and t.id in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        group by t.product_id,t.product_name,
+        t.product_sort,t.product_industry,t.harvest_unit,t.join_flag,t.unit_id
+    </select>
+
+    <select id="getslaughterPageInfo" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.UPDATE_TIME DESC,T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_SCGL T
+        where T.DEL_FLAG != 'Y' AND T.JOIN_FLAG = #{joinFlag} AND T.STORE_COUNT > 0
+        <if test="productId != null and productId != ''">
+            and T.PRODUCT_ID = #{productId}
+        </if>
+        <if test="noBillStratrus != null and noBillStratrus != ''">
+            and T.BILL_STRATRUS != #{noBillStratrus}
+        </if>
+        <if test="entityIdcode != null and entityIdcode != ''">
+            and T.ENTITY_IDCODE = #{entityIdcode}
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+
+    <select id="getslaughterCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_SCGL T
+        where T.DEL_FLAG != 'Y' AND T.JOIN_FLAG = #{joinFlag} AND T.STORE_COUNT > 0
+        <if test="productId != null and productId != ''">
+            and T.PRODUCT_ID = #{productId}
+        </if>
+        <if test="noBillStratrus != null and noBillStratrus != ''">
+            and T.BILL_STRATRUS != #{noBillStratrus}
+        </if>
+        <if test="entityIdcode != null and entityIdcode != ''">
+            and T.ENTITY_IDCODE = #{entityIdcode}
+        </if>
+    </select>
+
+
+    <update id="updateProductAmount" parameterType="map">
+        update TTS_SCLTXXCJ_SCGL T
+        set
+        STORE_COUNT = T.STORE_COUNT - #{amount,jdbcType=VARCHAR}
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+
+
+    <update id="updateProductStoreCount" parameterType="map">
+        UPDATE TTS_SCLTXXCJ_SCGL S SET (S.STORE_COUNT,S.STATUS) =
+        (SELECT V.STORE_COUNT,V.STATUS FROM TTS_VIEW_CPXS V
+        WHERE S.PRODUCT_PC = V.PRODUCT_PC
+        ) WHERE S.PRODUCT_PC IN
+        <foreach item="item" index="index" collection="pcs" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+
+
+    <update id="updateProductStoreFreezeCount" parameterType="map">
+        UPDATE TTS_SCLTXXCJ_SCGL S SET (S.STORE_COUNT,S.FREEZE_COUNT,S.STATUS) =
+        (SELECT V.STORE_COUNT,V.FREEZE_COUNT,V.STATUS FROM TTS_VIEW_CPXSWQR V
+        WHERE S.PRODUCT_PC = V.PRODUCT_PC
+        ) WHERE S.PRODUCT_PC IN
+        <foreach item="item" index="index" collection="pcs" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+
+    <update id="updateStoreCountForCgqr" parameterType="java.lang.String">
+        UPDATE TTS_SCLTXXCJ_SCGL S SET S.STORE_COUNT = S.PRODUCT_AMOUNT-(
+        SELECT NVL((
+        SELECT
+        SUM(X.SALE_AMOUNT)
+        FROM TTS_SCLTXXCJ_XSDJJL X
+        WHERE X.DEL_FLAG = 'N' AND X.PRODUCT_SCGL_ID = S.PRODUCT_PC
+        GROUP BY PRODUCT_SCGL_ID
+        ),0) AS SALE_AMOUNT FROM DUAL
+        ),S.FREEZE_COUNT = (
+        SELECT NVL((
+        SELECT
+        SUM(X.SALE_AMOUNT)
+        FROM TTS_SCLTXXCJ_XSDJJL X
+        WHERE X.DEL_FLAG = 'N' AND X.PRODUCT_SCGL_ID = S.PRODUCT_PC
+        GROUP BY X.CONFIRM_STATE
+        HAVING X.CONFIRM_STATE = 'N'),0) AS SALE_AMOUNT FROM DUAL
+        ),S.STATUS = (CASE WHEN S.STATUS = 4 THEN 4 ELSE (CASE WHEN S.PRODUCT_AMOUNT = S.STORE_COUNT THEN 1
+        WHEN S.STORE_COUNT !=0  THEN 2
+        WHEN S.STORE_COUNT = 0 THEN 3
+        END )END)
+        WHERE S.PRODUCT_PC IN (
+        SELECT X1.PRODUCT_SCGL_ID FROM TTS_SCLTXXCJ_XSDJJL X1
+        WHERE X1.XSDJ_ID = #{id}
+        )
+    </update>
+    <select id="getTypeList" resultMap="BaseResultMap" parameterType="string">
+        SELECT DISTINCT T.PRODUCT_ID,T.PRODUCT_NAME FROM TTS_SCLTXXCJ_SCGL T
+        WHERE T.JOIN_FLAG = '2'
+        AND T.DEL_FLAG != 'Y'
+        AND T.STORE_COUNT > 0
+        AND FREEZE_COUNT = '0'
+        AND T.ENTITY_IDCODE = #{entityIdcode}
+    </select>
+
+
+    <!--<select id="getBaseForPc" resultType="map" parameterType="string">
+      SELECT R.ENTERPRISE_NAME AS NAME,R.LEGAL_NAME AS USERNAME,
+      R.LEGAL_PHONE AS PHONE,R.ADDRESS,S.ENTITY_IDCODE,
+      S.USER_IDCODE,S.PRODUCT_SORT,S.PRODUCT_NAME,S.PRODUCT_AMOUNT,
+      S.PRODUCT_PC,S.STATUS,S.BILL_STRATRUS,S.FROMZSM
+      FROM TTS_SCLTXXCJ_SCGL S
+      INNER JOIN TTS_SCLTXXCJ_REGISTER R
+      ON R.ENTITY_IDCODE = S.ENTITY_IDCODE AND R.USER_IDCODE = S.USER_IDCODE
+      WHERE S.PRODUCT_PC = #{pc}
+    </select>-->
+    <select id="getBaseForPc" resultType="map" parameterType="hashmap">
+        SELECT T .ENTERPRISE_NAME NAME,T .ADDRESS ADDRESS,U . NAME USERNAME,U .PHONE PHONE,
+        S.ENTITY_IDCODE,
+        S.USER_IDCODE,
+        S.PRODUCT_SORT,
+        S.PRODUCT_NAME,
+        S.PRODUCT_AMOUNT,
+        S.PRODUCT_PC,
+        S.STATUS,
+        S.BILL_STRATRUS,
+        S.FROMZSM
+        FROM TTS_SCLTXXCJ_SCGL S
+        INNER JOIN TTS_SCLTXXCJ_REGISTER T ON T .ENTITY_IDCODE = S.ENTITY_IDCODE
+        INNER JOIN TTS_SCLTXXCJ_USER U ON U .USER_IDCODE = S.USER_IDCODE
+        AND T .ENTITY_IDCODE = U .ENTITY_IDCODE
+        WHERE S.PRODUCT_PC =  #{pc} AND S.ENTITY_IDCODE = #{entityId}
+    </select>
+
+    <select id="getInfoByPcCodeForGov"  parameterType="string" resultMap="TtsScltxxcjScglAndUserInfo">
+          SELECT R.ENTERPRISE_NAME AS EN_NAME,
+                R.ENTITY_TYPE AS EN_TYPE,
+                R.ENTITY_INDUSTRY AS EN_INDUSTRY,
+                R.AREA AS EN_AREA,
+                S.ENTITY_IDCODE,
+                S.USER_IDCODE,
+                S.PRODUCT_NAME,
+                S.PRODUCT_AMOUNT,
+                S.HARVEST_TIME,
+                S.MEDI_RESULT,
+                S.DEL_FLAG
+            FROM
+                TTS_SCLTXXCJ_SCGL S
+            INNER JOIN TTS_SCLTXXCJ_REGISTER R ON R.ENTITY_IDCODE = S.ENTITY_IDCODE
+            AND R.USER_IDCODE = S.USER_IDCODE
+            WHERE
+                S.PRODUCT_PC = #{code} AND S.DEL_FLAG != 'Y'
+    </select>
+    <select id="getInfoByPcCodeForUsual"  parameterType="string" resultMap="TtsScltxxcjScglAndUserInfo">
+        SELECT S.PRODUCT_NAME,
+        S.HARVEST_TIME,
+        S.MEDI_RESULT,
+        S.DEL_FLAG
+        FROM
+        TTS_SCLTXXCJ_SCGL WHERE S.PRODUCT_PC = #{code} AND S.DEL_FLAG != 'Y'
+    </select>
+
+    <select id="getInfoByPcCode" parameterType="hashmap" resultMap="TtsScltxxcjScglAndUserInfo">
+        SELECT
+        <if test="userType != '4'">
+            R.ENTERPRISE_NAME AS EN_NAME,
+            R.ENTITY_TYPE AS EN_TYPE,
+            R.ENTITY_INDUSTRY AS EN_INDUSTRY,
+            R.AREA AS EN_AREA,
+            S.ENTITY_IDCODE,
+            S.USER_IDCODE,
+            S.PRODUCT_NAME,
+            S.PRODUCT_AMOUNT,
+            S.HARVEST_TIME,
+            S.MEDI_RESULT,
+            S.DEL_FLAG
+        </if>
+        <if test="userType == '4'">
+            S.HARVEST_TIME,
+            S.MEDI_RESULT,
+            S.DEL_FLAG
+        </if>
+            FROM
+                TTS_SCLTXXCJ_SCGL S
+            INNER JOIN TTS_SCLTXXCJ_REGISTER R ON R.ENTITY_IDCODE = S.ENTITY_IDCODE
+            AND R.USER_IDCODE = S.USER_IDCODE
+            WHERE
+                S.PRODUCT_PC = #{code} AND S.DEL_FLAG != 'Y'
+    </select>
+    <select id="getproductInfo" resultType="com.sofn.model.generator.TtsScltxxcjScgl" parameterType="string">
+        SELECT * from TTS_SCLTXXCJ_SCGL where ID = #{id} AND DEL_FLAG != 'Y'
+    </select>
+
+    <update id="updateState" parameterType="string">
+        UPDATE TTS_SCLTXXCJ_SCGL S SET S.STATUS = (CASE WHEN S.STATUS = 4 THEN 4 ELSE (CASE WHEN S.PRODUCT_AMOUNT = S.STORE_COUNT THEN 1
+        WHEN S.STORE_COUNT !=0  THEN 2
+        WHEN S.STORE_COUNT = 0 THEN 3
+        END )END)
+        WHERE S.PRODUCT_PC IN (
+        SELECT X1.PRODUCT_SCGL_ID FROM TTS_SCLTXXCJ_XSDJJL X1
+        WHERE X1.XSDJ_ID = #{id}
+        )
+    </update>
+</mapper>

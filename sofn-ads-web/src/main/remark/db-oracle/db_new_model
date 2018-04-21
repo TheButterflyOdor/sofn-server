@@ -1,0 +1,97 @@
+-- -----------------------------
+-- 新版监测模型功能设计——检测项目做excel导入功能，做在系统管理里，检测项目名称不能重名
+--检测项目：id、名称
+--监测模型：id、名称
+--监测模型中间表：模型id、产品id、产品名称、检测项目id、检测项目名称、上限值
+--创建监测模型，可以添加多个对象，每个对象可以添加多个监测项目，上限值手动输入
+--ads_new_item/ads_new_model/ads_new_model_attr
+-- -----------------------------
+drop table ADS_CHECK_ITEMS cascade constraints;
+
+/*==============================================================*/
+/* Table: ADS_CHECK_ITEMS          检测项目表                             */
+/*==============================================================*/
+create table ADS_CHECK_ITEMS
+(
+   CHECK_ID             VARCHAR2(64)         not null, --检测项目id
+   CHECK_NAME           VARCHAR2(128)        not null, --检测项目名称
+   DEL_FLAG             CHAR(1),                       --删除标识
+   CREATE_DATE          DATE,                          --创建时间
+   CREATE_BY            VARCHAR2(64),
+   UPDATE_DATE          DATE,
+   UPDATE_BY            VARCHAR2(64),
+   constraint PK_ADS_CHECK_ITEMS primary key (CHECK_ID, CHECK_NAME)
+);
+
+
+drop table ADS_MONITOR_MODEL cascade constraints;
+
+/*==============================================================*/
+/* Table: ADS_MONITOR_MODEL          监测模型表                           */
+/*==============================================================*/
+create table ADS_MONITOR_MODEL
+(
+   MODEL_ID             VARCHAR2(64)         not null,  --模型id
+   MODEL_NAME           VARCHAR2(128),                  --模型名称
+   INDUSTRY             VARCHAR2(128),      --行业
+   IS_ENABLE            CHAR(1),            --是否启用  1：启用  0：未启用
+   ORGAN_ID             VARCHAR2(64),       --机关id
+   DEL_FLAG             CHAR(1),
+   CREATE_DATE          DATE,                          --创建时间
+   CREATE_BY            VARCHAR2(64),
+   UPDATE_DATE          DATE,
+   UPDATE_BY            VARCHAR2(64),
+   constraint PK_ADS_MONITOR_MODEL primary key (MODEL_ID)
+);
+
+drop table ADS_CHECK_PACKAGE cascade constraints;
+
+/*==============================================================*/
+/* Table: ADS_CHECK_PACKAGE                                     */
+/*==============================================================*/
+create table ADS_CHECK_PACKAGE
+(
+   ID                   VARCHAR2(32)         not null,--检测包id
+   PACKAGE_NAME         VARCHAR2(128),
+   INDUSTRY             VARCHAR2(128),
+   CHECK_ITEMS          CLOB,
+   DEL_FLAG             CHAR(1),
+   ORGAN_ID             VARCHAR2(64),       --机关id
+   CREATE_DATE          DATE,                          --创建时间
+   CREATE_BY            VARCHAR2(64),
+   UPDATE_DATE          DATE,
+   UPDATE_BY            VARCHAR2(64),
+   constraint PK_ADS_CHECK_PACKAGE primary key (ID)
+);
+
+
+drop table ADS_CHECK_MODEL_MAPPING cascade constraints;
+
+/*==============================================================*/
+/* Table: ADS_CHECK_MODEL_MAPPING         检测项目中间表                      */
+/*==============================================================*/
+create table ADS_CHECK_MODEL_MAPPING
+(
+   ID                   VARCHAR2(64)         not null,--id
+   MODEL_ID             VARCHAR2(64),           --检测模型id
+   PRODUCT_ID           VARCHAR2(64),           --检测对象id
+   PRODUCT_NAME         VARCHAR2(128),      --检测对象
+   CHECK_ID             VARCHAR2(64),       --检测项目id
+   CHECK_NAME           VARCHAR2(128),     --检测项目名称
+   MAX_VALUE            FLOAT,             --上限值
+   constraint PK_ADS_CHECK_MODEL_MAPPING primary key (ID)
+);
+
+drop table ADS_PACKAGE_MAPPING cascade constraints;
+
+/*==============================================================*/
+/* Table: ADS_PACKAGE_MAPPING                                   */
+/*==============================================================*/
+create table ADS_PACKAGE_MAPPING
+(
+   PACKAGE_ID           VARCHAR2(32),  ---检测包id
+   CHECK_ID             VARCHAR2(32)   ---检测项目id
+);
+
+
+

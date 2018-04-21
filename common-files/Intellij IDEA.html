@@ -1,0 +1,862 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta name="renderer" content="webkit"/>
+    <title>Intellij IDEA使用教程</title>
+    <link rel="stylesheet" href="data:text/css;base64,CiAgICA6Oi13ZWJraXQtc2Nyb2xsYmFyIHsKICAgICAgICB3aWR0aDo4cHg7CiAgICAgICAgbWFyZ2luOjAgMXB4OwogICAgICAgIGJhY2tncm91bmQ6ICNmZGZkZmQ7CiAgICB9CiAgICA6Oi13ZWJraXQtc2Nyb2xsYmFyOmhvcml6b250YWx7CiAgICAgICAgaGVpZ2h0OiA4cHg7CiAgICB9CgogICAgOjotd2Via2l0LXNjcm9sbGJhci1idXR0b257CiAgICAgICAgaGVpZ2h0OiAwOwogICAgfQoKICAgIDo6LXdlYmtpdC1zY3JvbGxiYXItdHJhY2sgewogICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDsKICAgIH0KICAgIDo6LXdlYmtpdC1zY3JvbGxiYXItdHJhY2stcGllY2UgewogICAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmZGZkZmQ7CiAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4OwogICAgfQogICAgOjotd2Via2l0LXNjcm9sbGJhci10aHVtYiB7CiAgICAgICAgd2lkdGg6OHB4OwogICAgICAgIG1hcmdpbjogMCAxcHg7CiAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4OwogICAgICAgIGJhY2tncm91bmQ6ICNjNGM0YzQ7CiAgICB9CiAgICA6Oi13ZWJraXQtc2Nyb2xsYmFyLXRodW1iOmhvdmVyIHsKICAgICAgICBiYWNrZ3JvdW5kOiAjOTA5MDkwOwogICAgfQoKCgoKICAgIGJvZHkgewogICAgICAgIGJhY2tncm91bmQ6ICNmZmZmZmY7CiAgICAgICAgZm9udC1zaXplOiAxNHB4OwogICAgICAgIGxpbmUtaGVpZ2h0OjEuODEyNTsKICAgICAgICBmb250LWZhbWlseTogIk1lbmxvIiwgIkFuZGFsZSBNb25vIiwgbW9ub3NwYWNlLCAiRHJvaWQgU2FucyBGYWxsYmFjayIsICJNaWNyb3NvZnQgWWFIZWkiLCBzYW5zLXNlcmlmOwogICAgICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7CiAgICAgICAgY29sb3I6ICMzYzNjM2M7CiAgICAgICAgcGFkZGluZzogMCAzOHB4OwogICAgICAgIG1heC13aWR0aDogODIwcHg7CiAgICAgICAgbWFyZ2luOiAwIGF1dG87CiAgICAgICAgd29yZC13cmFwOmJyZWFrLXdvcmQ7CgogICAgICAgIG92ZXJmbG93LXg6IGhpZGRlbjsKICAgICAgICB0ZXh0LXJlbmRlcmluZzogb3B0aW1pemVMZWdpYmlsaXR5OwogICAgICAgIC13ZWJraXQtdGV4dC1zaXplLWFkanVzdDogbm9uZTsKICAgIH0KCiAgICBicnsKICAgICAgICBsaW5lLWhlaWdodDogMS44MTI1OwogICAgfQoKCgogICAgQG1lZGlhIChtYXgtd2lkdGg6IDYwMHB4KSB7CiAgICAgICAgYm9keXsKICAgICAgICAgICAgcGFkZGluZzogMCAzMHB4OwogICAgICAgIH0KICAgIH0KCiAgICBAbWVkaWEgKG1heC13aWR0aDogNDgwcHgpIHsKICAgICAgICBib2R5ewogICAgICAgICAgICBwYWRkaW5nOiAwIDIwcHg7CiAgICAgICAgfQogICAgfQoKICAgIC5naXN0ewogICAgICAgIHdvcmQtYnJlYWs6IG5vcm1hbDsKICAgIH0KCiAgICAucG9zdHsKICAgICAgICBtYXJnaW4tdG9wOiAxMHB4OwogICAgICAgIG1hcmdpbi1ib3R0b206IDUwcHg7CiAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlOwogICAgfQoKCgogICAgaW1newogICAgICAgIG1heC13aWR0aDogOTglOwogICAgICAgIG1hcmdpbjogMC44ZW0gYXV0byAwLjhlbSBhdXRvOwogICAgICAgIGJvcmRlci1yYWRpdXM6IDVweDsKICAgIH0KCiAgICBoMSBpbWcsIGgyIGltZywgaDMgaW1nLCBoNCBpbWcsIGg1IGltZywgaDYgaW1newogICAgICAgIG1hcmdpbjogYXV0bzsKICAgIH0KCiAgICAueDJfaW1hZ2V7CiAgICAgICAgem9vbTogNTAlOwogICAgfQoKICAgIC54M19pbWFnZXsKICAgICAgICB6b29tOiAzMy4zMyU7CiAgICB9CgogICAgLng0X2ltYWdlewogICAgICAgIHpvb206IDI1JTsKICAgIH0KCgogICAgcCBpbWd7CiAgICAgICAgbWFyZ2luOiAwIGF1dG87CiAgICB9CgogICAgcHsKICAgICAgICB3b3JkLXdyYXA6YnJlYWstd29yZDsKICAgICAgICBvdmVyZmxvdzpoaWRkZW47CiAgICAgICAgbWFyZ2luOiAxLjVlbSAwOwogICAgfQoKICAgIGxpIHB7CiAgICAgICAgbGluZS1oZWlnaHQ6IDEuNjI1OwogICAgICAgIG1hcmdpbjogMDsKICAgIH0KCiAgICAucF9wYXJ0IHsKICAgICAgICBtYXJnaW46IDEwcHggMDsKICAgIH0KCiAgICAucF9wYXJ0IHB7CiAgICAgICAgbWFyZ2luOiAwIDAgMC42ZW0gMDsKICAgIH0KCiAgICAvKiB0ZXh0IGluZGVudCBmb3IgY2hpbmVzZSBzdGFydHMqLwogICAgLypoMiwgaDMsIGg0LCBoNSwgaDYsIC5wX3BhcnQgcCwgLnRvZG9faXRlbSwgcHsKICAgICAgICB0ZXh0LWluZGVudDogMHB4OwogICAgfSovCiAgICB0YWJsZSwgcHJlLCBzdmcsIC5jb2RlaGlsaXRldGFibGV7CiAgICAgICAgbWFyZ2luLWxlZnQ6IDBweDsKICAgICAgICBtYXJnaW4tcmlnaHQ6IDBweDsKICAgIH0KCiAgICAuY29kZWhpbGl0ZXRhYmxlIHByZXsKICAgICAgICBtYXJnaW4tbGVmdDogMDsKICAgICAgICBtYXJnaW4tcmlnaHQ6IDA7CgogICAgfQoKICAgIC5jb2RlaGlsaXRldGFibGUgLmNvZGVoaWxpdGUgcHJlewogICAgICAgIGJvcmRlci1sZWZ0OiBub25lOwogICAgfQoKICAgIC8qIHRleHQgaW5kZW50IGZvciBjaGluZXNlIGVuZHMqLwoKCiAgICBibG9ja3F1b3RlIC5wX3BhcnQgcCwgbGkgLnBfcGFydCBwewogICAgICAgIHRleHQtaW5kZW50OiAwICFpbXBvcnRhbnQ7CiAgICB9CgoKICAgIGhyewogICAgICAgIG1hcmdpbjogMzhweCAwOwogICAgICAgIGJvcmRlcjogbm9uZTsKICAgICAgICBib3JkZXItYm90dG9tOiAxcHggZGFzaGVkICNlM2UzZTM7CiAgICAgICAgY29sb3I6ICNlM2UzZTM7CiAgICAgICAgaGVpZ2h0OiAxcHg7CiAgICAgICAgbGluZS1oZWlnaHQ6MXB4OwogICAgICAgIGZvbnQtc2l6ZToxcHg7CiAgICAgICAgb3ZlcmZsb3c6IGhpZGRlbjsKICAgIH0KCgogICAgaDF7CiAgICAgICAgY29sb3I6ICMxMGEzZWU7CiAgICAgICAgZm9udC1zaXplOiAxLjdlbTsKICAgICAgICB0ZXh0LWFsaWduOiBsZWZ0OwogICAgICAgIG1hcmdpbjogMDsKICAgICAgICBwYWRkaW5nOiAwOwogICAgICAgIGxpbmUtaGVpZ2h0OiAxLjZlbTsKICAgICAgICBtYXJnaW4tdG9wOiAwLjhlbTsKICAgICAgICBtYXJnaW4tYm90dG9tOiAwLjZlbTsKICAgIH0KCiAgICBoMSwgaDIsIGgzLCBoNHsKICAgICAgICBjb2xvcjogIzEwYTNlZTsKICAgIH0KCiAgICBoMSwgaDIsIGgzewogICAgICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7CiAgICB9CgogICAgaDIsIGgzewogICAgICAgIGxpbmUtaGVpZ2h0OiAxLjVlbTsKICAgICAgICBtYXJnaW4tdG9wOiAxLjVlbTsKICAgICAgICBtYXJnaW4tYm90dG9tOiAwLjhlbTsKICAgIH0KCiAgICBoMiB7CiAgICAgICAgZm9udC1zaXplOiAxLjQ1ZW07CiAgICB9CgogICAgaDMgewogICAgICAgIGZvbnQtc2l6ZTogMS4yNWVtCiAgICB9CgoKICAgIG9sIHsKICAgICAgICBtYXJnaW46IDA7CiAgICB9CgogICAgdWx7CiAgICAgICAgcGFkZGluZzogNXB4IDM4cHg7CiAgICAgICAgbWFyZ2luOiAwOwogICAgfQoKICAgIHVsIGxpLCBsaXsKICAgICAgICBwYWRkaW5nOiAwOwogICAgICAgIG1hcmdpbjogMDsKICAgIH0KCiAgICB1bCBwLCBvbCBwewogICAgICAgIG92ZXJmbG93OiB2aXNpYmxlOwogICAgfQoKCiAgICBibG9ja3F1b3RlIHsKICAgICAgICAtbW96LWJveC1zaXppbmc6IGJvcmRlci1ib3g7CiAgICAgICAgYm94LXNpemluZzogYm9yZGVyLWJveDsKICAgICAgICBtYXJnaW46IDEuNmVtIDA7CiAgICAgICAgcGFkZGluZzogMCAwIDAgMS4yZW07CiAgICAgICAgYm9yZGVyLWxlZnQ6IDAuNGVtIHNvbGlkICNkZGRkZGQ7CiAgICAgICAgY29sb3I6ICM4ODg4ODg7CiAgICAgICAgbWluLWhlaWdodDoyMHB4OwogICAgfQoKCiAgICBibG9ja3F1b3RlIHAgewogICAgICAgIG1hcmdpbjogMC44ZW0gMDsKICAgIH0KCiAgICBibG9ja3F1b3RlIHNwYW4ubWRfbGluZSB7CiAgICAgICAgbWFyZ2luLWJvdHRvbTogMC4yNWVtOwogICAgICAgIG1hcmdpbi10b3A6IDAuMjVlbTsKICAgIH0KCiAgICBibG9ja3F1b3RlIHVsewogICAgICAgIHBhZGRpbmc6IDAgMTVweDsKICAgIH0KCiAgICBibG9ja3F1b3RlIHNtYWxsIHsKICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7CiAgICAgICAgbWFyZ2luOiAwLjhlbSAwIDAuOGVtIDEuNWVtOwogICAgICAgIGZvbnQtc2l6ZTogMC45ZW07CiAgICAgICAgY29sb3I6ICNjY2M7CiAgICB9CgoKCiAgICB0YWJsZSB7CiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7CiAgICAgICAgYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTsKICAgICAgICBib3JkZXItc3BhY2luZzogMDsKICAgICAgICBib3JkZXI6IDFweCBzb2xpZCAjZDlkOWQ5OwogICAgICAgIGJvcmRlci1sZWZ0OiAwOwogICAgICAgIG1hcmdpbi10b3A6IDIwcHg7CiAgICAgICAgbWFyZ2luLWJvdHRvbTogMjBweDsKICAgIH0KCgogICAgdGgsIHRkIHsKICAgICAgICBib3JkZXItbGVmdDogMXB4IHNvbGlkICNkOWQ5ZDk7CiAgICAgICAgcGFkZGluZzogOHB4OwogICAgICAgIGxpbmUtaGVpZ2h0OiAyMHB4OwogICAgICAgIHRleHQtYWxpZ246IGxlZnQ7CiAgICAgICAgdmVydGljYWwtYWxpZ246IHRvcDsKICAgICAgICBib3JkZXItdG9wOiAxcHggc29saWQgI2Q5ZDlkOTsKICAgIH0KCgoKCiAgICBjb2RlewogICAgICAgIGJhY2tncm91bmQ6ICNmNWY1ZjU7CiAgICAgICAgcGFkZGluZzogMCA1cHg7CiAgICAgICAgbWFyZ2luOiAwIDJweDsKICAgIH0KCiAgICBwcmV7CiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2U2ZTZlNjsKICAgICAgICBtYXJnaW4tdG9wOiAxLjJlbTsKICAgICAgICBtYXJnaW4tYm90dG9tOiAxLjJlbTsKICAgICAgICBwYWRkaW5nOiAxNXB4IDEwcHg7CiAgICAgICAgZGlzcGxheTogYmxvY2s7CiAgICAgICAgb3ZlcmZsb3c6IGF1dG87CiAgICAgICAgYmFja2dyb3VuZDogI2Y3ZjdmNzsKICAgICAgICBmb250LXNpemU6IDkwJTsKICAgIH0KCiAgICAud2l0aF9saW5lcyBwcmV7CiAgICAgICAgYm9yZGVyOm5vbmU7CiAgICAgICAgbWFyZ2luLXRvcDogMC4yZW07CiAgICAgICAgbWFyZ2luLWJvdHRvbTogMC4yZW07CiAgICAgICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7CiAgICB9CgogICAgLmlzX2NvZGVfZmlsZSBwcmV7CiAgICAgICAgYm9yZGVyOiBub25lOwogICAgICAgIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50OwogICAgfQoKICAgIC5jb2RlaGlsaXRlIHByZXsKICAgICAgICB3b3JkLXdyYXA6IG5vcm1hbDsKICAgIH0KCiAgICBwcmUgY29kZXsKICAgICAgICBib3JkZXI6bm9uZTsKICAgICAgICBiYWNrZ3JvdW5kOiBub25lOwogICAgICAgIHBhZGRpbmc6IDA7CiAgICAgICAgbWFyZ2luOiAwOwogICAgfQoKICAgIHByZSBwewogICAgICAgIG1hcmdpbjogMDsKICAgICAgICBwYWRkaW5nOiAwOwogICAgfQoKICAgIC5jb2RlaGlsaXRlIHRoLCAuY29kZWhpbGl0ZSB0ZHsKICAgICAgICBsaW5lLWhlaWdodDogMS44ZW07CiAgICB9CgoKICAgIGF7CiAgICAgICAgY29sb3I6ICM0MDgzYzQ7CiAgICAgICAgdGV4dC1kZWNvcmF0aW9uOiBub25lOwogICAgICAgIC8vYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIHRyYW5zcGFyZW50OwogICAgfQoKICAgIGE6aG92ZXJ7CiAgICAgICAgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7CiAgICAgICAgLy9ib3JkZXItYm90dG9tOiAxcHggc29saWQgIzQwODNjNDsKICAgIH0KCiAgICBzdHJvbmcgewogICAgICAgIGNvbG9yOiAjMDAwMDAwOwogICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkOwogICAgfQoKCiAgICAvKiBmb3IgbWFya2Rvd24gKi8KCiAgICAubGluZW5vcyBwcmV7CgkJYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7CgkJYm9yZGVyOiBub25lOwoJfQoJLyoKCS5saW5lbm9zewoJICAgIHBhZGRpbmc6IDAgMCAwIDEwcHg7Cgl9CgkqLwoKICAgIC50b2N7CiAgICAgICAgYmFja2dyb3VuZDogI2ZkZmRmZDsKICAgICAgICBib3JkZXItcmFkaXVzOiA1cHg7CiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2U2ZTZlNjsKICAgICAgICBtYXJnaW46IDI3cHggMCA0N3B4IDA7CiAgICAgICAgcGFkZGluZzogMTBweCAwOwogICAgfQoKICAgIC50b2MgdWx7CiAgICAgICAgLy9wYWRkaW5nOiA1cHggNDJweDsKICAgIH0KCiAgICAudG9jIHVsIGxpewogICAgICAgIHBhZGRpbmc6IDA7CiAgICAgICAgbWFyZ2luOiAwOwogICAgfQogICAgLnRvYyBhewogICAgICAgIGNvbG9yOiAjM2MzYzNjOwogICAgfQoKCgogICAgLnRvZG9faXRlbXsKICAgICAgICBsaXN0LXN0eWxlOiBub25lOwogICAgICAgIG1hcmdpbi1sZWZ0OiAtMS41ZW0KICAgIH0KICAgIC50b2RvX2l0ZW0gLnRvZG9faXRlbSB7CiAgICAgICAgbWFyZ2luLWxlZnQ6IGF1dG87CiAgICB9CgogICAgLnRvZG9fZG9uZV9pdGVtewogICAgICAgIGNvbG9yOiAjOTk5OTk5OwogICAgfQoKICAgIC50b2RvX3VuZG9uZV9pdGVtewogICAgICAgIGNvbG9yOiAjYzg1YTU3OwogICAgfQoKCiAgICB1bCBsaS50b2RvX2l0ZW17CglsaXN0LXN0eWxlLXR5cGU6IG5vbmU7CiAgICB9CgogICAgdWwgbGkudG9kb19pdGVtOmJlZm9yZXsKICAgICAgICBjb250ZW50OiAnXDI3MTUnOwogICAgICAgIHBhZGRpbmctcmlnaHQ6IDAuN2VtOwogICAgICAgIGZvbnQtZmFtaWx5OiBhcmlhbDsKICAgIH0KCiAgICB1bCBsaS50b2RvX2RvbmVfaXRlbTpiZWZvcmV7CiAgICAgICAgY29udGVudDogJ1wyNzEzJzsKICAgICAgICBwYWRkaW5nLXJpZ2h0OiAwLjdlbTsKICAgICAgICBmb250LWZhbWlseTogYXJpYWw7CiAgICB9CgogICAgdWwgbGkudG9kb19pdGVtIGlucHV0ewogICAgICAgIGRpc3BsYXk6bm9uZQogICAgfQoKCiAgICAvKnB5Z21lbnRzKi8KCiAgICAuY29kZWhpbGl0ZXsKICAgICAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudCAhaW1wb3J0YW50OwogICAgfQoKICAgIHRhYmxlLmNvZGVoaWxpdGV0YWJsZXsgYm9yZGVyOm5vbmU7IH0KCgogICAgLmNvZGVoaWxpdGV0YWJsZSB0ZHsgYm9yZGVyOiBub25lOyBwYWRkaW5nOiAwO30KCiAgICAuZmxvdy1ncmFwaGlje3RleHQtYWxpZ246IGNlbnRlcn0KCgogICAgdGFibGUsIHRyLCB0ZCwgdGgsIHRib2R5LCB0aGVhZCwgdGZvb3QsIC5tZF9lY2hhcnRzLCBibG9ja3F1b3RlIC5tZF9saW5lewogICAgICAgIHBhZ2UtYnJlYWstaW5zaWRlOiBhdm9pZCAhaW1wb3J0YW50OwogICAgfQoKICAgIC5mb290bm90ZXMgLm1kX2xpbmV7CiAgICAgICAgZGlzcGxheTogaW5saW5lICFpbXBvcnRhbnQ7CiAgICB9CgoKICAgIC5pbWdfcnRfOTB7CiAgICAgICAgdHJhbnNmb3JtOnJvdGF0ZSg5MGRlZyk7CiAgICAgICAgLW1zLXRyYW5zZm9ybTpyb3RhdGUoOTBkZWcpOwogICAgICAgIC1tb3otdHJhbnNmb3JtOnJvdGF0ZSg5MGRlZyk7CiAgICAgICAgLXdlYmtpdC10cmFuc2Zvcm06cm90YXRlKDkwZGVnKTsKICAgICAgICAtby10cmFuc2Zvcm06cm90YXRlKDkwZGVnKTsKICAgIH0KICAgIC5pbWdfcnRfMTgwewogICAgICAgIHRyYW5zZm9ybTpyb3RhdGUoMTgwZGVnKTsKICAgICAgICAtbXMtdHJhbnNmb3JtOnJvdGF0ZSgxODBkZWcpOwogICAgICAgIC1tb3otdHJhbnNmb3JtOnJvdGF0ZSgxODBkZWcpOwogICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOnJvdGF0ZSgxODBkZWcpOwogICAgICAgIC1vLXRyYW5zZm9ybTpyb3RhdGUoMTgwZGVnKTsKICAgIH0KICAgIC5pbWdfcnRfMjcwewogICAgICAgIHRyYW5zZm9ybTpyb3RhdGUoMjcwZGVnKTsKICAgICAgICAtbXMtdHJhbnNmb3JtOnJvdGF0ZSgyNzBkZWcpOwogICAgICAgIC1tb3otdHJhbnNmb3JtOnJvdGF0ZSgyNzBkZWcpOwogICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOnJvdGF0ZSgyNzBkZWcpOwogICAgICAgIC1vLXRyYW5zZm9ybTpyb3RhdGUoMjcwZGVnKTsKICAgIH0KCiAgICAubWRfaGFzX2Jsb2NrX2JlbG93ewogICAgICAgIG1hcmdpbi1ib3R0b206IDAuMWVtICFpbXBvcnRhbnQ7CiAgICB9CiAgICAubWRfaGFzX2Jsb2NrX2JlbG93X2ltZ3sKICAgICAgICBtYXJnaW4tYm90dG9tOiAtMC42ZW0gIWltcG9ydGFudDsKICAgIH0KCgoKICAgICAgICBzcGFuLm1kX2xpbmV7bWFyZ2luLWJvdHRvbTowLjVlbTsgZGlzcGxheTpibG9jazsgbGluZS1oZWlnaHQ6MS41Njc4MTI1fQogICAgICAgIC5tZF9saW5lIGJyeyBkaXNwbGF5OiBub25lO30KICAgICAgICAuY29kZWhpbGl0ZSAuaGxsIHsgYmFja2dyb3VuZC1jb2xvcjogI2ZmZmZjYyB9Ci5jb2RlaGlsaXRlICB7IGJhY2tncm91bmQ6ICNlZWVlZGQ7IH0KLmNvZGVoaWxpdGUgLmMgeyBjb2xvcjogIzk5OTk5OSB9IC8qIENvbW1lbnQgKi8KLmNvZGVoaWxpdGUgLmVyciB7IGNvbG9yOiAjYTYxNzE3OyBiYWNrZ3JvdW5kLWNvbG9yOiAjZTNkMmQyIH0gLyogRXJyb3IgKi8KLmNvZGVoaWxpdGUgLmsgeyBjb2xvcjogIzhCMDA4QjsgZm9udC13ZWlnaHQ6IGJvbGQgfSAvKiBLZXl3b3JkICovCi5jb2RlaGlsaXRlIC5uIHsgY29sb3I6ICM1NTU1NTUgfSAvKiBOYW1lICovCi5jb2RlaGlsaXRlIC5vIHsgY29sb3I6ICM1NTU1NTUgfSAvKiBPcGVyYXRvciAqLwouY29kZWhpbGl0ZSAucCB7IGNvbG9yOiAjNTU1NTU1IH0gLyogUHVuY3R1YXRpb24gKi8KLmNvZGVoaWxpdGUgLmNtIHsgY29sb3I6ICM5OTk5OTkgfSAvKiBDb21tZW50Lk11bHRpbGluZSAqLwouY29kZWhpbGl0ZSAuY3AgeyBjb2xvcjogIzFlODg5YiB9IC8qIENvbW1lbnQuUHJlcHJvYyAqLwouY29kZWhpbGl0ZSAuYzEgeyBjb2xvcjogIzk5OTk5OSB9IC8qIENvbW1lbnQuU2luZ2xlICovCi5jb2RlaGlsaXRlIC5jcyB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIENvbW1lbnQuU3BlY2lhbCAqLwouY29kZWhpbGl0ZSAuZ2QgeyBjb2xvcjogI2FhMDAwMCB9IC8qIEdlbmVyaWMuRGVsZXRlZCAqLwouY29kZWhpbGl0ZSAuZ2UgeyBmb250LXN0eWxlOiBpdGFsaWMgfSAvKiBHZW5lcmljLkVtcGggKi8KLmNvZGVoaWxpdGUgLmdyIHsgY29sb3I6ICNhYTAwMDAgfSAvKiBHZW5lcmljLkVycm9yICovCi5jb2RlaGlsaXRlIC5naCB7IGNvbG9yOiAjMDAwMDgwOyBmb250LXdlaWdodDogYm9sZCB9IC8qIEdlbmVyaWMuSGVhZGluZyAqLwouY29kZWhpbGl0ZSAuZ2kgeyBjb2xvcjogIzAwYWEwMCB9IC8qIEdlbmVyaWMuSW5zZXJ0ZWQgKi8KLmNvZGVoaWxpdGUgLmdvIHsgY29sb3I6ICM4ODg4ODggfSAvKiBHZW5lcmljLk91dHB1dCAqLwouY29kZWhpbGl0ZSAuZ3AgeyBjb2xvcjogIzU1NTU1NSB9IC8qIEdlbmVyaWMuUHJvbXB0ICovCi5jb2RlaGlsaXRlIC5ncyB7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogR2VuZXJpYy5TdHJvbmcgKi8KLmNvZGVoaWxpdGUgLmd1IHsgY29sb3I6ICM4MDAwODA7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogR2VuZXJpYy5TdWJoZWFkaW5nICovCi5jb2RlaGlsaXRlIC5ndCB7IGNvbG9yOiAjYWEwMDAwIH0gLyogR2VuZXJpYy5UcmFjZWJhY2sgKi8KLmNvZGVoaWxpdGUgLmtjIHsgY29sb3I6ICM4QjAwOEI7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogS2V5d29yZC5Db25zdGFudCAqLwouY29kZWhpbGl0ZSAua2QgeyBjb2xvcjogIzhCMDA4QjsgZm9udC13ZWlnaHQ6IGJvbGQgfSAvKiBLZXl3b3JkLkRlY2xhcmF0aW9uICovCi5jb2RlaGlsaXRlIC5rbiB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIEtleXdvcmQuTmFtZXNwYWNlICovCi5jb2RlaGlsaXRlIC5rcCB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIEtleXdvcmQuUHNldWRvICovCi5jb2RlaGlsaXRlIC5rciB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIEtleXdvcmQuUmVzZXJ2ZWQgKi8KLmNvZGVoaWxpdGUgLmt0IHsgY29sb3I6ICNhN2E3YTc7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogS2V5d29yZC5UeXBlICovCi5jb2RlaGlsaXRlIC5tIHsgY29sb3I6ICNCNDUyQ0QgfSAvKiBMaXRlcmFsLk51bWJlciAqLwouY29kZWhpbGl0ZSAucyB7IGNvbG9yOiAjQ0Q1NTU1IH0gLyogTGl0ZXJhbC5TdHJpbmcgKi8KLmNvZGVoaWxpdGUgLm5hIHsgY29sb3I6ICM2NThiMDAgfSAvKiBOYW1lLkF0dHJpYnV0ZSAqLwouY29kZWhpbGl0ZSAubmIgeyBjb2xvcjogIzY1OGIwMCB9IC8qIE5hbWUuQnVpbHRpbiAqLwouY29kZWhpbGl0ZSAubmMgeyBjb2xvcjogIzAwOGI0NTsgZm9udC13ZWlnaHQ6IGJvbGQgfSAvKiBOYW1lLkNsYXNzICovCi5jb2RlaGlsaXRlIC5ubyB7IGNvbG9yOiAjMDA2ODhCIH0gLyogTmFtZS5Db25zdGFudCAqLwouY29kZWhpbGl0ZSAubmQgeyBjb2xvcjogIzcwN2E3YyB9IC8qIE5hbWUuRGVjb3JhdG9yICovCi5jb2RlaGlsaXRlIC5uaSB7IGNvbG9yOiAjNTU1NTU1IH0gLyogTmFtZS5FbnRpdHkgKi8KLmNvZGVoaWxpdGUgLm5lIHsgY29sb3I6ICMwMDhiNDU7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogTmFtZS5FeGNlcHRpb24gKi8KLmNvZGVoaWxpdGUgLm5mIHsgY29sb3I6ICMwMDhiNDUgfSAvKiBOYW1lLkZ1bmN0aW9uICovCi5jb2RlaGlsaXRlIC5ubCB7IGNvbG9yOiAjNTU1NTU1IH0gLyogTmFtZS5MYWJlbCAqLwouY29kZWhpbGl0ZSAubm4geyBjb2xvcjogIzAwOGI0NTsgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmUgfSAvKiBOYW1lLk5hbWVzcGFjZSAqLwouY29kZWhpbGl0ZSAubnggeyBjb2xvcjogIzU1NTU1NSB9IC8qIE5hbWUuT3RoZXIgKi8KLmNvZGVoaWxpdGUgLnB5IHsgY29sb3I6ICM1NTU1NTUgfSAvKiBOYW1lLlByb3BlcnR5ICovCi5jb2RlaGlsaXRlIC5udCB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIE5hbWUuVGFnICovCi5jb2RlaGlsaXRlIC5udiB7IGNvbG9yOiAjMDA2ODhCIH0gLyogTmFtZS5WYXJpYWJsZSAqLwouY29kZWhpbGl0ZSAub3cgeyBjb2xvcjogIzhCMDA4QiB9IC8qIE9wZXJhdG9yLldvcmQgKi8KLmNvZGVoaWxpdGUgLncgeyBjb2xvcjogI2JiYmJiYiB9IC8qIFRleHQuV2hpdGVzcGFjZSAqLwouY29kZWhpbGl0ZSAubWIgeyBjb2xvcjogI0I0NTJDRCB9IC8qIExpdGVyYWwuTnVtYmVyLkJpbiAqLwouY29kZWhpbGl0ZSAubWYgeyBjb2xvcjogI0I0NTJDRCB9IC8qIExpdGVyYWwuTnVtYmVyLkZsb2F0ICovCi5jb2RlaGlsaXRlIC5taCB7IGNvbG9yOiAjQjQ1MkNEIH0gLyogTGl0ZXJhbC5OdW1iZXIuSGV4ICovCi5jb2RlaGlsaXRlIC5taSB7IGNvbG9yOiAjQjQ1MkNEIH0gLyogTGl0ZXJhbC5OdW1iZXIuSW50ZWdlciAqLwouY29kZWhpbGl0ZSAubW8geyBjb2xvcjogI0I0NTJDRCB9IC8qIExpdGVyYWwuTnVtYmVyLk9jdCAqLwouY29kZWhpbGl0ZSAuc2IgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkJhY2t0aWNrICovCi5jb2RlaGlsaXRlIC5zYyB7IGNvbG9yOiAjQ0Q1NTU1IH0gLyogTGl0ZXJhbC5TdHJpbmcuQ2hhciAqLwouY29kZWhpbGl0ZSAuc2QgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkRvYyAqLwouY29kZWhpbGl0ZSAuczIgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkRvdWJsZSAqLwouY29kZWhpbGl0ZSAuc2UgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkVzY2FwZSAqLwouY29kZWhpbGl0ZSAuc2ggeyBjb2xvcjogIzFjN2U3MTsgZm9udC1zdHlsZTogaXRhbGljIH0gLyogTGl0ZXJhbC5TdHJpbmcuSGVyZWRvYyAqLwouY29kZWhpbGl0ZSAuc2kgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkludGVycG9sICovCi5jb2RlaGlsaXRlIC5zeCB7IGNvbG9yOiAjY2I2YzIwIH0gLyogTGl0ZXJhbC5TdHJpbmcuT3RoZXIgKi8KLmNvZGVoaWxpdGUgLnNyIHsgY29sb3I6ICMxYzdlNzEgfSAvKiBMaXRlcmFsLlN0cmluZy5SZWdleCAqLwouY29kZWhpbGl0ZSAuczEgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLlNpbmdsZSAqLwouY29kZWhpbGl0ZSAuc3MgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLlN5bWJvbCAqLwouY29kZWhpbGl0ZSAuYnAgeyBjb2xvcjogIzY1OGIwMCB9IC8qIE5hbWUuQnVpbHRpbi5Qc2V1ZG8gKi8KLmNvZGVoaWxpdGUgLnZjIHsgY29sb3I6ICMwMDY4OEIgfSAvKiBOYW1lLlZhcmlhYmxlLkNsYXNzICovCi5jb2RlaGlsaXRlIC52ZyB7IGNvbG9yOiAjMDA2ODhCIH0gLyogTmFtZS5WYXJpYWJsZS5HbG9iYWwgKi8KLmNvZGVoaWxpdGUgLnZpIHsgY29sb3I6ICMwMDY4OEIgfSAvKiBOYW1lLlZhcmlhYmxlLkluc3RhbmNlICovCi5jb2RlaGlsaXRlIC5pbCB7IGNvbG9yOiAjQjQ1MkNEIH0gLyogTGl0ZXJhbC5OdW1iZXIuSW50ZWdlci5Mb25nICov">
+    <!--header_scripts-->
+</head>
+<body>
+
+
+<div class="post">
+
+    <div class="post_body">
+    <p>2016年10月15日 下午 2:27:03 dong4j </p>
+        <h1 id="toc_0">Intellij IDEA</h1>
+
+<h2 id="toc_1">安装</h2>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">2015版破解 <br /></span>
+    <span class="md_line md_line_dom_embed"><strong>第一种</strong></span>
+</p>
+
+
+<ol>
+<li>Download http://15.idea.lanyus.com/jar/IdeaPatch.jar</li>
+<li>Copy C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0\lib\idea.jar to D:\idea.jar</li>
+<li>Run the jar,by &quot;java -jar IdeaPatch.jar&quot;</li>
+<li>Input the idea.jar path &quot;D:\idea.jar&quot;</li>
+<li>Copy D:\idea.jar to C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0\lib\idea.jar</li>
+<li>Run idea,and choose &quot;Activation code&quot;,and input the code </li>
+</ol>
+
+<p class="md_block">
+    <span class="md_line">you can get code from http://15.idea.lanyus.com/<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-07_22-48-59_zpsrtbyzhod.png" alt="enter image description here" title="" ></span>
+</p>
+
+ <strong>第二种</strong>
+注册码可以沿用14的,
+只是在 注册时选择 License server ，
+填 http://idea.lanyus.com ，然后点击 OK
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-07_22-54-11_zpswxei82kw.png" alt="enter image description here" title="" >
+<p class="md_block">
+    <span class="md_line">这种方式需要在线验证,效果没有第一种好,这个网站经常挂掉.</span>
+</p>
+
+
+<h2 id="toc_2">配置</h2>
+
+<ul>
+<li>Settings: IDEA主要配置</li>
+<li>Plugins: 插件管理</li>
+<li>Import Settings: 导入配置文件</li>
+<li>Export Settings: 导出配置文件(jar)</li>
+<li>Project Defaults:项目配置(SDK Server等配置),可以在创建项目后再配置</li>
+</ul>
+
+<h3 id="toc_3">Setting配置</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">快捷键:Ctrl+Alt+S<br /></span>
+    <span class="md_line">1.Appearance &amp; Behavior</span>
+</p>
+
+
+<ul>
+<li>Appearance 外观设置 </li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-07_23-20-55_zpsc5ubfwn6.png" alt="enter image description here" title="" >
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-07_23-14-58_zpszb6jwdsa.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">点击后可以释放内存</span>
+</p>
+
+
+<ul>
+<li>Menus and Toolbars 菜单和工具栏设置</li>
+<li>System Settings 系统设置
+
+<ul>
+<li>Passwords 密码设置  连接数据库是需要使用</li>
+<li>HTTP Proxy 代理设置 rest client工具可以使用</li>
+<li>Updates 更新</li>
+<li>Usage Statistice  反馈</li>
+</ul></li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line">2.Keymap 快捷键个性设置<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-07_23-31-08_zpsmeywjmly.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">可以选择Eclipse方案</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">3.Editor 编辑器设置</span>
+</p>
+
+
+<ul>
+<li>
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">显示行号和分割方法</span>
+</p>
+
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-07_23-40-40_zpst7exbbp9.png" alt="enter image description here" title="" ></li>
+<li>
+<p class="md_block">
+    <span class="md_line">自动提示</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-07_23-45-32_zps9eiiwoma.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">All比较慢,None大小写都提示,Firstletter根据第一个字母大小写提示</span>
+</p></li>
+<li>
+<p class="md_block">
+    <span class="md_line">Tabs设置</span>
+</p></li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-07_23-56-11_zpstvqurrlx.png" alt="enter image description here" title="" >
+<pre><code>- 分割方法
+
+![enter image description here](http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_00-17-43_zpst4ruijjn.png)</code></pre>
+
+<!--block_code_end-->
+<ul>
+<li>自动包裹字符串</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_00-04-56_zpsitgdqukt.png" alt="enter image description here" title="" >
+<pre><code>- 演示:</code></pre>
+
+<!--block_code_end--><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_00-13-20_zpshbt4yjz3.gif" alt="enter image description here" title="" >
+<ul>
+<li>postfix completion 后缀自动补全</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_00-20-07_zpsfn00kb1n.png" alt="enter image description here" title="" >
+<pre><code>- 演示:
+
+![enter image description here](http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_00-33-49_zpscdeqne7h.gif)
+这里使用到的快捷键:
+
+
+- tab 自动完成
+- Ctrl + D 快速复制当前光标所在行内容到下一行
+- Shift + Enter 快速换行</code></pre>
+
+<!--block_code_end-->
+<ul>
+<li>字体 &amp; 颜色设置</li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_00-41-42_zpsvy4cak2c.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">设置字体,主题,快捷键方案和自定义格式化样式都必须先copy一份才能自定义</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">资源: <img onerror="this.src='file:///Users/codeai/Documents/MyFiles/FarBox/codeai.farbox.com/tools/font.rar';this.onerror=null;"  class="" src="/farbox/tools/font.rar" alt="Alt text" title="" ></span>
+</p>
+
+
+<ul>
+<li>
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">编码设置</span>
+</p>
+
+
+<ul>
+<li>默认编码设置 </li>
+<li>File --&gt; Other Settings --&gt; Default Settings --&gt;搜索encoding </li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_00-49-09_zps9oimzhlw.png" alt="enter image description here" title="" >
+<ul>
+<li>可以单独为不同的项目设置编码</li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line">File --&gt; Other Settings --&gt; Default Project Structure --&gt; 搜索encoding <br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_00-52-01_zpszyohjyeo.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">Configure Plugins 是插件设置向导</span>
+</p></li>
+</ul>
+
+<h3 id="toc_4">其他功能与设置</h3>
+
+<ol>
+<li>同时打开多个窗口</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">选择要打开的项目,会弹出窗口让你选择在现在这个窗口打开还是新建一个窗口<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_01-15-37_zpsxprzfrzt.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<ol>
+<li>
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">在同一个窗口浏览不同文件</span>
+</p>
+
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_01-21-51_zpsuhxp0zrd.png" alt="enter image description here" title="" >
+效果:
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_01-21-26_zpseufhag7q.png" alt="enter image description here" title="" ></li>
+<li>
+<p class="md_block">
+    <span class="md_line">直接打开github上的项目</span>
+</p></li>
+<li>
+<p class="md_block">
+    <span class="md_line">将现在常用的文件保存到一个列表中,以后一次全部打开</span>
+</p></li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_01-23-49_zpsfcmzqlfg.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">Alt+2打开收藏的列表<br /></span>
+    <span class="md_line">F11 添加书签 <br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-08_01-31-47_zpspza6jdyk.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">上述快捷键和方法能快速进入上一次工作现场</span>
+</p>
+
+
+<ol>
+<li>导入/出配置文件,同步配置文件</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">File--&gt;Export/Import Settings <br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-09-06_zpsbbk7bud5.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<ol>
+<li>REST Client</li>
+</ol>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-06-57_zpsojq4quja.png" alt="enter image description here" title="" >
+<ol>
+<li>本地历史记录</li>
+</ol>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_16-59-29_zpsuglslcgz.png" alt="enter image description here" title="" >
+<ol>
+<li>命令行工具</li>
+</ol>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_16-57-18_zpslsen9ox6.png" alt="enter image description here" title="" >
+<ol>
+<li>文件/文件夹对比(diff)</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">在需要对比的文件/文件夹上右键Compare With.. 或者Ctrl+D<br /></span>
+    <span class="md_line">然后选择要对比的文件/文件夹<br /></span>
+    <span class="md_line">文件对比<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-22-26_zps2calks5k.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">文件夹对比<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-30-58_zps4zfkkpxc.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<ol>
+<li>版本控制</li>
+<li>开始版本控制</li>
+</ol>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-35-40_zpsfdcz70kj.png" alt="enter image description here" title="" >
+这里我选择的了git
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-35-54_zps7sxrlhx7.png" alt="enter image description here" title="" >
+<ul>
+<li>新建.gitignore,编写.gitignore文件排除不需要提交的文件或文件夹</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-36-57_zpsbdr7ruly.png" alt="enter image description here" title="" >
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-46-19_zpsneyuftkc.png" alt="enter image description here" title="" >
+<ul>
+<li>将项目添加到版本控制</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-47-00_zps0weczqsl.png" alt="enter image description here" title="" >
+<ul>
+<li>提交</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-48-54_zpsxc6okt5q.png" alt="enter image description here" title="" >
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">如果有改动而且未提交时,文件颜色会改变,如果想文件夹颜色也改变,可以在Settings中设置<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-00-15_zpsdk2z049t.png" alt="enter image description here" title="" ></span>
+</p>
+
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_17-54-10_zps8urvesaq.png" alt="enter image description here" title="" >
+<ul>
+<li>去掉版本控制</li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line">先在IDEA中删除版本控制<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-02-46_zpshmuxa4zp.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">然后在资源管理器中删除.git这个隐藏文件夹</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">11.类之间的对应关系 <br /></span>
+    <span class="md_line">在需要查看UML的类上右键<br /></span>
+    <span class="md_line">Diagrams--&gt;show Diagram<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-11_01-54-12_zpsgssouevt.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">也可以看表之间的关系<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-11_01-55-04_zps3de510nu.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">可以将UML图导出为图片格式保存</span>
+</p>
+
+
+<h3 id="toc_5">性能优化</h3>
+
+<ol>
+<li>如果有杀毒软件,请排除掉项目目录</li>
+<li>使用最新版 15.0.2</li>
+<li>关闭不认识的插件</li>
+<li>Project下的文件不要太多,否则会有大量的I/O</li>
+<li>Excluded掉无需索引的目录</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">因为默认的idea会将所有文件都当成project的文件，而其实我们需要在idea里编辑的基本都是程序文件。而 class文件、jar文件、doc文件等等都是不需要的。打开module setting界面，切换到source选项把不属于程序文件的都exclude掉，大大降低idea的负荷。<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_16-03-22_zpseleevhmb.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<ol>
+<li>关掉版本控制</li>
+<li>升级硬件 SSD</li>
+<li>
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">内存优化</span>
+</p>
+
+
+<ul>
+<li>安装的时候快捷方式默认是打开32的IDEA,我们可以重新新建一个快捷方式,打开64位IDEA,15版的启动界面有bug,所以我选择去掉启动界面</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_16-05-06_zpsy7rlwpr7.png" alt="enter image description here" title="" >
+快捷键设置:<code>D:\develop\IdeaIU_15\IntelliJ_15\bin\idea64.exe nosplash</code>
+<ul>
+<li>
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">参数设置:</span>
+</p>
+
+
+<ul>
+<li>修改最大最小内存</li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line">idea64.exe.vmoptions</span>
+</p></li>
+</ul></li>
+</ol>
+
+<pre><code>-Xms400m
+-Xmx1024m
+-XX:MaxPermSize=350m
+-XX:ReservedCodeCacheSize=240m
+-XX:+UseConcMarkSweepGC
+-XX:SoftRefLRUPolicyMSPerMB=50
+-ea
+-Dsun.io.useCanonCaches=false
+-Djava.net.preferIPv4Stack=true
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:-OmitStackTraceInFastThrow
+-Dfile.encoding=UTF-8 //解决log为中文的乱码问题</code></pre>
+
+<!--block_code_end-->
+<ol>
+<li>将C盘的配置文件迁移到其他盘</li>
+</ol>
+
+<p class="md_block">
+    <span class="md_line">当打开一个新项目时会在C盘的.IntelliJIdea目录下新建索引,时间一长,体积会越来越大,所以我将.IntelliJIdea文件迁移到D盘,只需要修改idea.properties文件即可</span>
+</p>
+
+
+<pre><code>#---------------------------------------------------------------------
+# Uncomment this option if you want to customize path to IDE config folder. Make sure you're using forward slashes.
+#---------------------------------------------------------------------
+idea.config.path=D:/develop/IdeaIU_15/.IntelliJIdea/config
+
+#---------------------------------------------------------------------
+# Uncomment this option if you want to customize path to IDE system folder. Make sure you're using forward slashes.
+#---------------------------------------------------------------------
+idea.system.path=D:/develop/IdeaIU_15/.IntelliJIdea/system
+
+#---------------------------------------------------------------------
+# Uncomment this option if you want to customize path to user installed plugins folder. Make sure you're using forward slashes.
+#---------------------------------------------------------------------
+idea.plugins.path=D:/develop/IdeaIU_15/.IntelliJIdea/plugins
+
+#---------------------------------------------------------------------
+# Uncomment this option if you want to customize path to IDE logs folder. Make sure you're using forward slashes.
+#---------------------------------------------------------------------
+idea.log.path=D:/develop/IdeaIU_15/.IntelliJIdea/log</code></pre>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">这样修改后必须重启IDEA,然后在C盘的.IntelliJIdea文件夹会被移动到D盘对应目录下</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">也可以在IDEA中选择是否清除所有缓存和索引<br /></span>
+    <span class="md_line">File--&gt;Invalidate Caches<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_16-16-42_zpsfblkx25x.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<ol>
+<li>关闭拼写检查功能</li>
+</ol>
+
+<p class="md_block">
+    <span class="md_line">File--&gt;Settings--&gt;Editor--&gt;Inspections--&gt;Project Default/Default--&gt;Spelling--&gt;Typo</span>
+</p>
+
+
+<h2 id="toc_6">建立Java Web项目</h2>
+
+<h3 id="toc_7">IDEA和Eclipse对比</h3>
+
+<p class="md_block">
+    <span class="md_line">|..|工作空间|工作目录|<br /></span>
+    <span class="md_line">|:--|:--||:--|:--|<br /></span>
+    <span class="md_line">|IDEA|Project|Module|<br /></span>
+    <span class="md_line">|Eclipse|WorkSpace|Project|</span>
+</p>
+
+
+<h3 id="toc_8">创建一个非Maven版的Java Web项目</h3>
+
+<ol>
+<li>new peoject</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-32-01_zpshfbhrxlo.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">选择一个空的项目(Empty Project),以后好添加模块</span>
+</p>
+
+
+<ol>
+<li>输入项目名和项目保存路径</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-33-29_zpsfyll4q8l.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">Finish完成<br /></span>
+    <span class="md_line">然后会自动弹出创建Modules的配置页面</span>
+</p>
+
+
+<ol>
+<li>选择Modules,点击&quot;+&quot;新建Module,可以选择导入现有的Module或者新建一个Module,我选择新建一个</li>
+</ol>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-37-11_zps3j52lazd.png" alt="enter image description here" title="" >
+<ol>
+<li>选择Java Enterprise中的Web Application创建一个Web模块</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-39-36_zpsekvr5fkx.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">Finish完成,然后做Module配置</span>
+</p>
+
+
+<ol>
+<li>配置class文件输出路径和lib路径</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">在WEB-INF目录下新建classes和lib文件夹<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-42-51_zpshzcmkwl5.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<ol>
+<li>配置class输出路径,将lib文件夹添加到构建路径中</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">(选中Module名按F4进入Project Structure设置页面)</span>
+</p>
+
+
+<ul>
+<li>设置class输出路径</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-45-38_zpsivlkiepz.png" alt="enter image description here" title="" >
+<ul>
+<li>添加lib文件夹到构建路径中</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-48-00_zpsopkywuij.png" alt="enter image description here" title="" >
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-48-29_zpscwpqtf0e.png" alt="enter image description here" title="" >
+<ul>
+<li>配置TomCat</li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line">1.添加tomcat包<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-48-44_zpsl4v5hrpu.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-49-03_zpsmevseyow.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">2.配置Tomcat服务器<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_18-59-03_zpstl4kzeg4.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">有个错误,没关系 Fix修复一下<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_19-07-19_zpsb91sqh2w.png" alt="enter image description here" title="" ></span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">最后启动服务器运行一下<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_19-09-50_zpsouebzm0y.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">成功</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">项目导出为war</span>
+</p>
+
+
+<ul>
+<li>如果添加了Maven支持，则项目右侧</li>
+</ul>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">Maven Projects -&gt; Spring MVC Application -&gt; Lifecycle -&gt; package,会在target目录下生成war</span>
+</p>
+
+
+<ul>
+<li>
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">如果没有添加Maven支持</span>
+</p>
+
+
+<ul>
+<li>第一步</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_16-37-52_zpsxeuzgbs2.png" alt="enter image description here" title="" >
+<ul>
+<li>第二步</li>
+</ul>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_16-39-11_zpsxbn3be9l.png" alt="enter image description here" title="" >
+<ul>
+<li>第三步</li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_16-39-24_zpsmqujeifb.png" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">然后会在target目录下生成vcat-api.war</span>
+</p></li>
+</ul>
+
+<h2 id="toc_9">常用快捷键</h2>
+
+<p class="md_block">
+    <span class="md_line">==Ctrl==<br /></span>
+    <span class="md_line">Ctrl + Y 删除行<br /></span>
+    <span class="md_line">ctrl + X 剪切行<br /></span>
+    <span class="md_line">Ctrl + N 查找类<br /></span>
+    <span class="md_line">Ctrl + R 替换<br /></span>
+    <span class="md_line">Ctrl + O 选择可覆盖/继承的方法<br /></span>
+    <span class="md_line">Ctrl + F 当前代码（文件）中查找<br /></span>
+    <span class="md_line">Ctrl + J 自动代码提示（提示的是自己定义的代码格式）<br /></span>
+    <span class="md_line">Ctrl + D 复制行或是块(默认是这个意思)(但是我一般习惯改成专门复制行,不包括块,搜索Duplicate Lines)<br /></span>
+    <span class="md_line">Ctrl + P 方法参数提示显示<br /></span>
+    <span class="md_line">Ctrl + W 选中光标所在的单词 ，连续按会有其他效果 (相反的是Ctrl+Shift+W)<br /></span>
+    <span class="md_line">Ctrl + Q 鼠标放在变量/类名/方法名等上面（也可以在提示补充的时候按），显示文档内容，同类似的功能还有一个Ctrl + Shift + I<br /></span>
+    <span class="md_line">Ctrl + B 快速打开光标处的类或方法（对于前端支持很好,比如可以直接通过class的name定位到css的文件位置）(等同于ctrl+光标指向)<br /></span>
+    <span class="md_line">Ctrl + E 最近打开的文件<br /></span>
+    <span class="md_line">Ctrl + U 前往父类的方法/父类<br /></span>
+    <span class="md_line">Ctrl + K VCS提交项目<br /></span>
+    <span class="md_line">Ctrl + T VCS更新项目<br /></span>
+    <span class="md_line">Ctrl + G 跳到指定行<br /></span>
+    <span class="md_line">Ctrl + H 显示类层次图<br /></span>
+    <span class="md_line">Ctrl + F1 显示错误<br /></span>
+    <span class="md_line">Ctrl + F3 调转到所选中的词的下一个同名位置<br /></span>
+    <span class="md_line">Ctrl + F9 编译<br /></span>
+    <span class="md_line">Ctrl - F12 当前编辑的文件中快速导航(可以直接键入字母，IntelliJ IDEA会筛选你输入的来匹配对应是否有的方法，来快速定位)(类似结构图)<br /></span>
+    <span class="md_line">Ctrl + F11 弹出一个小框来指定式添加书签(可以对文件或文件夹起作用)<br /></span>
+    <span class="md_line">Ctrl + Tab 编辑窗口切换 (如果在切换的过程又加按上delete,则是关闭对应选中的窗口)<br /></span>
+    <span class="md_line">Ctrl + delete 删除光标后面的单词<br /></span>
+    <span class="md_line">Ctrl + home/end 跳到文件头文件尾<br /></span>
+    <span class="md_line">Ctrl + BackSpace 删除光标前面的单词<br /></span>
+    <span class="md_line">Ctrl + [ 或 ] 移动光标到块的初/末括号地方<br /></span>
+    <span class="md_line">Ctrl + / 或 Ctrl+Shift+/ 注释（// 或者/<em>...</em>/ ）<br /></span>
+    <span class="md_line">Ctrl + 1，2，3，4.... 快速定位到书签代码处(必须先Ctrl+Shift+1,2,3,4...添加书签)<br /></span>
+    <span class="md_line">Ctrl + 空格 代码补全提示(因为windows默认被输入法给占用了,可以自己更改下)<br /></span>
+    <span class="md_line">Ctrl + 小键盘+/- 折叠/展开代码<br /></span>
+    <span class="md_line">Ctrl + 鼠标单击编辑窗口的文件标题    弹出该文件路径,可以通过这个打开文件所在地方(相当于Ctrl+alt+F12)<br /></span>
+    <span class="md_line">Ctrl + 方向左/右 光标跳到上/下个单词<br /></span>
+    <span class="md_line">Ctrl + 方向上/下 相当于你用鼠标滑滚轮(为了方便鼠标党)</span>
+</p>
+
+
+<h1 id="toc_10"></h1>
+
+<p class="md_block">
+    <span class="md_line">==Alt==<br /></span>
+    <span class="md_line">Alt + 1 打开/关闭project选项卡 <br /></span>
+    <span class="md_line">Alt + <code></code>这个键是Tab上面那个，按下之后，如果项目有版本控制，则显示常用的版本控制命令<br /></span>
+    <span class="md_line">Alt + A 在SVN中把新创建的文件加入进来（自己添加，在Subversion类别）<br /></span>
+    <span class="md_line">Alt + Q 查看方法的声明(在左上角出现一个Tip层提示)，你无需滚动上去查看<br /></span>
+    <span class="md_line">Alt + F1 弹出文件选择目标，这个很好用的<br /></span>
+    <span class="md_line">Alt + F2 多个浏览器预览<br /></span>
+    <span class="md_line">Alt + F3 选中文本，逐个往下查找相同文本，并高亮显示。<br /></span>
+    <span class="md_line">Alt + F7 查看该方法/变量/类被调用的地方<br /></span>
+    <span class="md_line">Alt + F8 在debug的状态下，选中某些变量或是对象，按此快捷键弹出可输入变量、方法的调试框，指定查看该内容的debug情况<br /></span>
+    <span class="md_line">Alt + Home 跳到文件导航bar<br /></span>
+    <span class="md_line">Alt + Insert 生成代码(如get,set方法,构造函数等)<br /></span>
+    <span class="md_line">Alt + 方向键 左 或 方向键 右 切换当前打开的代码文件视图<br /></span>
+    <span class="md_line">Alt + 方向键 上 或 方向键 下 在方法间快速移动定位<br /></span>
+    <span class="md_line">Alt + 鼠标左键单击不放,拖动 可以直接方块区域选择（很有用）<br /></span>
+    <span class="md_line">Alt + 回车 快速修复(可以用来导入单个包)</span>
+</p>
+
+
+<h1 id="toc_11"></h1>
+
+<p class="md_block">
+    <span class="md_line">==Shift==<br /></span>
+    <span class="md_line">Shift + F6 重构：重新命名<br /></span>
+    <span class="md_line">Shift + F11 查看书签<br /></span>
+    <span class="md_line">Shift + F10 Run(运行)当前程序，相当于点击run按钮<br /></span>
+    <span class="md_line">Shift + F9   debug当前程序，相当于点击debug按钮<br /></span>
+    <span class="md_line">Shift + end 选中从光标到end处<br /></span>
+    <span class="md_line">Shift + home 选中从光标到home处<br /></span>
+    <span class="md_line">Shift + Enter 光标所在行下空出一行，光标跳下<br /></span>
+    <span class="md_line">Shift + 单击 可以关闭文件<br /></span>
+    <span class="md_line">Shift + 滚轮 横向滚动轴滚动(非常强大)</span>
+</p>
+
+
+<h1 id="toc_12"></h1>
+
+<p class="md_block">
+    <span class="md_line">==Ctrl+Alt==<br /></span>
+    <span class="md_line">Ctrl + Alt + W 关闭所有编辑的快捷键（自己添加，在close all）<br /></span>
+    <span class="md_line">Ctrl + Alt + O 优化导入的类和包<br /></span>
+    <span class="md_line">Ctrl + Alt + L 格式化代码<br /></span>
+    <span class="md_line">Ctrl + Alt + I 选中部分自动缩进行（有点类似格式化，但是只是整理行格式而已）<br /></span>
+    <span class="md_line">Ctrl + Alt + T 选中的地方代码环绕提示<br /></span>
+    <span class="md_line">Ctrl + Alt + B 跳到具体的实现方法，查找接口/抽象方法的具体实现很好用(相反行为的快捷键是Ctrl+b)<br /></span>
+    <span class="md_line">Ctrl + Alt + V 快速引进一个变量<br /></span>
+    <span class="md_line">Ctrl + Alt + F7 寻找被该类或是变量被使用的地方，用弹出框的方式找出来，跟Alt+F7效果一样，但是因为是弹出框，选中了一个位置就会消失。<br /></span>
+    <span class="md_line">Ctrl + Alt + Enter 光标所在行上空出一行，光标跳上<br /></span>
+    <span class="md_line">Ctrl + Alt + home 弹出跟当前文件有关联的文件目录(比如jsp里面有导入几个js和css,这些文件就是关联文件)<br /></span>
+    <span class="md_line">Ctrl + Alt + 方向左/右 退回/前进到上一个操作的地方<br /></span>
+    <span class="md_line">Ctrl + Alt + 方向上/下 在Find模式下，挑到上/下个查找的文件<br /></span>
+    <span class="md_line">Ctrl + Alt + 空格 类名或接口名提示(最常用的,一般敲入字母都会提示,但是如果你不小心esc了,可以再按这个出来) </span>
+</p>
+
+
+<h1 id="toc_13"></h1>
+
+<p class="md_block">
+    <span class="md_line">==Ctrl+Shift==<br /></span>
+    <span class="md_line">Ctrl + Shift + F 查找整个项目相关关键字文件（非常非常常用）（通过某个词，指定要搜索的文件类型，目录（跟myeclipse中的ctrl+H功能一样））<br /></span>
+    <span class="md_line">Ctrl + Shift + N通过文件名查找指定文件（非常非常常用）<br /></span>
+    <span class="md_line">Ctrl + Shift + U // 大/小写都是这个快捷键<br /></span>
+    <span class="md_line">Ctrl + Shift + B 在变量上按此快捷键，直接跳转到变量类型类中<br /></span>
+    <span class="md_line">Ctrl + Shift + V 粘贴最近复制过的一些信息<br /></span>
+    <span class="md_line">Ctrl + Shift + Z ，取消撤销（恢复上一次操作）<br /></span>
+    <span class="md_line">Ctrl + Shift + T     如果在常规类下按它，弹出已写好的，可选择的对应Test类，如果在该Test类下按它，则直接回到源类。<br /></span>
+    <span class="md_line">Ctrl + Shift + C 复制当前文件磁盘路径到剪贴板<br /></span>
+    <span class="md_line">Ctrl + Shift + J 自动将下一行合并到当前行末尾<br /></span>
+    <span class="md_line">Ctrl + Shift + E 最近更改的文件<br /></span>
+    <span class="md_line">Ctrl + Shift + I  在方法名或是类名下(或是代码补充提示的时候也可以按，也可以在图片地址上按)，按此快捷键显示该方法或是类的源码结构，无需点击进去查看源码（当然了，必须是你已经导入源码的情况下才看得到） 类似Ctrl+Q<br /></span>
+    <span class="md_line">Ctrl + Shift + R 搜索指定范围文件，替换文字<br /></span>
+    <span class="md_line">Ctrl + Shift + N 通过输入文件名（可以输入部分名称，支持模糊）来定位文件<br /></span>
+    <span class="md_line">Ctrl + Shift + F12 编辑器全屏<br /></span>
+    <span class="md_line">Ctrl + Shift + F7 高亮显示所有该选中文本，按Esc高亮消失。(也可以在throws或是try..catch上面按此快捷键，比如在一个方法的throws单词上按这个快捷键，则会把哪些内部方法会抛异常的都显出来)<br /></span>
+    <span class="md_line">Ctrl + Shift + Del 删除环绕的标签<br /></span>
+    <span class="md_line">Ctrl + Shift + 1，2，3... 快速添加书签<br /></span>
+    <span class="md_line">Ctrl + Shift + Space 自动补全代码（智能提示）<br /></span>
+    <span class="md_line">Ctrl + Shift + Enter 行末自动添加 ; 结束代码 ，如果是输入if，按这个快捷键会自动帮你补充(){}<br /></span>
+    <span class="md_line">Ctrl + Shift + Enter 自动给末尾加;完成代码<br /></span>
+    <span class="md_line">Ctrl + Shift + Up 或 Down 移动光标所在statement域移动到上面/下面(13版本会自动格式化)(如果光标放在方法名上 ， 是互换方法位置,如果是打开tool界面，且是竖直方向布局，则根据方向调整窗口大小)<br /></span>
+    <span class="md_line">Ctrl + Shift + Left 或 Right 打开tool界面，如果是横向布局，则根据左右方向调整窗口大小)<br /></span>
+    <span class="md_line">Ctrl + Shift + [ 或 ] 选中从光标所在位置到它的父级区域(界面上层导航可能更开)<br /></span>
+    <span class="md_line">Ctrl + Shift + 小键盘 + 或 - 折叠/展开所有代码<br /></span>
+    <span class="md_line">Ctrl + Shift + 空格 代码补全功能(最常用的,一般敲入字母都会提示,但是如果你不小心esc了,可以再按这个出来)<br /></span>
+    <span class="md_line">Ctrl + Shift + 方向左 或 右 选中临边左/右的单词或是符号<br /></span>
+    <span class="md_line">Ctrl + Shift + Backspace(退格)  回到上次修改的地方(跟Ctrl+Alt+左右方向键不一样的地方是，只回退到修改的地方，而不是过去光标放的地方)</span>
+</p>
+
+
+<h1 id="toc_14"></h1>
+
+<p class="md_block">
+    <span class="md_line">==Alt+Shift==<br /></span>
+    <span class="md_line">Alt + Shift + N 添加任务<br /></span>
+    <span class="md_line">Alt + Shirt + F 添加到收藏夹<br /></span>
+    <span class="md_line">Alt + Shift + C 查看最近操作项目的变化情况列表(在版本控制下，显示比较缓慢)<br /></span>
+    <span class="md_line">Alt + Shift + F10  弹出run菜单，提供选择性run哪个(这个需要自己尝试下，按后会有弹出框，记得查看)<br /></span>
+    <span class="md_line">Alt + Shift + F9  弹出debug运行菜单，提供选择性debug哪个(这个需要自己尝试下，按后会有弹出框，记得查看)<br /></span>
+    <span class="md_line">Alt + Shift + 方向键 上 或 方向键 下 移动光标所在行到上/下<br /></span>
+    <span class="md_line">Alt + Shift + 双击   同时在不同位置选定不同词</span>
+</p>
+
+
+<h1 id="toc_15"></h1>
+
+<p class="md_block">
+    <span class="md_line">==Ctrl+Shift+Alt==<br /></span>
+    <span class="md_line">Ctrl + Shift + Alt + V    简单黏贴<br /></span>
+    <span class="md_line">Ctrl + Shift + Alt + N    查找类中的方法或变量<br /></span>
+    <span class="md_line">Ctrl + Shift + Alt + C   复制参考信息，比如在某个方法名上按此快捷键，得到的内容是：org.jfree.data.general.DefaultPieDataset#setValue(java.lang.Comparable, double)里面有包名，类名，方法名，方法变量</span>
+</p>
+
+
+<h1 id="toc_16"></h1>
+
+<p class="md_block">
+    <span class="md_line">==其他==<br /></span>
+    <span class="md_line">F11      添加书签<br /></span>
+    <span class="md_line">F4        光标放在哪里(即使是一个路径的URL的一小部分都可以)跳到这个路径下的位置,从IntelliJ IDEA的左侧web窗口打开<br /></span>
+    <span class="md_line">F2 或 Shift+F2 高亮错误或警告快速定位(在代码有报错的情况下)<br /></span>
+    <span class="md_line">代码标签输入完成后，按Tab，生成代码。<br /></span>
+    <span class="md_line">在Ctrl+F查找模式下，按F3下一个点<br /></span>
+    <span class="md_line">在debug模式下，F8下一步，F9下一个断点<br /></span>
+    <span class="md_line">更改下移的快捷  搜索down<br /></span>
+    <span class="md_line">Ctrl+鼠标单击编辑窗口的文件标题,弹出该文件路径,可以通过这个打开文件所在地方<br /></span>
+    <span class="md_line">按TAB+拖动代码标签，可以分开IntelliJ IDEA成多个</span>
+</p>
+
+
+<h2 id="toc_17">常用插件</h2>
+
+<ol>
+<li>CodeGlance   向Sublime一样在右侧有个小地图,看代码用</li>
+</ol>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_23-22-12_zpsbsyluktc.png" alt="enter image description here" title="" >
+<ol>
+<li>FindBugs 查bug用</li>
+</ol>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_20-56-45_zpspawpzeg7.png" alt="enter image description here" title="" >
+<ol>
+<li>GenerateSerialVersionUID  生成序列化版本号</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_20-58-45_zpsld4r0o7n.gif" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">快捷键:Alt+insert</span>
+</p>
+
+
+<ol>
+<li>IdeaVim 在IDEA中使用Vim</li>
+<li>IDETalk</li>
+</ol>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">IDETalk是由JetBrains的工程师开发的一款代码级的协同工具，主要是为一个团队在进行相关项目开发时提供代码协同<br /></span>
+    <span class="md_line">功能:</span>
+</p>
+
+
+<ul>
+<li>发送异常信息</li>
+<li>代码指针</li>
+<li>即时消息</li>
+<li>离线操作</li>
+<li>LiveEdit </li>
+</ul>
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">需要配合Chrome插件JetBrains IDE Support使用<br /></span>
+    <span class="md_line">用于调试静态网页,所见即所得的方式<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_23-46-57_zpslvzgeohc.gif" alt="enter image description here" title="" ></span>
+</p>
+
+
+<ol>
+<li>MultiMarkdown markdown编辑和预览</li>
+</ol>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-10_23-54-18_zpsdozgjo7i.gif" alt="enter image description here" title="" >
+<ol>
+<li>Mybatis plugin Mybatis插件</li>
+<li>自动生成xml文件</li>
+<li>快速定位xml</li>
+</ol>
+<img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-11_00-20-08_zpspxmzhgnl.gif" alt="enter image description here" title="" >
+<ol>
+<li>JRebel 热部署</li>
+</ol>
+
+<p class="md_block">
+    <span class="md_line">修改源文件或者xml文件后不需要重启服务器,实现热部署<br /></span>
+    <span class="md_line md_line_dom_embed"><img class="" src="http://i1167.photobucket.com/albums/q637/CodeAi/2016-01-11_00-28-35_zpsqclzdk11.gif" alt="enter image description here" title="" ><br /></span>
+    <span class="md_line">这是一个收费软件<br /></span>
+    <span class="md_line">Eclipse也可使用</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">方法:<br /></span>
+    <span class="md_line">替换jar包和licence文件。 </span>
+</p>
+
+
+<ul>
+<li>将本机 /Users/&lt;你的用户名&gt;/.jrebel/jrebel.lic替换为下载的jrebel.lic；</li>
+</ul>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">将本机</span>
+</p>
+
+
+<ul>
+<li>.IntelliJIdea/jr-ide-idea/lib/jrebel/jrebel.jar </li>
+<li>.IntelliJIdea/jr-ide-idea/lib/jrebel/lib/jrebel.jar </li>
+<li>.IntelliJIdea/jr-ide-idea/lib/jrebel6/jrebel.jar </li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line">替换为下载的jrebel.jar<br /></span>
+    <span class="md_line">重启Intellij</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">如果启动时报 “ java.lang.OutOfMemoryError: PermGen space ” ，需设置VM options，我的设置“ -mx2048m -XX:MaxPermSize=2048m”</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">JReble无需配置就可以实现热重启，前提是需要将Tomcat的配置“On frame deactivation”从”Do nothing”改成”Update classes and resources”。</span>
+</p>
+    </div>
+</div>
+
+<!--mathjax-->
+
+</body>
+</html>

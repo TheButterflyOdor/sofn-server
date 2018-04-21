@@ -1,0 +1,4 @@
+com\sofn\core\base\BaseMapper.class
+com\sofn\core\base\BaseModel.class
+com\sofn\core\generator\plugin\MapperPlugin.class
+com\sofn\core\generator\plugin\SerializablePlugin.class

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjUserChangeRecordMapper" >
+
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjUserChangeRecord" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="ENTITY_SCALE_NAME" property="entityScaleName" jdbcType="VARCHAR" />
+        <result column="ENTITY_TYPE_NAME" property="entityTypeName" jdbcType="VARCHAR" />
+        <result column="ENTITY_PROPERTY_NAME" property="entityPropertyName" jdbcType="VARCHAR" />
+        <result column="ENTITY_INDUSTRY_NAME" property="entityIndustryName" jdbcType="VARCHAR" />
+        <result column="UPDATE_BEFORE_JSON" property="updateBeforeJson" jdbcType="VARCHAR" />
+        <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+        <result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+        <result column="ENTITY_ID" property="entityId" jdbcType="CHAR" />
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+        <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+        <result column="IDCODE" property="idcode" jdbcType="VARCHAR" />
+        <result column="ENTITY_SCALE" property="entityScale" jdbcType="VARCHAR" />
+        <result column="ENTITY_TYPE" property="entityType" jdbcType="VARCHAR" />
+        <result column="ENTITY_PROPERTY" property="entityProperty" jdbcType="VARCHAR" />
+        <result column="ENTITY_INDUSTRY" property="entityIndustry" jdbcType="VARCHAR" />
+        <result column="ENTERPRISE_NAME" property="enterpriseName" jdbcType="VARCHAR" />
+        <result column="CARD_TYPE" property="cardType" jdbcType="VARCHAR" />
+        <result column="CREDIT_CODE" property="creditCode" jdbcType="VARCHAR" />
+        <result column="BUSINESS_OPERATION" property="businessOperation" jdbcType="VARCHAR" />
+        <result column="BUSINESS_OPERATION_START" property="businessOperationStart" jdbcType="TIMESTAMP" />
+        <result column="BUSINESS_OPERATION_END" property="businessOperationEnd" jdbcType="TIMESTAMP" />
+        <result column="ENTERPRISE_INDUSTRY" property="enterpriseIndustry" jdbcType="VARCHAR" />
+        <result column="ANNUAL_OUTPUT" property="annualOutput" jdbcType="VARCHAR" />
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+        <result column="DOCUMENT_IMAGES" property="documentImages" jdbcType="VARCHAR" />
+        <result column="AREA" property="area" jdbcType="VARCHAR" />
+        <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+        <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+        <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+        <result column="LEGAL_IDNUMBER" property="legalIdnumber" jdbcType="VARCHAR" />
+        <result column="LEGAL_PHONE" property="legalPhone" jdbcType="VARCHAR" />
+        <result column="LEGAL_IMAGES" property="legalImages" jdbcType="VARCHAR" />
+        <result column="FAX_NUMBER" property="faxNumber" jdbcType="VARCHAR" />
+        <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+        <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+        <result column="CONTACT_EMAIL" property="contactEmail" jdbcType="VARCHAR" />
+        <result column="REGISTER_TIME" property="registerTime" jdbcType="TIMESTAMP" />
+        <result column="APPROVE_STATUS" property="approveStatus" jdbcType="CHAR" />
+        <result column="APPROVE_OPINION" property="approveOpinion" jdbcType="VARCHAR" />
+        <result column="APPROVE_USER_IDCODE" property="approveUserIdcode" jdbcType="VARCHAR" />
+        <result column="APPROVE_NAME" property="approveName" jdbcType="VARCHAR" />
+        <result column="APPROVE_TIME" property="approveTime" jdbcType="TIMESTAMP" />
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+        <result column="APPROVE_TYPE" property="approveType" jdbcType="VARCHAR" />
+        <result column="REASON" property="reason" jdbcType="VARCHAR" />
+        <result column="UPDATE_CONTENT" property="updateContent" jdbcType="VARCHAR" />
+        <result column="APPLY_USER_ID" property="applyUserId" jdbcType="VARCHAR" />
+        <result column="APPLY_UPDATE_NAME" property="applyUpdateName" jdbcType="VARCHAR" />
+        <result column="APPLY_UPDATE_ENTITY_IDCODE" property="applyUpdateEntityIdcode" jdbcType="VARCHAR" />
+        <result column="APPLY_UPDATE_USER_IDCODE" property="applyUpdateUserIdcode" jdbcType="VARCHAR" />
+        <result column="APPLY_UPDATE_TIME" property="applyUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="BUSINESS_LICENCEIMG" property="businessLicenceimg" jdbcType="VARCHAR" />
+        <result column="ORGANIZATION_CERTIFICATEIMG" property="organizationCertificateimg" jdbcType="VARCHAR" />
+        <result column="POSITIVE_IDCARDEIMG" property="positiveIdcardeimg" jdbcType="VARCHAR" />
+        <result column="NEGATIVE_IDCARDIMG" property="negativeIdcardimg" jdbcType="VARCHAR" />
+        <result column="HAND_IDCARDIMG" property="handIdcardimg" jdbcType="VARCHAR" />
+        <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from TTS_SCLTXXCJ_USER_CHANGERECORD
+        where ID =#{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjUserChangeRecord" >
+        insert into TTS_SCLTXXCJ_USER_CHANGERECORD (
+        ID
+        , ENTITY_SCALE_NAME
+        , ENTITY_TYPE_NAME
+        , ENTITY_PROPERTY_NAME
+        , ENTITY_INDUSTRY_NAME
+        , UPDATE_BEFORE_JSON
+        , UNIT
+        , UNIT_NAME
+        , ENTITY_ID
+        , ACCOUNT
+        , REAL_NAME
+        , IDCODE
+        , ENTITY_SCALE
+        , ENTITY_TYPE
+        , ENTITY_PROPERTY
+        , ENTITY_INDUSTRY
+        , ENTERPRISE_NAME
+        , CARD_TYPE
+        , CREDIT_CODE
+        , BUSINESS_OPERATION
+        , BUSINESS_OPERATION_START
+        , BUSINESS_OPERATION_END
+        , ENTERPRISE_INDUSTRY
+        , ANNUAL_OUTPUT
+        , ADDRESS
+        , DOCUMENT_IMAGES
+        , AREA
+        , LONGITUDE
+        , LATITUDE
+        , LEGAL_NAME
+        , LEGAL_IDNUMBER
+        , LEGAL_PHONE
+        , LEGAL_IMAGES
+        , FAX_NUMBER
+        , CONTACT_NAME
+        , CONTACT_PHONE
+        , CONTACT_EMAIL
+        , REGISTER_TIME
+        , APPROVE_STATUS
+        , APPROVE_OPINION
+        , APPROVE_USER_IDCODE
+        , APPROVE_NAME
+        , APPROVE_TIME
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , APPROVE_TYPE
+        , REASON
+        , UPDATE_CONTENT
+        , APPLY_USER_ID
+        , APPLY_UPDATE_NAME
+        , APPLY_UPDATE_ENTITY_IDCODE
+        , APPLY_UPDATE_USER_IDCODE
+        , APPLY_UPDATE_TIME
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , BUSINESS_LICENCEIMG
+        , ORGANIZATION_CERTIFICATEIMG
+        , POSITIVE_IDCARDEIMG
+        , NEGATIVE_IDCARDIMG
+        , HAND_IDCARDIMG
+        , ORGANIZATION_CODE
+        )
+        values (#{id,jdbcType=VARCHAR}
+        , #{entityScaleName,jdbcType=VARCHAR}
+        , #{entityTypeName,jdbcType=VARCHAR}
+        , #{entityPropertyName,jdbcType=VARCHAR}
+        , #{entityIndustryName,jdbcType=VARCHAR}
+        , #{updateBeforeJson,jdbcType=VARCHAR}
+        , #{unit,jdbcType=VARCHAR}
+        , #{unitName,jdbcType=VARCHAR}
+        , #{entityId,jdbcType=CHAR}
+        , #{account,jdbcType=VARCHAR}
+        , #{realName,jdbcType=VARCHAR}
+        , #{idcode,jdbcType=VARCHAR}
+        , #{entityScale,jdbcType=VARCHAR}
+        , #{entityType,jdbcType=VARCHAR}
+        , #{entityProperty,jdbcType=VARCHAR}
+        , #{entityIndustry,jdbcType=VARCHAR}
+        , #{enterpriseName,jdbcType=VARCHAR}
+        , #{cardType,jdbcType=VARCHAR}
+        , #{creditCode,jdbcType=VARCHAR}
+        , #{businessOperation,jdbcType=VARCHAR}
+        , #{businessOperationStart,jdbcType=TIMESTAMP}
+        , #{businessOperationEnd,jdbcType=TIMESTAMP}
+        , #{enterpriseIndustry,jdbcType=VARCHAR}
+        , #{annualOutput,jdbcType=VARCHAR}
+        , #{address,jdbcType=VARCHAR}
+        , #{documentImages,jdbcType=VARCHAR}
+        , #{area,jdbcType=VARCHAR}
+        , #{longitude,jdbcType=DECIMAL}
+        , #{latitude,jdbcType=DECIMAL}
+        , #{legalName,jdbcType=VARCHAR}
+        , #{legalIdnumber,jdbcType=VARCHAR}
+        , #{legalPhone,jdbcType=VARCHAR}
+        , #{legalImages,jdbcType=VARCHAR}
+        , #{faxNumber,jdbcType=VARCHAR}
+        , #{contactName,jdbcType=VARCHAR}
+        , #{contactPhone,jdbcType=VARCHAR}
+        , #{contactEmail,jdbcType=VARCHAR}
+        , #{registerTime,jdbcType=TIMESTAMP}
+        , #{approveStatus,jdbcType=CHAR}
+        , #{approveOpinion,jdbcType=VARCHAR}
+        , #{approveUserIdcode,jdbcType=VARCHAR}
+        , #{approveName,jdbcType=VARCHAR}
+        , #{approveTime,jdbcType=TIMESTAMP}
+        , #{userIdcode,jdbcType=VARCHAR}
+        , #{entityIdcode,jdbcType=VARCHAR}
+        , #{approveType,jdbcType=VARCHAR}
+        , #{reason,jdbcType=VARCHAR}
+        , #{updateContent,jdbcType=VARCHAR}
+        , #{applyUserId,jdbcType=VARCHAR}
+        , #{applyUpdateName,jdbcType=VARCHAR}
+        , #{applyUpdateEntityIdcode,jdbcType=VARCHAR}
+        , #{applyUpdateUserIdcode,jdbcType=VARCHAR}
+        , #{applyUpdateTime,jdbcType=TIMESTAMP}
+        , #{delFlag,jdbcType=VARCHAR}
+        , #{createBy,jdbcType=VARCHAR}
+        , #{updateBy,jdbcType=VARCHAR}
+        , #{createTime,jdbcType=TIMESTAMP}
+        , #{updateTime,jdbcType=TIMESTAMP}
+        , #{businessLicenceimg,jdbcType=VARCHAR}
+        , #{organizationCertificateimg,jdbcType=VARCHAR}
+        , #{positiveIdcardeimg,jdbcType=VARCHAR}
+        , #{negativeIdcardimg,jdbcType=VARCHAR}
+        , #{handIdcardimg,jdbcType=VARCHAR}
+        , #{organizationCode,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjUserChangeRecord" >
+        update TTS_SCLTXXCJ_USER_CHANGERECORD
+        set
+        ENTITY_SCALE_NAME =  #{entityScaleName,jdbcType=VARCHAR},
+        ENTITY_TYPE_NAME =  #{entityTypeName,jdbcType=VARCHAR},
+        ENTITY_PROPERTY_NAME =  #{entityPropertyName,jdbcType=VARCHAR},
+        ENTITY_INDUSTRY_NAME =  #{entityIndustryName,jdbcType=VARCHAR},
+        UPDATE_BEFORE_JSON =  #{updateBeforeJson,jdbcType=VARCHAR},
+        UNIT =  #{unit,jdbcType=VARCHAR},
+        UNIT_NAME =  #{unitName,jdbcType=VARCHAR},
+        ENTITY_ID =  #{entityId,jdbcType=CHAR},
+        ACCOUNT =  #{account,jdbcType=VARCHAR},
+        REAL_NAME =  #{realName,jdbcType=VARCHAR},
+        IDCODE =  #{idcode,jdbcType=VARCHAR},
+        ENTITY_SCALE =  #{entityScale,jdbcType=VARCHAR},
+        ENTITY_TYPE =  #{entityType,jdbcType=VARCHAR},
+        ENTITY_PROPERTY =  #{entityProperty,jdbcType=VARCHAR},
+        ENTITY_INDUSTRY =  #{entityIndustry,jdbcType=VARCHAR},
+        ENTERPRISE_NAME =  #{enterpriseName,jdbcType=VARCHAR},
+        CARD_TYPE =  #{cardType,jdbcType=VARCHAR},
+        <if test="creditCode != null and creditCode != ''">
+            CREDIT_CODE =  #{creditCode,jdbcType=VARCHAR},
+        </if>
+        BUSINESS_OPERATION =  #{businessOperation,jdbcType=VARCHAR},
+        BUSINESS_OPERATION_START =  #{businessOperationStart,jdbcType=TIMESTAMP},
+        BUSINESS_OPERATION_END =  #{businessOperationEnd,jdbcType=TIMESTAMP},
+        ENTERPRISE_INDUSTRY =  #{enterpriseIndustry,jdbcType=VARCHAR},
+        ANNUAL_OUTPUT =  #{annualOutput,jdbcType=VARCHAR},
+        ADDRESS =  #{address,jdbcType=VARCHAR},
+        DOCUMENT_IMAGES =  #{documentImages,jdbcType=VARCHAR},
+        AREA =  #{area,jdbcType=VARCHAR},
+        LONGITUDE =  #{longitude,jdbcType=DECIMAL},
+        LATITUDE =  #{latitude,jdbcType=DECIMAL},
+        LEGAL_NAME =  #{legalName,jdbcType=VARCHAR},
+        LEGAL_IDNUMBER =  #{legalIdnumber,jdbcType=VARCHAR},
+        LEGAL_PHONE =  #{legalPhone,jdbcType=VARCHAR},
+        LEGAL_IMAGES =  #{legalImages,jdbcType=VARCHAR},
+        FAX_NUMBER =  #{faxNumber,jdbcType=VARCHAR},
+        CONTACT_NAME =  #{contactName,jdbcType=VARCHAR},
+        CONTACT_PHONE =  #{contactPhone,jdbcType=VARCHAR},
+        CONTACT_EMAIL =  #{contactEmail,jdbcType=VARCHAR},
+        REGISTER_TIME =  #{registerTime,jdbcType=TIMESTAMP},
+        APPROVE_STATUS =  #{approveStatus,jdbcType=CHAR},
+        APPROVE_OPINION =  #{approveOpinion,jdbcType=VARCHAR},
+        APPROVE_USER_IDCODE =  #{approveUserIdcode,jdbcType=VARCHAR},
+        APPROVE_NAME =  #{approveName,jdbcType=VARCHAR},
+        APPROVE_TIME =  #{approveTime,jdbcType=TIMESTAMP},
+        USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+        ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+        APPROVE_TYPE =  #{approveType,jdbcType=VARCHAR},
+        REASON =  #{reason,jdbcType=VARCHAR},
+        UPDATE_CONTENT =  #{updateContent,jdbcType=VARCHAR},
+        APPLY_USER_ID =  #{applyUserId,jdbcType=VARCHAR},
+        APPLY_UPDATE_NAME =  #{applyUpdateName,jdbcType=VARCHAR},
+        APPLY_UPDATE_ENTITY_IDCODE =  #{applyUpdateEntityIdcode,jdbcType=VARCHAR},
+        APPLY_UPDATE_USER_IDCODE =  #{applyUpdateUserIdcode,jdbcType=VARCHAR},
+        APPLY_UPDATE_TIME =  #{applyUpdateTime,jdbcType=TIMESTAMP},
+        DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+        CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+        UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+        CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+        BUSINESS_LICENCEIMG =  #{businessLicenceimg,jdbcType=VARCHAR},
+        ORGANIZATION_CERTIFICATEIMG =  #{organizationCertificateimg,jdbcType=VARCHAR},
+        POSITIVE_IDCARDEIMG =  #{positiveIdcardeimg,jdbcType=VARCHAR},
+        NEGATIVE_IDCARDIMG =  #{negativeIdcardimg,jdbcType=VARCHAR},
+        HAND_IDCARDIMG =  #{handIdcardimg,jdbcType=VARCHAR}
+        <if test="organizationCode != null and organizationCode != ''">
+            ORGANIZATION_CODE =  #{organizationCode,jdbcType=VARCHAR}
+        </if>
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        ID
+        , ENTITY_SCALE_NAME
+        , ENTITY_TYPE_NAME
+        , ENTITY_PROPERTY_NAME
+        , ENTITY_INDUSTRY_NAME
+        , UPDATE_BEFORE_JSON
+        , UNIT
+        , UNIT_NAME
+        , ENTITY_ID
+        , ACCOUNT
+        , REAL_NAME
+        , IDCODE
+        , ENTITY_SCALE
+        , ENTITY_TYPE
+        , ENTITY_PROPERTY
+        , ENTITY_INDUSTRY
+        , ENTERPRISE_NAME
+        , CARD_TYPE
+        , CREDIT_CODE
+        , BUSINESS_OPERATION
+        , BUSINESS_OPERATION_START
+        , BUSINESS_OPERATION_END
+        , ENTERPRISE_INDUSTRY
+        , ANNUAL_OUTPUT
+        , ADDRESS
+        , DOCUMENT_IMAGES
+        , AREA
+        , LONGITUDE
+        , LATITUDE
+        , LEGAL_NAME
+        , LEGAL_IDNUMBER
+        , LEGAL_PHONE
+        , LEGAL_IMAGES
+        , FAX_NUMBER
+        , CONTACT_NAME
+        , CONTACT_PHONE
+        , CONTACT_EMAIL
+        , REGISTER_TIME
+        , APPROVE_STATUS
+        , APPROVE_OPINION
+        , APPROVE_USER_IDCODE
+        , APPROVE_NAME
+        , APPROVE_TIME
+        , USER_IDCODE
+        , ENTITY_IDCODE
+        , APPROVE_TYPE
+        , REASON
+        , UPDATE_CONTENT
+        , APPLY_USER_ID
+        , APPLY_UPDATE_NAME
+        , APPLY_UPDATE_ENTITY_IDCODE
+        , APPLY_UPDATE_USER_IDCODE
+        , APPLY_UPDATE_TIME
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , BUSINESS_LICENCEIMG
+        , ORGANIZATION_CERTIFICATEIMG
+        , POSITIVE_IDCARDEIMG
+        , NEGATIVE_IDCARDIMG
+        , HAND_IDCARDIMG
+        , ORGANIZATION_CODE
+        from TTS_SCLTXXCJ_USER_CHANGERECORD
+        where ID =#{id,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

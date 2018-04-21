@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ales.DailyEnforceLawExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesDailyEnforceLaw">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+    <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+    <result column="ENTERPRISE_ID" jdbcType="VARCHAR" property="enterpriseId" />
+    <result column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+    <result column="ENTERPRISE_ADDRESS" jdbcType="VARCHAR" property="enterpriseAddress" />
+    <result column="TASK_PERSON_COUNT" jdbcType="VARCHAR" property="taskPersonCount" />
+    <result column="TASK_PERSON_ID" jdbcType="VARCHAR" property="taskPersonId" />
+    <result column="ENFORCE_LAW_RESULT" jdbcType="VARCHAR" property="enforceLawResult" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="ENTERPRISE_NAME" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="CREATE_ORG_ID" jdbcType="VARCHAR" property="createOrgId" />
+    <result column="ENFORCE_LAW_RESULT_FLAG" jdbcType="VARCHAR" property="enforceLawResultFlag" />
+    <result column="TASK_PERSON_NAME" jdbcType="VARCHAR" property="taskPersonName" />
+    <result column="ENTERPRISE_IDCODE" jdbcType="VARCHAR" property="enterpriseIdcode" />
+    <result column="PRINCIPAL" jdbcType="VARCHAR" property="principal" />
+    <result column="SCENE_PICTURES" jdbcType="VARCHAR" property="scenePictures" />
+    <result column="SCENE_PICTURE_NAMES" jdbcType="VARCHAR" property="scenePictureNames" />
+    <result column="PRINCIPAL_SIGNATURES" jdbcType="VARCHAR" property="principalSignatures" />
+    <result column="PRINCIPAL_SIGNATURE_NAMES" jdbcType="VARCHAR" property="principalSignatureNames" />
+  </resultMap>
+  <select id="selectAllByCondition" resultType="map">
+    SELECT *
+    FROM (
+    SELECT
+    f.*,
+    ROWNUM AS rn FROM (
+    SELECT
+    s.*
+    FROM
+    ALES_DAILY_ENFORCE_LAW s
+    WHERE 1=1 AND s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND s.AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="enforceLawResultFlag!=null and enforceLawResultFlag!=''">
+      AND
+      <foreach collection="enforceLawResultFlag" item="item" index="index" open="(" close=")" separator="OR">
+        s.ENFORCE_LAW_RESULT_FLAG =#{item}
+      </foreach>
+    </if>
+    <if test="createOrgId!=null and createOrgId!=''">
+      AND s.CREATE_ORG_ID =#{createOrgId}
+    </if>
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.TASK_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="taskYear!=null and taskYear!=''">
+      AND s.TASK_BEGIN_TIME  BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.TASK_END_TIME &lt;(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+    </if>
+    order by s.CREATE_TIME DESC
+    ) f)
+    WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  <select id="getDailyEnforceLawCount" resultType="long">
+    SELECT COUNT(*) FROM ALES_DAILY_ENFORCE_LAW s
+    WHERE 1=1 AND s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND s.AREA_ID like #{areaId}||'%'
+    </if>
+    <if test="enforceLawResultFlag!=null and enforceLawResultFlag!=''">
+      AND
+      <foreach collection="enforceLawResultFlag" item="item" index="index" open="(" close=")" separator="OR">
+        s.ENFORCE_LAW_RESULT_FLAG =#{item}
+      </foreach>
+    </if>
+    <if test="createOrgId!=null and createOrgId!=''">
+      AND s.CREATE_ORG_ID =#{createOrgId}
+    </if>
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.TASK_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="taskYear!=null and taskYear!=''">
+      AND s.TASK_BEGIN_TIME  BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.TASK_END_TIME &lt;(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+    </if>
+  </select>
+
+  <select id="getTaskNameCount" resultType="int">
+    SELECT COUNT(*) FROM ALES_DAILY_ENFORCE_LAW where TASK_NAME =#{taskName} AND DEL_FLAG='N'
+  </select>
+
+</mapper>

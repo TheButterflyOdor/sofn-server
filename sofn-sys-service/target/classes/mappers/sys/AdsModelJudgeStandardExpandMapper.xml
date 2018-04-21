@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.AdsModelJudgeStandardExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsModelJudgeStandard" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="RN" property="rn" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultMap="BaseResultMap">
+    SELECT Tab.*
+    FROM (
+    SELECT T.ID,T.NAME,T.FILE_PATH,T.CREATE_BY,T.CREATE_TIME,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC,T.ID DESC) AS RN from ADS_MODEL_JUDGE_STANDARD T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+   <if test="name!=null and name!=''">
+      AND lower(T.NAME) like '%' || lower(trim(#{name})) ||'%'
+   </if>
+    )Tab
+    WHERE Tab.RN BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(1) FROM ADS_MODEL_JUDGE_STANDARD T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+    <if test="name!=null and name!=''">
+      AND lower(T.NAME) like '%' || lower(trim(#{name})) ||'%'
+    </if>
+  </select>
+
+  <select id="getJudgeCountByModel" parameterType="string" resultType="int">
+    select count(distinct c.id)
+      from ads_check_model             a,
+           ads_model_attribute_mapping b,
+           ads_model_judge_standard    c
+     where a.id = #{model_id}
+       and a.id = b.model_id
+       and c.id = b.object_id
+       and b.type = 'JUDGE_STANDARD'
+       and b.del_flag != 'Y'
+       and a.del_flag != 'Y'
+       and c.del_flag != 'Y'
+  </select>
+
+
+</mapper>

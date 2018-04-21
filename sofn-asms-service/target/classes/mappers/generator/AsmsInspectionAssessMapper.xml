@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AsmsInspectionAssessMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsInspectionAssess" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="INSPECTION_TASK_ID" property="inspectionTaskId" jdbcType="CHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="CHAR" />
+    <result column="TASK_RESULT" property="taskResult" jdbcType="VARCHAR" />
+    <result column="INSPECTION_REAL_COUNT" property="inspectionRealCount" jdbcType="DECIMAL" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ASMS_INSPECTION_ASSESS
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsInspectionAssess" >
+    insert into ASMS_INSPECTION_ASSESS (ID, INSPECTION_TASK_ID, USER_NAME, 
+      USER_ID, TASK_RESULT, INSPECTION_REAL_COUNT, 
+      DEL_FLAG)
+    values (#{id,jdbcType=CHAR}, #{inspectionTaskId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=CHAR}, #{taskResult,jdbcType=VARCHAR}, #{inspectionRealCount,jdbcType=DECIMAL}, 
+      #{delFlag,jdbcType=CHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsInspectionAssess" >
+    update ASMS_INSPECTION_ASSESS
+    set INSPECTION_TASK_ID = #{inspectionTaskId,jdbcType=CHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=CHAR},
+      TASK_RESULT = #{taskResult,jdbcType=VARCHAR},
+      INSPECTION_REAL_COUNT = #{inspectionRealCount,jdbcType=DECIMAL},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, INSPECTION_TASK_ID, USER_NAME, USER_ID, TASK_RESULT, INSPECTION_REAL_COUNT, 
+    DEL_FLAG
+    from ASMS_INSPECTION_ASSESS
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, INSPECTION_TASK_ID, USER_NAME, USER_ID, TASK_RESULT, INSPECTION_REAL_COUNT, 
+    DEL_FLAG
+    from ASMS_INSPECTION_ASSESS
+  </select>
+</mapper>

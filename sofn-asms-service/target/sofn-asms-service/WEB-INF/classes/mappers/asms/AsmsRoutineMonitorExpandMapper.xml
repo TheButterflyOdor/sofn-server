@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsRoutineMonitorExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsRoutineMonitor">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="RM_NAME" jdbcType="VARCHAR" property="rmName" />
+        <result column="RM_TYPE" jdbcType="VARCHAR" property="rmType" />
+        <result column="RM_MODEL_ID" jdbcType="VARCHAR" property="rmModelId" />
+        <result column="RM_YEAR" jdbcType="CHAR" property="rmYear" />
+        <result column="RM_BATCH" jdbcType="VARCHAR" property="rmBatch" />
+        <result column="RM_DATE_BEGIN" jdbcType="TIMESTAMP" property="rmDateBegin" />
+        <result column="RM_DATE_END" jdbcType="TIMESTAMP" property="rmDateEnd" />
+        <result column="RM_RELEASE_UNIT" jdbcType="CHAR" property="rmReleaseUnit" />
+        <result column="RM_FILE" jdbcType="VARCHAR" property="rmFile" />
+        <result column="RM_FILE_NUM" jdbcType="VARCHAR" property="rmFileNum" />
+        <result column="RM_REMARK" jdbcType="VARCHAR" property="rmRemark" />
+        <result column="RM_STATE" jdbcType="VARCHAR" property="rmState" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+        <result column="LEVEL_ENUM" jdbcType="CHAR" property="levelEnum" />
+        <result column="RM_FILE_NAME" jdbcType="VARCHAR" property="rmFileName" />
+    </resultMap>
+
+    <!--任务列表-->
+    <select id="getPagesList" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.RM_NAME AS rmName,
+        M.RM_TYPE AS rmType,
+        M.RM_MODEL_ID AS rmModelId,
+        M.RM_YEAR AS rmYear,
+        M.RM_BATCH AS rmBatch,
+        M.RM_DATE_BEGIN AS rmDateBegin,
+        M.RM_DATE_END AS rmDateEnd,
+        M.RM_RELEASE_UNIT AS rmReleaseUnit,
+        M.RM_FILE AS rmFile,
+        M.RM_FILE_NUM AS rmFileNum,
+        M.RM_REMARK AS rmRemark,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.UPDATE_BY AS updateBy,
+        M.UPDATE_TIME AS updateTime,
+        M.ENABLE AS enable,
+        M.RM_STATE AS rmState,
+        M.CREATE_ORG_REGION_ID AS createOrgRegionId,
+        M.CREATE_ORG_ID AS createOrgId,
+        M.CREATE_ORG_NAME AS createOrgName,
+        M.LEVEL_ENUM AS levelEnum,
+        M.RM_FILE_NAME AS rmFileName
+        FROM
+        ASMS_ROUTINE_MONITOR M
+        WHERE 1=1 AND M.DEL_FLAG='N' AND CREATE_ORG_ID = #{theUserOrgId}
+        <!--<if test="regParm!=null and regParm!=''">-->
+            <!--AND M.CREATE_ORG_REGION_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="rmState!=null and rmState!=''">
+            AND M.RM_STATE = #{rmState}
+        </if>
+        <if test="rmYear!=null and rmYear!=''">
+            AND M.RM_YEAR = #{rmYear}
+        </if>
+        <if test="rmName!=null and rmName!=''">
+            AND M.RM_NAME LIKE #{rmName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RM_DATE_END &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_ROUTINE_MONITOR M
+        WHERE 1=1 AND M.DEL_FLAG='N' AND CREATE_ORG_ID = #{theUserOrgId}
+        <!--<if test="regParm!=null and regParm!=''">-->
+            <!--AND M.CREATE_ORG_REGION_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="rmState!=null and rmState!=''">
+            AND M.RM_STATE = #{rmState}
+        </if>
+        <if test="rmName!=null and rmName!=''">
+            AND M.RM_NAME LIKE #{rmName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RM_DATE_END &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+    </select>
+
+    <select id="getPagesListByCeateOrgId" resultMap="BaseResultMap">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.*
+        FROM
+        (SELECT
+        RK.*
+        FROM
+        (
+        SELECT
+        M .*
+        FROM
+        ASMS_ROUTINE_MONITOR M
+        WHERE
+        1 = 1
+        AND M .DEL_FLAG = 'N'
+        ) RK
+        LEFT JOIN (
+        SELECT
+        COUNT (*) AS cou,
+        A .SUP_ID
+        FROM
+        ADS_MONITOR_SAMPLE T,
+        ADS_ORGAN_TASK K,
+        ADS_MONITOR_TASK A
+        WHERE
+        1 = 1
+        AND T .DEL_FLAG != 'Y'
+        AND A .DEL_FLAG != 'Y'
+        AND K .DEL_FLAG != 'Y'
+        AND T .ORGAN_TASK_ID = K . ID
+        AND K .MONITOR_TASK_ID = A . ID
+        GROUP BY
+        A .SUP_ID
+        ) RM ON RM.SUP_ID = RK. ID
+        WHERE
+        RM.COU > 0 ) M
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID = #{createOrgId}
+        </if>
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="rmState!=null and rmState!=''">
+            AND M.RM_STATE = #{rmState}
+        </if>
+        <if test="rmYear!=null and rmYear!=''">
+            AND M.RM_YEAR = #{rmYear}
+        </if>
+        <if test="rmName!=null and rmName!=''">
+            AND M.RM_NAME LIKE #{rmName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RM_DATE_END &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCountByCeateOrgId" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM (SELECT
+        RK.*
+        FROM
+        (
+        SELECT
+        M .*
+        FROM
+        ASMS_ROUTINE_MONITOR M
+        WHERE
+        1 = 1
+        AND M .DEL_FLAG = 'N'
+        ) RK
+        LEFT JOIN (
+        SELECT
+        COUNT (*) AS cou,
+        A .SUP_ID
+        FROM
+        ADS_MONITOR_SAMPLE T,
+        ADS_ORGAN_TASK K,
+        ADS_MONITOR_TASK A
+        WHERE
+        1 = 1
+        AND T .DEL_FLAG != 'Y'
+        AND A .DEL_FLAG != 'Y'
+        AND K .DEL_FLAG != 'Y'
+        AND T .ORGAN_TASK_ID = K . ID
+        AND K .MONITOR_TASK_ID = A . ID
+        GROUP BY
+        A .SUP_ID
+        ) RM ON RM.SUP_ID = RK. ID
+        WHERE
+        RM.COU > 0) M
+        WHERE 1=1 AND M.DEL_FLAG='N'
+        <if test="createOrgId!=null and createOrgId!=''">
+            AND M.CREATE_ORG_ID = #{createOrgId}
+        </if>
+        <if test="regParm!=null and regParm!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{regParm}
+        </if>
+        <if test="rmState!=null and rmState!=''">
+            AND M.RM_STATE = #{rmState}
+        </if>
+        <if test="rmName!=null and rmName!=''">
+            AND M.RM_NAME LIKE #{rmName}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RM_DATE_END &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+    </select>
+
+    <select id="getTaskListByADS" resultType="java.util.Map">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.ID AS id,
+        M.RM_NAME AS rmName,
+        M.RM_TYPE AS rmType,
+        M.RM_MODEL_ID AS rmModelId,
+        M.RM_YEAR AS rmYear,
+        M.RM_BATCH AS rmBatch,
+        M.RM_DATE_BEGIN AS rmDateBegin,
+        M.RM_DATE_END AS rmDateEnd,
+        M.RM_RELEASE_UNIT AS rmReleaseUnit,
+        M.RM_FILE AS rmFile,
+        M.RM_FILE_NUM AS rmFileNum,
+        M.RM_REMARK AS rmRemark,
+        M.CREATE_BY AS createBy,
+        M.CREATE_TIME AS createTime,
+        M.UPDATE_BY AS updateBy,
+        M.UPDATE_TIME AS updateTime,
+        M.ENABLE AS enable,
+        M.RM_STATE AS rmState,
+        M.CREATE_ORG_REGION_ID AS createOrgRegionId,
+        M.CREATE_ORG_ID AS createOrgId,
+        M.CREATE_ORG_NAME AS createOrgName,
+        M.LEVEL_ENUM AS levelEnum,
+        M.RM_FILE_NAME AS rmFileName
+        FROM
+        ASMS_ROUTINE_MONITOR M INNER JOIN ASMS_ROUTINE_LEAD_UNIT B ON M.ID = B.ROUTINE_MONITOR_ID
+        WHERE 1=1 AND B.LEAD_UNIT_ID = #{leadUnitId} AND M.DEL_FLAG='N' AND M.RM_STATE = 1
+        <if test="rmName!=null and rmName!=''">
+            AND M.RM_NAME LIKE #{rmName}
+        </if>
+        <if test="createOrgRegionId!=null and createOrgRegionId!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{createOrgRegionId}
+        </if>
+        <if test="levelEnum!=null and levelEnum!=''">
+            AND M.LEVEL_ENUM = #{levelEnum}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RM_DATE_END &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getTaskCountByADS" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_ROUTINE_MONITOR M INNER JOIN ASMS_ROUTINE_LEAD_UNIT B ON M.ID = B.ROUTINE_MONITOR_ID
+        WHERE 1=1 AND B.LEAD_UNIT_ID = #{leadUnitId} AND M.DEL_FLAG='N' AND M.RM_STATE = 1
+        <if test="rmName!=null and rmName!=''">
+            AND M.RM_NAME LIKE #{rmName}
+        </if>
+        <if test="createOrgRegionId!=null and createOrgRegionId!=''">
+            AND M.CREATE_ORG_REGION_ID LIKE #{createOrgRegionId}
+        </if>
+        <if test="levelEnum!=null and levelEnum!=''">
+            AND M.LEVEL_ENUM = #{levelEnum}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RM_DATE_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RM_DATE_END &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+        </if>
+    </select>
+
+
+</mapper>

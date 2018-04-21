@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjProductExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjProduct" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="MODEL" property="model" jdbcType="VARCHAR" />
+    <result column="PICTURE" property="picture" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SELF_CHECK" property="selfCheck" jdbcType="VARCHAR" />
+    <result column="AUTHENTICATION" property="authentication" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+    <result column="SLAUGHTER_STATUS" property="slaughterStatus" jdbcType="VARCHAR" />
+    <result column="ALIAS" property="alias" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_PRODUCT_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.ENTITY_IDCODE = #{user.entityIdcode}
+    <if test="product.status != null and product.status != ''">
+        AND T.STATUS = #{product.status}
+    </if>
+    <if test="product.name != null and product.name != ''">
+        AND T.NAME LIKE '%${product.name}%'
+    </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    ORDER BY Tab.CREATE_TIME DESC
+  </select>
+    <select id="findProList" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_PRODUCT_V2 T
+        where 1 = 1 AND T.INDUSTRY = #{pro.industry,jdbcType=VARCHAR} AND T.DEL_FLAG != 'Y'
+        AND T.ENTITY_IDCODE = #{user.entityIdcode}
+        <if test="pro.name != null and pro.name != ''">
+            AND T.NAME LIKE '%${pro.name}%'
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+        ORDER BY Tab.CREATE_TIME DESC
+    </select>
+    <select id="getProCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_PRODUCT_V2 T
+        where 1 = 1 AND T.INDUSTRY = #{pro.industry,jdbcType=VARCHAR} AND T.DEL_FLAG != 'Y'
+        AND T.ENTITY_IDCODE = #{user.entityIdcode}
+        <if test="pro.name != null and pro.name != ''">
+            AND T.NAME LIKE '%${pro.name}%'
+        </if>
+    </select>
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_PRODUCT_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.ENTITY_IDCODE = #{user.entityIdcode}
+      <if test="product.name != null and product.name != ''">
+          AND T.NAME LIKE '%${product.name}%'
+      </if>
+  </select>
+
+    <update id="changeStatus" parameterType="com.sofn.model.generator.TtsScltxxcjProduct">
+        update TTS_SCLTXXCJ_PRODUCT_V2
+        set STATUS = #{status,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="findProByEntityCode" parameterType="hashmap" resultType="map">
+      SELECT Tab.*
+        FROM (
+            SELECT T.*,y.NAME AS TYPE_NAME,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_PRODUCT_V2 T
+            LEFT JOIN TTS_SCLTXXCJ_PRODUCT_TYPE_V2 y
+            on t.TYPE = y.TYPE_CODE
+            where 1 = 1 AND T.DEL_FLAG != 'Y'
+            <if test="entityCode != null and entityCode != ''">
+                AND T.ENTITY_IDCODE = #{entityCode}
+            </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+        ORDER BY Tab.CREATE_TIME DESC
+    </select>
+
+    <select id="queryProCountByEntityCode" parameterType="hashmap" resultType="long">
+      select count(1) from (
+        SELECT T.*,y.NAME AS TYPE_NAME,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_PRODUCT_V2 T
+		LEFT JOIN TTS_SCLTXXCJ_PRODUCT_TYPE_V2 y
+		on t.TYPE = y.TYPE_CODE
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="entityCode != null and entityCode != ''">
+          AND T.ENTITY_IDCODE = #{entityCode}
+        </if>
+        )
+    </select>
+
+    <select id="getProductByTerm" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_PRODUCT_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.ENTITY_IDCODE = #{entityCode} AND T.STATUS = 'Y'
+        <if test="industry != null and industry != ''">
+            AND T.INDUSTRY = #{industry}
+        </if>
+        <if test="typeName != null and typeName != ''">
+            AND T.NAME LIKE '%${typeName}%'
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+
+    <select id="getProductByTermCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_PRODUCT_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.ENTITY_IDCODE = #{entityCode} AND T.STATUS = 'Y'
+        <if test="industry != null and industry != ''">
+            and T.INDUSTRY = #{industry}
+        </if>
+        <if test="typeName != null and typeName != ''">
+            AND T.NAME LIKE '%${typeName}%'
+        </if>
+    </select>
+
+    <select id="getProType" resultMap="BaseResultMap">
+        SELECT DISTINCT
+            T .PRODUCT_SORT,
+            T.PRODUCT_INDUSTRY,
+            T.JOIN_FLAG
+        FROM TTS_SCLTXXCJ_SCGL_V2 T
+        WHERE T.ENTITY_IDCODE = #{entityId}
+        <if test="industry != null and industry != ''">
+            and T.PRODUCT_INDUSTRY = #{industry}
+        </if>
+        <if test="joinFlag != null and joinFlag != ''">
+            and T.JOIN_FLAG = #{joinFlag}
+        </if>
+    </select>
+    <select id="getProName" resultMap="BaseResultMap">
+        SELECT DISTINCT
+        T . PRODUCT_NAME,
+        T.PRODUCT_INDUSTRY,
+        T.JOIN_FLAG,
+        T.PRODUCT_SORT
+        FROM
+        TTS_SCLTXXCJ_SCGL_V2 T
+        WHERE T.ENTITY_IDCODE = #{entityId}
+        <if test="typeName != null and typeName != ''">
+            and T.PRODUCT_SORT = #{typeName}
+        </if>
+        <if test="industry != null and industry != ''">
+            and T.PRODUCT_INDUSTRY = #{industry}
+        </if>
+        <if test="joinFlag != null and joinFlag != ''">
+            and T.JOIN_FLAG = #{joinFlag}
+        </if>
+    </select>
+
+    <select id="isExistedPro" parameterType="com.sofn.model.generator.TtsScltxxcjProduct" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_PRODUCT_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="id != null and id != ''">
+            AND T.ID != #{id}
+        </if>
+        <if test="entityIdcode != null and entityIdcode != ''">
+            AND T.ENTITY_IDCODE = #{entityIdcode}
+        </if>
+        <if test="name != null and name != ''">
+            AND T.NAME = #{name}
+        </if>
+        <if test="productCode != null and productCode != ''">
+            AND T.PRODUCT_CODE = #{productCode}
+        </if>
+        <if test="slaughterStatus != null and slaughterStatus != ''">
+            AND T.SLAUGHTER_STATUS = #{slaughterStatus}
+        </if>
+        <if test="alias != null and alias != ''">
+            AND T.ALIAS = #{alias}
+        </if>
+
+    </select>
+
+
+    <select id="getProductforEntity" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+          SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_PRODUCT_V2 T
+          where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.STATUS = 'Y'
+
+        <if test="product.entityIdcode != null and product.entityIdcode != ''">
+            AND T.ENTITY_IDCODE = #{product.entityIdcode}
+        </if>
+
+        <if test="product.industry != null and product.industry != ''">
+            AND T.INDUSTRY = #{product.industry}
+        </if>
+
+        <if test="product.name != null and product.name != ''">
+            AND  ( T.NAME LIKE '%${product.name}%' or T.ALIAS LIKE '%${product.name}%' )
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+        ORDER BY Tab.CREATE_TIME DESC
+    </select>
+
+
+
+    <select id="getProductforEntityCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_PRODUCT_V2 T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="product.entityIdcode != null and product.entityIdcode != ''">
+            AND T.ENTITY_IDCODE = #{product.entityIdcode}
+        </if>
+        <if test="product.industry != null and product.industry != ''">
+            AND T.INDUSTRY = #{product.industry}
+        </if>
+        <if test="product.name != null and product.name != ''">
+            AND  ( T.NAME LIKE '%${product.name}%' or T.ALIAS LIKE '%${product.name}%' )
+        </if>
+    </select>
+
+</mapper>

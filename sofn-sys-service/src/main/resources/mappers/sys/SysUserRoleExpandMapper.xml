@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysUserRoleExpandMapper">
+    <select id="queryByParam" resultType="com.sofn.model.generator.SysUserRole">
+        select *
+        from SYS_USER_ROLE
+        where 1=1
+        <if test="delFlag != null and delFlag == 'Y'.toString()">
+            AND del_flag=#{delFlag}
+        </if>
+        <if test="delFlag != null and delFlag == 'N'.toString()">
+            AND (del_flag IS NULL OR del_flag=#{delFlag})
+        </if>
+        <if test="userId != null and userId != ''">
+            AND USER_ID=#{userId}
+        </if>
+        <if test="roleId != null and roleId != ''">
+            AND ROLE_ID=#{roleId}
+        </if>
+    </select>
+
+    <select id="getRoleByUserId" resultType="map">
+        select t1.role_Id roleId,t2.role_name roleName
+        from SYS_USER_ROLE t1
+        left join sys_role t2 on t1.role_Id = t2.id
+        where (t1.del_flag='N' or T1.DEL_FLAG is null)
+        <if test="userId != null and userId != ''">
+            AND t1.USER_ID=#{userId}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsSubjSuperviseMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjSupervise">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="SV_NAME" jdbcType="VARCHAR" property="svName" />
+    <result column="SV_CODE" jdbcType="VARCHAR" property="svCode" />
+    <result column="SV_TYPE" jdbcType="VARCHAR" property="svType" />
+    <result column="SV_LEVEL" jdbcType="VARCHAR" property="svLevel" />
+    <result column="SV_LEVEL_ID" jdbcType="VARCHAR" property="svLevelId" />
+    <result column="SV_AREA_ID" jdbcType="VARCHAR" property="svAreaId" />
+    <result column="SV_ADDRESS" jdbcType="VARCHAR" property="svAddress" />
+    <result column="SV_LEADER" jdbcType="VARCHAR" property="svLeader" />
+    <result column="SV_LEADER_PHONE" jdbcType="VARCHAR" property="svLeaderPhone" />
+    <result column="SV_CONTACT" jdbcType="VARCHAR" property="svContact" />
+    <result column="SV_CONTACT_PHONE" jdbcType="VARCHAR" property="svContactPhone" />
+    <result column="SV_CONTACT_Q_Q" jdbcType="VARCHAR" property="svContactQQ" />
+    <result column="SV_CONTACT_EMAIL" jdbcType="VARCHAR" property="svContactEmail" />
+    <result column="SV_POSTCODE" jdbcType="CHAR" property="svPostcode" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="SV_TYPE_ID" jdbcType="VARCHAR" property="svTypeId" />
+    <result column="SV_AREA" jdbcType="VARCHAR" property="svArea" />
+    <result column="INDUSTRY_ID" jdbcType="VARCHAR" property="industryId" />
+    <result column="INDUSTRY_NAME" jdbcType="VARCHAR" property="industryName" />
+    <result column="INDUSTRY_VALUE" jdbcType="VARCHAR" property="industryValue" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_SUBJ_SUPERVISE
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsSubjSupervise">
+    insert into ASMS_SUBJ_SUPERVISE (ID, SV_NAME, SV_CODE, 
+      SV_TYPE, SV_LEVEL, SV_LEVEL_ID, 
+      SV_AREA_ID, SV_ADDRESS, SV_LEADER, 
+      SV_LEADER_PHONE, SV_CONTACT, SV_CONTACT_PHONE, 
+      SV_CONTACT_Q_Q, SV_CONTACT_EMAIL, SV_POSTCODE, 
+      CREATE_BY, CREATE_TIME, STATUS, 
+      DEL_FLAG, SV_TYPE_ID, SV_AREA, 
+      INDUSTRY_ID, INDUSTRY_NAME, INDUSTRY_VALUE
+      )
+    values (#{id,jdbcType=CHAR}, #{svName,jdbcType=VARCHAR}, #{svCode,jdbcType=VARCHAR}, 
+      #{svType,jdbcType=VARCHAR}, #{svLevel,jdbcType=VARCHAR}, #{svLevelId,jdbcType=VARCHAR}, 
+      #{svAreaId,jdbcType=VARCHAR}, #{svAddress,jdbcType=VARCHAR}, #{svLeader,jdbcType=VARCHAR}, 
+      #{svLeaderPhone,jdbcType=VARCHAR}, #{svContact,jdbcType=VARCHAR}, #{svContactPhone,jdbcType=VARCHAR}, 
+      #{svContactQQ,jdbcType=VARCHAR}, #{svContactEmail,jdbcType=VARCHAR}, #{svPostcode,jdbcType=CHAR}, 
+      #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{svTypeId,jdbcType=VARCHAR}, #{svArea,jdbcType=VARCHAR}, 
+      #{industryId,jdbcType=VARCHAR}, #{industryName,jdbcType=VARCHAR}, #{industryValue,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsSubjSupervise">
+    update ASMS_SUBJ_SUPERVISE
+    set SV_NAME = #{svName,jdbcType=VARCHAR},
+      SV_CODE = #{svCode,jdbcType=VARCHAR},
+      SV_TYPE = #{svType,jdbcType=VARCHAR},
+      SV_LEVEL = #{svLevel,jdbcType=VARCHAR},
+      SV_LEVEL_ID = #{svLevelId,jdbcType=VARCHAR},
+      SV_AREA_ID = #{svAreaId,jdbcType=VARCHAR},
+      SV_ADDRESS = #{svAddress,jdbcType=VARCHAR},
+      SV_LEADER = #{svLeader,jdbcType=VARCHAR},
+      SV_LEADER_PHONE = #{svLeaderPhone,jdbcType=VARCHAR},
+      SV_CONTACT = #{svContact,jdbcType=VARCHAR},
+      SV_CONTACT_PHONE = #{svContactPhone,jdbcType=VARCHAR},
+      SV_CONTACT_Q_Q = #{svContactQQ,jdbcType=VARCHAR},
+      SV_CONTACT_EMAIL = #{svContactEmail,jdbcType=VARCHAR},
+      SV_POSTCODE = #{svPostcode,jdbcType=CHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      SV_TYPE_ID = #{svTypeId,jdbcType=VARCHAR},
+      SV_AREA = #{svArea,jdbcType=VARCHAR},
+      INDUSTRY_ID = #{industryId,jdbcType=VARCHAR},
+      INDUSTRY_NAME = #{industryName,jdbcType=VARCHAR},
+      INDUSTRY_VALUE = #{industryValue,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, SV_NAME, SV_CODE, SV_TYPE, SV_LEVEL, SV_LEVEL_ID, SV_AREA_ID, SV_ADDRESS, 
+    SV_LEADER, SV_LEADER_PHONE, SV_CONTACT, SV_CONTACT_PHONE, SV_CONTACT_Q_Q, SV_CONTACT_EMAIL, 
+    SV_POSTCODE, CREATE_BY, CREATE_TIME, STATUS, DEL_FLAG, SV_TYPE_ID, SV_AREA, INDUSTRY_ID, 
+    INDUSTRY_NAME, INDUSTRY_VALUE
+    from ASMS_SUBJ_SUPERVISE
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, SV_NAME, SV_CODE, SV_TYPE, SV_LEVEL, SV_LEVEL_ID, SV_AREA_ID, SV_ADDRESS, 
+    SV_LEADER, SV_LEADER_PHONE, SV_CONTACT, SV_CONTACT_PHONE, SV_CONTACT_Q_Q, SV_CONTACT_EMAIL, 
+    SV_POSTCODE, CREATE_BY, CREATE_TIME, STATUS, DEL_FLAG, SV_TYPE_ID, SV_AREA, INDUSTRY_ID, 
+    INDUSTRY_NAME, INDUSTRY_VALUE
+    from ASMS_SUBJ_SUPERVISE
+  </select>
+</mapper>

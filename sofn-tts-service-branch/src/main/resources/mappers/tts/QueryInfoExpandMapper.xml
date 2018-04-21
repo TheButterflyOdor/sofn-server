@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.QueryInfoExpandMapper">
+
+    <!--根据追溯码获取当前批次码-->
+    <select id="selectBatchCodeByTraceCode" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT t.product_pc FROM TTS_SCLTXXCJ_SCGL_V2 t WHERE t.fromzsm = #{traceCode}
+    </select>
+
+    <!--查询当前批次合成记录数-->
+    <select id="countHcNumByBatchCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT count(t.PRODUCT_PC_NEW) FROM TTS_SCLTXXCJ_CPPCHC_V2 t WHERE t.PRODUCT_PC_NEW = #{batchCode}
+    </select>
+
+    <!--获取当前批次信息-->
+    <select id="selectInfoByBatchCode" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT S.*, R.*
+          FROM TTS_SCLTXXCJ_SCGL_V2 S
+         INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R
+            ON R.ENTITY_IDCODE = S.ENTITY_IDCODE
+           AND R.USER_IDCODE = S.USER_IDCODE
+           AND S.PRODUCT_PC = #{batchCode}
+           AND S.DEL_FLAG != 'Y'
+    </select>
+    <!--查询当前批次的上游批次-->
+    <select id="selectParentBatchCodeByBatchCode" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT T.PRODUCT_PC
+          FROM TTS_SCLTXXCJ_SCGL_V2 T
+         INNER JOIN (SELECT X.PRODUCT_SCGL_ID
+                       FROM TTS_SCLTXXCJ_XSDJJL_V2 X
+                      INNER JOIN TTS_SCLTXXCJ_SCGL_V2 S
+                         ON X.TOZSM = S.FROMZSM
+                        AND S.FROMZSM IS NOT NULL
+                        AND S.PRODUCT_PC = #{batchCode}
+                      GROUP BY X.PRODUCT_SCGL_ID) B
+            ON T.PRODUCT_PC = B.PRODUCT_SCGL_ID
+    </select>
+
+</mapper>

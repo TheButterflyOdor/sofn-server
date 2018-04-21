@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsRoutineMonitorMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsRoutineMonitor">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="RM_NAME" jdbcType="VARCHAR" property="rmName" />
+    <result column="RM_TYPE" jdbcType="VARCHAR" property="rmType" />
+    <result column="RM_MODEL_ID" jdbcType="VARCHAR" property="rmModelId" />
+    <result column="RM_YEAR" jdbcType="CHAR" property="rmYear" />
+    <result column="RM_BATCH" jdbcType="VARCHAR" property="rmBatch" />
+    <result column="RM_DATE_BEGIN" jdbcType="TIMESTAMP" property="rmDateBegin" />
+    <result column="RM_DATE_END" jdbcType="TIMESTAMP" property="rmDateEnd" />
+    <result column="RM_RELEASE_UNIT" jdbcType="CHAR" property="rmReleaseUnit" />
+    <result column="RM_FILE" jdbcType="VARCHAR" property="rmFile" />
+    <result column="RM_FILE_NUM" jdbcType="VARCHAR" property="rmFileNum" />
+    <result column="RM_REMARK" jdbcType="VARCHAR" property="rmRemark" />
+    <result column="RM_STATE" jdbcType="VARCHAR" property="rmState" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+    <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+    <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+    <result column="LEVEL_ENUM" jdbcType="CHAR" property="levelEnum" />
+    <result column="RM_FILE_NAME" jdbcType="VARCHAR" property="rmFileName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_ROUTINE_MONITOR
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsRoutineMonitor">
+    insert into ASMS_ROUTINE_MONITOR (ID, RM_NAME, RM_TYPE, 
+      RM_MODEL_ID, RM_YEAR, RM_BATCH, 
+      RM_DATE_BEGIN, RM_DATE_END, RM_RELEASE_UNIT, 
+      RM_FILE, RM_FILE_NUM, RM_REMARK, 
+      RM_STATE, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, ENABLE, 
+      DEL_FLAG, CREATE_ORG_REGION_ID, CREATE_ORG_NAME,
+      CREATE_ORG_ID, LEVEL_ENUM,RM_FILE_NAME)
+    values (#{id,jdbcType=CHAR}, #{rmName,jdbcType=VARCHAR}, #{rmType,jdbcType=VARCHAR}, 
+      #{rmModelId,jdbcType=VARCHAR}, #{rmYear,jdbcType=CHAR}, #{rmBatch,jdbcType=VARCHAR}, 
+      #{rmDateBegin,jdbcType=TIMESTAMP}, #{rmDateEnd,jdbcType=TIMESTAMP}, #{rmReleaseUnit,jdbcType=CHAR}, 
+      #{rmFile,jdbcType=VARCHAR}, #{rmFileNum,jdbcType=VARCHAR}, #{rmRemark,jdbcType=VARCHAR}, 
+      #{rmState,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{createOrgRegionId,jdbcType=VARCHAR}, #{createOrgName,jdbcType=VARCHAR}, 
+      #{createOrgId,jdbcType=CHAR}, #{levelEnum,jdbcType=CHAR},#{rmFileName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsRoutineMonitor">
+    update ASMS_ROUTINE_MONITOR
+    set RM_NAME = #{rmName,jdbcType=VARCHAR},
+      RM_TYPE = #{rmType,jdbcType=VARCHAR},
+      RM_MODEL_ID = #{rmModelId,jdbcType=VARCHAR},
+      RM_YEAR = #{rmYear,jdbcType=CHAR},
+      RM_BATCH = #{rmBatch,jdbcType=VARCHAR},
+      RM_DATE_BEGIN = #{rmDateBegin,jdbcType=TIMESTAMP},
+      RM_DATE_END = #{rmDateEnd,jdbcType=TIMESTAMP},
+      RM_RELEASE_UNIT = #{rmReleaseUnit,jdbcType=CHAR},
+      RM_FILE = #{rmFile,jdbcType=VARCHAR},
+      RM_FILE_NUM = #{rmFileNum,jdbcType=VARCHAR},
+      RM_REMARK = #{rmRemark,jdbcType=VARCHAR},
+      RM_STATE = #{rmState,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      CREATE_ORG_REGION_ID = #{createOrgRegionId,jdbcType=VARCHAR},
+      CREATE_ORG_NAME = #{createOrgName,jdbcType=VARCHAR},
+      CREATE_ORG_ID = #{createOrgId,jdbcType=CHAR},
+      LEVEL_ENUM = #{levelEnum,jdbcType=CHAR},
+      RM_FILE_NAME = #{rmFileName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, RM_NAME, RM_TYPE, RM_MODEL_ID, RM_YEAR, RM_BATCH, RM_DATE_BEGIN, RM_DATE_END, 
+    RM_RELEASE_UNIT, RM_FILE, RM_FILE_NUM, RM_REMARK, RM_STATE, CREATE_BY, CREATE_TIME, 
+    UPDATE_BY, UPDATE_TIME, ENABLE, DEL_FLAG, CREATE_ORG_REGION_ID, CREATE_ORG_NAME, 
+    CREATE_ORG_ID, LEVEL_ENUM,RM_FILE_NAME
+    from ASMS_ROUTINE_MONITOR
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, RM_NAME, RM_TYPE, RM_MODEL_ID, RM_YEAR, RM_BATCH, RM_DATE_BEGIN, RM_DATE_END, 
+    RM_RELEASE_UNIT, RM_FILE, RM_FILE_NUM, RM_REMARK, RM_STATE, CREATE_BY, CREATE_TIME, 
+    UPDATE_BY, UPDATE_TIME, ENABLE, DEL_FLAG, CREATE_ORG_REGION_ID, CREATE_ORG_NAME, 
+    CREATE_ORG_ID, LEVEL_ENUM,RM_FILE_NAME
+    from ASMS_ROUTINE_MONITOR
+  </select>
+</mapper>

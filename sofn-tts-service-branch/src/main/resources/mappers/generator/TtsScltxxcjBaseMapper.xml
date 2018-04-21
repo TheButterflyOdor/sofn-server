@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjBaseMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjBase" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PICTURE_TWO" property="pictureTwo" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="MANAGER" property="manager" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAMES" property="productNames" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="VARCHAR" />
+    <result column="LATITUDE" property="latitude" jdbcType="VARCHAR" />
+    <result column="PICTURE" property="picture" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="ADDRESS_CODE" property="addressCode" jdbcType="VARCHAR" />
+    <result column="ADDRESS_NAME" property="addressName" jdbcType="VARCHAR" />
+    <result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+
+  </resultMap>
+  
+ <!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_SCLTXXCJ_BASE_V2
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>-->
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        update  T_SCLTXXCJ_BASE_V2
+        SET  DEL_FLAG = 'Y'
+       where ID =#{id,jdbcType=VARCHAR}
+    </update>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjBase" >
+    insert into T_SCLTXXCJ_BASE_V2 (ID
+    , PICTURE_TWO
+    , NAME
+    , AREA
+    , ADDRESS
+    , MANAGER
+    , PHONE
+    , PRODUCT_NAMES
+    , LONGITUDE
+    , LATITUDE
+    , PICTURE
+    , STATUS
+    , IP
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    , ADDRESS_CODE
+    , ADDRESS_NAME
+    , DICT_NAME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{pictureTwo,jdbcType=VARCHAR}
+    , #{name,jdbcType=VARCHAR}
+    , #{area,jdbcType=VARCHAR}
+    , #{address,jdbcType=VARCHAR}
+    , #{manager,jdbcType=VARCHAR}
+    , #{phone,jdbcType=VARCHAR}
+    , #{productNames,jdbcType=VARCHAR}
+    , #{longitude,jdbcType=VARCHAR}
+    , #{latitude,jdbcType=VARCHAR}
+    , #{picture,jdbcType=VARCHAR}
+    , #{status,jdbcType=VARCHAR}
+    , #{ip,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{entityIdcode,jdbcType=VARCHAR}
+    , #{addressCode,jdbcType=VARCHAR}
+    , #{addressName,jdbcType=VARCHAR}
+    , #{dictName,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjBase" >
+    update T_SCLTXXCJ_BASE_V2
+    set
+     PICTURE_TWO =  #{pictureTwo,jdbcType=VARCHAR},
+     NAME =  #{name,jdbcType=VARCHAR},
+     AREA =  #{area,jdbcType=VARCHAR},
+     ADDRESS =  #{address,jdbcType=VARCHAR},
+     MANAGER =  #{manager,jdbcType=VARCHAR},
+     PHONE =  #{phone,jdbcType=VARCHAR},
+     LONGITUDE =  #{longitude,jdbcType=VARCHAR},
+     LATITUDE =  #{latitude,jdbcType=VARCHAR},
+     PICTURE =  #{picture,jdbcType=VARCHAR},
+     STATUS =  #{status,jdbcType=VARCHAR},
+     IP =  #{ip,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP},
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+     ADDRESS_CODE =  #{addressCode,jdbcType=VARCHAR},
+     ADDRESS_NAME =  #{addressName,jdbcType=VARCHAR},
+     DICT_NAME =  #{dictName,jdbcType=VARCHAR}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , PICTURE_TWO
+    , NAME
+    , AREA
+    , ADDRESS
+    , MANAGER
+    , PHONE
+    , PRODUCT_NAMES
+    , LONGITUDE
+    , LATITUDE
+    , PICTURE
+    , STATUS
+    , IP
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , USER_IDCODE
+    , ENTITY_IDCODE
+    , ADDRESS_CODE
+    , ADDRESS_NAME
+    , DICT_NAME
+    from T_SCLTXXCJ_BASE_V2
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

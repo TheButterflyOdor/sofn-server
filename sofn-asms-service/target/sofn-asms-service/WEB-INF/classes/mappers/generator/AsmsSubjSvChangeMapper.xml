@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsSubjSvChangeMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjSvChange">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="SV_NAME" jdbcType="VARCHAR" property="svName" />
+    <result column="SV_CODE" jdbcType="VARCHAR" property="svCode" />
+    <result column="SV_TYPE" jdbcType="VARCHAR" property="svType" />
+    <result column="SV_LEVEL" jdbcType="VARCHAR" property="svLevel" />
+    <result column="SV_LEVEL_ID" jdbcType="VARCHAR" property="svLevelId" />
+    <result column="SV_AREA_ID" jdbcType="VARCHAR" property="svAreaId" />
+    <result column="SV_ADDRESS" jdbcType="VARCHAR" property="svAddress" />
+    <result column="SV_LEADER" jdbcType="VARCHAR" property="svLeader" />
+    <result column="SV_LEADER_PHONE" jdbcType="VARCHAR" property="svLeaderPhone" />
+    <result column="SV_CONTACT" jdbcType="VARCHAR" property="svContact" />
+    <result column="SV_CONTACT_PHONE" jdbcType="VARCHAR" property="svContactPhone" />
+    <result column="SV_CONTACT_Q_Q" jdbcType="VARCHAR" property="svContactQQ" />
+    <result column="SV_CONTACT_EMAIL" jdbcType="VARCHAR" property="svContactEmail" />
+    <result column="SV_POSTCODE" jdbcType="VARCHAR" property="svPostcode" />
+    <result column="SV_FILE" jdbcType="VARCHAR" property="svFile" />
+    <result column="CHANGE_BEFORE_FIELD" jdbcType="VARCHAR" property="changeBeforeField" />
+    <result column="CHANGE_CONTENT" jdbcType="VARCHAR" property="changeContent" />
+    <result column="APPLY_USER_ID" jdbcType="CHAR" property="applyUserId" />
+    <result column="APPLY_TIME" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="APPLY_SV_ID" jdbcType="CHAR" property="applySvId" />
+    <result column="APPLY_REASON" jdbcType="VARCHAR" property="applyReason" />
+    <result column="AUDIT_USER_ID" jdbcType="CHAR" property="auditUserId" />
+    <result column="AUDIT_SV_ID" jdbcType="CHAR" property="auditSvId" />
+    <result column="AUDIT_TIME" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="AUDIT_SUGGESTION" jdbcType="VARCHAR" property="auditSuggestion" />
+    <result column="AUDIT_STATE" jdbcType="CHAR" property="auditState" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="SV_TYPE_ID" jdbcType="VARCHAR" property="svTypeId" />
+    <result column="SV_AREA" jdbcType="VARCHAR" property="svArea" />
+    <result column="INDUSTRY_ID" jdbcType="VARCHAR" property="industryId" />
+    <result column="INDUSTRY_NAME" jdbcType="VARCHAR" property="industryName" />
+    <result column="INDUSTRY_VALUE" jdbcType="VARCHAR" property="industryValue" />
+    <result column="SV_FILE_NAME" jdbcType="VARCHAR" property="svFileName" />
+    <result column="WORKITEMID" jdbcType="VARCHAR" property="workItemId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_SUBJ_SV_CHANGE
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsSubjSvChange">
+    insert into ASMS_SUBJ_SV_CHANGE (ID, SV_NAME, SV_CODE,
+    SV_TYPE, SV_LEVEL, SV_LEVEL_ID,
+    SV_AREA_ID, SV_ADDRESS, SV_LEADER,
+    SV_LEADER_PHONE, SV_CONTACT, SV_CONTACT_PHONE,
+    SV_CONTACT_Q_Q, SV_CONTACT_EMAIL, SV_POSTCODE,
+    SV_FILE, CHANGE_BEFORE_FIELD, CHANGE_CONTENT,
+    APPLY_USER_ID, APPLY_TIME, APPLY_SV_ID,
+    APPLY_REASON, AUDIT_USER_ID, AUDIT_SV_ID,
+    AUDIT_TIME, AUDIT_SUGGESTION, AUDIT_STATE,
+    DEL_FLAG, SV_TYPE_ID, SV_AREA,
+    INDUSTRY_ID, INDUSTRY_NAME, INDUSTRY_VALUE,
+    SV_FILE_NAME, WORKITEMID)
+    values (#{id,jdbcType=CHAR}, #{svName,jdbcType=VARCHAR}, #{svCode,jdbcType=VARCHAR},
+    #{svType,jdbcType=VARCHAR}, #{svLevel,jdbcType=VARCHAR}, #{svLevelId,jdbcType=VARCHAR},
+    #{svAreaId,jdbcType=VARCHAR}, #{svAddress,jdbcType=VARCHAR}, #{svLeader,jdbcType=VARCHAR},
+    #{svLeaderPhone,jdbcType=VARCHAR}, #{svContact,jdbcType=VARCHAR}, #{svContactPhone,jdbcType=VARCHAR},
+    #{svContactQQ,jdbcType=VARCHAR}, #{svContactEmail,jdbcType=VARCHAR}, #{svPostcode,jdbcType=VARCHAR},
+    #{svFile,jdbcType=VARCHAR}, #{changeBeforeField,jdbcType=VARCHAR}, #{changeContent,jdbcType=VARCHAR},
+    #{applyUserId,jdbcType=CHAR}, #{applyTime,jdbcType=TIMESTAMP}, #{applySvId,jdbcType=CHAR},
+    #{applyReason,jdbcType=VARCHAR}, #{auditUserId,jdbcType=CHAR}, #{auditSvId,jdbcType=CHAR},
+    #{auditTime,jdbcType=TIMESTAMP}, #{auditSuggestion,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR},
+    #{delFlag,jdbcType=CHAR}, #{svTypeId,jdbcType=VARCHAR}, #{svArea,jdbcType=VARCHAR},
+    #{industryId,jdbcType=VARCHAR}, #{industryName,jdbcType=VARCHAR}, #{industryValue,jdbcType=VARCHAR},
+    #{svFileName,jdbcType=VARCHAR}, #{workItemId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsSubjSvChange">
+    update ASMS_SUBJ_SV_CHANGE
+    set SV_NAME = #{svName,jdbcType=VARCHAR},
+    SV_CODE = #{svCode,jdbcType=VARCHAR},
+    SV_TYPE = #{svType,jdbcType=VARCHAR},
+    SV_LEVEL = #{svLevel,jdbcType=VARCHAR},
+    SV_LEVEL_ID = #{svLevelId,jdbcType=VARCHAR},
+    SV_AREA_ID = #{svAreaId,jdbcType=VARCHAR},
+    SV_ADDRESS = #{svAddress,jdbcType=VARCHAR},
+    SV_LEADER = #{svLeader,jdbcType=VARCHAR},
+    SV_LEADER_PHONE = #{svLeaderPhone,jdbcType=VARCHAR},
+    SV_CONTACT = #{svContact,jdbcType=VARCHAR},
+    SV_CONTACT_PHONE = #{svContactPhone,jdbcType=VARCHAR},
+    SV_CONTACT_Q_Q = #{svContactQQ,jdbcType=VARCHAR},
+    SV_CONTACT_EMAIL = #{svContactEmail,jdbcType=VARCHAR},
+    SV_POSTCODE = #{svPostcode,jdbcType=VARCHAR},
+    SV_FILE = #{svFile,jdbcType=VARCHAR},
+    CHANGE_BEFORE_FIELD = #{changeBeforeField,jdbcType=VARCHAR},
+    CHANGE_CONTENT = #{changeContent,jdbcType=VARCHAR},
+    APPLY_USER_ID = #{applyUserId,jdbcType=CHAR},
+    APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+    APPLY_SV_ID = #{applySvId,jdbcType=CHAR},
+    APPLY_REASON = #{applyReason,jdbcType=VARCHAR},
+    AUDIT_USER_ID = #{auditUserId,jdbcType=CHAR},
+    AUDIT_SV_ID = #{auditSvId,jdbcType=CHAR},
+    AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+    AUDIT_SUGGESTION = #{auditSuggestion,jdbcType=VARCHAR},
+    AUDIT_STATE = #{auditState,jdbcType=CHAR},
+    DEL_FLAG = #{delFlag,jdbcType=CHAR},
+    SV_TYPE_ID = #{svTypeId,jdbcType=VARCHAR},
+    SV_AREA = #{svArea,jdbcType=VARCHAR},
+    INDUSTRY_ID = #{industryId,jdbcType=VARCHAR},
+    INDUSTRY_NAME = #{industryName,jdbcType=VARCHAR},
+    INDUSTRY_VALUE = #{industryValue,jdbcType=VARCHAR},
+    SV_FILE_NAME = #{svFileName,jdbcType=VARCHAR},
+    WORKITEMID = #{workItemId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, SV_NAME, SV_CODE, SV_TYPE, SV_LEVEL, SV_LEVEL_ID, SV_AREA_ID, SV_ADDRESS,
+      SV_LEADER, SV_LEADER_PHONE, SV_CONTACT, SV_CONTACT_PHONE, SV_CONTACT_Q_Q, SV_CONTACT_EMAIL,
+      SV_POSTCODE, SV_FILE, CHANGE_BEFORE_FIELD, CHANGE_CONTENT, APPLY_USER_ID, APPLY_TIME,
+      APPLY_SV_ID, APPLY_REASON, AUDIT_USER_ID, AUDIT_SV_ID, AUDIT_TIME, AUDIT_SUGGESTION,
+      AUDIT_STATE, DEL_FLAG, SV_TYPE_ID, SV_AREA, INDUSTRY_ID, INDUSTRY_NAME, INDUSTRY_VALUE,
+      SV_FILE_NAME, WORKITEMID
+    from ASMS_SUBJ_SV_CHANGE
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, SV_NAME, SV_CODE, SV_TYPE, SV_LEVEL, SV_LEVEL_ID, SV_AREA_ID, SV_ADDRESS,
+      SV_LEADER, SV_LEADER_PHONE, SV_CONTACT, SV_CONTACT_PHONE, SV_CONTACT_Q_Q, SV_CONTACT_EMAIL,
+      SV_POSTCODE, SV_FILE, CHANGE_BEFORE_FIELD, CHANGE_CONTENT, APPLY_USER_ID, APPLY_TIME,
+      APPLY_SV_ID, APPLY_REASON, AUDIT_USER_ID, AUDIT_SV_ID, AUDIT_TIME, AUDIT_SUGGESTION,
+      AUDIT_STATE, DEL_FLAG, SV_TYPE_ID, SV_AREA, INDUSTRY_ID, INDUSTRY_NAME, INDUSTRY_VALUE,
+      SV_FILE_NAME, WORKITEMID
+    from ASMS_SUBJ_SV_CHANGE
+  </select>
+</mapper>

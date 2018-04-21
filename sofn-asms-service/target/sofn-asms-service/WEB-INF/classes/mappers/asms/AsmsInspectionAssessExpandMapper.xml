@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsInspectionAssessExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsInspectionAssess">
+        <id column="ID" property="id" jdbcType="CHAR" />
+        <result column="INSPECTION_TASK_ID" property="inspectionTaskId" jdbcType="CHAR" />
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="USER_ID" property="userId" jdbcType="CHAR" />
+        <result column="TASK_RESULT" property="taskResult" jdbcType="VARCHAR" />
+        <result column="INSPECTION_REAL_COUNT" property="inspectionRealCount" jdbcType="DECIMAL" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    </resultMap>
+
+    <!--根据任务id删除巡查人员-->
+    <delete id="delOldDate" parameterType="com.sofn.model.generator.AsmsInspectionAssess">
+        DELETE FROM  ASMS_INSPECTION_ASSESS WHERE INSPECTION_TASK_ID = '${inspectionTaskId}'
+    </delete>
+
+    <!--巡查考核人员列表-->
+    <select id="getPagesList" resultType="map">
+        SELECT
+        *
+        FROM
+        (
+        SELECT
+        N.*, ROWNUM AS rn
+        FROM
+        (
+        SELECT
+        taskUser."ID" AS ID,
+        task.TASK_TYPE AS taskType,
+        task.TASK_DATE AS taskDate,
+        task.TASK_DATE_TYPE AS taskDateType,
+        task.TASK_DATE_YEAR AS taskDateYear,
+        task.TASK_DATE_MONTHS AS taskDateMonths,
+        task.TASK_DATE_QUARTER AS taskDateQuarter,
+        taskUser.INSPECTION_TASK_ID AS inspectionTaskId,
+        taskUser.USER_NAME AS userName,
+        taskUser.USER_ID AS userId,
+        taskUser.TASK_RESULT AS taskResult,
+        task.INSPECTION_AREA_ID AS inspectionAreaId,
+        task.INSPECTION_COUNT AS inspectionCount,
+        task.CREATE_ORG_ID AS createOrgId,
+        task.CREATE_ORG_NAME AS createOrgName,
+        3 AS inspectionRealCount,
+        1 AS taskStatus
+        FROM
+        ASMS_INSPECTION_ASSESS taskUser
+        LEFT JOIN ASMS_INSPECTION_TASK task ON task. ID = taskUser.INSPECTION_TASK_ID
+        WHERE 1=1 AND task.DEL_FLAG = 'N' AND task.CREATE_ORG_ID = #{theUserOrgId}
+        <!--<if test="regParm!=null and regParm!=''">-->
+            <!--AND task.INSPECTION_AREA_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="taskType!=null and taskType!=''">
+            AND task.TASK_TYPE LIKE #{taskType}
+        </if>
+        <if test="taskDateType!=null and taskDateType!=''">
+            AND task.TASK_DATE_TYPE LIKE #{taskDateType}
+        </if>
+        <if test="userName!=null and userName!=''">
+            AND taskUser.USER_NAME LIKE #{userName}
+        </if>
+        <if test="taskResult!=null and taskResult!=''">
+            AND taskUser.TASK_RESULT = #{taskResult}
+        </if>
+        order by task.CREATE_TIME DESC
+        ) N
+        )
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCount" resultType="long">
+        SELECT COUNT(*) FROM ASMS_INSPECTION_ASSESS taskUser
+        LEFT JOIN ASMS_INSPECTION_TASK task ON task. ID = taskUser.INSPECTION_TASK_ID
+        WHERE 1=1 AND task.DEL_FLAG = 'N' AND task.CREATE_ORG_ID = #{theUserOrgId}
+        <!--<if test="regParm!=null and regParm!=''">-->
+        <!--AND task.INSPECTION_AREA_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="taskType!=null and taskType!=''">
+            AND task.TASK_TYPE LIKE #{taskType}
+        </if>
+        <if test="taskDateType!=null and taskDateType!=''">
+            AND task.TASK_DATE_TYPE LIKE #{taskDateType}
+        </if>
+        <if test="userName!=null and userName!=''">
+            AND taskUser.USER_NAME LIKE #{userName}
+        </if>
+        <if test="taskResult!=null and taskResult!=''">
+            AND taskUser.TASK_RESULT = #{taskResult}
+        </if>
+        order by task.CREATE_TIME DESC
+    </select>
+
+    <!--获取实际巡查次数-->
+    <select id="getRealCount" resultType="java.lang.Long">
+        SELECT
+	    COUNT (*)
+        FROM
+	    ASMS_BASE_USER link
+        LEFT JOIN ASMS_BASE_INSPECTION report ON report. ID = link.BASE_INSPECTION_ID
+        WHERE
+	    link.INSPECTION_USER_ID = '${userId}'
+        <!-- 暂时不涉及任务类型
+        AND report.INSPECTION_TYPE = '${inspectionType}'-->
+        AND report.INSPECTION_TIME BETWEEN TO_DATE (
+	    '${beginTime}',
+	    'yyyy-mm-dd hh24:mi:ss'
+        )
+        AND TO_DATE (
+	    '${endTime}',
+	    'yyyy-mm-dd hh24:mi:ss')
+    </select>
+
+    <select id="getPersonByTaskId" resultType="com.sofn.model.generator.AsmsInspectionAssess">
+        SELECT * FROM ASMS_INSPECTION_ASSESS taskUser WHERE taskUser.INSPECTION_TASK_ID = #{taskId}
+    </select>
+
+</mapper>

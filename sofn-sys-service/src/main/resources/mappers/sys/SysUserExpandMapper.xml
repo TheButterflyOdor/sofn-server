@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysUserExpandMapper">
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.sys.SysUserBean" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+        <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+        <result column="ORGANIZATION_ID" property="organizationId" jdbcType="VARCHAR" />
+        <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+        <result column="POST_ID" property="postId" jdbcType="VARCHAR" />
+        <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+        <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR" />
+        <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR" />
+        <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+        <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="getRecordsTotal" resultType="java.lang.Integer">
+        select count(1)
+        from SYS_USER
+        where (del_flag is null or del_flag!='Y')
+        <if test="keyword != null and keyword != ''">
+            AND USER_NAME LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="status != null and status != ''">
+            AND STATUS = #{status}
+        </if>
+        <!-- 如果是SUPERADMIN则查询所有 -->
+            <if test="organizationId == null ">
+                AND ORGANIZATION_ID is null
+            </if>
+            <if test="organizationId != null and organizationId != ''">
+                AND ORGANIZATION_ID = #{organizationId}
+            </if>
+        <!--<if test="deptId != null and deptId != ''">
+            AND dept_id =  #{dept_id}
+        </if>
+        <if test="roleId != null and roleId != ''">
+            AND role_id =  #{roleId}
+        </if>-->
+    </select>
+    <select id="getRecordsTotalNew" resultType="java.lang.Integer">
+        select count(1)
+        from SYS_USER u
+        where (u.del_flag is null or u.del_flag!='Y') and user_type !='SYSADMIN' and user_type !='SUBJADMIN'
+        <if test="keyword != null and keyword != ''">
+            AND u.USER_NAME LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="status != null and status != ''">
+            AND u.STATUS = #{status}
+        </if>
+        <if test="userType != 'SUPERADMIN'">
+            AND u.USER_TYPE != 'SUPERADMIN' and u.CREATE_BY = #{userId}
+        </if>
+
+    </select>
+
+    <select id="queryByParam" resultType="com.sofn.model.generator.SysUser">
+        select *
+        from SYS_USER
+        where (del_flag is null or del_flag!='Y')
+        <if test="param.keyword != null and param.keyword != ''">
+            AND ROLE_NAME LIKE '%' || #{param.keyword} || '%'
+        </if>
+        <if test="param.userName != null and param.userName != ''">
+            AND USER_NAME = #{param.userName}
+        </if>
+        <if test="param.userType != null and param.userType != ''">
+            AND USER_TYPE = #{param.userType}
+        </if>
+        <if test="param.account != null and param.account != ''">
+            AND account LIKE  #{param.account} || '%'
+        </if>
+        <if test="param.password != null and param.password != ''">
+            AND PASSWORD =  #{param.password}
+        </if>
+        <if test="param.accountJD != null and param.accountJD != ''">
+            AND account =  #{param.accountJD}
+        </if>
+        <if test="param.organizationId == null ">
+            AND ORGANIZATION_ID is null
+        </if>
+        <if test="param.organizationId != null and param.organizationId != ''">
+            AND ORGANIZATION_ID = #{param.organizationId}
+        </if>
+        <if test="param.deptId != null and param.deptId != ''">
+            AND dept_id =  #{param.deptId}
+        </if>
+        <if test="param.roleId != null and param.roleId != ''">
+            AND role_id =  #{param.roleId}
+        </if>
+    </select>
+    <select id="queryUserBeanById" resultType="com.sofn.model.sys.SysUserBean">
+        select u.*
+        from SYS_USER u left join SYS_ORGANIZATION o on o.id=u.ORGANIZATION_ID
+        where (u.del_flag is null or u.del_flag!='Y')
+            AND u.id =  #{id}
+    </select>
+    <select id="queryByRoleId" resultType="com.sofn.model.generator.SysUser">
+        select u.* from sys_user_role r
+        right join sys_user u on r.user_id=u.id
+        where (r.del_flag is null or r.del_flag ='N')
+        and r.role_id=#{roleId} ;
+    </select>
+
+    <select id="getSysUserListByPage"  resultMap="BaseResultMap">
+        select u.ID as "id", u.ACCOUNT as "account", u.PASSWORD as "password",u.USER_TYPE as "user_type",
+        u.USER_NAME as "user_name", u.DEPT_ID as "dept_id",u.ORGANIZATION_ID as "organization_id", u.ROLE_ID as "role_id",
+        u.POST_ID as "post_id", u.PHONE as "phone", u.EMAIL as "email",
+        u.STATUS as "status", u.CREATE_BY as "create_by", u.CREATE_TIME as "create_by", u.UPDATE_BY as "update_by",
+        u.UPDATE_TIME as "update_time", u.DEL_FLAG as "del_flag", u.RESERVED_FIELD1 as "reserved_field1",
+        u.RESERVED_FIELD2 as "reserved_field2",
+        o.org_name as "org_name",
+        r.role_name as "role_name" from
+        (select * from (select a.*,ROWNUM RN from (
+        select * from sys_user s where (del_flag is null or del_flag!='Y')
+        <if test="keyword != null and keyword != ''">
+            AND USER_NAME LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="status != null and status != ''">
+            AND STATUS = #{status}
+        </if>
+        <!-- 如果是SUPERADMIN则查询所有 -->
+          <if test="organizationId == null ">
+              AND ORGANIZATION_ID is null
+          </if>
+          <if test="organizationId != null and organizationId != ''">
+              AND ORGANIZATION_ID = #{organizationId}
+          </if>
+        order by UPDATE_TIME desc
+        ) a
+        <![CDATA[
+        where ROWNUM<= #{page.pageTail}
+        ]]>)
+        <![CDATA[
+        where RN >= #{page.pageOffset}
+        ]]>) u
+        /*left join sys_dept d on u.dept_id=d.id*/
+        left join SYS_ORGANIZATION o on u.ORGANIZATION_ID=o.id
+        left join sys_post p on u.post_id=p.id left join SYS_DICT_DATA di on u.status=di.id left join SYS_ROLE r on u.role_id=r.id
+        order by u.reserved_field1 desc,u.UPDATE_TIME desc
+    </select>
+
+    <select id="getSysUserListByPageNew" resultMap="BaseResultMap">
+        select u.ID as "id", u.ACCOUNT as "account", u.PASSWORD as "password",u.USER_TYPE as "user_type",
+        u.USER_NAME as "user_name", u.DEPT_ID as "dept_id",u.ORGANIZATION_ID as "organization_id", u.ROLE_ID as "role_id",
+        u.POST_ID as "post_id", u.PHONE as "phone", u.EMAIL as "email",
+        u.STATUS as "status", u.CREATE_BY as "create_by", u.CREATE_TIME as "create_by", u.UPDATE_BY as "update_by",
+        u.UPDATE_TIME as "update_time", u.DEL_FLAG as "del_flag", u.RESERVED_FIELD1 as "reserved_field1",
+        u.RESERVED_FIELD2 as "reserved_field2",
+        o.org_name as "org_name",
+        r.role_name as "role_name" from
+        (select * from (select a.*,ROWNUM RN from (
+        select * from sys_user s where (s.del_flag is null or s.del_flag!='Y') and s.user_type !='SYSADMIN' and s.user_type !='SUBJADMIN'
+        <if test="keyword != null and keyword != ''">
+            AND s.USER_NAME LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="status != null and status != ''">
+            AND s.STATUS = #{status}
+        </if>
+        <if test="userType != 'SUPERADMIN'">
+            AND s.USER_TYPE != 'SUPERADMIN' and s.CREATE_BY = #{userId}
+        </if>
+        order by s.reserved_field1 desc,s.UPDATE_TIME desc
+        ) a
+        <![CDATA[
+        where ROWNUM<= #{page.pageTail}
+        ]]>)
+        <![CDATA[
+        where RN >= #{page.pageOffset}
+        ]]>) u
+        left join SYS_ORGANIZATION o on u.ORGANIZATION_ID=o.id
+         left join SYS_DICT_DATA di on u.status=di.id left join SYS_ROLE r on u.role_id=r.id
+        order by u.reserved_field1 desc,u.UPDATE_TIME desc
+    </select>
+    <!-- 以下为案例 -->
+    <!--<select id="getRecordsTotal" resultType="java.lang.Integer">
+        select count(1)
+        from SYS_USER
+        where 1=1
+        <if test="keyword != null and keyword != ''">
+            AND ACCOUNT LIKE '%' || #{keyword} || '%'
+        </if>
+    </select>-->
+    <select id="getSysUserList" resultType="com.sofn.model.sys.SysUserDto">
+        SELECT * FROM
+        (
+        SELECT A.*, ROWNUM RN
+        FROM (
+        SELECT * FROM SYS_USER
+        WHERE 1=1
+        <if test="keyword != null and keyword != ''">
+            AND ACCOUNT LIKE '%' || #{keyword} || '%'
+        </if>
+        ) A
+        <![CDATA[
+            WHERE ROWNUM <= #{pager.pageTail}
+            ]]>
+        )
+        <![CDATA[
+        WHERE RN >= #{pager.pageOffset}
+        ]]>
+    </select>
+
+
+    <select id="getRecordsTotalExternal" resultType="java.lang.Integer">
+        select count(1)
+        from SYS_USER
+        where (del_flag is null or del_flag!='Y')
+        <if test="userName != null and userName != ''">
+            AND USER_NAME LIKE '%' || #{userName} || '%'
+        </if>
+    </select>
+        <select id="getRecordsExternal" resultType="com.sofn.model.generator.SysUser">
+        select * from (select a.*,ROWNUM RN from (
+        select * from sys_user s where (del_flag is null or del_flag!='Y')
+        <if test="userName != null and userName != ''">
+            AND USER_NAME LIKE '%' || #{userName} || '%'
+        </if>
+        order by UPDATE_TIME desc
+        ) a
+        <![CDATA[
+        where ROWNUM<= #{page.pageTail}
+        ]]>)
+        <![CDATA[
+        where RN >= #{page.pageOffset}
+        ]]>
+
+    </select>
+    <update id="deleteByOrganization"  parameterType="java.lang.String"  >
+        update SYS_USER
+        set
+        <if test="delFlag!=null and delFlag!= ''">
+          DEL_FLAG = #{delFlag,jdbcType=VARCHAR} ,
+        </if>
+        <if test="status!=null and status!= ''">
+          STATUS=#{status}
+        </if>
+        where ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getMaxAreaByAccount" resultType="java.lang.String">
+        SELECT account from (
+        SELECT account from SYS_USER where del_flag = 'N' AND "ACCOUNT" LIKE  #{accountLike}||'%' order BY "ACCOUNT"  desc
+        ) where ROWNUM = 1
+    </select>
+    <select id="checkUserByAccount" resultType="java.lang.Integer">
+        select count(*)
+        from SYS_USER
+        where del_flag = 'N'
+        <if test="account != null and account != ''">
+            AND account =  #{account}
+        </if>
+    </select>
+
+    <select id="getOrgUserRecordsCountByUserId" resultType="java.lang.Integer">
+        select count(T1.id) from SYS_USER t1
+        left join SYS_USER  t2 on T1.ORGANIZATION_ID = t2.ORGANIZATION_ID
+        where T1.DEL_FLAG = 'N' and T1.USER_TYPE != 'SYSADMIN' and T1.USER_TYPE != 'SUBJADMIN'
+        <if test="userId != null and userId != ''">
+            and T2.ID = #{userId}
+        </if>
+        <if test="status != null and status != ''">
+            and t1.STATUS = #{status}
+        </if>
+    </select>
+
+    <select id="getOrgUserRecordsByUserId" resultMap="BaseResultMap">
+        select u.ID as "id", u.ACCOUNT as "account", u.PASSWORD as "password",u.USER_TYPE as "user_type",
+        u.USER_NAME as "user_name", u.DEPT_ID as "dept_id",u.ORGANIZATION_ID as "organization_id", u.ROLE_ID as "role_id",
+        u.POST_ID as "post_id", u.PHONE as "phone", u.EMAIL as "email",
+        u.STATUS as "status", u.CREATE_BY as "create_by", u.CREATE_TIME as "create_by", u.UPDATE_BY as "update_by",
+        u.UPDATE_TIME as "update_time", u.DEL_FLAG as "del_flag", u.RESERVED_FIELD1 as "reserved_field1",
+        u.RESERVED_FIELD2 as "reserved_field2",
+        o.org_name as "org_name",
+        r.role_name as "role_name" from
+        (
+        select * from (SELECT a.* ,ROWNUM RN from (
+        select T1.* from SYS_USER t1
+        left join SYS_USER  t2 on T1.ORGANIZATION_ID = t2.ORGANIZATION_ID
+        where T1.DEL_FLAG = 'N' and T1.USER_TYPE != 'SYSADMIN' and T1.USER_TYPE != 'SUBJADMIN'
+        <if test="userId != null and userId != ''">
+            and T2.ID = #{userId}
+        </if>
+        <if test="status != null and status != ''">
+            and t1.STATUS = #{status}
+        </if>
+              order by t1.UPDATE_TIME desc
+        )a
+        <![CDATA[
+        where ROWNUM<= #{page.pageTail}
+        ]]>)
+        <![CDATA[
+        where RN >= #{page.pageOffset}
+        ]]>) u
+        left join SYS_ORGANIZATION o on u.ORGANIZATION_ID=o.id
+        left join SYS_DICT_DATA di on u.status=di.id left join SYS_ROLE r on u.role_id=r.id
+        order by u.reserved_field1 desc,u.UPDATE_TIME desc
+    </select>
+    <update id="editPasswordByAccount" parameterType="java.lang.String">
+        update sys_user set password=#{password} where account = #{account}
+    </update>
+    <select id="queryUserByAccount" resultType="com.sofn.model.generator.SysUser">
+        select *
+        from SYS_USER
+        where (del_flag is null or del_flag!='Y')
+        <if test="account != null and account != ''">
+            AND account =  #{account}
+        </if>
+    </select>
+</mapper>

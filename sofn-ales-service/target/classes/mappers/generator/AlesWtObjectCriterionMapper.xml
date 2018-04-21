@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AlesWtObjectCriterionMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesWtObjectCriterion" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ENABLE" property="enable" jdbcType="CHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="OBJECT_ID" property="objectId" jdbcType="CHAR" />
+    <result column="TASK_ID" property="taskId" jdbcType="CHAR" />
+    <result column="CRITERION_NAME" property="criterionName" jdbcType="VARCHAR" />
+    <result column="CRITERION_ID" property="criterionId" jdbcType="CHAR" />
+    <result column="SPPER_LIMIT" property="spperLimit" jdbcType="DECIMAL" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ALES_WT_OBJECT_CRITERION
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AlesWtObjectCriterion" >
+    insert into ALES_WT_OBJECT_CRITERION (ID, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, ENABLE, 
+      DEL_FLAG, OBJECT_ID, TASK_ID, CRITERION_NAME, 
+      CRITERION_ID, SPPER_LIMIT)
+    values (#{id,jdbcType=CHAR}, #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=CHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{objectId,jdbcType=CHAR}, #{taskId,jdbcType=CHAR}, #{criterionName,jdbcType=VARCHAR}, 
+      #{criterionId,jdbcType=CHAR}, #{spperLimit,jdbcType=DECIMAL})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AlesWtObjectCriterion" >
+    update ALES_WT_OBJECT_CRITERION
+    set CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      OBJECT_ID = #{objectId,jdbcType=CHAR},
+      TASK_ID = #{taskId,jdbcType=CHAR},
+      CRITERION_NAME = #{criterionName,jdbcType=VARCHAR},
+      CRITERION_ID = #{criterionId,jdbcType=CHAR},
+      SPPER_LIMIT = #{spperLimit,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, DEL_FLAG, OBJECT_ID, 
+    TASK_ID, CRITERION_NAME, CRITERION_ID, SPPER_LIMIT
+    from ALES_WT_OBJECT_CRITERION
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE, DEL_FLAG, OBJECT_ID, 
+    TASK_ID, CRITERION_NAME, CRITERION_ID, SPPER_LIMIT
+    from ALES_WT_OBJECT_CRITERION
+  </select>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsRecheckObjectMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsRecheckObject">
+        <id column="ID" jdbcType="CHAR" property="id"/>
+        <result column="RECHECK_TASK_ID" jdbcType="CHAR" property="recheckTaskId"/>
+        <result column="RECHECK_SAMPLE_NAME" jdbcType="VARCHAR" property="recheckSampleName"/>
+        <result column="RECHECK_SAMPLE_CODE" jdbcType="VARCHAR" property="recheckSampleCode"/>
+        <result column="RECHECK_UNIT_ID" jdbcType="CHAR" property="recheckUnitId"/>
+        <result column="RECHECK_STANDARD" jdbcType="VARCHAR" property="recheckStandard"/>
+        <result column="RECHECK_JUDGE_STANDARD" jdbcType="VARCHAR" property="recheckJudgeStandard"/>
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="ENABLE" jdbcType="CHAR" property="enable"/>
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag"/>
+        <result column="RECHECK_UNIT_NAME" jdbcType="VARCHAR" property="recheckUnitName"/>
+        <result column="TESTED_DEPARMENT" jdbcType="VARCHAR" property="testedDeparment"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_RECHECK_OBJECT
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+    <insert id="insert" parameterType="com.sofn.model.generator.AsmsRecheckObject">
+    insert into ASMS_RECHECK_OBJECT (ID, RECHECK_TASK_ID, RECHECK_SAMPLE_NAME, 
+      RECHECK_SAMPLE_CODE, RECHECK_UNIT_ID, RECHECK_STANDARD, 
+      RECHECK_JUDGE_STANDARD, CREATE_BY, CREATE_TIME, 
+      ENABLE, DEL_FLAG, RECHECK_UNIT_NAME, 
+      TESTED_DEPARMENT)
+    values (#{id,jdbcType=CHAR}, #{recheckTaskId,jdbcType=CHAR}, #{recheckSampleName,jdbcType=VARCHAR}, 
+      #{recheckSampleCode,jdbcType=VARCHAR}, #{recheckUnitId,jdbcType=CHAR}, #{recheckStandard,jdbcType=VARCHAR}, 
+      #{recheckJudgeStandard,jdbcType=VARCHAR}, #{createBy,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{enable,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{recheckUnitName,jdbcType=VARCHAR}, 
+      #{testedDeparment,jdbcType=VARCHAR})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsRecheckObject">
+    update ASMS_RECHECK_OBJECT
+    set RECHECK_TASK_ID = #{recheckTaskId,jdbcType=CHAR},
+      RECHECK_SAMPLE_NAME = #{recheckSampleName,jdbcType=VARCHAR},
+      RECHECK_SAMPLE_CODE = #{recheckSampleCode,jdbcType=VARCHAR},
+      RECHECK_UNIT_ID = #{recheckUnitId,jdbcType=CHAR},
+      RECHECK_STANDARD = #{recheckStandard,jdbcType=VARCHAR},
+      RECHECK_JUDGE_STANDARD = #{recheckJudgeStandard,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      RECHECK_UNIT_NAME = #{recheckUnitName,jdbcType=VARCHAR},
+      TESTED_DEPARMENT = #{testedDeparment,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, RECHECK_TASK_ID, RECHECK_SAMPLE_NAME, RECHECK_SAMPLE_CODE, RECHECK_UNIT_ID, 
+    RECHECK_STANDARD, RECHECK_JUDGE_STANDARD, CREATE_BY, CREATE_TIME, ENABLE, DEL_FLAG, 
+    RECHECK_UNIT_NAME, TESTED_DEPARMENT
+    from ASMS_RECHECK_OBJECT
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select ID, RECHECK_TASK_ID, RECHECK_SAMPLE_NAME, RECHECK_SAMPLE_CODE, RECHECK_UNIT_ID, 
+    RECHECK_STANDARD, RECHECK_JUDGE_STANDARD, CREATE_BY, CREATE_TIME, ENABLE, DEL_FLAG, 
+    RECHECK_UNIT_NAME, TESTED_DEPARMENT
+    from ASMS_RECHECK_OBJECT
+  </select>
+</mapper>

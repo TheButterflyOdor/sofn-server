@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsCheckBearUnitExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCheckBearUnit">
+        <id column="ID" property="id" jdbcType="CHAR" />
+        <result column="SUPERVISE_CHECK_TASK_ID" property="superviseCheckTaskId" jdbcType="CHAR" />
+        <result column="SUPERVISE_BEAR_UNIT_ID" property="superviseBearUnitId" jdbcType="CHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+        <result column="LEAD_UNIT_NAME" jdbcType="VARCHAR" property="leadUnitName" />
+    </resultMap>
+
+    <delete id="delByTaskId" parameterType="com.sofn.model.generator.AsmsCheckBearUnit">
+    delete from ASMS_CHECK_BEAR_UNIT
+        where SUPERVISE_CHECK_TASK_ID = '${superviseCheckTaskId}'
+    </delete>
+
+    <select id="getUnitByTaskId" resultType="com.sofn.model.generator.AsmsCheckBearUnit" parameterType="com.sofn.model.generator.AsmsCheckBearUnit">
+        SELECT * FROM ASMS_CHECK_BEAR_UNIT WHERE SUPERVISE_CHECK_TASK_ID = '${superviseCheckTaskId}'
+    </select>
+
+</mapper>

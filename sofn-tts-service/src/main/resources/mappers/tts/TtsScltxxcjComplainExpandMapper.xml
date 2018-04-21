@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjComplainExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjComplain" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="BE_ENTITY_IDCODE" property="beEntityIdcode" jdbcType="VARCHAR" />
+    <result column="BE_USER_IDCODE" property="beUserIdcode" jdbcType="VARCHAR" />
+    <result column="ACC_ENTITY_IDCODE" property="accEntityIdcode" jdbcType="VARCHAR" />
+    <result column="ACC_USER_IDCODE" property="accUserIdcode" jdbcType="VARCHAR" />
+    <result column="COMPLAINT_TIME" property="complaintTime" jdbcType="TIMESTAMP" />
+    <result column="COMPLAINT_TITLE" property="complaintTitle" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="ACCEPTANCE" property="acceptance" jdbcType="VARCHAR" />
+    <result column="AREA_ID" property="areaId" jdbcType="VARCHAR" />
+    <result column="ACC_TIME" property="accTime" jdbcType="TIMESTAMP" />
+    <result column="ATTACHMENT_NAME" property="attachmentName" jdbcType="VARCHAR" />
+    <result column="COMPLAINT_ENT_NAME" property="complaintEntName" jdbcType="CHAR" />
+    <result column="ATTACHMENT_PATH" property="attachmentPath" jdbcType="VARCHAR" />
+    <result column="COMPLAINT_COP_NAME" property="complaintCopName" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+      SELECT Tab.*
+      FROM (
+      SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.CREATE_TIME DESC) AS NUM from TTS_SCLTXXCJ_COMPLAINT T
+      where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <!--<if test="bean.userIdcode !=null and bean.userIdcode !=''">-->
+          <!--and T.USER_IDCODE = #{bean.userIdcode}-->
+      <!--</if>-->
+      <if test="bean.entityIdcode !=null and bean.entityIdcode !=''">
+          and T.ENTITY_IDCODE = #{bean.entityIdcode}
+      </if>
+      <if test="bean.beEntityIdcode !=null and bean.beEntityIdcode !=''">
+          and T.BE_ENTITY_IDCODE = #{bean.beEntityIdcode}
+      </if>
+      <if test="bean.beUserIdcode !=null and bean.beUserIdcode !=''">
+          and T.BE_USER_IDCODE = #{bean.beUserIdcode}
+      </if>
+      <if test="bean.accEntityIdcode !=null and bean.accEntityIdcode !=''">
+          and T.ACC_ENTITY_IDCODE = #{bean.accEntityIdcode}
+      </if>
+      <if test="bean.accUserIdcode !=null and bean.accUserIdcode !=''">
+          and T.ACC_USER_IDCODE = #{bean.accUserIdcode}
+      </if>
+      <if test="bean.complaintTitle !=null and bean.complaintTitle !=''">
+          and UPPER(T.COMPLAINT_TITLE) LIKE UPPER('%${bean.complaintTitle}%')
+      </if>
+      <if test="bean.content !=null and bean.content !=''">
+          and UPPER(T.CONTENT) LIKE UPPER('%${bean.content}%')
+      </if>
+      <if test="bean.type !=null and bean.type !=''">
+          and T.TYPE = #{bean.type}
+      </if>
+      <if test="bean.status !=null and bean.status !=''">
+          and T.STATUS = #{bean.status}
+      </if>
+      <if test="bean.acceptance !=null and bean.acceptance !=''">
+          and UPPER(T.ACCEPTANCE) LIKE UPPER('%${bean.acceptance}%')
+      </if>
+      <if test="bean.areaId !=null and bean.areaId !=''">
+          and T.AREA_ID = #{bean.areaId}
+      </if>
+      <if test="bean.complaintEntName !=null and bean.complaintEntName !=''">
+          and UPPER(T.COMPLAINT_ENT_NAME) LIKE UPPER('%${bean.complaintEntName}%')
+      </if>
+      <if test="bean.complaintCopName !=null and bean.complaintCopName !=''">
+          and UPPER(T.COMPLAINT_COP_NAME) LIKE UPPER('%${bean.complaintCopName}%')
+      </if>
+      <if test="keywords !=null and keywords !=''">
+          and ( UPPER(T.COMPLAINT_TITLE) LIKE UPPER('%'||#{keywords}||'%') or  UPPER(T.COMPLAINT_ENT_NAME) LIKE UPPER('%'||#{keywords}||'%') )
+      </if>
+      <if test="dateBegin != null and dateBegin != ''">
+          and to_char(T.CREATE_TIME,'yyyy-MM-dd') &gt;= #{dateBegin}
+      </if>
+      <if test="dateEnd != null and dateEnd != ''">
+          and to_char(T.CREATE_TIME,'yyyy-MM-dd') &lt;= #{dateEnd}
+      </if>
+      )Tab
+      WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+
+    <select id="getCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_COMPLAINT T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'
+        <if test="bean.userIdcode !=null and bean.userIdcode !=''">
+            and T.USER_IDCODE = #{bean.userIdcode}
+        </if>
+        <if test="bean.entityIdcode !=null and bean.entityIdcode !=''">
+            and T.ENTITY_IDCODE = #{bean.entityIdcode}
+        </if>
+        <if test="bean.beEntityIdcode !=null and bean.beEntityIdcode !=''">
+            and T.BE_ENTITY_IDCODE = #{bean.beEntityIdcode}
+        </if>
+        <if test="bean.beUserIdcode !=null and bean.beUserIdcode !=''">
+            and T.BE_USER_IDCODE = #{bean.beUserIdcode}
+        </if>
+        <if test="bean.accEntityIdcode !=null and bean.accEntityIdcode !=''">
+            and T.ACC_ENTITY_IDCODE = #{bean.accEntityIdcode}
+        </if>
+        <if test="bean.accUserIdcode !=null and bean.accUserIdcode !=''">
+            and T.ACC_USER_IDCODE = #{bean.accUserIdcode}
+        </if>
+        <if test="bean.complaintTitle !=null and bean.complaintTitle !=''">
+            and UPPER(T.COMPLAINT_TITLE) LIKE UPPER('%${bean.complaintTitle}%')
+        </if>
+        <if test="bean.content !=null and bean.content !=''">
+            and UPPER(T.CONTENT) LIKE UPPER('%${bean.content}%')
+        </if>
+        <if test="bean.type !=null and bean.type !=''">
+            and T.TYPE = #{bean.type}
+        </if>
+        <if test="bean.status !=null and bean.status !=''">
+            and T.STATUS = #{bean.status}
+        </if>
+        <if test="bean.acceptance !=null and bean.acceptance !=''">
+            and UPPER(T.ACCEPTANCE) LIKE UPPER('%${bean.acceptance}%')
+        </if>
+        <if test="bean.areaId !=null and bean.areaId !=''">
+            and T.AREA_ID = #{bean.areaId}
+        </if>
+        <if test="bean.complaintEntName !=null and bean.complaintEntName !=''">
+            and UPPER(T.COMPLAINT_ENT_NAME) LIKE UPPER('%${bean.complaintEntName}%')
+        </if>
+        <if test="bean.complaintCopName !=null and bean.complaintCopName !=''">
+            and UPPER(T.COMPLAINT_COP_NAME) LIKE UPPER('%${bean.complaintCopName}%')
+        </if>
+        <if test="keywords !=null and keywords !=''">
+            and ( UPPER(T.COMPLAINT_TITLE) LIKE UPPER('%'||#{keywords}||'%') or  UPPER(T.COMPLAINT_ENT_NAME) LIKE UPPER('%'||#{keywords}||'%') )
+        </if>
+        <if test="dateBegin != null and dateBegin != ''">
+            and to_char(T.CREATE_TIME,'yyyy-MM-dd') &gt;= #{dateBegin}
+        </if>
+        <if test="dateEnd != null and dateEnd != ''">
+            and to_char(T.CREATE_TIME,'yyyy-MM-dd') &lt;= #{dateEnd}
+        </if>
+    </select>
+
+    <select id="getEntityPageInfo" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_REGISTER T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'  and T.APPROVE_STATUS='1'
+        <if test="keywords !=null and keywords !=''">
+            and UPPER(T.ENTERPRISE_NAME) LIKE UPPER('%'||#{keywords}||'%')
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+
+    <select id="getEntityCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_REGISTER T
+        where 1 = 1 AND T.DEL_FLAG != 'Y'  and T.APPROVE_STATUS='1'
+        <if test="keywords !=null and keywords !=''">
+            and UPPER(T.ENTERPRISE_NAME) LIKE UPPER('%'||#{keywords}||'%')
+        </if>
+    </select>
+    <select id="getInterPageInfo" parameterType="hashmap" resultType="map">
+        select * from ( SELECT f.*,ROWNUM AS rn
+        FROM (
+        select t.*,
+        (select t2.AREA
+        from TTS_SCLTXXCJ_REGISTER t2
+        where t.be_entity_idcode = t2.entity_idcode) as be_area_id,
+        (select t2.enterprise_name
+        from TTS_SCLTXXCJ_REGISTER t2
+        where t.entity_idcode = t2.entity_idcode) as enti_name,
+        (select t2.enterprise_name
+        from TTS_SCLTXXCJ_REGISTER t2
+        where t.be_entity_idcode = t2.entity_idcode) as be_enti_name
+        from tts_scltxxcj_complaint t,TTS_SCLTXXCJ_REGISTER tt
+        WHERE 1=1 AND t.DEL_FLAG != 'Y' AND T.ENTITY_IDCODE=TT.ENTITY_IDCODE
+        <if test="areaId!=null and areaId!=''">
+            AND t.AREA_ID like '%'||#{areaId}||'%'
+        </if>
+        <if test="queryCon!=null and queryCon!=''">
+            AND  tt.enterprise_name like '%'||#{queryCon}||'%'
+        </if>
+        <if test="type!=null and type!=''">
+          AND t.TYPE =#{type}
+        </if>
+
+        <if test="complaintTitle!=null and complaintTitle!=''">
+            AND t.COMPLAINT_TITLE =#{complaintTitle}
+        </if>
+        <if test="status!=null and status!=''">
+            AND t.STATUS =#{status}
+        </if>
+        order by COMPLAINT_TIME DESC )f)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+
+
+    <select id="getInterCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_COMPLAINT t,TTS_SCLTXXCJ_REGISTER tt
+        WHERE 1=1 AND t.DEL_FLAG != 'Y' AND T.ENTITY_IDCODE=TT.ENTITY_IDCODE
+        <if test="areaId!=null and areaId!=''">
+            AND t.AREA_ID like '%'||#{areaId}||'%'
+        </if>
+        <if test="queryCon!=null and queryCon!=''">
+            AND tt.enterprise_name like '%'||#{queryCon}||'%'
+        </if>
+
+        <if test="complaintTitle!=null and complaintTitle!=''">
+            AND t.COMPLAINT_TITLE =#{complaintTitle}
+        </if>
+        <if test="type!=null and type!=''">
+            AND t.TYPE =#{type}
+        </if>
+        <if test="status!=null and status!=''">
+            AND t.STATUS =#{status}
+        </if>
+    </select>
+
+</mapper>

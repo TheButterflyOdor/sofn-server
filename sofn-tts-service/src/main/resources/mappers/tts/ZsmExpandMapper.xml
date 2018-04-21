@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.ZsmExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.Zsm" >
+    <result column="ZSM" property="zsm" jdbcType="VARCHAR" />
+    <result column="ENID" property="enid" jdbcType="VARCHAR" />
+    <result column="USID" property="usid" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+  </resultMap>
+
+
+
+
+</mapper>

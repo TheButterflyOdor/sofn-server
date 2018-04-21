@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sso.SSOMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.sso.SysMenu" >
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="IS_SUBITEM" jdbcType="DECIMAL" property="isSubitem" />
+    <result column="MENU_TYPE" jdbcType="VARCHAR" property="menuType" />
+    <result column="MENU_VALUE" jdbcType="VARCHAR" property="menuValue" />
+    <result column="NUMBERS" jdbcType="VARCHAR" property="numbers" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="IMAGE" jdbcType="VARCHAR" property="image" />
+    <result column="DESCRIBES" jdbcType="VARCHAR" property="describes" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DEL_FLAG" jdbcType="VARCHAR" property="delFlag" />
+    <result column="RESERVED_FIELD1" jdbcType="VARCHAR" property="reservedField1" />
+    <result column="RESERVED_FIELD2" jdbcType="VARCHAR" property="reservedField2" />
+    <result column="AUTHORITY" jdbcType="VARCHAR" property="authority" />
+  </resultMap>
+
+  <select id="getSysMenuByUserId" resultType="com.sofn.model.sso.SysMenu">
+    select DISTINCT t5.*,T4.authority from SYS_USER t1
+    left join SYS_USER_ROLE t2 on T1."ID" = T2.USER_ID
+    left join SYS_ROLE t3 on t3."ID" = t2.role_Id
+    left join SYS_ROLE_MENU t4 on t3.id = t4.role_id
+    LEFT JOIN SYS_MENU t5 on t5.id = t4.menu_id
+    where T1."ID" = #{userId} and (T2.DEL_FLAG = 'N' or T2.DEL_FLAG is NULL) AND (T4.DEL_FLAG = 'N' or T4.DEL_FLAG is NULL)
+    <if test="type != null and type != ''">
+      and (T5.MENU_VALUE = #{type} OR T5.PARENT_ID = '-1')
+    </if>
+    order by t5.numbers asc
+  </select>
+
+  <select id="getAllMenus" resultType="com.sofn.model.sso.SysMenu">
+    select * from SYS_MENU where (DEL_FLAG is NULL or DEL_FLAG = 'N' )
+  </select>
+</mapper>

@@ -1,0 +1,33 @@
+<html>
+<head>
+    测试angluarjis
+    <mete charset = GBK></mete>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
+</head>
+<body>
+<div ng-app="myapp" ng-controller="sietCtrl">
+<ul>
+    <li ng-app="x in names">
+        {{x.name +','+x.Country}}
+
+    </li>
+</ul>
+</div>
+</body>
+<script>
+    var app = angluar.module('myapp',[]);
+    app.controller('sietCtrl',function ($scope ,$http) {
+
+
+    $http({
+        method:'GET',
+        url:'http://www.runoob.com/try/angularjs/data/sites.php'
+    }).then(function successCallbark(response) {
+        $scope.names = response.data.siets;
+
+    },function errorCallback(response){
+        $scope.names ='错误';
+    });
+    });
+</script>
+</html>

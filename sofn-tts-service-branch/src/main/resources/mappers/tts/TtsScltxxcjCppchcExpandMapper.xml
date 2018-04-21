@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjCppchcExpandMapper" >
+
+ <!--<resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjCppchc" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="HCID" property="hcid" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="MEDI_CHECK" property="mediCheck" jdbcType="VARCHAR" />
+    <result column="MEDI_RESULT" property="mediResult" jdbcType="VARCHAR" />
+    <result column="PRODUCT_AMOUNT" property="productAmount" jdbcType="DECIMAL" />
+    <result column="STORE_COUNT" property="storeCount" jdbcType="DECIMAL" />
+    <result column="HARVEST_TIME" property="harvestTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_PC" property="productPc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_PC_NEW" property="productPcNew" jdbcType="VARCHAR" />
+    <result column="HARVEST_BASEID" property="harvestBaseid" jdbcType="VARCHAR" />
+    <result column="HARVEST_BASENAME" property="harvestBasename" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INNER_KEY" property="productInnerKey" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SOURCE" property="productSource" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="BILL_STRATRUS" property="billStratrus" jdbcType="VARCHAR" />
+     <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+     <result column="HCZSM" property="hczsm" jdbcType="VARCHAR" />
+     <result column="HARVEST_UNIT" property="harvestUnit" jdbcType="VARCHAR" />
+ </resultMap>-->
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjCppchc" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="HCZSM" property="hczsm" jdbcType="VARCHAR" />
+        <result column="HCID" property="hcid" jdbcType="VARCHAR" />
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="MEDI_CHECK" property="mediCheck" jdbcType="VARCHAR" />
+        <result column="MEDI_RESULT" property="mediResult" jdbcType="VARCHAR" />
+        <result column="PRODUCT_AMOUNT" property="productAmount" jdbcType="DECIMAL" />
+        <result column="STORE_COUNT" property="storeCount" jdbcType="DECIMAL" />
+        <result column="HARVEST_TIME" property="harvestTime" jdbcType="TIMESTAMP" />
+        <result column="PRODUCT_PC" property="productPc" jdbcType="VARCHAR" />
+        <result column="PRODUCT_PC_NEW" property="productPcNew" jdbcType="VARCHAR" />
+        <result column="HARVEST_BASEID" property="harvestBaseid" jdbcType="VARCHAR" />
+        <result column="HARVEST_BASENAME" property="harvestBasename" jdbcType="VARCHAR" />
+        <result column="PRODUCT_INNER_KEY" property="productInnerKey" jdbcType="VARCHAR" />
+        <result column="PRODUCT_SOURCE" property="productSource" jdbcType="VARCHAR" />
+        <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="BILL_STRATRUS" property="billStratrus" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="HARVEST_UNIT" property="harvestUnit" jdbcType="VARCHAR" />
+        <result column="SHORT_CODE" property="shortCode" jdbcType="TIMESTAMP" />
+        <result column="PROOF_NUMBER" property="proofNumber" jdbcType="TIMESTAMP" />
+        <result column="FROM_SHORT_CODE" property="fromShortCode" jdbcType="TIMESTAMP" />
+        <result column="SOURCE_ENTITY" property="sourceEntity" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_CPPCHC_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <if test="hcid != null and hcid != ''">
+          and T.HCID = #{hcid}
+      </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_CPPCHC_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+      <if test="hcid != null and hcid != ''">
+          and T.HCID = #{hcid}
+      </if>
+  </select>
+
+
+  <insert id="insertBySelect" parameterType="map" >
+        insert into TTS_SCLTXXCJ_CPPCHC_V2 (ID
+        , HCID
+        , PRODUCT_ID
+        , PRODUCT_NAME
+        , MEDI_CHECK
+        , MEDI_RESULT
+        , PRODUCT_AMOUNT
+        , STORE_COUNT
+        , HARVEST_TIME
+        , PRODUCT_PC
+        , PRODUCT_PC_NEW
+        , HARVEST_BASEID
+        , HARVEST_BASENAME
+        , PRODUCT_INNER_KEY
+        , PRODUCT_SOURCE
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , STATUS
+        , BILL_STRATRUS
+        , FROMZSM
+        , HCZSM
+        , HARVEST_UNIT
+        , SHORT_CODE
+        , FROM_SHORT_CODE
+        )
+         select id
+        , #{hcid} as HCID
+        , PRODUCT_ID
+        , PRODUCT_NAME
+        , MEDI_CHECK
+        , MEDI_RESULT
+        , STORE_COUNT
+        , STORE_COUNT
+        , HARVEST_TIME
+        , PRODUCT_PC
+        , #{product_pc_new} as PRODUCT_PC_NEW
+        , HARVEST_BASEID
+        , HARVEST_BASENAME
+        , PRODUCT_INNER_KEY
+        , PRODUCT_SOURCE
+        , DEL_FLAG
+        , CREATE_BY
+        , UPDATE_BY
+        , CREATE_TIME
+        , UPDATE_TIME
+        , STATUS
+        , BILL_STRATRUS
+        , FROMZSM
+        , #{newzsm}
+        , HARVEST_UNIT
+        , #{shotCode_new} as SHORT_CODE
+        , FROM_SHORT_CODE
+        from tts_scltxxcj_scgl_V2 t
+        where t.id in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+              #{item}
+        </foreach>
+   </insert>
+
+
+
+    <!--<select id="getInfoForNewPc" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT R.ENTERPRISE_NAME AS NAME,R.REAL_NAME AS USER_NAME,
+              R.LEGAL_PHONE AS PHONE,R.ADDRESS,ROW_NUMBER() OVER(ORDER BY P.ID DESC) AS NUM,
+              G.PRODUCT_INDUSTRY,G.PRODUCT_SORT,G.PRODUCT_NAME,
+              G.PRODUCT_AMOUNT,G.STORE_COUNT AS SALE_AMOUNT,G.HARVEST_TIME,G.ENTITY_IDCODE
+        FROM TTS_SCLTXXCJ_CPPCHC P
+        INNER JOIN TTS_SCLTXXCJ_SCGL G ON G.PRODUCT_PC = P.PRODUCT_PC
+        INNER JOIN TTS_SCLTXXCJ_REGISTER R ON R.ENTITY_IDCODE = G.ENTITY_IDCODE AND R.USER_IDCODE = G.USER_IDCODE
+        WHERE P.PRODUCT_PC_NEW = #{pc}
+         )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>-->
+    <select id="getInfoForNewPc" parameterType="hashmap" resultType="map">
+        SELECT
+            C.ENTERPRISE_NAME NAME,
+            C.ADDRESS ADDRESS,
+            C. NAME USERNAME,
+            C.PHONE PHONE,
+            ROW_NUMBER () OVER (ORDER BY P . ID DESC) AS NUM,
+            G .PRODUCT_INDUSTRY,
+            G .PRODUCT_SORT,
+            G .PRODUCT_NAME,
+            G .PRODUCT_AMOUNT,
+            G .STORE_COUNT AS SALE_AMOUNT,
+            G .HARVEST_TIME,
+            G .ENTITY_IDCODE,
+            G .USER_IDCODE
+        FROM
+            TTS_SCLTXXCJ_CPPCHC_V2 P
+        INNER JOIN TTS_SCLTXXCJ_SCGL_V2 G ON G .PRODUCT_PC = P .PRODUCT_PC
+        INNER JOIN (
+            SELECT
+                U .USER_IDCODE,
+                T .ENTITY_IDCODE,
+                T .ENTERPRISE_NAME,
+                T .ADDRESS,
+                U . NAME,
+                U .PHONE
+            FROM
+                TTS_SCLTXXCJ_REGISTER_V2 T,
+                TTS_SCLTXXCJ_USER_V2 U
+            WHERE
+                T .ENTITY_IDCODE = U .ENTITY_IDCODE
+        ) C ON C.ENTITY_IDCODE = G.ENTITY_IDCODE
+        AND C.USER_IDCODE = G.USER_IDCODE
+        WHERE
+            P .PRODUCT_PC_NEW = #{pc}
+    </select>
+
+    <select id="getCountForNewPc" parameterType="hashmap" resultType="long">
+        SELECT count(1)
+        FROM TTS_SCLTXXCJ_CPPCHC_V2 P
+        INNER JOIN TTS_SCLTXXCJ_SCGL_V2 G ON G.PRODUCT_PC = P.PRODUCT_PC
+        INNER JOIN TTS_SCLTXXCJ_REGISTER_V2 R ON R.ENTITY_IDCODE = G.ENTITY_IDCODE AND R.USER_IDCODE = G.USER_IDCODE
+        WHERE P.PRODUCT_PC_NEW = #{pc}
+    </select>
+
+
+</mapper>

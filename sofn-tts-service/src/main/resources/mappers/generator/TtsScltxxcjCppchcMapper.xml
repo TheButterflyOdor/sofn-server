@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjCppchcMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjCppchc" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="HCID" property="hcid" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="MEDI_CHECK" property="mediCheck" jdbcType="VARCHAR" />
+    <result column="MEDI_RESULT" property="mediResult" jdbcType="VARCHAR" />
+    <result column="PRODUCT_AMOUNT" property="productAmount" jdbcType="DECIMAL" />
+    <result column="STORE_COUNT" property="storeCount" jdbcType="DECIMAL" />
+    <result column="HARVEST_TIME" property="harvestTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_PC" property="productPc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_PC_NEW" property="productPcNew" jdbcType="VARCHAR" />
+    <result column="HARVEST_BASEID" property="harvestBaseid" jdbcType="VARCHAR" />
+    <result column="HARVEST_BASENAME" property="harvestBasename" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INNER_KEY" property="productInnerKey" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SOURCE" property="productSource" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+    <result column="HCZSM" property="hczsm" jdbcType="VARCHAR" />
+    <result column="BILL_STRATRUS" property="billStratrus" jdbcType="VARCHAR" />
+
+
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_CPPCHC
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjCppchc" >
+    insert into TTS_SCLTXXCJ_CPPCHC (ID
+    , HCID
+    , PRODUCT_ID
+    , PRODUCT_NAME
+    , MEDI_CHECK
+    , MEDI_RESULT
+    , PRODUCT_AMOUNT
+    , STORE_COUNT
+    , HARVEST_TIME
+    , PRODUCT_PC
+    , PRODUCT_PC_NEW
+    , HARVEST_BASEID
+    , HARVEST_BASENAME
+    , PRODUCT_INNER_KEY
+    , PRODUCT_SOURCE
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , FROMZSM
+    , HCZSM
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{hcid,jdbcType=VARCHAR}
+    , #{productId,jdbcType=VARCHAR}
+    , #{productName,jdbcType=VARCHAR}
+    , #{mediCheck,jdbcType=VARCHAR}
+    , #{mediResult,jdbcType=VARCHAR}
+    , #{productAmount,jdbcType=DECIMAL}
+    , #{storeCount,jdbcType=DECIMAL}
+    , #{harvestTime,jdbcType=TIMESTAMP}
+    , #{productPc,jdbcType=VARCHAR}
+    , #{productPcNew,jdbcType=VARCHAR}
+    , #{harvestBaseid,jdbcType=VARCHAR}
+    , #{harvestBasename,jdbcType=VARCHAR}
+    , #{productInnerKey,jdbcType=VARCHAR}
+    , #{productSource,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+    , #{fromzsm,jdbcType=VARCHAR}
+    , #{hczsm,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjCppchc" >
+    update TTS_SCLTXXCJ_CPPCHC
+    set
+     HCID =  #{hcid,jdbcType=VARCHAR},
+     PRODUCT_ID =  #{productId,jdbcType=VARCHAR},
+     PRODUCT_NAME =  #{productName,jdbcType=VARCHAR},
+     MEDI_CHECK =  #{mediCheck,jdbcType=VARCHAR},
+     MEDI_RESULT =  #{mediResult,jdbcType=VARCHAR},
+     PRODUCT_AMOUNT =  #{productAmount,jdbcType=DECIMAL},
+     STORE_COUNT =  #{storeCount,jdbcType=DECIMAL},
+     HARVEST_TIME =  #{harvestTime,jdbcType=TIMESTAMP},
+     PRODUCT_PC =  #{productPc,jdbcType=VARCHAR},
+     PRODUCT_PC_NEW =  #{productPcNew,jdbcType=VARCHAR},
+     HARVEST_BASEID =  #{harvestBaseid,jdbcType=VARCHAR},
+     HARVEST_BASENAME =  #{harvestBasename,jdbcType=VARCHAR},
+     PRODUCT_INNER_KEY =  #{productInnerKey,jdbcType=VARCHAR},
+     PRODUCT_SOURCE =  #{productSource,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     FROMZSM =  #{fromzsm,jdbcType=VARCHAR},
+     HCZSM =  #{hczsm,jdbcType=VARCHAR},
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , HCID
+    , PRODUCT_ID
+    , PRODUCT_NAME
+    , MEDI_CHECK
+    , MEDI_RESULT
+    , PRODUCT_AMOUNT
+    , STORE_COUNT
+    , HARVEST_TIME
+    , PRODUCT_PC
+    , PRODUCT_PC_NEW
+    , HARVEST_BASEID
+    , HARVEST_BASENAME
+    , PRODUCT_INNER_KEY
+    , PRODUCT_SOURCE
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    , FROMZSM
+    , HCZSM
+    from TTS_SCLTXXCJ_CPPCHC
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

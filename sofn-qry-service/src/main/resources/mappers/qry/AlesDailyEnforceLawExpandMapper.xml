@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.qry.DailyEnforceLawExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesDailyEnforceLaw">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+    <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+    <result column="ENTERPRISE_ID" jdbcType="VARCHAR" property="enterpriseId" />
+    <result column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+    <result column="ENTERPRISE_ADDRESS" jdbcType="VARCHAR" property="enterpriseAddress" />
+    <result column="TASK_PERSON_COUNT" jdbcType="VARCHAR" property="taskPersonCount" />
+    <result column="TASK_PERSON_ID" jdbcType="VARCHAR" property="taskPersonId" />
+    <result column="ENFORCE_LAW_RESULT" jdbcType="VARCHAR" property="enforceLawResult" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="ENTERPRISE_NAME" jdbcType="VARCHAR" property="enterpriseName" />
+  </resultMap>
+    <resultMap id="BaseResultMapDto" type="com.sofn.model.qry.AlesDailyEnforceLawDto" extends="BaseResultMap">
+        <result column="ENTITY_INDUSTRY_NAME" jdbcType="VARCHAR" property="entityIndustryName" />
+        <result column="ENTITY_TYPE_NAME" jdbcType="VARCHAR" property="entityTypeName" />
+    </resultMap>
+  <select id="selectAllByCondition" resultType="map">
+      SELECT *
+      FROM (
+      SELECT
+      m.*, ROWNUM AS rn FROM (
+      SELECT * FROM (SELECT
+      s.*,T.ENTITY_INDUSTRY_NAME,T.ENTITY_TYPE_NAME
+      FROM
+      ALES_DAILY_ENFORCE_LAW s,
+      TTS_SCLTXXCJ_REGISTER_V2 T
+      WHERE
+      s.ENTERPRISE_ID = T . ID
+      AND s.DEL_FLAG = 'N'
+      <if test="enforceLawResult!=null and enforceLawResult!=''">
+          AND s.ENFORCE_LAW_RESULT_FLAG=#{enforceLawResult}
+      </if>
+      <if test="areaId!=null and areaId!=''">
+          AND s.AREA_ID like #{areaId}||'%'
+      </if>
+      <if test="queryCon!=null and queryCon!=''">
+          AND s.TASK_NAME like '%'||#{queryCon}||'%'
+      </if>
+      <if test="taskYear!=null and taskYear!=''">
+          AND s.TASK_BEGIN_TIME  BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+      </if>
+      <if test="dateBegin!=null and dateBegin!=''">
+          AND s.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+      </if>
+      <if test="dateEnd!=null and dateEnd!=''">
+          AND s.TASK_END_TIME &lt;=(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+      </if>
+      <if test="entityIndustry!=null and entityIndustry.length>0">
+          AND
+          <foreach collection="entityIndustry" item="item" index="index" open="(" close=")" separator="OR">
+              ENTITY_INDUSTRY LIKE '%'||#{item}||'%'
+          </foreach>
+      </if>
+      <if test="entityType!=null and entityType.length>0">
+          AND
+          <foreach collection="entityType" item="item" index="index" open="(" close=")" separator="OR">
+              ENTITY_TYPE LIKE '%'||#{item}||'%'
+          </foreach>
+      </if>
+      UNION ALL
+      SELECT
+      s.*,T.ENTITY_INDUSTRY AS ENTITY_INDUSTRY_NAME,T.ENTITY_TYPE AS ENTITY_TYPE_NAME
+      FROM
+      ALES_DAILY_ENFORCE_LAW s,
+      ASMS_SUBJ_ENT_TEMP T
+      WHERE
+      s.ENTERPRISE_ID = T . ID
+      AND s.DEL_FLAG = 'N'
+      <if test="enforceLawResult!=null and enforceLawResult!=''">
+          AND s.ENFORCE_LAW_RESULT_FLAG=#{enforceLawResult}
+      </if>
+      <if test="areaId!=null and areaId!=''">
+          AND s.AREA_ID like #{areaId}||'%'
+      </if>
+      <if test="queryCon!=null and queryCon!=''">
+          AND s.TASK_NAME like '%'||#{queryCon}||'%'
+      </if>
+      <if test="taskYear!=null and taskYear!=''">
+          AND s.TASK_BEGIN_TIME  BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+      </if>
+      <if test="dateBegin!=null and dateBegin!=''">
+          AND s.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+      </if>
+      <if test="dateEnd!=null and dateEnd!=''">
+          AND s.TASK_END_TIME &lt;=(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+      </if>
+      <if test="entityIndustry!=null and entityIndustry.length>0">
+          AND
+          <foreach collection="entityIndustry" item="item" index="index" open="(" close=")" separator="OR">
+              ENTITY_INDUSTRY_ID LIKE '%'||#{item}||'%'
+          </foreach>
+      </if>
+      <if test="entityType!=null and entityType.length>0">
+          AND
+          <foreach collection="entityType" item="item" index="index" open="(" close=")" separator="OR">
+              ENTITY_TYPE_ID LIKE '%'||#{item}||'%'
+          </foreach>
+      </if>
+      ) f ORDER BY f.CREATE_TIME DESC) m
+      )
+      WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  <select id="getDailyEnforceLawCount" resultType="long">
+      SELECT sum(c) FROM (
+      SELECT
+      COUNT(*) as c
+      FROM
+      ALES_DAILY_ENFORCE_LAW s
+      , TTS_SCLTXXCJ_REGISTER_V2 t
+      WHERE s.ENTERPRISE_ID = t.ID
+      AND s.DEL_FLAG='N'
+      <if test="enforceLawResult!=null and enforceLawResult!=''">
+          AND s.ENFORCE_LAW_RESULT_FLAG=#{enforceLawResult}
+      </if>
+      <if test="areaId!=null and areaId!=''">
+          AND s.AREA_ID like #{areaId}||'%'
+      </if>
+      <if test="queryCon!=null and queryCon!=''">
+          AND s.TASK_NAME like '%'||#{queryCon}||'%'
+      </if>
+      <if test="taskYear!=null and taskYear!=''">
+          AND s.TASK_BEGIN_TIME BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND
+          add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+      </if>
+      <if test="dateBegin!=null and dateBegin!=''">
+          AND s.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+      </if>
+      <if test="dateEnd!=null and dateEnd!=''">
+          AND s.TASK_END_TIME &lt;=(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+      </if>
+      <if test="entityIndustry!=null and entityIndustry.length>0">
+          and
+          <foreach collection="entityIndustry" item="item" open="(" close=")" separator="or">
+              ENTITY_INDUSTRY like '%'||#{item}||'%'
+          </foreach>
+      </if>
+      <if test="entityType!=null and entityType.length>0">
+          AND
+          <foreach collection="entityType" item="item" index="index" open="(" close=")" separator="OR">
+              ENTITY_TYPE LIKE '%'||#{item}||'%'
+          </foreach>
+      </if>
+      UNION ALL
+      SELECT
+      COUNT(*) as c
+      FROM
+      ALES_DAILY_ENFORCE_LAW s,
+      ASMS_SUBJ_ENT_TEMP T
+      WHERE
+      s.ENTERPRISE_ID = T . ID
+      AND s.DEL_FLAG = 'N'
+      <if test="enforceLawResult!=null and enforceLawResult!=''">
+          AND s.ENFORCE_LAW_RESULT_FLAG=#{enforceLawResult}
+      </if>
+      <if test="areaId!=null and areaId!=''">
+          AND s.AREA_ID like #{areaId}||'%'
+      </if>
+      <if test="queryCon!=null and queryCon!=''">
+          AND s.TASK_NAME like '%'||#{queryCon}||'%'
+      </if>
+      <if test="taskYear!=null and taskYear!=''">
+          AND s.TASK_BEGIN_TIME BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND
+          add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+      </if>
+      <if test="dateBegin!=null and dateBegin!=''">
+          AND s.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+      </if>
+      <if test="dateEnd!=null and dateEnd!=''">
+          AND s.TASK_END_TIME &lt;=(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+      </if>
+      <if test="entityIndustry!=null and entityIndustry.length>0">
+          AND
+          <foreach collection="entityIndustry" item="item" index="index" open="(" close=")" separator="OR">
+              ENTITY_INDUSTRY_ID LIKE '%'||#{item}||'%'
+          </foreach>
+      </if>
+      <if test="entityType!=null and entityType.length>0">
+          AND
+          <foreach collection="entityType" item="item" index="index" open="(" close=")" separator="OR">
+              ENTITY_TYPE_ID LIKE '%'||#{item}||'%'
+          </foreach>
+      </if>
+      )
+  </select>
+
+  <select id="getTaskNameCount" resultType="int">
+    SELECT COUNT(*) FROM ALES_DAILY_ENFORCE_LAW where TASK_NAME =#{taskName}
+  </select>
+
+  <select id="selectAlesDailyEnforceLawByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, TASK_NAME, TASK_BEGIN_TIME, TASK_END_TIME, ENTERPRISE_ID, AREA_ID, ENTERPRISE_ADDRESS,
+    TASK_PERSON_COUNT, TASK_PERSON_ID, ENFORCE_LAW_RESULT, CREATE_BY, CREATE_TIME, UPDATE_BY,
+    UPDATE_TIME, ENABLE, DEL_FLAG, ENTERPRISE_NAME
+    from ALES_DAILY_ENFORCE_LAW
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+    <select id="getAllDailyEnforceLawList" resultMap="BaseResultMapDto">
+        SELECT *
+        FROM
+        ALES_DAILY_ENFORCE_LAW s
+        LEFT JOIN TTS_SCLTXXCJ_REGISTER_V2 t
+        ON s.ENTERPRISE_ID = t.ID
+        WHERE 1=1
+        <if test="areaId!=null and areaId!=''">
+            AND s.AREA_ID like #{areaId}||'%'
+        </if>
+        <if test="queryCon!=null and queryCon!=''">
+            AND s.TASK_NAME like '%'||#{queryCon}||'%'
+        </if>
+        <if test="taskYear!=null and taskYear!=''">
+            AND s.TASK_BEGIN_TIME  BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND s.TASK_BEGIN_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND s.TASK_END_TIME &lt;=(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+        </if>
+        <if test="entityIndustry!=null and entityIndustry.length>0">
+            and
+            <foreach collection="entityIndustry" item="item" index="index" open="(" close=")" separator="or">
+                ENTITY_INDUSTRY like '%'||#{item}||'%'
+            </foreach>
+        </if>
+        <if test="entityType!=null and entityType.length>0">
+            and
+            <foreach collection="entityType" item="item" index="index" open="(" close=")" separator="or">
+                ENTITY_TYPE like '%'||#{item}||'%'
+            </foreach>
+        </if>
+        order by s.CREATE_TIME DESC
+    </select>
+</mapper>

@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta name="renderer" content="webkit"/>
+    <title>API开发,验证码,SSO 注意事项</title>
+    <link rel="stylesheet" href="data:text/css;base64,CiAgICA6Oi13ZWJraXQtc2Nyb2xsYmFyIHsKICAgICAgICB3aWR0aDo4cHg7CiAgICAgICAgbWFyZ2luOjAgMXB4OwogICAgICAgIGJhY2tncm91bmQ6ICNmZGZkZmQ7CiAgICB9CiAgICA6Oi13ZWJraXQtc2Nyb2xsYmFyOmhvcml6b250YWx7CiAgICAgICAgaGVpZ2h0OiA4cHg7CiAgICB9CgogICAgOjotd2Via2l0LXNjcm9sbGJhci1idXR0b257CiAgICAgICAgaGVpZ2h0OiAwOwogICAgfQoKICAgIDo6LXdlYmtpdC1zY3JvbGxiYXItdHJhY2sgewogICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDsKICAgIH0KICAgIDo6LXdlYmtpdC1zY3JvbGxiYXItdHJhY2stcGllY2UgewogICAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmZGZkZmQ7CiAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4OwogICAgfQogICAgOjotd2Via2l0LXNjcm9sbGJhci10aHVtYiB7CiAgICAgICAgd2lkdGg6OHB4OwogICAgICAgIG1hcmdpbjogMCAxcHg7CiAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4OwogICAgICAgIGJhY2tncm91bmQ6ICNjNGM0YzQ7CiAgICB9CiAgICA6Oi13ZWJraXQtc2Nyb2xsYmFyLXRodW1iOmhvdmVyIHsKICAgICAgICBiYWNrZ3JvdW5kOiAjOTA5MDkwOwogICAgfQoKCgoKICAgIGJvZHkgewogICAgICAgIGJhY2tncm91bmQ6ICNmZmZmZmY7CiAgICAgICAgZm9udC1zaXplOiAxNHB4OwogICAgICAgIGxpbmUtaGVpZ2h0OjEuODEyNTsKICAgICAgICBmb250LWZhbWlseTogIk1lbmxvIiwgIkFuZGFsZSBNb25vIiwgbW9ub3NwYWNlLCAiRHJvaWQgU2FucyBGYWxsYmFjayIsICJNaWNyb3NvZnQgWWFIZWkiLCBzYW5zLXNlcmlmOwogICAgICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7CiAgICAgICAgY29sb3I6ICMzYzNjM2M7CiAgICAgICAgcGFkZGluZzogMCAzOHB4OwogICAgICAgIG1heC13aWR0aDogODIwcHg7CiAgICAgICAgbWFyZ2luOiAwIGF1dG87CiAgICAgICAgd29yZC13cmFwOmJyZWFrLXdvcmQ7CgogICAgICAgIG92ZXJmbG93LXg6IGhpZGRlbjsKICAgICAgICB0ZXh0LXJlbmRlcmluZzogb3B0aW1pemVMZWdpYmlsaXR5OwogICAgICAgIC13ZWJraXQtdGV4dC1zaXplLWFkanVzdDogbm9uZTsKICAgIH0KCiAgICBicnsKICAgICAgICBsaW5lLWhlaWdodDogMS44MTI1OwogICAgfQoKCgogICAgQG1lZGlhIChtYXgtd2lkdGg6IDYwMHB4KSB7CiAgICAgICAgYm9keXsKICAgICAgICAgICAgcGFkZGluZzogMCAzMHB4OwogICAgICAgIH0KICAgIH0KCiAgICBAbWVkaWEgKG1heC13aWR0aDogNDgwcHgpIHsKICAgICAgICBib2R5ewogICAgICAgICAgICBwYWRkaW5nOiAwIDIwcHg7CiAgICAgICAgfQogICAgfQoKICAgIC5naXN0ewogICAgICAgIHdvcmQtYnJlYWs6IG5vcm1hbDsKICAgIH0KCiAgICAucG9zdHsKICAgICAgICBtYXJnaW4tdG9wOiAxMHB4OwogICAgICAgIG1hcmdpbi1ib3R0b206IDUwcHg7CiAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlOwogICAgfQoKCgogICAgaW1newogICAgICAgIG1heC13aWR0aDogOTglOwogICAgICAgIG1hcmdpbjogMC44ZW0gYXV0byAwLjhlbSBhdXRvOwogICAgICAgIGJvcmRlci1yYWRpdXM6IDVweDsKICAgIH0KCiAgICBoMSBpbWcsIGgyIGltZywgaDMgaW1nLCBoNCBpbWcsIGg1IGltZywgaDYgaW1newogICAgICAgIG1hcmdpbjogYXV0bzsKICAgIH0KCiAgICAueDJfaW1hZ2V7CiAgICAgICAgem9vbTogNTAlOwogICAgfQoKICAgIC54M19pbWFnZXsKICAgICAgICB6b29tOiAzMy4zMyU7CiAgICB9CgogICAgLng0X2ltYWdlewogICAgICAgIHpvb206IDI1JTsKICAgIH0KCgogICAgcCBpbWd7CiAgICAgICAgbWFyZ2luOiAwIGF1dG87CiAgICB9CgogICAgcHsKICAgICAgICB3b3JkLXdyYXA6YnJlYWstd29yZDsKICAgICAgICBvdmVyZmxvdzpoaWRkZW47CiAgICAgICAgbWFyZ2luOiAxLjVlbSAwOwogICAgfQoKICAgIGxpIHB7CiAgICAgICAgbGluZS1oZWlnaHQ6IDEuNjI1OwogICAgICAgIG1hcmdpbjogMDsKICAgIH0KCiAgICAucF9wYXJ0IHsKICAgICAgICBtYXJnaW46IDEwcHggMDsKICAgIH0KCiAgICAucF9wYXJ0IHB7CiAgICAgICAgbWFyZ2luOiAwIDAgMC42ZW0gMDsKICAgIH0KCiAgICAvKiB0ZXh0IGluZGVudCBmb3IgY2hpbmVzZSBzdGFydHMqLwogICAgLypoMiwgaDMsIGg0LCBoNSwgaDYsIC5wX3BhcnQgcCwgLnRvZG9faXRlbSwgcHsKICAgICAgICB0ZXh0LWluZGVudDogMHB4OwogICAgfSovCiAgICB0YWJsZSwgcHJlLCBzdmcsIC5jb2RlaGlsaXRldGFibGV7CiAgICAgICAgbWFyZ2luLWxlZnQ6IDBweDsKICAgICAgICBtYXJnaW4tcmlnaHQ6IDBweDsKICAgIH0KCiAgICAuY29kZWhpbGl0ZXRhYmxlIHByZXsKICAgICAgICBtYXJnaW4tbGVmdDogMDsKICAgICAgICBtYXJnaW4tcmlnaHQ6IDA7CgogICAgfQoKICAgIC5jb2RlaGlsaXRldGFibGUgLmNvZGVoaWxpdGUgcHJlewogICAgICAgIGJvcmRlci1sZWZ0OiBub25lOwogICAgfQoKICAgIC8qIHRleHQgaW5kZW50IGZvciBjaGluZXNlIGVuZHMqLwoKCiAgICBibG9ja3F1b3RlIC5wX3BhcnQgcCwgbGkgLnBfcGFydCBwewogICAgICAgIHRleHQtaW5kZW50OiAwICFpbXBvcnRhbnQ7CiAgICB9CgoKICAgIGhyewogICAgICAgIG1hcmdpbjogMzhweCAwOwogICAgICAgIGJvcmRlcjogbm9uZTsKICAgICAgICBib3JkZXItYm90dG9tOiAxcHggZGFzaGVkICNlM2UzZTM7CiAgICAgICAgY29sb3I6ICNlM2UzZTM7CiAgICAgICAgaGVpZ2h0OiAxcHg7CiAgICAgICAgbGluZS1oZWlnaHQ6MXB4OwogICAgICAgIGZvbnQtc2l6ZToxcHg7CiAgICAgICAgb3ZlcmZsb3c6IGhpZGRlbjsKICAgIH0KCgogICAgaDF7CiAgICAgICAgY29sb3I6ICMxMGEzZWU7CiAgICAgICAgZm9udC1zaXplOiAxLjdlbTsKICAgICAgICB0ZXh0LWFsaWduOiBsZWZ0OwogICAgICAgIG1hcmdpbjogMDsKICAgICAgICBwYWRkaW5nOiAwOwogICAgICAgIGxpbmUtaGVpZ2h0OiAxLjZlbTsKICAgICAgICBtYXJnaW4tdG9wOiAwLjhlbTsKICAgICAgICBtYXJnaW4tYm90dG9tOiAwLjZlbTsKICAgIH0KCiAgICBoMSwgaDIsIGgzLCBoNHsKICAgICAgICBjb2xvcjogIzEwYTNlZTsKICAgIH0KCiAgICBoMSwgaDIsIGgzewogICAgICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7CiAgICB9CgogICAgaDIsIGgzewogICAgICAgIGxpbmUtaGVpZ2h0OiAxLjVlbTsKICAgICAgICBtYXJnaW4tdG9wOiAxLjVlbTsKICAgICAgICBtYXJnaW4tYm90dG9tOiAwLjhlbTsKICAgIH0KCiAgICBoMiB7CiAgICAgICAgZm9udC1zaXplOiAxLjQ1ZW07CiAgICB9CgogICAgaDMgewogICAgICAgIGZvbnQtc2l6ZTogMS4yNWVtCiAgICB9CgoKICAgIG9sIHsKICAgICAgICBtYXJnaW46IDA7CiAgICB9CgogICAgdWx7CiAgICAgICAgcGFkZGluZzogNXB4IDM4cHg7CiAgICAgICAgbWFyZ2luOiAwOwogICAgfQoKICAgIHVsIGxpLCBsaXsKICAgICAgICBwYWRkaW5nOiAwOwogICAgICAgIG1hcmdpbjogMDsKICAgIH0KCiAgICB1bCBwLCBvbCBwewogICAgICAgIG92ZXJmbG93OiB2aXNpYmxlOwogICAgfQoKCiAgICBibG9ja3F1b3RlIHsKICAgICAgICAtbW96LWJveC1zaXppbmc6IGJvcmRlci1ib3g7CiAgICAgICAgYm94LXNpemluZzogYm9yZGVyLWJveDsKICAgICAgICBtYXJnaW46IDEuNmVtIDA7CiAgICAgICAgcGFkZGluZzogMCAwIDAgMS4yZW07CiAgICAgICAgYm9yZGVyLWxlZnQ6IDAuNGVtIHNvbGlkICNkZGRkZGQ7CiAgICAgICAgY29sb3I6ICM4ODg4ODg7CiAgICAgICAgbWluLWhlaWdodDoyMHB4OwogICAgfQoKCiAgICBibG9ja3F1b3RlIHAgewogICAgICAgIG1hcmdpbjogMC44ZW0gMDsKICAgIH0KCiAgICBibG9ja3F1b3RlIHNwYW4ubWRfbGluZSB7CiAgICAgICAgbWFyZ2luLWJvdHRvbTogMC4yNWVtOwogICAgICAgIG1hcmdpbi10b3A6IDAuMjVlbTsKICAgIH0KCiAgICBibG9ja3F1b3RlIHVsewogICAgICAgIHBhZGRpbmc6IDAgMTVweDsKICAgIH0KCiAgICBibG9ja3F1b3RlIHNtYWxsIHsKICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7CiAgICAgICAgbWFyZ2luOiAwLjhlbSAwIDAuOGVtIDEuNWVtOwogICAgICAgIGZvbnQtc2l6ZTogMC45ZW07CiAgICAgICAgY29sb3I6ICNjY2M7CiAgICB9CgoKCiAgICB0YWJsZSB7CiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7CiAgICAgICAgYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTsKICAgICAgICBib3JkZXItc3BhY2luZzogMDsKICAgICAgICBib3JkZXI6IDFweCBzb2xpZCAjZDlkOWQ5OwogICAgICAgIGJvcmRlci1sZWZ0OiAwOwogICAgICAgIG1hcmdpbi10b3A6IDIwcHg7CiAgICAgICAgbWFyZ2luLWJvdHRvbTogMjBweDsKICAgIH0KCgogICAgdGgsIHRkIHsKICAgICAgICBib3JkZXItbGVmdDogMXB4IHNvbGlkICNkOWQ5ZDk7CiAgICAgICAgcGFkZGluZzogOHB4OwogICAgICAgIGxpbmUtaGVpZ2h0OiAyMHB4OwogICAgICAgIHRleHQtYWxpZ246IGxlZnQ7CiAgICAgICAgdmVydGljYWwtYWxpZ246IHRvcDsKICAgICAgICBib3JkZXItdG9wOiAxcHggc29saWQgI2Q5ZDlkOTsKICAgIH0KCgoKCiAgICBjb2RlewogICAgICAgIGJhY2tncm91bmQ6ICNmNWY1ZjU7CiAgICAgICAgcGFkZGluZzogMCA1cHg7CiAgICAgICAgbWFyZ2luOiAwIDJweDsKICAgIH0KCiAgICBwcmV7CiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2U2ZTZlNjsKICAgICAgICBtYXJnaW4tdG9wOiAxLjJlbTsKICAgICAgICBtYXJnaW4tYm90dG9tOiAxLjJlbTsKICAgICAgICBwYWRkaW5nOiAxNXB4IDEwcHg7CiAgICAgICAgZGlzcGxheTogYmxvY2s7CiAgICAgICAgb3ZlcmZsb3c6IGF1dG87CiAgICAgICAgYmFja2dyb3VuZDogI2Y3ZjdmNzsKICAgICAgICBmb250LXNpemU6IDkwJTsKICAgIH0KCiAgICAud2l0aF9saW5lcyBwcmV7CiAgICAgICAgYm9yZGVyOm5vbmU7CiAgICAgICAgbWFyZ2luLXRvcDogMC4yZW07CiAgICAgICAgbWFyZ2luLWJvdHRvbTogMC4yZW07CiAgICAgICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7CiAgICB9CgogICAgLmlzX2NvZGVfZmlsZSBwcmV7CiAgICAgICAgYm9yZGVyOiBub25lOwogICAgICAgIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50OwogICAgfQoKICAgIC5jb2RlaGlsaXRlIHByZXsKICAgICAgICB3b3JkLXdyYXA6IG5vcm1hbDsKICAgIH0KCiAgICBwcmUgY29kZXsKICAgICAgICBib3JkZXI6bm9uZTsKICAgICAgICBiYWNrZ3JvdW5kOiBub25lOwogICAgICAgIHBhZGRpbmc6IDA7CiAgICAgICAgbWFyZ2luOiAwOwogICAgfQoKICAgIHByZSBwewogICAgICAgIG1hcmdpbjogMDsKICAgICAgICBwYWRkaW5nOiAwOwogICAgfQoKICAgIC5jb2RlaGlsaXRlIHRoLCAuY29kZWhpbGl0ZSB0ZHsKICAgICAgICBsaW5lLWhlaWdodDogMS44ZW07CiAgICB9CgoKICAgIGF7CiAgICAgICAgY29sb3I6ICM0MDgzYzQ7CiAgICAgICAgdGV4dC1kZWNvcmF0aW9uOiBub25lOwogICAgICAgIC8vYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIHRyYW5zcGFyZW50OwogICAgfQoKICAgIGE6aG92ZXJ7CiAgICAgICAgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7CiAgICAgICAgLy9ib3JkZXItYm90dG9tOiAxcHggc29saWQgIzQwODNjNDsKICAgIH0KCiAgICBzdHJvbmcgewogICAgICAgIGNvbG9yOiAjMDAwMDAwOwogICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkOwogICAgfQoKCiAgICAvKiBmb3IgbWFya2Rvd24gKi8KCiAgICAubGluZW5vcyBwcmV7CgkJYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7CgkJYm9yZGVyOiBub25lOwoJfQoJLyoKCS5saW5lbm9zewoJICAgIHBhZGRpbmc6IDAgMCAwIDEwcHg7Cgl9CgkqLwoKICAgIC50b2N7CiAgICAgICAgYmFja2dyb3VuZDogI2ZkZmRmZDsKICAgICAgICBib3JkZXItcmFkaXVzOiA1cHg7CiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2U2ZTZlNjsKICAgICAgICBtYXJnaW46IDI3cHggMCA0N3B4IDA7CiAgICAgICAgcGFkZGluZzogMTBweCAwOwogICAgfQoKICAgIC50b2MgdWx7CiAgICAgICAgLy9wYWRkaW5nOiA1cHggNDJweDsKICAgIH0KCiAgICAudG9jIHVsIGxpewogICAgICAgIHBhZGRpbmc6IDA7CiAgICAgICAgbWFyZ2luOiAwOwogICAgfQogICAgLnRvYyBhewogICAgICAgIGNvbG9yOiAjM2MzYzNjOwogICAgfQoKCgogICAgLnRvZG9faXRlbXsKICAgICAgICBsaXN0LXN0eWxlOiBub25lOwogICAgICAgIG1hcmdpbi1sZWZ0OiAtMS41ZW0KICAgIH0KICAgIC50b2RvX2l0ZW0gLnRvZG9faXRlbSB7CiAgICAgICAgbWFyZ2luLWxlZnQ6IGF1dG87CiAgICB9CgogICAgLnRvZG9fZG9uZV9pdGVtewogICAgICAgIGNvbG9yOiAjOTk5OTk5OwogICAgfQoKICAgIC50b2RvX3VuZG9uZV9pdGVtewogICAgICAgIGNvbG9yOiAjYzg1YTU3OwogICAgfQoKCiAgICB1bCBsaS50b2RvX2l0ZW17CglsaXN0LXN0eWxlLXR5cGU6IG5vbmU7CiAgICB9CgogICAgdWwgbGkudG9kb19pdGVtOmJlZm9yZXsKICAgICAgICBjb250ZW50OiAnXDI3MTUnOwogICAgICAgIHBhZGRpbmctcmlnaHQ6IDAuN2VtOwogICAgICAgIGZvbnQtZmFtaWx5OiBhcmlhbDsKICAgIH0KCiAgICB1bCBsaS50b2RvX2RvbmVfaXRlbTpiZWZvcmV7CiAgICAgICAgY29udGVudDogJ1wyNzEzJzsKICAgICAgICBwYWRkaW5nLXJpZ2h0OiAwLjdlbTsKICAgICAgICBmb250LWZhbWlseTogYXJpYWw7CiAgICB9CgogICAgdWwgbGkudG9kb19pdGVtIGlucHV0ewogICAgICAgIGRpc3BsYXk6bm9uZQogICAgfQoKCiAgICAvKnB5Z21lbnRzKi8KCiAgICAuY29kZWhpbGl0ZXsKICAgICAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudCAhaW1wb3J0YW50OwogICAgfQoKICAgIHRhYmxlLmNvZGVoaWxpdGV0YWJsZXsgYm9yZGVyOm5vbmU7IH0KCgogICAgLmNvZGVoaWxpdGV0YWJsZSB0ZHsgYm9yZGVyOiBub25lOyBwYWRkaW5nOiAwO30KCiAgICAuZmxvdy1ncmFwaGlje3RleHQtYWxpZ246IGNlbnRlcn0KCgogICAgdGFibGUsIHRyLCB0ZCwgdGgsIHRib2R5LCB0aGVhZCwgdGZvb3QsIC5tZF9lY2hhcnRzLCBibG9ja3F1b3RlIC5tZF9saW5lewogICAgICAgIHBhZ2UtYnJlYWstaW5zaWRlOiBhdm9pZCAhaW1wb3J0YW50OwogICAgfQoKICAgIC5mb290bm90ZXMgLm1kX2xpbmV7CiAgICAgICAgZGlzcGxheTogaW5saW5lICFpbXBvcnRhbnQ7CiAgICB9CgoKICAgIC5pbWdfcnRfOTB7CiAgICAgICAgdHJhbnNmb3JtOnJvdGF0ZSg5MGRlZyk7CiAgICAgICAgLW1zLXRyYW5zZm9ybTpyb3RhdGUoOTBkZWcpOwogICAgICAgIC1tb3otdHJhbnNmb3JtOnJvdGF0ZSg5MGRlZyk7CiAgICAgICAgLXdlYmtpdC10cmFuc2Zvcm06cm90YXRlKDkwZGVnKTsKICAgICAgICAtby10cmFuc2Zvcm06cm90YXRlKDkwZGVnKTsKICAgIH0KICAgIC5pbWdfcnRfMTgwewogICAgICAgIHRyYW5zZm9ybTpyb3RhdGUoMTgwZGVnKTsKICAgICAgICAtbXMtdHJhbnNmb3JtOnJvdGF0ZSgxODBkZWcpOwogICAgICAgIC1tb3otdHJhbnNmb3JtOnJvdGF0ZSgxODBkZWcpOwogICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOnJvdGF0ZSgxODBkZWcpOwogICAgICAgIC1vLXRyYW5zZm9ybTpyb3RhdGUoMTgwZGVnKTsKICAgIH0KICAgIC5pbWdfcnRfMjcwewogICAgICAgIHRyYW5zZm9ybTpyb3RhdGUoMjcwZGVnKTsKICAgICAgICAtbXMtdHJhbnNmb3JtOnJvdGF0ZSgyNzBkZWcpOwogICAgICAgIC1tb3otdHJhbnNmb3JtOnJvdGF0ZSgyNzBkZWcpOwogICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOnJvdGF0ZSgyNzBkZWcpOwogICAgICAgIC1vLXRyYW5zZm9ybTpyb3RhdGUoMjcwZGVnKTsKICAgIH0KCiAgICAubWRfaGFzX2Jsb2NrX2JlbG93ewogICAgICAgIG1hcmdpbi1ib3R0b206IDAuMWVtICFpbXBvcnRhbnQ7CiAgICB9CiAgICAubWRfaGFzX2Jsb2NrX2JlbG93X2ltZ3sKICAgICAgICBtYXJnaW4tYm90dG9tOiAtMC42ZW0gIWltcG9ydGFudDsKICAgIH0KCgoKICAgICAgICBzcGFuLm1kX2xpbmV7bWFyZ2luLWJvdHRvbTowLjVlbTsgZGlzcGxheTpibG9jazsgbGluZS1oZWlnaHQ6MS41Njc4MTI1fQogICAgICAgIC5tZF9saW5lIGJyeyBkaXNwbGF5OiBub25lO30KICAgICAgICAuY29kZWhpbGl0ZSAuaGxsIHsgYmFja2dyb3VuZC1jb2xvcjogI2ZmZmZjYyB9Ci5jb2RlaGlsaXRlICB7IGJhY2tncm91bmQ6ICNlZWVlZGQ7IH0KLmNvZGVoaWxpdGUgLmMgeyBjb2xvcjogIzk5OTk5OSB9IC8qIENvbW1lbnQgKi8KLmNvZGVoaWxpdGUgLmVyciB7IGNvbG9yOiAjYTYxNzE3OyBiYWNrZ3JvdW5kLWNvbG9yOiAjZTNkMmQyIH0gLyogRXJyb3IgKi8KLmNvZGVoaWxpdGUgLmsgeyBjb2xvcjogIzhCMDA4QjsgZm9udC13ZWlnaHQ6IGJvbGQgfSAvKiBLZXl3b3JkICovCi5jb2RlaGlsaXRlIC5uIHsgY29sb3I6ICM1NTU1NTUgfSAvKiBOYW1lICovCi5jb2RlaGlsaXRlIC5vIHsgY29sb3I6ICM1NTU1NTUgfSAvKiBPcGVyYXRvciAqLwouY29kZWhpbGl0ZSAucCB7IGNvbG9yOiAjNTU1NTU1IH0gLyogUHVuY3R1YXRpb24gKi8KLmNvZGVoaWxpdGUgLmNtIHsgY29sb3I6ICM5OTk5OTkgfSAvKiBDb21tZW50Lk11bHRpbGluZSAqLwouY29kZWhpbGl0ZSAuY3AgeyBjb2xvcjogIzFlODg5YiB9IC8qIENvbW1lbnQuUHJlcHJvYyAqLwouY29kZWhpbGl0ZSAuYzEgeyBjb2xvcjogIzk5OTk5OSB9IC8qIENvbW1lbnQuU2luZ2xlICovCi5jb2RlaGlsaXRlIC5jcyB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIENvbW1lbnQuU3BlY2lhbCAqLwouY29kZWhpbGl0ZSAuZ2QgeyBjb2xvcjogI2FhMDAwMCB9IC8qIEdlbmVyaWMuRGVsZXRlZCAqLwouY29kZWhpbGl0ZSAuZ2UgeyBmb250LXN0eWxlOiBpdGFsaWMgfSAvKiBHZW5lcmljLkVtcGggKi8KLmNvZGVoaWxpdGUgLmdyIHsgY29sb3I6ICNhYTAwMDAgfSAvKiBHZW5lcmljLkVycm9yICovCi5jb2RlaGlsaXRlIC5naCB7IGNvbG9yOiAjMDAwMDgwOyBmb250LXdlaWdodDogYm9sZCB9IC8qIEdlbmVyaWMuSGVhZGluZyAqLwouY29kZWhpbGl0ZSAuZ2kgeyBjb2xvcjogIzAwYWEwMCB9IC8qIEdlbmVyaWMuSW5zZXJ0ZWQgKi8KLmNvZGVoaWxpdGUgLmdvIHsgY29sb3I6ICM4ODg4ODggfSAvKiBHZW5lcmljLk91dHB1dCAqLwouY29kZWhpbGl0ZSAuZ3AgeyBjb2xvcjogIzU1NTU1NSB9IC8qIEdlbmVyaWMuUHJvbXB0ICovCi5jb2RlaGlsaXRlIC5ncyB7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogR2VuZXJpYy5TdHJvbmcgKi8KLmNvZGVoaWxpdGUgLmd1IHsgY29sb3I6ICM4MDAwODA7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogR2VuZXJpYy5TdWJoZWFkaW5nICovCi5jb2RlaGlsaXRlIC5ndCB7IGNvbG9yOiAjYWEwMDAwIH0gLyogR2VuZXJpYy5UcmFjZWJhY2sgKi8KLmNvZGVoaWxpdGUgLmtjIHsgY29sb3I6ICM4QjAwOEI7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogS2V5d29yZC5Db25zdGFudCAqLwouY29kZWhpbGl0ZSAua2QgeyBjb2xvcjogIzhCMDA4QjsgZm9udC13ZWlnaHQ6IGJvbGQgfSAvKiBLZXl3b3JkLkRlY2xhcmF0aW9uICovCi5jb2RlaGlsaXRlIC5rbiB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIEtleXdvcmQuTmFtZXNwYWNlICovCi5jb2RlaGlsaXRlIC5rcCB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIEtleXdvcmQuUHNldWRvICovCi5jb2RlaGlsaXRlIC5rciB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIEtleXdvcmQuUmVzZXJ2ZWQgKi8KLmNvZGVoaWxpdGUgLmt0IHsgY29sb3I6ICNhN2E3YTc7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogS2V5d29yZC5UeXBlICovCi5jb2RlaGlsaXRlIC5tIHsgY29sb3I6ICNCNDUyQ0QgfSAvKiBMaXRlcmFsLk51bWJlciAqLwouY29kZWhpbGl0ZSAucyB7IGNvbG9yOiAjQ0Q1NTU1IH0gLyogTGl0ZXJhbC5TdHJpbmcgKi8KLmNvZGVoaWxpdGUgLm5hIHsgY29sb3I6ICM2NThiMDAgfSAvKiBOYW1lLkF0dHJpYnV0ZSAqLwouY29kZWhpbGl0ZSAubmIgeyBjb2xvcjogIzY1OGIwMCB9IC8qIE5hbWUuQnVpbHRpbiAqLwouY29kZWhpbGl0ZSAubmMgeyBjb2xvcjogIzAwOGI0NTsgZm9udC13ZWlnaHQ6IGJvbGQgfSAvKiBOYW1lLkNsYXNzICovCi5jb2RlaGlsaXRlIC5ubyB7IGNvbG9yOiAjMDA2ODhCIH0gLyogTmFtZS5Db25zdGFudCAqLwouY29kZWhpbGl0ZSAubmQgeyBjb2xvcjogIzcwN2E3YyB9IC8qIE5hbWUuRGVjb3JhdG9yICovCi5jb2RlaGlsaXRlIC5uaSB7IGNvbG9yOiAjNTU1NTU1IH0gLyogTmFtZS5FbnRpdHkgKi8KLmNvZGVoaWxpdGUgLm5lIHsgY29sb3I6ICMwMDhiNDU7IGZvbnQtd2VpZ2h0OiBib2xkIH0gLyogTmFtZS5FeGNlcHRpb24gKi8KLmNvZGVoaWxpdGUgLm5mIHsgY29sb3I6ICMwMDhiNDUgfSAvKiBOYW1lLkZ1bmN0aW9uICovCi5jb2RlaGlsaXRlIC5ubCB7IGNvbG9yOiAjNTU1NTU1IH0gLyogTmFtZS5MYWJlbCAqLwouY29kZWhpbGl0ZSAubm4geyBjb2xvcjogIzAwOGI0NTsgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmUgfSAvKiBOYW1lLk5hbWVzcGFjZSAqLwouY29kZWhpbGl0ZSAubnggeyBjb2xvcjogIzU1NTU1NSB9IC8qIE5hbWUuT3RoZXIgKi8KLmNvZGVoaWxpdGUgLnB5IHsgY29sb3I6ICM1NTU1NTUgfSAvKiBOYW1lLlByb3BlcnR5ICovCi5jb2RlaGlsaXRlIC5udCB7IGNvbG9yOiAjOEIwMDhCOyBmb250LXdlaWdodDogYm9sZCB9IC8qIE5hbWUuVGFnICovCi5jb2RlaGlsaXRlIC5udiB7IGNvbG9yOiAjMDA2ODhCIH0gLyogTmFtZS5WYXJpYWJsZSAqLwouY29kZWhpbGl0ZSAub3cgeyBjb2xvcjogIzhCMDA4QiB9IC8qIE9wZXJhdG9yLldvcmQgKi8KLmNvZGVoaWxpdGUgLncgeyBjb2xvcjogI2JiYmJiYiB9IC8qIFRleHQuV2hpdGVzcGFjZSAqLwouY29kZWhpbGl0ZSAubWIgeyBjb2xvcjogI0I0NTJDRCB9IC8qIExpdGVyYWwuTnVtYmVyLkJpbiAqLwouY29kZWhpbGl0ZSAubWYgeyBjb2xvcjogI0I0NTJDRCB9IC8qIExpdGVyYWwuTnVtYmVyLkZsb2F0ICovCi5jb2RlaGlsaXRlIC5taCB7IGNvbG9yOiAjQjQ1MkNEIH0gLyogTGl0ZXJhbC5OdW1iZXIuSGV4ICovCi5jb2RlaGlsaXRlIC5taSB7IGNvbG9yOiAjQjQ1MkNEIH0gLyogTGl0ZXJhbC5OdW1iZXIuSW50ZWdlciAqLwouY29kZWhpbGl0ZSAubW8geyBjb2xvcjogI0I0NTJDRCB9IC8qIExpdGVyYWwuTnVtYmVyLk9jdCAqLwouY29kZWhpbGl0ZSAuc2IgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkJhY2t0aWNrICovCi5jb2RlaGlsaXRlIC5zYyB7IGNvbG9yOiAjQ0Q1NTU1IH0gLyogTGl0ZXJhbC5TdHJpbmcuQ2hhciAqLwouY29kZWhpbGl0ZSAuc2QgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkRvYyAqLwouY29kZWhpbGl0ZSAuczIgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkRvdWJsZSAqLwouY29kZWhpbGl0ZSAuc2UgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkVzY2FwZSAqLwouY29kZWhpbGl0ZSAuc2ggeyBjb2xvcjogIzFjN2U3MTsgZm9udC1zdHlsZTogaXRhbGljIH0gLyogTGl0ZXJhbC5TdHJpbmcuSGVyZWRvYyAqLwouY29kZWhpbGl0ZSAuc2kgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLkludGVycG9sICovCi5jb2RlaGlsaXRlIC5zeCB7IGNvbG9yOiAjY2I2YzIwIH0gLyogTGl0ZXJhbC5TdHJpbmcuT3RoZXIgKi8KLmNvZGVoaWxpdGUgLnNyIHsgY29sb3I6ICMxYzdlNzEgfSAvKiBMaXRlcmFsLlN0cmluZy5SZWdleCAqLwouY29kZWhpbGl0ZSAuczEgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLlNpbmdsZSAqLwouY29kZWhpbGl0ZSAuc3MgeyBjb2xvcjogI0NENTU1NSB9IC8qIExpdGVyYWwuU3RyaW5nLlN5bWJvbCAqLwouY29kZWhpbGl0ZSAuYnAgeyBjb2xvcjogIzY1OGIwMCB9IC8qIE5hbWUuQnVpbHRpbi5Qc2V1ZG8gKi8KLmNvZGVoaWxpdGUgLnZjIHsgY29sb3I6ICMwMDY4OEIgfSAvKiBOYW1lLlZhcmlhYmxlLkNsYXNzICovCi5jb2RlaGlsaXRlIC52ZyB7IGNvbG9yOiAjMDA2ODhCIH0gLyogTmFtZS5WYXJpYWJsZS5HbG9iYWwgKi8KLmNvZGVoaWxpdGUgLnZpIHsgY29sb3I6ICMwMDY4OEIgfSAvKiBOYW1lLlZhcmlhYmxlLkluc3RhbmNlICovCi5jb2RlaGlsaXRlIC5pbCB7IGNvbG9yOiAjQjQ1MkNEIH0gLyogTGl0ZXJhbC5OdW1iZXIuSW50ZWdlci5Mb25nICov">
+    <!--header_scripts-->
+</head>
+<body>
+
+
+<div class="post">
+    
+    <div class="post_body">
+        <p class="md_block">
+
+<div class="toc"><ul>
+<li>
+<a href="#toc_0">API开发,验证码,SSO 注意事项</a>
+<ul>
+<li>
+<a href="#toc_1">API参数检查</a>
+</li>
+<li>
+<a href="#toc_2">返回结果</a>
+</li>
+<li>
+<a href="#toc_3">验证码</a>
+</li>
+<li>
+<a href="#toc_4">SSO</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+    <span class="md_line">2016年09月19日  下午 5:05:13</span>
+</p>
+
+
+<h1 id="toc_0">API开发,验证码,SSO 注意事项</h1>
+
+<p class="md_block">
+    <span class="md_line">框架经过不断完善 ,对参数的检查和返回结果的统一封装,需要大家了解一下</span>
+</p>
+
+
+<h2 id="toc_1">API参数检查</h2>
+<div class="codehilite  highlight"><pre><span class="cm">/**</span>
+<span class="cm">     * Login sso object.</span>
+<span class="cm">     * 单点登录接口</span>
+<span class="cm">     * @param modelMap the model map</span>
+<span class="cm">     * @param account  the account</span>
+<span class="cm">     * @param password the password</span>
+<span class="cm">     * @return the object</span>
+<span class="cm">     */</span>
+    <span class="nd">@ApiOperation</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;用户登录&quot;</span><span class="o">)</span>
+    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">&quot;/login_sso&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">login_sso</span><span class="o">(</span><span class="n">ModelMap</span> <span class="n">modelMap</span><span class="o">,</span>
+                           <span class="c1">// 这里的required = true主要是告诉前端此参数必传</span>
+                        <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;登录帐号&quot;</span><span class="o">)</span>
+                        <span class="c1">// requestparam的required属性建议设置为false,如果设置为true,但前端却没有此字段,则会报500错误,这样不友好,下面有优化方案</span>
+                        <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;account&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">account</span><span class="o">,</span>
+                        <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;登录密码&quot;</span><span class="o">)</span>
+                        <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;password&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">password</span><span class="o">,</span>
+                        <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;刷新后UUID&quot;</span><span class="o">)</span> 
+                        <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;uuid&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">uuid</span><span class="o">,</span>
+                        <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;验证码&quot;</span><span class="o">)</span> 
+                        <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;code&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 参数检查 封装的Assert 参数检查工具类,底层调用org.apache.commons.lang3的StringUitl    工具类,具有null和 空字符串判断,如果为空,则会通过第二个参数作为key在国际化配置文件中查询指定的value ,将错误信息以json 格式返回给前端,比前面的方法友好.</span>
+        <span class="n">Assert</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">account</span><span class="o">,</span> <span class="s">&quot;ACCOUNT&quot;</span><span class="o">);</span>
+        <span class="n">Assert</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">password</span><span class="o">,</span> <span class="s">&quot;PASSWORD&quot;</span><span class="o">);</span>
+        <span class="n">Assert</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">uuid</span><span class="o">,</span> <span class="s">&quot;UUID&quot;</span><span class="o">);</span>
+        <span class="n">Assert</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="s">&quot;CODE&quot;</span><span class="o">);</span>
+        <span class="c1">// 验证码检查</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">ValidateCodeUtil</span><span class="o">.</span><span class="na">checkCode</span><span class="o">(</span><span class="n">uuid</span><span class="o">,</span><span class="n">code</span><span class="o">)){</span>
+            <span class="c1">// 单点登录逻辑</span>
+            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="n">ssoLoginService</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">account</span><span class="o">,</span><span class="n">password</span><span class="o">);</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">map</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">LoginException</span><span class="o">(</span><span class="n">Resources</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="s">&quot;LOGIN_FAIL&quot;</span><span class="o">));</span>
+            <span class="o">}</span>
+            <span class="n">WebUtil</span><span class="o">.</span><span class="na">saveCurrentUser</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;account&quot;</span><span class="o">));</span>
+            <span class="c1">// 最终的返回结果方式,取代原来的Map方式返回,封装了时间戳和httpCode</span>
+            <span class="k">return</span> <span class="nf">setSuccessModelMap</span><span class="o">(</span><span class="n">modelMap</span><span class="o">,</span><span class="n">map</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LoginException</span><span class="o">(</span><span class="n">Resources</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="s">&quot;CODE_ERROR&quot;</span><span class="o">));</span>
+    <span class="o">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<hr>
+
+<h2 id="toc_2">返回结果</h2>
+
+<p class="md_block">
+    <span class="md_line">参数检查结果<br /></span>
+    <span class="md_line">Assert.isNotBlank(account, &quot;ACCOUNT&quot;);<br /></span>
+    <span class="md_line">Assert工具类有多个对参数检查的静态方法,此处是非空验证,如果参数是null或者空字符串,则会以第二个参数为前缀与&quot;_IS_NULL&quot;拼接作为key,<br /></span>
+    <span class="md_line">通过 Resources.getMessage(key, args) 在 messages_zh.properties 查找对应的value,返回错误信息,如果需要定制错误信息,可以在messages_zh.properties添加</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">api接口返回结果<br /></span>
+    <span class="md_line">方式一:<br /></span>
+    <span class="md_line">setSuccessModelMap<br /></span>
+    <span class="md_line">方式二:<br /></span>
+    <span class="md_line">setModelMap</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">使用方法:</span>
+</p>
+
+
+<ol>
+<li>
+<p class="md_block">
+    <span class="md_line">api请求成功,但是没有返回数据的</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">setSuccessModelMap(modelMap)</span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;httpCode&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+  <span class="nt">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;请求成功&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1474270299415</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end--></li>
+<li>
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">api请求请求成功,有数据返回的</span>
+</p>
+
+
+<ul>
+<li>
+<p class="md_block">
+    <span class="md_line">将数据放入modelMap中</span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="n">modelMap</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">object</span><span class="o">);</span>
+<span class="k">return</span> <span class="nf">setSuccessModelMap</span><span class="o">(</span><span class="n">modelMap</span><span class="o">);</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">返回的json数据</span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="p">{</span>
+      <span class="nt">&quot;hashMap&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;权限列表&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYWRtaW4iLCJ1c2VyTmFtZSI6ImFkbWluIiwidXNlcklkIjoiMSIsImlzcyI6InJlc3RhcGl1c2VyIiwiYXVkIjoiMDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjYiLCJleHAiOjE0NzQ0NDQ1NTAsIm5iZiI6MTQ3NDI3MTc1MH0.9xeEeBalMk3VYrgTJ28LXeMoV39UWjXlHmhxzXlfwkg&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;httpCode&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+      <span class="nt">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;请求成功&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1474271750477</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end--></li>
+<li>
+<p class="md_block">
+    <span class="md_line">将输入放入data中</span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="k">return</span> <span class="nf">setSuccessModelMap</span><span class="o">(</span><span class="n">modelMap</span><span class="o">,</span><span class="n">object</span><span class="o">);</span>        
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">返回的json数据</span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="p">{</span>
+      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;权限列表&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYWRtaW4iLCJ1c2VyTmFtZSI6ImFkbWluIiwidXNlcklkIjoiMSIsImlzcyI6InJlc3RhcGl1c2VyIiwiYXVkIjoiMDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjYiLCJleHAiOjE0NzQ0NDQ2NzUsIm5iZiI6MTQ3NDI3MTg3NX0.bx3RMVJOBlBHwzoVnWXSxGicqsGy8GCGMKNnnx6zbxg&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;httpCode&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+      <span class="nt">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;请求成功&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1474271875416</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">所有的数据都在data中.</span>
+</p></li>
+</ul></li>
+<li>
+<p class="md_block">
+    <span class="md_line">api请求成功,但是参数有错误,返回自定义httpCode和错误信息</span>
+</p></li>
+</ol>
+
+<p class="md_block">
+    <span class="md_line">使用 return setModelMap(modelMap, HttpCode.BAD_REQUEST);<br /></span>
+    <span class="md_line">或者  return setModelMap(modelMap, HttpCode.BAD_REQUEST, object);</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">现在的 HttpCode 类型如下,正在完善中</span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="n">OK</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">200</span><span class="o">)),</span>
+<span class="n">MULTI_STATUS</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">207</span><span class="o">)),</span>
+<span class="n">LOGIN_FAIL</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">303</span><span class="o">)),</span>
+<span class="n">BAD_REQUEST</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">400</span><span class="o">)),</span>
+<span class="n">UNAUTHORIZED</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">401</span><span class="o">)),</span>
+<span class="n">FORBIDDEN</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">403</span><span class="o">)),</span>
+<span class="n">NOT_FOUND</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">404</span><span class="o">)),</span>
+<span class="n">REQUEST_TIMEOUT</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">408</span><span class="o">)),</span>
+<span class="n">CONFLICT</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">409</span><span class="o">)),</span>
+<span class="n">GONE</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">410</span><span class="o">)),</span>
+<span class="n">LOCKED</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">423</span><span class="o">)),</span>
+<span class="n">INTERNAL_SERVER_ERROR</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">500</span><span class="o">));</span>
+<span class="nl">含义:</span>
+<span class="n">HTTPCODE_200</span><span class="o">=</span><span class="n">请求成功</span>
+<span class="n">HTTPCODE_303</span><span class="o">=</span><span class="n">登录失败</span>
+<span class="n">HTTPCODE_400</span><span class="o">=</span><span class="n">请求参数出错</span>
+<span class="n">HTTPCODE_401</span><span class="o">=</span><span class="n">没有登录</span>
+<span class="n">HTTPCODE_403</span><span class="o">=</span><span class="n">没有权限</span>
+<span class="n">HTTPCODE_404</span><span class="o">=</span><span class="n">找不到页面</span>
+<span class="n">HTTPCODE_408</span><span class="o">=</span><span class="n">请求超时</span>
+<span class="n">HTTPCODE_409</span><span class="o">=</span><span class="n">发生冲突</span>
+<span class="n">HTTPCODE_410</span><span class="o">=</span><span class="n">已被删除</span>
+<span class="n">HTTPCODE_423</span><span class="o">=</span><span class="n">已被锁定</span>
+<span class="n">HTTPCODE_500</span><span class="o">=</span><span class="n">服务器出错</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">如果业务上需要,可以自定义错误码和错误信息</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line md_line_dom_embed"><strong>返回复杂数据类型,推荐将所有对象放入map中返回</strong></span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">resultMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">resultMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;map&quot;</span><span class="o">,</span><span class="n">map</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;aaaa&quot;</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bbbb&quot;</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;cccc&quot;</span><span class="o">);</span>
+<span class="n">resultMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;list&quot;</span><span class="o">,</span><span class="n">list</span><span class="o">);</span>
+<span class="n">SysUser</span> <span class="n">sysUser</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">SysUser</span><span class="o">();</span>
+<span class="n">sysUser</span><span class="o">.</span><span class="na">setAccount</span><span class="o">(</span><span class="s">&quot;admin&quot;</span><span class="o">);</span>
+<span class="n">sysUser</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="s">&quot;password&quot;</span><span class="o">);</span>
+<span class="n">sysUser</span><span class="o">.</span><span class="na">setUserName</span><span class="o">(</span><span class="s">&quot;sofn&quot;</span><span class="o">);</span>
+<span class="n">resultMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;sysUser&quot;</span><span class="o">,</span><span class="n">sysUser</span><span class="o">);</span>
+<span class="n">WebUtil</span><span class="o">.</span><span class="na">saveCurrentUser</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;account&quot;</span><span class="o">));</span>
+<span class="k">return</span> <span class="nf">setSuccessModelMap</span><span class="o">(</span><span class="n">modelMap</span><span class="o">,</span><span class="n">resultMap</span><span class="o">);</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">返回的json</span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;sysUser&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;enable&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;remark&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;createBy&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;createTime&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;updateBy&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;updateTime&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;phone&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;sex&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;userName&quot;</span><span class="p">:</span> <span class="s2">&quot;sofn&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;avatar&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;userType&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;deptId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;locked&quot;</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;list&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;aaaa&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;bbbb&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;cccc&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;map&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;权限列表&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYWRtaW4iLCJ1c2VyTmFtZSI6ImFkbWluIiwidXNlcklkIjoiMSIsImlzcyI6InJlc3RhcGl1c2VyIiwiYXVkIjoiMDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjYiLCJleHAiOjE0NzQ0NDU1NDgsIm5iZiI6MTQ3NDI3Mjc0OH0.P2qJapew06DkDvV896xNLvuSRVJJdEP5hPtw55kjfy8&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;httpCode&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+  <span class="nt">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;请求成功&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1474272748364</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<h2 id="toc_3">验证码</h2>
+
+<p class="md_block">
+    <span class="md_line">验证码相关类在common模块中, 每个子系统的web模块中都需要添加2个controller,</span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="cm">/**</span>
+<span class="cm">     * Gets uuid.</span>
+<span class="cm">     * 前端刷新登录页面或者点击验证码图片时调用此接口,用于生成uuid</span>
+<span class="cm">     * @param modelMap the model map</span>
+<span class="cm">     * @param prevUUID the prev uuid 如果没有则不传</span>
+<span class="cm">     * @return the uuid</span>
+<span class="cm">     */</span>
+    <span class="nd">@ApiOperation</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;加载login.html时向后台获取UUID&quot;</span><span class="o">)</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;/getUUID&quot;</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">generatorCode</span><span class="o">(</span><span class="n">ModelMap</span> <span class="n">modelMap</span><span class="o">,</span><span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+                                <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;前一次的uuid&quot;</span><span class="o">)</span>
+                                <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;prev&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">prevUUID</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">modelMap</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&quot;uuid&quot;</span><span class="o">,</span><span class="n">ValidateCodeUtil</span><span class="o">.</span><span class="na">getUUID</span><span class="o">(</span><span class="n">prevUUID</span><span class="o">,</span> <span class="n">ApiConstants</span><span class="o">.</span><span class="na">VALIDATE_CODE_LEN</span><span class="o">));</span>
+        <span class="k">return</span> <span class="nf">setSuccessModelMap</span><span class="o">(</span><span class="n">modelMap</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Generator image.</span>
+<span class="cm">     * 前端先调用 generatorCode 获取uuid,然后将uuid传入到此接口获取验证码图片反给前端</span>
+<span class="cm">     * @param request  the request</span>
+<span class="cm">     * @param response the response</span>
+<span class="cm">     * @param currUUID the curr uuid</span>
+<span class="cm">     * @throws Exception the exception</span>
+<span class="cm">     */</span>
+    <span class="nd">@ApiOperation</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;生成验证码&quot;</span><span class="o">)</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;/generatorImage&quot;</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">generatorImage</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+                               <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;刷新后UUID&quot;</span><span class="o">)</span>
+                               <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;curr&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">currUUID</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="n">Assert</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">currUUID</span><span class="o">,</span> <span class="s">&quot;currUUID&quot;</span><span class="o">);</span>
+        <span class="n">ValidateCodeUtil</span><span class="o">.</span><span class="na">getRandcode</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">currUUID</span><span class="o">);</span>
+    <span class="o">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<h2 id="toc_4">SSO</h2>
+
+<p class="md_block">
+    <span class="md_line">单点系统作为一个服务,为所有子系统提供单点登录功能<br /></span>
+    <span class="md_line">流程如下:<br /></span>
+    <span class="md_line">用户请求登录 --&gt; (consumer)LoginController --&gt; (consumer)service --&gt; sso_api --&gt; (provider)sso_service --&gt; 具体的登录逻辑<br /></span>
+    <span class="md_line">最后返回 token 和权限列表</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">每个子系统的web都需要添加如下的Controller</span>
+</p>
+
+<div class="codehilite  highlight"><pre><span class="cm">/**</span>
+<span class="cm">     * Login sso object.</span>
+<span class="cm">     * 单点登录</span>
+<span class="cm">     * @param modelMap the model map</span>
+<span class="cm">     * @param account  the account</span>
+<span class="cm">     * @param password the password</span>
+<span class="cm">     * @return the object</span>
+<span class="cm">     */</span>
+    <span class="nd">@ApiOperation</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;单点登录登录&quot;</span><span class="o">)</span>
+    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">&quot;/login_sso&quot;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">login_sso</span><span class="o">(</span><span class="n">ModelMap</span> <span class="n">modelMap</span><span class="o">,</span>
+                        <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;登录帐号&quot;</span><span class="o">)</span>
+                        <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;account&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">account</span><span class="o">,</span>
+                        <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;登录密码&quot;</span><span class="o">)</span>
+                        <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;password&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">password</span><span class="o">,</span>
+                        <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;刷新后UUID&quot;</span><span class="o">)</span> 
+                        <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;uuid&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">uuid</span><span class="o">,</span>
+                        <span class="nd">@ApiParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;验证码&quot;</span><span class="o">)</span> 
+                        <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;code&quot;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 参数检查</span>
+        <span class="n">Assert</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">account</span><span class="o">,</span> <span class="s">&quot;ACCOUNT&quot;</span><span class="o">);</span>
+        <span class="n">Assert</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">password</span><span class="o">,</span> <span class="s">&quot;PASSWORD&quot;</span><span class="o">);</span>
+        <span class="n">Assert</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">uuid</span><span class="o">,</span> <span class="s">&quot;UUID&quot;</span><span class="o">);</span>
+        <span class="n">Assert</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="s">&quot;CODE&quot;</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">ValidateCodeUtil</span><span class="o">.</span><span class="na">checkCode</span><span class="o">(</span><span class="n">uuid</span><span class="o">,</span><span class="n">code</span><span class="o">)){</span>
+            <span class="c1">//登录逻辑</span>
+            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="n">ssoLoginService</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">account</span><span class="o">,</span><span class="n">password</span><span class="o">);</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">map</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">LoginException</span><span class="o">(</span><span class="n">Resources</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="s">&quot;LOGIN_FAIL&quot;</span><span class="o">));</span>
+            <span class="o">}</span>
+            <span class="n">WebUtil</span><span class="o">.</span><span class="na">saveCurrentUser</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;account&quot;</span><span class="o">));</span>
+            <span class="k">return</span> <span class="nf">setSuccessModelMap</span><span class="o">(</span><span class="n">modelMap</span><span class="o">,</span><span class="n">map</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LoginException</span><span class="o">(</span><span class="n">Resources</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="s">&quot;CODE_ERROR&quot;</span><span class="o">));</span>
+    <span class="o">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line">注意事项:</span>
+</p>
+
+
+<ol>
+<li>需要在子系统的 web 模块中引入 sofn-sso-api 模块</li>
+</ol>
+
+<pre><code>&lt;dependency&gt;
+        &lt;groupId&gt;com.sofn&lt;/groupId&gt;
+        &lt;artifactId&gt;sofn-sso-api&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+
+<!--block_code_end-->
+<ol>
+<li>启动顺序</li>
+</ol>
+
+<p class="md_block">
+    <span class="md_line">sso-service  --&gt; 子模块的 service --&gt; 子系统的 web</span>
+</p>
+    </div>
+</div>
+
+<!--mathjax-->
+
+</body>
+</html>

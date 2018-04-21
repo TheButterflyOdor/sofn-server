@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsSubjDetectionExpandMapper" >
+
+  <resultMap id="BaseResultMapNew" type="com.sofn.model.asms.AsmsSubjDetectionDto" extends="BaseResultMap">
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    </resultMap>
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsSubjDetection">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="DT_NAME" jdbcType="VARCHAR" property="dtName" />
+    <result column="DT_CODE" jdbcType="VARCHAR" property="dtCode" />
+    <result column="DT_TYPE" jdbcType="VARCHAR" property="dtType" />
+    <result column="DT_NATURE" jdbcType="VARCHAR" property="dtNature" />
+    <result column="DT_QUALIFICATIONS" jdbcType="VARCHAR" property="dtQualifications" />
+    <result column="DT_RELY_ON_UNIT" jdbcType="VARCHAR" property="dtRelyOnUnit" />
+    <result column="DT_LEVEL" jdbcType="VARCHAR" property="dtLevel" />
+    <result column="DT_AREA_ID" jdbcType="VARCHAR" property="dtAreaId" />
+    <result column="DT_ADDRESS" jdbcType="VARCHAR" property="dtAddress" />
+    <result column="DT_LEGAL_MAN" jdbcType="VARCHAR" property="dtLegalMan" />
+    <result column="DT_LEADER" jdbcType="VARCHAR" property="dtLeader" />
+    <result column="DT_LEADER_PHONE" jdbcType="VARCHAR" property="dtLeaderPhone" />
+    <result column="DT_CONTACT" jdbcType="VARCHAR" property="dtContact" />
+    <result column="DT_CONTACT_PHONE" jdbcType="VARCHAR" property="dtContactPhone" />
+    <result column="DT_CONTACT_Q_Q" jdbcType="VARCHAR" property="dtContactQQ" />
+    <result column="DT_CONTACT_EMAIL" jdbcType="VARCHAR" property="dtContactEmail" />
+    <result column="DT_POSTCODE" jdbcType="CHAR" property="dtPostcode" />
+    <result column="DT_TECHNICAL_DIRECTOR" jdbcType="VARCHAR" property="dtTechnicalDirector" />
+    <result column="DT_QUALITY_DIRECTOR" jdbcType="VARCHAR" property="dtQualityDirector" />
+    <result column="DT_PARAMETER" jdbcType="VARCHAR" property="dtParameter" />
+    <result column="DT_PRODUCT_RANGE" jdbcType="VARCHAR" property="dtProductRange" />
+    <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+    <result column="DT_LEVEL_ID" jdbcType="VARCHAR" property="dtLevelId" />
+    <result column="DT_NATURE_ID" jdbcType="VARCHAR" property="dtNatureId" />
+    <result column="DT_QUALIFICATIONS_ID" jdbcType="VARCHAR" property="dtQualificationsId" />
+    <result column="DT_TYPE_ID" jdbcType="VARCHAR" property="dtTypeId" />
+    <result column="DT_AREA" jdbcType="VARCHAR" property="dtArea" />
+  </resultMap>
+  <select id="getSubjDetectionList" resultMap="BaseResultMap">
+    SELECT * FROM (
+    SELECT
+    a.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    *
+    FROM
+    ASMS_SUBJ_DETECTION s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND s.DT_AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dtName!=null and dtName!=''">
+      AND s.DT_NAME LIKE '%'||#{dtName}||'%'
+    </if>
+    <if test="dtLevel!=null and dtLevel!=''">
+      AND s.DT_LEVEL &gt;= #{dtLevel}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+
+  <select id="getSubjDetectionListNew" resultMap="BaseResultMapNew">
+  SELECT * FROM (
+  SELECT
+  a.*, ROWNUM AS rn
+  FROM
+  (
+  SELECT
+  s.*
+  FROM
+  ASMS_SUBJ_DETECTION s  left join sys_organization o on o.org_id=s.id left join SYS_USER u ON o.ID = u.ORGANIZATION_ID and USER_TYPE='SYSADMIN' and u.DEL_FLAG='N'
+  WHERE
+  s.DEL_FLAG='N'
+  <if test="areaId!=null and areaId!=''">
+    AND s.DT_AREA_ID LIKE #{areaId}||'%'
+  </if>
+  <if test="dtName!=null and dtName!=''">
+    AND s.DT_NAME LIKE '%'||#{dtName}||'%'
+  </if>
+  <if test="dtLevel!=null and dtLevel!=''">
+    AND s.DT_LEVEL &gt;= #{dtLevel}
+  </if>
+  <if test="dateBegin!=null and dateBegin!=''">
+    AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+  </if>
+  <if test="dateEnd!=null and dateEnd!=''">
+    AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+  </if>
+  ORDER BY s.CREATE_TIME DESC
+  )a
+  WHERE ROWNUM &lt;= #{pageTail}
+  )
+  WHERE rn &gt;= #{pageOffset}
+</select>
+  <select id="getSubjDetectionCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_DETECTION s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND s.DT_AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dtName!=null and dtName!=''">
+      AND s.DT_NAME LIKE '%'||#{dtName}||'%'
+    </if>
+    <if test="dtLevel!=null and dtLevel!=''">
+      AND s.DT_LEVEL &gt;= #{dtLevel}
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+  </select>
+
+  <select id="getSubjDetectionListForSys" resultMap="BaseResultMapNew">
+    SELECT * FROM (
+    SELECT
+    a.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*,u.id as USER_ID,u.account as ACCOUNT,u.RESERVED_FIELD2 as PASSWORD
+    FROM
+    ASMS_SUBJ_DETECTION s  left join sys_organization o on o.org_id=s.id left join SYS_USER u ON o.ID = u.ORGANIZATION_ID and USER_TYPE='SYSADMIN' and u.DEL_FLAG='N'
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND s.DT_AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dtName!=null and dtName!=''">
+      AND s.DT_NAME LIKE '%'||#{dtName}||'%'
+    </if>
+
+    <if test="cUserRegionId!=null and cUserRegionId!=''">
+      AND s.DT_AREA_ID LIKE #{cUserRegionId}||'%'
+    </if>
+    <if test="cUsersvLevel!=null and cUsersvLevel!=''">
+      AND s.DT_LEVEL = #{cUsersvLevel}
+    </if>
+
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjDetectionCountForSys" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_DETECTION s
+    left join sys_organization o on o.org_id=s.id
+    left join SYS_USER u ON o.ID = u.ORGANIZATION_ID and USER_TYPE='SYSADMIN' and u.DEL_FLAG='N'
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND s.DT_AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dtName!=null and dtName!=''">
+      AND s.DT_NAME LIKE '%'||#{dtName}||'%'
+    </if>
+
+    <if test="cUserRegionId!=null and cUserRegionId!=''">
+      AND s.DT_AREA_ID LIKE #{cUserRegionId}||'%'
+    </if>
+    <if test="cUsersvLevel!=null and cUsersvLevel!=''">
+      AND s.DT_LEVEL = #{cUsersvLevel}
+    </if>
+
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+  </select>
+
+
+  <select id="getSubjDtChangeList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*,ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS id,t.DT_NAME AS dtName,t.DT_AREA_ID AS dtAreaId,s.APPLY_TIME AS applyTime,t.DT_LEADER AS dtLeader,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_DT_CHANGE s LEFT JOIN ASMS_SUBJ_DETECTION t ON s.APPLY_DT_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.DT_AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dtName!=null and dtName!=''">
+      AND t.DT_NAME LIKE '%'||#{dtName}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{date},'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= to_date(#{date},'yyyy-MM-dd')+1
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="dtLevel!=null and dtLevel!=''">
+      AND t.DT_LEVEL = #{dtLevel}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjDtChangeCount" resultType="long" >
+    SELECT
+      COUNT(*)
+    FROM
+      ASMS_SUBJ_DT_CHANGE s LEFT JOIN ASMS_SUBJ_DETECTION t ON s.APPLY_DT_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.DT_AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dtName!=null and dtName!=''">
+      AND t.DT_NAME LIKE '%'||#{dtName}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{date},'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= to_date(#{date},'yyyy-MM-dd')+1
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="dtLevel!=null and dtLevel!=''">
+      AND t.DT_LEVEL = #{dtLevel}
+    </if>
+  </select>
+
+  <select id="getChangeListByDtId" resultType="map">
+    SELECT * FROM(
+    SELECT
+    a.*,ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    *
+    FROM
+    ASMS_SUBJ_DT_CHANGE s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="dtId!=null and dtId!=''">
+      AND s.APPLY_DT_ID = #{dtId}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getChangeCountByDtId" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_DT_CHANGE s
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="dtId!=null and dtId!=''">
+      AND s.APPLY_DT_ID = #{dtId}
+    </if>
+  </select>
+
+  <select id="getSubjDtCancelList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS id,t.DT_NAME AS dtName,t.DT_AREA_ID AS dtAreaId,s.APPLY_TIME AS applyTime,t.DT_LEADER AS dtLeader,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_DT_CANCEL s LEFT JOIN ASMS_SUBJ_DETECTION t ON s.DT_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.DT_AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dtName!=null and dtName!=''">
+      AND t.DT_NAME LIKE '%'||#{dtName}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{date},'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= to_date(#{date},'yyyy-MM-dd')+1
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="dtLevel!=null and dtLevel!=''">
+      AND t.DT_LEVEL = #{dtLevel}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjDtCancelCount" resultType="long" >
+    SELECT
+      COUNT(*)
+    FROM
+      ASMS_SUBJ_DT_CANCEL s LEFT JOIN ASMS_SUBJ_DETECTION t ON s.DT_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+      <if test="areaId!=null and areaId!=''">
+        AND t.DT_AREA_ID LIKE #{areaId}||'%'
+      </if>
+      <if test="dtName!=null and dtName!=''">
+        AND t.DT_NAME LIKE '%'||#{dtName}||'%'
+      </if>
+      <if test="date!=null and date!=''">
+        AND s.APPLY_TIME &gt;= to_date(#{date},'yyyy-MM-dd')
+        AND s.APPLY_TIME &lt;= to_date(#{date},'yyyy-MM-dd')+1
+      </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="dtLevel!=null and dtLevel!=''">
+      AND t.DT_LEVEL = #{dtLevel}
+    </if>
+  </select>
+
+  <select id="getSubjDtRevokeList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS id,t.DT_NAME AS dtName,t.DT_AREA_ID AS dtAreaId,s.APPLY_TIME AS applyTime,t.DT_LEADER AS dtLeader,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_DT_REVOKE s LEFT JOIN ASMS_SUBJ_DETECTION t ON s.DT_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+    <if test="areaId!=null and areaId!=''">
+      AND t.DT_AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dtName!=null and dtName!=''">
+      AND t.DT_NAME LIKE '%'||#{dtName}||'%'
+    </if>
+    <if test="date!=null and date!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{date},'yyyy-MM-dd')
+      AND s.APPLY_TIME &lt;= to_date(#{date},'yyyy-MM-dd')+1
+    </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="applySvId!=null and applySvId!=''">
+      AND s.APPLY_SV_ID = #{applySvId}
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    )a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjDtRevokeCount" resultType="long" >
+    SELECT
+      COUNT(*)
+    FROM
+      ASMS_SUBJ_DT_REVOKE s LEFT JOIN ASMS_SUBJ_DETECTION t ON s.DT_ID=t.ID
+    WHERE
+    s.DEL_FLAG='N'
+      <if test="areaId!=null and areaId!=''">
+        AND t.DT_AREA_ID LIKE #{areaId}||'%'
+      </if>
+      <if test="dtName!=null and dtName!=''">
+        AND t.DT_NAME LIKE '%'||#{dtName}||'%'
+      </if>
+      <if test="date!=null and date!=''">
+        AND s.APPLY_TIME &gt;= to_date(#{date},'yyyy-MM-dd')
+        AND s.APPLY_TIME &lt;= to_date(#{date},'yyyy-MM-dd')+1
+      </if>
+    <if test="auditState!=null and auditState!=''">
+      AND s.AUDIT_STATE = #{auditState}
+    </if>
+    <if test="applySvId!=null and applySvId!=''">
+      AND s.APPLY_SV_ID = #{applySvId}
+    </if>
+  </select>
+
+  <update id="updateSubjDtStatusById">
+    update ASMS_SUBJ_DETECTION
+    set STATUS = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <!--去除机构区域和机构级别不能重复限制-->
+  <!--SELECT * FROM ASMS_SUBJ_DETECTION a-->
+  <!--WHERE a.DEL_FLAG='N' AND a.DT_AREA_ID=#{dtAreaId} AND a.DT_LEVEL_ID=#{dtLevelId}-->
+  <!--UNION-->
+  <select id="getSubjDetectionByCondition" resultMap="BaseResultMap">
+    SELECT * FROM ASMS_SUBJ_DETECTION a
+    WHERE a.DEL_FLAG='N' AND a.DT_NAME=#{name}
+    UNION
+    SELECT * FROM ASMS_SUBJ_DETECTION a
+    WHERE a.DEL_FLAG='N' AND a.DT_CODE=#{code}
+  </select>
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsTempXsjlMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsTempXsjl" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />
+    <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_AMOUNT" property="productAmount" jdbcType="DECIMAL" />
+    <result column="STORE_COUNT" property="storeCount" jdbcType="DECIMAL" />
+    <result column="FREEZE_COUNT" property="freezeCount" jdbcType="DECIMAL" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR" />
+    <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+    <result column="UNIT_ID" property="unitId" jdbcType="VARCHAR" />
+    <result column="JOIN_FLAG" property="joinFlag" jdbcType="VARCHAR" />
+    <result column="HARVEST_UNIT" property="harvestUnit" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_TEMP_XSJL
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsTempXsjl" >
+    insert into TTS_TEMP_XSJL (ID
+    , PRODUCT_ID
+    , PRODUCT_NAME
+    , PRODUCT_INDUSTRY
+    , PRODUCT_SORT
+    , PRODUCT_SCGL_ID
+    , SALE_AMOUNT
+    , BUY_COM_USER_ID
+    , PRODUCT_AMOUNT
+    , STORE_COUNT
+    , FREEZE_COUNT
+    , DEL_FLAG
+    , ZJCHECK
+    , FROMZSM
+    , UNIT_ID
+    , JOIN_FLAG
+    , HARVEST_UNIT
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{productId,jdbcType=VARCHAR}
+    , #{productName,jdbcType=VARCHAR}
+    , #{productIndustry,jdbcType=VARCHAR}
+    , #{productSort,jdbcType=VARCHAR}
+    , #{productScglId,jdbcType=VARCHAR}
+    , #{saleAmount,jdbcType=DECIMAL}
+    , #{buyComUserId,jdbcType=VARCHAR}
+    , #{productAmount,jdbcType=DECIMAL}
+    , #{storeCount,jdbcType=DECIMAL}
+    , #{freezeCount,jdbcType=DECIMAL}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{zjcheck,jdbcType=VARCHAR}
+    , #{fromzsm,jdbcType=VARCHAR}
+    , #{unitId,jdbcType=VARCHAR}
+    , #{joinFlag,jdbcType=VARCHAR}
+    , #{harvestUnit,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsTempXsjl" >
+    update TTS_TEMP_XSJL
+    set
+     PRODUCT_ID =  #{productId,jdbcType=VARCHAR},
+     PRODUCT_NAME =  #{productName,jdbcType=VARCHAR},
+     PRODUCT_INDUSTRY =  #{productIndustry,jdbcType=VARCHAR},
+     PRODUCT_SORT =  #{productSort,jdbcType=VARCHAR},
+     PRODUCT_SCGL_ID =  #{productScglId,jdbcType=VARCHAR},
+     SALE_AMOUNT =  #{saleAmount,jdbcType=DECIMAL},
+     FROMZSM =  #{fromzsm,jdbcType=VARCHAR},
+     BUY_COM_USER_ID =  #{buyComUserId,jdbcType=VARCHAR},
+     PRODUCT_AMOUNT =  #{productAmount,jdbcType=DECIMAL},
+     STORE_COUNT =  #{storeCount,jdbcType=DECIMAL},
+     FREEZE_COUNT =  #{freezeCount,jdbcType=DECIMAL},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     ZJCHECK =  #{zjcheck,jdbcType=VARCHAR},
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , PRODUCT_ID
+    , PRODUCT_NAME
+    , PRODUCT_INDUSTRY
+    , PRODUCT_SORT
+    , PRODUCT_SCGL_ID
+    , SALE_AMOUNT
+    , BUY_COM_USER_ID
+    , PRODUCT_AMOUNT
+    , STORE_COUNT
+    , FREEZE_COUNT
+    , DEL_FLAG
+    , FROMZSM
+    , ZJCHECK
+    , UNIT_ID
+    from TTS_TEMP_XSJL
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

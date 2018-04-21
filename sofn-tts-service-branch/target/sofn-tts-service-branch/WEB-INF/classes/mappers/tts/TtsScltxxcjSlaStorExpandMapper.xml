@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsScltxxcjSlaStorExpandMapper" >
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjSlaStor" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+        <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+        <result column="FREEZE_COUNT" property="freezeCount" jdbcType="DECIMAL" />
+        <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+        <result column="BILL_STRATRUS" property="billStratrus" jdbcType="VARCHAR" />
+        <result column="HARVEST_TIME" property="harvestTime" jdbcType="TIMESTAMP" />
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCT_UNIT" property="productUnit" jdbcType="VARCHAR" />
+        <result column="PRODUCT_TYPE" property="productType" jdbcType="VARCHAR" />
+        <result column="SLAUGHTER_BATCH_NO" property="slaughterBatchNo" jdbcType="VARCHAR" />
+        <result column="INIT_AMOUNT" property="initAmount" jdbcType="DECIMAL" />
+        <result column="CURRENT_AMOUNT" property="currentAmount" jdbcType="DECIMAL" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="INSIDE_TRACE_CODE" property="insideTraceCode" jdbcType="VARCHAR" />
+        <result column="IP" property="ip" jdbcType="VARCHAR" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="FROM_TRACE_CODE" property="fromTraceCode" jdbcType="VARCHAR" />
+        <result column="TO_TRACE_CODE" property="toTraceCode" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--屠宰登记-->
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_SLAUGHTER_STOR T
+    where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.BILL_STRATRUS != 2
+      <if test="stor.productType != null and stor.productType != ''">
+          and T.PRODUCT_TYPE = #{stor.productType}
+      </if>
+      <if test="stor.productName != null and stor.productName != ''">
+          and T.PRODUCT_NAME = #{stor.productName}
+      </if>
+      <if test="stor.status != null and stor.status != ''">
+          and T.STATUS = #{stor.status}
+      </if>
+      <if test="keyWord != null and keyWord != ''">
+          and T.PRODUCT_NAME LIKE '%${keyWord}%' OR T.SLAUGHTER_BATCH_NO LIKE '%${keyWord}%'
+      </if>
+      <if test="startTime != null and startTime != ''">
+          <if test="endTime == null || endTime == ''">
+              and T.CREATE_TIME  >=  "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="endTime != null and endTime != ''">
+          <if test="startTime == null || startTime == ''">
+              and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="startTime != null and startTime != ''">
+          <if test="endTime != null || endTime != ''">
+              and T.CREATE_TIME BETWEEN "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+              and "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_SCLTXXCJ_SLAUGHTER_STOR T
+    where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.BILL_STRATRUS != 2
+      <if test="stor.productType != null and stor.productType != ''">
+          and T.PRODUCT_TYPE = #{stor.productType}
+      </if>
+      <if test="stor.productName != null and stor.productName != ''">
+          and T.PRODUCT_NAME = #{stor.productName}
+      </if>
+      <if test="stor.status != null and stor.status != ''">
+          and T.STATUS = #{stor.status}
+      </if>
+      <if test="keyWord != null and keyWord != ''">
+          and T.PRODUCT_NAME LIKE '%${keyWord}%' OR T.SLAUGHTER_BATCH_NO LIKE '%${keyWord}%'
+      </if>
+      <if test="startTime != null and startTime != ''">
+          <if test="endTime == null || endTime == ''">
+              and T.CREATE_TIME  >=  "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="endTime != null and endTime != ''">
+          <if test="startTime == null || startTime == ''">
+              and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+      <if test="startTime != null and startTime != ''">
+          <if test="endTime != null || endTime != ''">
+              and T.CREATE_TIME BETWEEN "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+              and "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+          </if>
+      </if>
+  </select>
+
+  <select id="getSphcByIds" parameterType="hashmap" resultType="com.sofn.model.generator.TtsScltxxcjSlaStor">
+      select * from TTS_SCLTXXCJ_SLAUGHTER_STOR t where
+      t.id in
+      <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+          #{item}
+      </foreach>
+      and t.status = 1 or t.status = 2
+  </select>
+    <!--根据传入id进行批次合成-->
+    <select id="getCheckProduct" parameterType="hashmap" resultType="map">
+        select t.PRODUCT_NAME,t.PRODUCT_UNIT,t.PRODUCT_TYPE,sum(CURRENT_AMOUNT) CURRENT_AMOUNT
+        from TTS_SCLTXXCJ_SLAUGHTER_STOR t
+        where t.id in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and t.BILL_STRATRUS = 0 and (t.status = 1 or t.status = 2)
+        group by t.PRODUCT_NAME,t.PRODUCT_UNIT,t.PRODUCT_TYPE
+    </select>
+    <!--屠宰批次合成-->
+    <select id="getStorPageInfo" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_SLAUGHTER_STOR T
+        where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.BILL_STRATRUS = 0
+        AND T.CURRENT_AMOUNT > 0 AND t.BILL_STRATRUS = 0
+        AND (t.status = 1 or t.status = 2)
+        <if test="productName != null and productName != ''">
+            and T.PRODUCT_NAME = #{productName}
+        </if>
+        <if test="productType != null and productType != ''">
+            and T.PRODUCT_TYPE = #{productType}
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+        order by Tab.CREATE_TIME desc
+    </select>
+
+
+    <select id="getStorCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_SLAUGHTER_STOR T
+        where 1 = 1 AND T.DEL_FLAG != 'Y' AND T.BILL_STRATRUS = 0
+        <if test="productName != null and productName != ''">
+            and T.PRODUCT_NAME = #{productName}
+        </if>
+        <if test="productType != null and productType != ''">
+            and T.PRODUCT_TYPE = #{productType}
+        </if>
+    </select>
+    <!--屠宰批次管理-->
+    <select id="getStor" parameterType="hashmap" resultType="map">
+        SELECT Tab.*
+        FROM (
+        SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_SCLTXXCJ_SLAUGHTER_STOR T
+        where 1 = 1 AND T.DEL_FLAG != 'Y' AND T .BILL_STRATRUS != 1
+        <if test="productName != null and productName != ''">
+            and T.PRODUCT_NAME = #{productName}
+        </if>
+        <if test="productType != null and productType != ''">
+            and T.PRODUCT_TYPE = #{productType}
+        </if>
+        <if test="status != null and status != ''">
+            and T.STATUS = #{status}
+        </if>
+        <if test="keyWord != null and keyWord != ''">
+            and T.PRODUCT_NAME LIKE '%${keyWord}%' OR T.SLAUGHTER_BATCH_NO LIKE '%${keyWord}%'
+        </if>
+        <if test="startTime != null and startTime != ''">
+            <if test="endTime == null || endTime == ''">
+                and T.CREATE_TIME  >=  "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+            </if>
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <if test="startTime == null || startTime == ''">
+                and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+            </if>
+        </if>
+        <if test="startTime != null and startTime != ''">
+            <if test="endTime != null || endTime != ''">
+                and T.CREATE_TIME BETWEEN "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+                and "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+            </if>
+        </if>
+        )Tab
+        WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+        order by Tab.CREATE_TIME desc
+    </select>
+
+
+    <select id="getStorC" parameterType="hashmap" resultType="long">
+        SELECT COUNT(*) FROM TTS_SCLTXXCJ_SLAUGHTER_STOR T
+        where 1 = 1 AND T.DEL_FLAG != 'Y' AND T .BILL_STRATRUS != 1
+        <if test="productName != null and productName != ''">
+            and T.PRODUCT_NAME = #{productName}
+        </if>
+        <if test="productType != null and productType != ''">
+            and T.PRODUCT_TYPE = #{productType}
+        </if>
+        <if test="status != null and status != ''">
+            and T.STATUS = #{status}
+        </if>
+        <if test="keyWord != null and keyWord != ''">
+            and T.PRODUCT_NAME LIKE '%${keyWord}%' OR T.SLAUGHTER_BATCH_NO LIKE '%${keyWord}%'
+        </if>
+        <if test="startTime != null and startTime != ''">
+            <if test="endTime == null || endTime == ''">
+                and T.CREATE_TIME  >=  "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+            </if>
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <if test="startTime == null || startTime == ''">
+                and T.CREATE_TIME  <![CDATA[ <= ]]>  "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+            </if>
+        </if>
+        <if test="startTime != null and startTime != ''">
+            <if test="endTime != null || endTime != ''">
+                and T.CREATE_TIME BETWEEN "TO_DATE"(#{startTime}, 'yyyy-mm-dd')
+                and "TO_DATE"(#{endTime}, 'yyyy-mm-dd')
+            </if>
+        </if>
+    </select>
+    <!--入市销售后改变库存和状态-->
+    <update id="updateProductStoreCount" parameterType="map">
+        UPDATE TTS_SCLTXXCJ_SLAUGHTER_STOR S SET (S.CURRENT_AMOUNT,S.STATUS) =
+        (SELECT V.STORE_COUNT,V.STATUS FROM TTS_VIEW_TZXS V
+        WHERE S.SLAUGHTER_BATCH_NO = V.SLAUGHTER_BATCH_NO
+        ) WHERE S.SLAUGHTER_BATCH_NO IN
+        <foreach item="item" index="index" collection="pcs" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!--流通销售后改变库存，冻结数量和状态-->
+    <update id="updateProductStoreFreezeCount" parameterType="map">
+        UPDATE TTS_SCLTXXCJ_SLAUGHTER_STOR S SET (S.CURRENT_AMOUNT,S.FREEZE_COUNT,S.STATUS) =
+        (SELECT V.CURRENT_AMOUNT,V.FREEZE_COUNT,V.STATUS FROM TTS_VIEW_TZLTXS V
+        WHERE S.SLAUGHTER_BATCH_NO = V.SLAUGHTER_BATCH_NO
+        ) WHERE S.SLAUGHTER_BATCH_NO IN
+        <foreach item="item" index="index" collection="pcs" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="updateStoreCountForPurchase" parameterType="java.lang.String">
+        UPDATE TTS_SCLTXXCJ_SLAUGHTER_STOR S SET S.CURRENT_AMOUNT = S.INIT_AMOUNT-(
+        SELECT NVL((
+        SELECT
+        SUM(X.SALE_AMOUNT)
+        FROM TTS_SCLTXXCJ_SLAUGHTER_SRECORD X
+        WHERE X.DEL_FLAG = 'N' AND X.PRODUCT_SCGL_ID = S.SLAUGHTER_BATCH_NO
+        GROUP BY X.CONFIRM_STATE
+        HAVING X.CONFIRM_STATE = 'Y'),0) AS SALE_AMOUNT FROM DUAL
+        ),S.FREEZE_COUNT = (
+        SELECT NVL((
+        SELECT
+        SUM(X.SALE_AMOUNT)
+        FROM TTS_SCLTXXCJ_SLAUGHTER_SRECORD X
+        WHERE X.DEL_FLAG = 'N' AND X.PRODUCT_SCGL_ID = S.SLAUGHTER_BATCH_NO
+        GROUP BY X.CONFIRM_STATE
+        HAVING X.CONFIRM_STATE = 'N'),0) AS SALE_AMOUNT FROM DUAL
+        ),S.STATUS = (CASE WHEN S.STATUS = 4 THEN 4 ELSE (CASE WHEN S.INIT_AMOUNT = S.CURRENT_AMOUNT THEN 1
+        WHEN S.CURRENT_AMOUNT !=0  THEN 2
+        WHEN S.CURRENT_AMOUNT = 0 THEN 3
+        END )END)
+        WHERE S.SLAUGHTER_BATCH_NO IN (
+        SELECT X1.PRODUCT_SCGL_ID FROM TTS_SCLTXXCJ_SLAUGHTER_SRECORD X1
+        WHERE X1.XSDJ_ID = #{id}
+        )
+    </update>
+</mapper>

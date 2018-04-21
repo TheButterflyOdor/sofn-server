@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.TtsScltxxcjSlaSaleMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsScltxxcjSlaSale" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_XSPC" property="productXspc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_XSPC_SL" property="productXspcSl" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR" />
+    <result column="STOCKID" property="stockid" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />
+    <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="USER_IDCODE" property="userIdcode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ENTITY_IDCODE" property="customerEntityIdcode" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_USER_IDCODE" property="customerUserIdcode" jdbcType="VARCHAR" />
+    <result column="IS_CIRCULATES_END" property="isCirculatesEnd" jdbcType="VARCHAR" />
+    <result column="CONFIRM_STATE" property="confirmState" jdbcType="VARCHAR" />
+    <result column="TRACE_CODE" property="traceCode" jdbcType="VARCHAR" />
+    <result column="TRACE_PROOF" property="traceProof" jdbcType="VARCHAR" />
+    <result column="SALE_TIME" property="saleTime" jdbcType="TIMESTAMP" />
+    <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_MODEL" property="productModel" jdbcType="VARCHAR" />
+    <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+    <result column="SALE_USER" property="saleUser" jdbcType="VARCHAR" />
+    <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="FROMID" property="fromid" jdbcType="VARCHAR" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="FROM_TRACE_CODE" property="fromTraceCode" jdbcType="VARCHAR" />
+    <result column="TO_TRACE_CODE" property="toTraceCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TTS_SCLTXXCJ_SLAUGHTER_SALE
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.TtsScltxxcjSlaSale" >
+    insert into TTS_SCLTXXCJ_SLAUGHTER_SALE (ID
+    , PRODUCT_XSPC
+    , PRODUCT_XSPC_SL
+    , CUSTOMER_ID
+    , STOCKID
+    , PRODUCT_NAME
+    , PRODUCT_ID
+    , PRODUCT_INDUSTRY
+    , PRODUCT_SORT
+    , PRODUCT_SCGL_ID
+    , SALE_AMOUNT
+    , USER_IDCODE
+    , CUSTOMER_ENTITY_IDCODE
+    , CUSTOMER_USER_IDCODE
+    , IS_CIRCULATES_END
+    , CONFIRM_STATE
+    , TRACE_CODE
+    , TRACE_PROOF
+    , SALE_TIME
+    , CONFIRM_TIME
+    , PRODUCT_MODEL
+    , BUY_COM_USER_ID
+    , SALE_USER
+    , IP_ADDRESS
+    , FROMID
+    , ENTITY_IDCODE
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{productXspc,jdbcType=VARCHAR}
+    , #{productXspcSl,jdbcType=VARCHAR}
+    , #{customerId,jdbcType=VARCHAR}
+    , #{stockid,jdbcType=VARCHAR}
+    , #{productName,jdbcType=VARCHAR}
+    , #{productId,jdbcType=VARCHAR}
+    , #{productIndustry,jdbcType=VARCHAR}
+    , #{productSort,jdbcType=VARCHAR}
+    , #{productScglId,jdbcType=VARCHAR}
+    , #{saleAmount,jdbcType=DECIMAL}
+    , #{userIdcode,jdbcType=VARCHAR}
+    , #{customerEntityIdcode,jdbcType=VARCHAR}
+    , #{customerUserIdcode,jdbcType=VARCHAR}
+    , #{isCirculatesEnd,jdbcType=VARCHAR}
+    , #{confirmState,jdbcType=VARCHAR}
+    , #{traceCode,jdbcType=VARCHAR}
+    , #{traceProof,jdbcType=VARCHAR}
+    , #{saleTime,jdbcType=TIMESTAMP}
+    , #{confirmTime,jdbcType=TIMESTAMP}
+    , #{productModel,jdbcType=VARCHAR}
+    , #{buyComUserId,jdbcType=VARCHAR}
+    , #{saleUser,jdbcType=VARCHAR}
+    , #{ipAddress,jdbcType=VARCHAR}
+    , #{fromid,jdbcType=VARCHAR}
+    , #{entityIdcode,jdbcType=VARCHAR}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.TtsScltxxcjSlaSale" >
+    update TTS_SCLTXXCJ_SLAUGHTER_SALE
+    set
+     PRODUCT_XSPC =  #{productXspc,jdbcType=VARCHAR},
+     PRODUCT_XSPC_SL =  #{productXspcSl,jdbcType=VARCHAR},
+     CUSTOMER_ID =  #{customerId,jdbcType=VARCHAR},
+     STOCKID =  #{stockid,jdbcType=VARCHAR},
+     PRODUCT_NAME =  #{productName,jdbcType=VARCHAR},
+     PRODUCT_ID =  #{productId,jdbcType=VARCHAR},
+     PRODUCT_INDUSTRY =  #{productIndustry,jdbcType=VARCHAR},
+     PRODUCT_SORT =  #{productSort,jdbcType=VARCHAR},
+     PRODUCT_SCGL_ID =  #{productScglId,jdbcType=VARCHAR},
+     SALE_AMOUNT =  #{saleAmount,jdbcType=DECIMAL},
+     USER_IDCODE =  #{userIdcode,jdbcType=VARCHAR},
+     CUSTOMER_ENTITY_IDCODE =  #{customerEntityIdcode,jdbcType=VARCHAR},
+     CUSTOMER_USER_IDCODE =  #{customerUserIdcode,jdbcType=VARCHAR},
+     IS_CIRCULATES_END =  #{isCirculatesEnd,jdbcType=VARCHAR},
+     CONFIRM_STATE =  #{confirmState,jdbcType=VARCHAR},
+     TRACE_CODE =  #{traceCode,jdbcType=VARCHAR},
+     TRACE_PROOF =  #{traceProof,jdbcType=VARCHAR},
+     SALE_TIME =  #{saleTime,jdbcType=TIMESTAMP},
+     CONFIRM_TIME =  #{confirmTime,jdbcType=TIMESTAMP},
+     PRODUCT_MODEL =  #{productModel,jdbcType=VARCHAR},
+     BUY_COM_USER_ID =  #{buyComUserId,jdbcType=VARCHAR},
+     SALE_USER =  #{saleUser,jdbcType=VARCHAR},
+     IP_ADDRESS =  #{ipAddress,jdbcType=VARCHAR},
+     FROMID =  #{fromid,jdbcType=VARCHAR},
+     ENTITY_IDCODE =  #{entityIdcode,jdbcType=VARCHAR},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , PRODUCT_XSPC
+    , PRODUCT_XSPC_SL
+    , CUSTOMER_ID
+    , STOCKID
+    , PRODUCT_NAME
+    , PRODUCT_ID
+    , PRODUCT_INDUSTRY
+    , PRODUCT_SORT
+    , PRODUCT_SCGL_ID
+    , SALE_AMOUNT
+    , USER_IDCODE
+    , CUSTOMER_ENTITY_IDCODE
+    , CUSTOMER_USER_IDCODE
+    , IS_CIRCULATES_END
+    , CONFIRM_STATE
+    , TRACE_CODE
+    , TRACE_PROOF
+    , SALE_TIME
+    , CONFIRM_TIME
+    , PRODUCT_MODEL
+    , BUY_COM_USER_ID
+    , SALE_USER
+    , IP_ADDRESS
+    , FROMID
+    , ENTITY_IDCODE
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from TTS_SCLTXXCJ_SLAUGHTER_SALE
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

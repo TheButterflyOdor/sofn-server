@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SysArgiProductMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysArgiProduct" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+    <result column="USE_CODE" property="useCode" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="ALIAS" property="alias" jdbcType="VARCHAR" />
+    <result column="ENNAME" property="enname" jdbcType="VARCHAR" />
+    <result column="GB_CODE" property="gbCode" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="TYPE_ID" property="typeId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR" />
+    <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR" />
+    <result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_ARGI_PRODUCT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysArgiProduct" >
+    insert into SYS_ARGI_PRODUCT (ID, PARENT_ID, PRODUCT_CODE, 
+      USE_CODE, NAME,SLAUGHTER_STATUS, ALIAS,
+      ENNAME, GB_CODE, DESCRIPTION, 
+      CREATE_BY, CREATE_TIME, UPDATE_BY, 
+      UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, 
+      RESERVED_FIELD2,TYPE_ID, PARENT_NAME)
+    values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{productCode,jdbcType=VARCHAR}, 
+      #{useCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{slaughterStatus,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR},
+      #{enname,jdbcType=VARCHAR}, #{gbCode,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=VARCHAR}, #{reservedField1,jdbcType=VARCHAR}, 
+      #{reservedField2,jdbcType=VARCHAR},#{typeId,jdbcType=VARCHAR},#{parentName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysArgiProduct" >
+    update SYS_ARGI_PRODUCT
+    set PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      USE_CODE = #{useCode,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      SLAUGHTER_STATUS = #{slaughterStatus,jdbcType=VARCHAR},
+      ALIAS = #{alias,jdbcType=VARCHAR},
+      ENNAME = #{enname,jdbcType=VARCHAR},
+      GB_CODE = #{gbCode,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+      RESERVED_FIELD1 = #{reservedField1,jdbcType=VARCHAR},
+      RESERVED_FIELD2 = #{reservedField2,jdbcType=VARCHAR},
+      TYPE_ID = #{typeId,jdbcType=VARCHAR},
+      PARENT_NAME = #{parentName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, PARENT_ID, PRODUCT_CODE, USE_CODE, NAME, ALIAS, ENNAME, GB_CODE, DESCRIPTION, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2,TYPE_ID,PARENT_NAME
+    from SYS_ARGI_PRODUCT
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, PARENT_ID, PRODUCT_CODE, USE_CODE, NAME, ALIAS, ENNAME, GB_CODE, DESCRIPTION, 
+    CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2,TYPE_ID,PARENT_NAME
+    from SYS_ARGI_PRODUCT
+  </select>
+</mapper>

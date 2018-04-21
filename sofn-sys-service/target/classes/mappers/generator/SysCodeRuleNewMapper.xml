@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SysCodeRuleNewMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysCodeRuleNew" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+    <result column="RULE_CODE" property="ruleCode" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="DEMO_IMG" property="demoImg" jdbcType="BLOB" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_CODE_RULE_NEW
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysCodeRuleNew" >
+    insert into SYS_CODE_RULE_NEW (ID, RULE_NAME, RULE_CODE, 
+      CREATE_BY, CREATE_TIME, UPDATE_BY, 
+      UPDATE_TIME, DEL_FLAG, DEMO_IMG
+      )
+    values (#{id,jdbcType=VARCHAR}, #{ruleName,jdbcType=VARCHAR}, #{ruleCode,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=VARCHAR}, #{demoImg,jdbcType=BLOB}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysCodeRuleNew" >
+    update SYS_CODE_RULE_NEW
+    set RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      RULE_CODE = #{ruleCode,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+      DEMO_IMG = #{demoImg,jdbcType=BLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, RULE_NAME, RULE_CODE, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    DEL_FLAG, DEMO_IMG
+    from SYS_CODE_RULE_NEW
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, RULE_NAME, RULE_CODE, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    DEL_FLAG, DEMO_IMG
+    from SYS_CODE_RULE_NEW
+  </select>
+</mapper>

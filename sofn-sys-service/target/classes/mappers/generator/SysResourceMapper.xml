@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.SysResource" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="RESOURCETYPE" property="resourcetype" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PROFESSIONALFILED" property="professionalfiled" jdbcType="VARCHAR" />
+    <result column="JOBTITLE" property="jobtitle" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="CONTRACT" property="contract" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="RESERVED_FIELD1" property="reservedField1" jdbcType="VARCHAR" />
+    <result column="RESERVED_FIELD2" property="reservedField2" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_RESOURCE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.SysResource" >
+    insert into SYS_RESOURCE (ID, RESOURCETYPE, NAME, 
+      PROFESSIONALFILED, JOBTITLE, UNIT, 
+      LOCATION, ADDRESS, CONTRACT, 
+      STATUS, CREATE_BY, CREATE_TIME, 
+      UPDATE_BY, UPDATE_TIME, DEL_FLAG, 
+      RESERVED_FIELD1, RESERVED_FIELD2)
+    values (#{id,jdbcType=VARCHAR}, #{resourcetype,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{professionalfiled,jdbcType=VARCHAR}, #{jobtitle,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{contract,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=VARCHAR}, 
+      #{reservedField1,jdbcType=VARCHAR}, #{reservedField2,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.SysResource" >
+    update SYS_RESOURCE
+    <set>
+      <if test="resourcetype != null and resourcetype != ''">RESOURCETYPE = #{resourcetype,jdbcType=VARCHAR},</if>
+      <if test="name != null and name != ''">NAME = #{name,jdbcType=VARCHAR},</if>
+      <if test="professionalfiled != null and professionalfiled != ''">PROFESSIONALFILED = #{professionalfiled,jdbcType=VARCHAR},</if>
+      <if test="jobtitle != null and jobtitle != ''">JOBTITLE = #{jobtitle,jdbcType=VARCHAR},</if>
+      <if test="unit != null and unit != ''">UNIT = #{unit,jdbcType=VARCHAR},</if>
+      <if test="location != null and location != ''">LOCATION = #{location,jdbcType=VARCHAR},</if>
+      <if test="address != null and address != ''">ADDRESS = #{address,jdbcType=VARCHAR},</if>
+      <if test="contract != null and contract != ''">CONTRACT = #{contract,jdbcType=VARCHAR},</if>
+      <if test="status != null and status != ''">STATUS = #{status,jdbcType=VARCHAR},</if>
+      <if test="createBy != null and createBy != ''">CREATE_BY = #{createBy,jdbcType=VARCHAR},</if>
+      <if test="createTime != null">CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},</if>
+      <if test="updateBy != null and updateBy != ''">UPDATE_BY = #{updateBy,jdbcType=VARCHAR},</if>
+      <if test="updateTime != null">UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},</if>
+      <if test="delFlag != null and delFlag != ''">DEL_FLAG = #{delFlag,jdbcType=VARCHAR},</if>
+      <if test="reservedField1 != null and reservedField1 != ''">RESERVED_FIELD1 = #{reservedField1,jdbcType=VARCHAR},</if>
+      <if test="reservedField2 != null and reservedField2 != ''">RESERVED_FIELD2 = #{reservedField2,jdbcType=VARCHAR}</if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, RESOURCETYPE, NAME, PROFESSIONALFILED, JOBTITLE, UNIT, LOCATION, ADDRESS, 
+    CONTRACT, STATUS, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, 
+    RESERVED_FIELD2
+    from SYS_RESOURCE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, RESOURCETYPE, NAME, PROFESSIONALFILED, JOBTITLE, UNIT, LOCATION, ADDRESS, 
+    CONTRACT, STATUS, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, 
+    RESERVED_FIELD2
+    from SYS_RESOURCE
+  </select>
+</mapper>

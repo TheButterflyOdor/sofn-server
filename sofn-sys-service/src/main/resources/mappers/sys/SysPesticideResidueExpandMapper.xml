@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.sys.SysPesticideResidueExpandMapper">
+    <insert id="addPesticideResidue">
+        INSERT INTO SYS_PESTICIDE_RESIDUES (
+            ID,
+            TEST_ITEM_ID,
+            TEST_OBJECT_ID,
+            TEST_OBJECT_NAME,
+            UPPER_BOUND,
+            UNIT_MEASURE,
+            REMARK,
+            CREATE_BY,
+            CREATE_TIME
+        )
+        VALUES
+          (
+            #{id},
+            #{testItemId},
+            #{testObjectId},
+            #{testObjectName},
+            #{upperBound},
+            #{unitMeasure},
+            #{remark},
+            #{createBy},
+            #{createTime}
+          )
+    </insert>
+    <update id="updatePesticideResidue">
+        UPDATE SYS_PESTICIDE_RESIDUES
+        SET TEST_ITEM_ID = #{testItemId},
+            TEST_OBJECT_ID = #{testObjectId},
+            TEST_OBJECT_NAME = #{testObjectName},
+            UPPER_BOUND = #{upperBound},
+            UNIT_MEASURE = #{unitMeasure},
+            REMARK = #{remark},
+            UPDATE_BY = #{updateBy},
+            UPDATE_TIME = #{updateTime}
+        WHERE
+	      ID = #{id}
+	    AND
+	      DEL_FLAG = 'N'
+    </update>
+    <update id="deletePesticideResidues">
+        UPDATE SYS_PESTICIDE_RESIDUES
+        SET DEL_FLAG = 'Y',
+            UPDATE_BY = #{account},
+            UPDATE_TIME = #{operateTime}
+        WHERE
+        ID IN
+        <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <select id="getPesticideResidues" resultType="com.sofn.model.generator.SysPesticideResidueModel">
+        SELECT
+            T1.ID,
+            T1.TEST_ITEM_ID,
+            T2.ITEM_NAME,
+            T2.STANDARD_CODE,
+            T1.TEST_OBJECT_ID,
+            T1.TEST_OBJECT_NAME,
+            T1.UPPER_BOUND,
+            T1.UNIT_MEASURE,
+            T1.REMARK
+        FROM
+            SYS_PESTICIDE_RESIDUES T1
+        JOIN SYS_TEST_ITEMS T2 ON T1.TEST_ITEM_ID = T2. ID
+        WHERE
+            T1.DEL_FLAG = 'N'
+        AND T2.DEL_FLAG = 'N'
+        <if test="standardCode != null and standardCode != ''">
+            AND T2.STANDARD_CODE LIKE '%${standardCode}%'
+        </if>
+        <if test="itemName != null and itemName != ''">
+            AND T2.ITEM_NAME LIKE '%${itemName}%'
+        </if>
+        <if test="testObjectName != null and testObjectName != ''">
+            AND T1.TEST_OBJECT_NAME LIKE '%${testObjectName}%'
+        </if>
+    </select>
+    <select id="getPesticideResidue" resultType="com.sofn.model.generator.SysPesticideResidueModel">
+        SELECT
+            T1.ID,
+            T1.TEST_ITEM_ID,
+            T2.ITEM_NAME,
+            T2.STANDARD_CODE,
+            T1.TEST_OBJECT_ID,
+            T1.TEST_OBJECT_NAME,
+            T1.UPPER_BOUND,
+            T1.UNIT_MEASURE,
+            T1.REMARK
+        FROM
+            SYS_PESTICIDE_RESIDUES T1
+        JOIN SYS_TEST_ITEMS T2 ON T1.TEST_ITEM_ID = T2. ID
+        WHERE
+            T1.ID = #{id}
+    </select>
+    <select id="isExistPesticideResidue" resultType="java.lang.Integer">
+
+    </select>
+    <select id="getArgiProducts" resultType="com.sofn.model.generator.SysArgiProduct">
+        SELECT
+            ID,
+            PRODUCT_CODE,
+            NAME,
+            TYPE_ID
+        FROM
+            SYS_ARGI_PRODUCT
+        WHERE
+            DEL_FLAG = 'N'
+        <if test="typeId != null and typeId != ''">
+            AND TYPE_ID = #{typeId}
+        </if>
+        <if test="nameKeyword != null and nameKeyword != ''">
+            AND NAME LIKE '%${nameKeyword}%'
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ales.ProduceAdminPunishExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AlesProduceAdminPunish" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="PUNISH_CODE" property="punishCode" jdbcType="VARCHAR" />
+    <result column="LEGAL_PERSON" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="CASE_NAME" property="caseName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_NAME" property="enterpriseName" jdbcType="CHAR" />
+    <result column="MANUFACTURE_DATE" property="manufactureDate" jdbcType="VARCHAR" />
+    <result column="PUNISH_QUALITATIVE" property="punishQualitative" jdbcType="VARCHAR" />
+    <result column="PUNISH_RESULT" property="punishResult" jdbcType="VARCHAR" />
+    <result column="PUNISH_FILES" property="punishFiles" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ENABLE" property="enable" jdbcType="CHAR" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="CHAR" />
+    <result column="ENTERPRISE_CODE" property="enterpriseCode" jdbcType="VARCHAR" />
+    <result column="ENFORCE_LAW_ID" property="enforceLawId" jdbcType="CHAR" />
+    <result column="ENFORCE_LAW_PEOPLE" property="enforceLawPeople" jdbcType="VARCHAR" />
+    <result column="ENFORCE_LAW_TIME" property="enforceLawTime" jdbcType="TIMESTAMP" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="PUNISH_FILES_NAME" jdbcType="VARCHAR" property="punishFilesName" />
+    <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+    <result column="ENTERPRISE_ID_NAME" jdbcType="CHAR" property="enterpriseIdName" />
+  </resultMap>
+  <select id="getProduceAdminPunishAllList" resultType="map">
+    SELECT * FROM (SELECT f.*, ROWNUM AS rn
+    FROM (
+    SELECT DISTINCT  * FROM (
+    SELECT
+     s.*,t.AREA,t.ENTERPRISE_NAME AS NAME_ENTERPRISE
+    FROM ALES_PRODUCE_ADMIN_PUNISH s
+    LEFT JOIN TTS_SCLTXXCJ_REGISTER_V2 t
+    ON trim(s.ENTERPRISE_CODE) = trim(t.ENTITY_IDCODE)
+    WHERE 1=1
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.CASE_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="taskYear!=null and taskYear!=''">
+      AND s.ENFORCE_LAW_TIME BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND
+      add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.ENFORCE_LAW_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.ENFORCE_LAW_TIME &lt;(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+    </if>
+    <choose>
+      <when test="area!=null and area!=''">
+        AND t.AREA like #{area}||'%'
+      </when>
+      <otherwise>
+        AND t.AREA  is not null
+      </otherwise>
+    </choose>
+    <if test="createOrgId!=null and createOrgId!=''">
+      AND s.CREATE_ORG_ID =#{createOrgId}
+    </if>
+    UNION ALL
+    SELECT
+    s.*,t.AREA_ID AS AREA,t.ENTITY_NAME AS NAME_ENTERPRISE
+    FROM ALES_PRODUCE_ADMIN_PUNISH s
+    LEFT JOIN ASMS_SUBJ_ENT_TEMP t
+    ON trim(s.ENTERPRISE_ID) = trim(t.ID)
+    WHERE 1=1
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.CASE_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="taskYear!=null and taskYear!=''">
+      AND s.ENFORCE_LAW_TIME BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND
+      add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.ENFORCE_LAW_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.ENFORCE_LAW_TIME &lt;(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+    </if>
+    <choose>
+      <when test="area!=null and area!=''">
+        AND t.AREA_ID like #{area}||'%'
+      </when>
+      <otherwise>
+        AND t.AREA_ID  is not null
+      </otherwise>
+    </choose>
+    <if test="createOrgId!=null and createOrgId!=''">
+      AND s.CREATE_ORG_ID =#{createOrgId}
+    </if>
+    ) a WHERE a.DEL_FLAG = 'N'
+     order by a.CREATE_TIME DESC
+    ) f )
+    WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+
+  <select id="getProduceAdminPunishAllCount" resultType="long">
+    SELECT SUM(cou) FROM (
+    SELECT COUNT(*) AS cou FROM ALES_PRODUCE_ADMIN_PUNISH s
+    LEFT JOIN TTS_SCLTXXCJ_REGISTER_V2 t
+    ON trim(s.ENTERPRISE_CODE) = trim(t.ENTITY_IDCODE)
+    WHERE s.DEL_FLAG = 'N'
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.CASE_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="taskYear!=null and taskYear!=''">
+      AND s.ENFORCE_LAW_TIME BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND
+      add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.ENFORCE_LAW_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.ENFORCE_LAW_TIME &lt;to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    <choose>
+      <when test="area!=null and area!=''">
+        AND t.AREA like #{area}||'%'
+      </when>
+      <otherwise>
+        AND t.AREA  is not null
+      </otherwise>
+    </choose>
+    <if test="createOrgId!=null and createOrgId!=''">
+      AND s.CREATE_ORG_ID =#{createOrgId}
+    </if>
+    UNION ALL
+    SELECT COUNT(*) AS cou FROM ALES_PRODUCE_ADMIN_PUNISH s
+    LEFT JOIN ASMS_SUBJ_ENT_TEMP t
+    ON trim(s.ENTERPRISE_ID) = trim(t.ID)
+    WHERE s.DEL_FLAG = 'N'
+    <if test="queryCon!=null and queryCon!=''">
+      AND s.CASE_NAME like '%'||#{queryCon}||'%'
+    </if>
+    <if test="taskYear!=null and taskYear!=''">
+      AND s.ENFORCE_LAW_TIME BETWEEN to_date(#{taskYear}||'0101','yyyyMMdd') AND
+      add_months(to_date(#{taskYear}||'0101','yyyyMMdd'),12)
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.ENFORCE_LAW_TIME &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.ENFORCE_LAW_TIME &lt;(to_date(#{dateEnd},'yyyy-MM-dd'))+1
+    </if>
+    <choose>
+      <when test="area!=null and area!=''">
+        AND t.AREA_ID like #{area}||'%'
+      </when>
+      <otherwise>
+        AND t.AREA_ID  is not null
+      </otherwise>
+    </choose>
+    <if test="createOrgId!=null and createOrgId!=''">
+      AND s.CREATE_ORG_ID =#{createOrgId}
+    </if>
+    )
+  </select>
+
+  <select id="getPunishById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    s.*,t.AREA,t.ENTERPRISE_NAME NAME_ENTERPRISE
+    FROM ALES_PRODUCE_ADMIN_PUNISH s
+    LEFT JOIN TTS_SCLTXXCJ_REGISTER_V2 t
+    ON trim(s.ENTERPRISE_CODE) = trim(t.ENTITY_IDCODE)
+    where s.ID = #{id}
+  </select>
+  <delete id="deleteInfo" parameterType="java.lang.String">
+    delete from ALES_PRODUCE_ADMIN_PUNISH
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+</mapper>

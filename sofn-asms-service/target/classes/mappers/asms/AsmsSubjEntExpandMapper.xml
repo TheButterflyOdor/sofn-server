@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.asms.AsmsSubjEntExpandMapper" >
+  <resultMap id="baseResultMap" type="com.sofn.model.generator.TtsScltxxcjRegiter" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <id column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_SCALE" property="entityScale" jdbcType="VARCHAR" />
+    <result column="ENTITY_TYPE" property="entityType" jdbcType="VARCHAR" />
+    <result column="ENTITY_INDUSTRY" property="entityIndustry" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_NAME" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="CARD_TYPE" property="cardType" jdbcType="CHAR" />
+    <result column="CREDIT_CODE" property="creditCode" jdbcType="VARCHAR" />
+    <result column="BUSINESS_OPERATION" property="businessOperation" jdbcType="VARCHAR" />
+    <result column="BUSINESS_OPERATION_START" property="businessOperationStart" jdbcType="VARCHAR" />
+    <result column="BUSINESS_OPERATION_END" property="businessOperationEnd" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_INDUSTRY" property="enterpriseIndustry" jdbcType="VARCHAR" />
+    <result column="ANNUAL_OUTPUT" property="annualOutput" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+    <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="CONTACT_EMAIL" property="contactEmail" jdbcType="VARCHAR" />
+    <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+    <result column="LEGAL_IDNUMBER" property="legalIdnumber" jdbcType="VARCHAR" />
+    <result column="LEGAL_PHONE" property="legalPhone" jdbcType="VARCHAR" />
+    <result column="LEGAL_IMAGES" property="legalImages" jdbcType="VARCHAR" />
+    <result column="FAX_NUMBER" property="faxNumber" jdbcType="VARCHAR" />
+    <result column="DOCUMENT_IMAGES" property="documentImages" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="tempResultMap" type="com.sofn.model.generator.AsmsSubjEntTemp" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ENTITY_NAME" property="entityName" jdbcType="VARCHAR" />
+    <result column="ENTITY_SCALE" property="entityScale" jdbcType="VARCHAR" />
+    <result column="ENTITY_TYPE" property="entityType" jdbcType="VARCHAR" />
+    <result column="ENTITY_INDUSTRY" property="entityIndustry" jdbcType="VARCHAR" />
+    <result column="CRED_TYPE" property="credType" jdbcType="VARCHAR" />
+    <result column="CRED_TIME" property="credTime" jdbcType="VARCHAR" />
+    <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="AREA_ID" property="areaId" jdbcType="VARCHAR" />
+    <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+    <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="CONTACT_EMAIL" property="contactEmail" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_SUPERVISE_ID" property="createSuperviseId" jdbcType="CHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ENABLE" property="enable" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="registerResultMap" type="com.sofn.model.generator.TtsScltxxcjRegiter" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="CHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="IDCODE" property="idcode" jdbcType="VARCHAR" />
+    <result column="ENTITY_SCALE" property="entityScale" jdbcType="VARCHAR" />
+    <result column="ENTITY_TYPE" property="entityType" jdbcType="VARCHAR" />
+    <result column="ENTITY_PROPERTY" property="entityProperty" jdbcType="VARCHAR" />
+    <result column="ENTITY_INDUSTRY" property="entityIndustry" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_NAME" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="CARD_TYPE" property="cardType" jdbcType="CHAR" />
+    <result column="CREDIT_CODE" property="creditCode" jdbcType="VARCHAR" />
+    <result column="BUSINESS_OPERATION" property="businessOperation" jdbcType="VARCHAR" />
+    <result column="BUSINESS_OPERATION_START" property="businessOperationStart" jdbcType="TIMESTAMP" />
+    <result column="BUSINESS_OPERATION_END" property="businessOperationEnd" jdbcType="TIMESTAMP" />
+    <result column="ENTERPRISE_INDUSTRY" property="enterpriseIndustry" jdbcType="VARCHAR" />
+    <result column="ANNUAL_OUTPUT" property="annualOutput" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="DOCUMENT_IMAGES" property="documentImages" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+    <result column="LEGAL_IDNUMBER" property="legalIdnumber" jdbcType="VARCHAR" />
+    <result column="LEGAL_PHONE" property="legalPhone" jdbcType="VARCHAR" />
+    <result column="LEGAL_IMAGES" property="legalImages" jdbcType="VARCHAR" />
+    <result column="FAX_NUMBER" property="faxNumber" jdbcType="VARCHAR" />
+    <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+    <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="CONTACT_EMAIL" property="contactEmail" jdbcType="VARCHAR" />
+    <result column="REGISTER_TIME" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="APPROVE_STATUS" property="approveStatus" jdbcType="CHAR" />
+    <result column="APPROVE_OPINION" property="approveOpinion" jdbcType="VARCHAR" />
+    <result column="APPROVE_USER_IDCODE" property="approveUserIdcode" jdbcType="VARCHAR" />
+    <result column="APPROVE_NAME" property="approveName" jdbcType="VARCHAR" />
+    <result column="APPROVE_TIME" property="approveTime" jdbcType="TIMESTAMP" />
+    <result column="ENTITY_IDCODE" property="entityIdcode" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="findSubjEntById" resultMap="baseResultMap" parameterType="map" >
+    select ID, ENTITY_IDCODE, ENTITY_SCALE, ENTITY_TYPE, ENTITY_INDUSTRY, ENTERPRISE_NAME,
+    CARD_TYPE, CREDIT_CODE, BUSINESS_OPERATION, BUSINESS_OPERATION_START, BUSINESS_OPERATION_END,
+    ENTERPRISE_INDUSTRY, ANNUAL_OUTPUT, ADDRESS, AREA, LONGITUDE, LATITUDE, CONTACT_NAME,
+    CONTACT_PHONE, CONTACT_EMAIL, LEGAL_NAME, LEGAL_IDNUMBER, LEGAL_PHONE, LEGAL_IMAGES,
+    FAX_NUMBER, DOCUMENT_IMAGES, BLACKLIST_STATUS, DEL_FLAG, CREATE_BY, CREATE_TIME,
+    UPDATE_BY, UPDATE_TIME, RESERVED_FIELD3, RESERVED_FIELD4, RESERVED_FIELD5, RESERVED_FIELD6,
+    RESERVED_FIELD7, RESERVED_FIELD8, RESERVED_FIELD9, RESERVED_FIELD10, RESERVED_FIELD11,
+    RESERVED_FIELD12, RESERVED_FIELD13, RESERVED_FIELD14, RESERVED_FIELD15, RESERVED_FIELD16,
+    RESERVED_FIELD17, RESERVED_FIELD18, RESERVED_FIELD19, RESERVED_FIELD20
+    from TTS_SCLTXXCJ_ENTITY
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="getSubjEntList" resultMap="baseResultMap">
+    SELECT * FROM (
+    SELECT
+    t.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*
+    FROM
+    TTS_SCLTXXCJ_REGISTER s
+    WHERE
+    s.APPROVE_STATUS='1'
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND s.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND s.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="hasBadRecord!=null and hasBadRecord!=''">
+      AND s.BLACKLIST_STATUS!=0
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND s.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjEntCount" resultType="long" >
+    SELECT
+      COUNT(*)
+    FROM
+      TTS_SCLTXXCJ_REGISTER s
+    WHERE
+      s.APPROVE_STATUS='1'
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND s.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND s.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="hasBadRecord!=null and hasBadRecord!=''">
+      AND s.BLACKLIST_STATUS!=0
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND s.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+  </select>
+  <select id="getSubjEntTempList" resultMap="tempResultMap">
+    SELECT * FROM (
+    SELECT
+    t.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*
+    FROM
+    ASMS_SUBJ_ENT_TEMP s
+    WHERE
+    s.DEL_FLAG = 'N'
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND
+      <foreach collection="entityIndustry" item="item" index="index" open="(" close=")" separator="OR">
+        s.ENTITY_INDUSTRY_ID LIKE '%'||#{item}||'%'
+      </foreach>
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND s.ENTITY_TYPE_ID like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND s.ENTITY_SCALE_ID=#{entityScale}
+    </if>
+    <if test="identityCode!=null and identityCode!=''">
+      AND s.IDENTITY_CODE=#{identityCode}
+    </if>
+    <if test="entityName!=null and entityName!=''">
+      AND s.ENTITY_NAME LIKE '%'||#{entityName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND s.AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.CREATE_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjEntTempCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_ENT_TEMP s
+    WHERE
+    s.DEL_FLAG = 'N'
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND
+      <foreach collection="entityIndustry" item="item" index="index" open="(" close=")" separator="OR">
+        s.ENTITY_INDUSTRY_ID LIKE '%'||#{item}||'%'
+      </foreach>
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND s.ENTITY_TYPE_ID like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND s.ENTITY_SCALE_ID=#{entityScale}
+    </if>
+    <if test="identityCode!=null and identityCode!=''">
+      AND s.IDENTITY_CODE=#{identityCode}
+    </if>
+    <if test="entityName!=null and entityName!=''">
+      AND s.ENTITY_NAME LIKE '%'||#{entityName}||'%'
+    </if>
+    <if test="areaId!=null and areaId!=''">
+      AND s.AREA_ID LIKE #{areaId}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.CREATE_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.CREATE_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+  </select>
+  <select id="getSubjEntTempListByCode" parameterType="string" resultMap="tempResultMap">
+    SELECT
+    s.*
+    FROM
+    ASMS_SUBJ_ENT_TEMP s
+    WHERE
+    s.DEL_FLAG = 'N'
+    <if test="code!=null and code!=''">
+      AND s.ORG_CODE=#{code}
+    </if>
+  </select>
+  <select id="getSubjEntRegisterList" resultMap="registerResultMap">
+    SELECT * FROM (
+    SELECT
+    t.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.*
+    FROM
+    TTS_SCLTXXCJ_REGISTER s
+    WHERE
+    s.APPROVE_STATUS='0'
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND s.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND s.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND s.ENTITY_SCALE=#{entityScale}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND s.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.REGISTER_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.REGISTER_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.REGISTER_TIME DESC
+    ) t
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjEntRegisterCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    TTS_SCLTXXCJ_REGISTER s
+    WHERE
+    s.APPROVE_STATUS='0'
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND s.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND s.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND s.ENTITY_SCALE=#{entityScale}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND s.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.REGISTER_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.REGISTER_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+  </select>
+
+  <select id="getSubjEntChangeList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS ID,t.ENTERPRISE_NAME AS enterpriseName,t.ENTITY_INDUSTRY AS entityIndustry,t.ENTITY_SCALE AS entityScale,
+    t.ENTITY_TYPE AS entityType,t.AREA AS area,s.APPLY_TIME AS applyTime,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_ENT_CHANGE s
+    LEFT JOIN T_SCLTXXCJ_ENTITY t
+    ON s.ENT_ID = t.ID
+    WHERE
+    1 = 1
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND t.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND t.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND t.ENTITY_SCALE=#{entityScale}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.APPLY_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    ) a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjEntChangeCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_ENT_CHANGE s
+    LEFT JOIN T_SCLTXXCJ_ENTITY t
+    ON s.ENT_ID = t.ID
+    WHERE
+    1 = 1
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND t.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND t.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND t.ENTITY_SCALE=#{entityScale}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.APPLY_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+  </select>
+
+  <select id="getSubjEntRevokeList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS ID,t.ENTERPRISE_NAME AS enterpriseName,t.ENTITY_INDUSTRY AS entityIndustry,t.ENTITY_SCALE AS entityScale,
+    t.ENTITY_TYPE AS entityType,t.AREA AS area,s.APPLY_TIME AS applyTime,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_ENT_REVOKE s
+    LEFT JOIN T_SCLTXXCJ_ENTITY t
+    ON s.ENT_ID = t.ID
+    WHERE
+    1 = 1
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND t.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND t.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND t.ENTITY_SCALE=#{entityScale}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.APPLY_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    ) a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjEntRevokeCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_ENT_REVOKE s
+    LEFT JOIN T_SCLTXXCJ_ENTITY t
+    ON s.ENT_ID = t.ID
+    WHERE
+    1 = 1
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND t.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND t.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND t.ENTITY_SCALE=#{entityScale}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.APPLY_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+  </select>
+
+  <select id="getSubjEntCancelList" resultType="map">
+    SELECT * FROM (
+    SELECT
+    a.*, ROWNUM AS rn
+    FROM
+    (
+    SELECT
+    s.ID AS ID,t.ENTERPRISE_NAME AS enterpriseName,t.ENTITY_INDUSTRY AS entityIndustry,t.ENTITY_SCALE AS entityScale,
+    t.ENTITY_TYPE AS entityType,t.AREA AS area,s.APPLY_TIME AS applyTime,s.AUDIT_STATE AS auditState
+    FROM
+    ASMS_SUBJ_ENT_CANCEL s
+    LEFT JOIN T_SCLTXXCJ_ENTITY t
+    ON s.ENT_ID = t.ID
+    WHERE
+    1 = 1
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND t.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND t.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND t.ENTITY_SCALE=#{entityScale}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.APPLY_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+    ORDER BY s.APPLY_TIME DESC
+    ) a
+    WHERE ROWNUM &lt;= #{pageTail}
+    )
+    WHERE rn &gt;= #{pageOffset}
+  </select>
+  <select id="getSubjEntCancelCount" resultType="long" >
+    SELECT
+    COUNT(*)
+    FROM
+    ASMS_SUBJ_ENT_CANCEL s
+    LEFT JOIN T_SCLTXXCJ_ENTITY t
+    ON s.ENT_ID = t.ID
+    WHERE
+    1 = 1
+    <if test="entityIndustry!=null and entityIndustry!=''">
+      AND t.ENTITY_INDUSTRY=#{entityIndustry}
+    </if>
+    <if test="entityType!=null and entityType!=''">
+      AND t.ENTITY_TYPE like '%'||#{entityType}||'%'
+    </if>
+    <if test="entityScale!=null and entityScale!=''">
+      AND t.ENTITY_SCALE=#{entityScale}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      AND t.ENTERPRISE_NAME LIKE '%'||#{enterpriseName}||'%'
+    </if>
+    <if test="dateBegin!=null and dateBegin!=''">
+      AND s.APPLY_TIME &gt;= to_date(#{dateBegin},'yyyy-MM-dd')
+    </if>
+    <if test="dateEnd!=null and dateEnd!=''">
+      AND s.APPLY_TIME &lt;= to_date(#{dateEnd},'yyyy-MM-dd')+1
+    </if>
+  </select>
+</mapper>

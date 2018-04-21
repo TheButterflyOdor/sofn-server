@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.generator.AdsTaskProjectMapper" >
+
+
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsTaskProject" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MONITOR_TASK_ID" property="monitorTaskId" jdbcType="VARCHAR" />
+    <result column="CHECK_PROJECT" property="checkProject" jdbcType="VARCHAR" />
+    <result column="JUDGE_NUM" property="judgeNum" jdbcType="DECIMAL" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADS_TASK_PROJECT
+   where ID =#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sofn.model.generator.AdsTaskProject" >
+    insert into ADS_TASK_PROJECT (ID
+    , MONITOR_TASK_ID
+    , CHECK_PROJECT
+    , JUDGE_NUM
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+   	)
+    values (#{id,jdbcType=VARCHAR}
+    , #{monitorTaskId,jdbcType=VARCHAR}
+    , #{checkProject,jdbcType=VARCHAR}
+    , #{judgeNum,jdbcType=DECIMAL}
+    , #{delFlag,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=VARCHAR}
+    , #{updateBy,jdbcType=VARCHAR}
+    , #{createTime,jdbcType=TIMESTAMP}
+    , #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsTaskProject" >
+    update ADS_TASK_PROJECT
+    set
+     MONITOR_TASK_ID =  #{monitorTaskId,jdbcType=VARCHAR},
+     CHECK_PROJECT =  #{checkProject,jdbcType=VARCHAR},
+     JUDGE_NUM =  #{judgeNum,jdbcType=DECIMAL},
+     DEL_FLAG =  #{delFlag,jdbcType=VARCHAR},
+     CREATE_BY =  #{createBy,jdbcType=VARCHAR},
+     UPDATE_BY =  #{updateBy,jdbcType=VARCHAR},
+     CREATE_TIME =  #{createTime,jdbcType=TIMESTAMP},
+     UPDATE_TIME =  #{updateTime,jdbcType=TIMESTAMP}
+     where ID =#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID
+    , MONITOR_TASK_ID
+    , CHECK_PROJECT
+    , JUDGE_NUM
+    , DEL_FLAG
+    , CREATE_BY
+    , UPDATE_BY
+    , CREATE_TIME
+    , UPDATE_TIME
+    from ADS_TASK_PROJECT
+     where ID =#{id,jdbcType=VARCHAR}
+  </select>
+  
+  </mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.asms.AsmsRecheckTaskExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsRecheckTask">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="RECHECK_TASK_NAME" jdbcType="VARCHAR" property="recheckTaskName" />
+        <result column="RECHECK_TASK_YEAR" jdbcType="CHAR" property="recheckTaskYear" />
+        <result column="RECHECK_TASK_BEGIN" jdbcType="TIMESTAMP" property="recheckTaskBegin" />
+        <result column="RECHECK_TASK_END" jdbcType="TIMESTAMP" property="recheckTaskEnd" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="STATE" jdbcType="VARCHAR" property="state" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="INIT_TASK_TYPE" jdbcType="VARCHAR" property="initTaskType" />
+        <result column="INIT_TASK_NAME" jdbcType="VARCHAR" property="initTaskName" />
+        <result column="INIT_TASK_ID" jdbcType="CHAR" property="initTaskId" />
+        <result column="RECHECK_UNIT_ID" jdbcType="VARCHAR" property="recheckUnitId" />
+        <result column="RECHECK_UNIT_NAME" jdbcType="VARCHAR" property="recheckUnitName" />
+        <result column="CREATE_ORG_ID" jdbcType="CHAR" property="createOrgId" />
+        <result column="CREATE_ORG_NAME" jdbcType="VARCHAR" property="createOrgName" />
+        <result column="BATCH" jdbcType="VARCHAR" property="batch" />
+        <result column="CREATE_ORG_REGION_ID" jdbcType="VARCHAR" property="createOrgRegionId" />
+        <result column="LEVEL_ENUM" jdbcType="CHAR" property="levelEnum" />
+    </resultMap>
+
+    <!--列表-->
+    <select id="getPagesList" resultMap="BaseResultMap">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        M.*
+        FROM
+        ASMS_RECHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG='N' AND CREATE_ORG_ID = #{theUserOrgId}
+        <!--<if test="regParm!=null and regParm!=''">-->
+            <!--AND M.CREATE_ORG_REGION_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="recheckTaskName!=null and recheckTaskName!=''">
+            AND M.RECHECK_TASK_NAME LIKE #{recheckTaskName}
+        </if>
+        <if test="recheckTaskYear!=null and recheckTaskYear!=''">
+            AND M.RECHECK_TASK_YEAR LIKE #{recheckTaskYear}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RECHECK_TASK_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RECHECK_TASK_END &lt;to_date(#{dateEnd},'yyyy-MM-dd')
+        </if>
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_RECHECK_TASK M
+        WHERE 1=1 AND M.DEL_FLAG='N' AND CREATE_ORG_ID = #{theUserOrgId}
+        <!--<if test="regParm!=null and regParm!=''">-->
+            <!--AND M.CREATE_ORG_REGION_ID LIKE #{regParm}-->
+        <!--</if>-->
+        <if test="state!=null and state!=''">
+            AND M.STATE = #{state}
+        </if>
+        <if test="recheckTaskName!=null and recheckTaskName!=''">
+            AND M.RECHECK_TASK_NAME LIKE #{recheckTaskName}
+        </if>
+        <if test="recheckTaskYear!=null and recheckTaskYear!=''">
+            AND M.RECHECK_TASK_YEAR LIKE #{recheckTaskYear}
+        </if>
+        <if test="dateBegin!=null and dateBegin!=''">
+            AND M.RECHECK_TASK_BEGIN &gt;=to_date(#{dateBegin},'yyyy-MM-dd')
+        </if>
+        <if test="dateEnd!=null and dateEnd!=''">
+            AND M.RECHECK_TASK_END &lt;to_date(#{dateEnd},'yyyy-MM-dd')
+        </if>
+    </select>
+</mapper>

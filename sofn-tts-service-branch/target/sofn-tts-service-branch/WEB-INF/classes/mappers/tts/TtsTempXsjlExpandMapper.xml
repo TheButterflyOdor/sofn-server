@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.tts.TtsTempXsjlExpandMapper" >
+
+ <!--<resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsTempXsjl" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />
+    <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_AMOUNT" property="productAmount" jdbcType="DECIMAL" />
+    <result column="STORE_COUNT" property="storeCount" jdbcType="DECIMAL" />
+    <result column="FREEZE_COUNT" property="freezeCount" jdbcType="DECIMAL" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR" />
+    <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+     <result column="UNIT_ID" property="unitId" jdbcType="VARCHAR" />
+     <result column="JOIN_FLAG" property="joinFlag" jdbcType="VARCHAR" />
+  </resultMap>-->
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.TtsTempXsjl" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="PRODUCT_PC" property="productPc" jdbcType="VARCHAR" />
+        <result column="MEDI_CHECK" property="mediCheck" jdbcType="VARCHAR" />
+        <result column="MEDI_RESULT" property="mediResult" jdbcType="VARCHAR" />
+        <result column="SHORT_CODE" property="shortCode" jdbcType="VARCHAR" />
+        <result column="PROOF_NUMBER" property="proofNumber" jdbcType="VARCHAR" />
+        <result column="ZJCHECK" property="zjcheck" jdbcType="VARCHAR" />
+        <result column="FROMZSM" property="fromzsm" jdbcType="VARCHAR" />
+        <result column="UNIT_ID" property="unitId" jdbcType="VARCHAR" />
+        <result column="JOIN_FLAG" property="joinFlag" jdbcType="VARCHAR" />
+        <result column="HARVEST_UNIT" property="harvestUnit" jdbcType="VARCHAR" />
+        <result column="FROM_SHORT_CODE" property="fromShortCode" jdbcType="VARCHAR" />
+        <result column="TO_SHORT_CODE" property="toShortCode" jdbcType="VARCHAR" />
+        <result column="TRACE_PROOF_SHORT" property="traceProofShort" jdbcType="VARCHAR" />
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCT_INDUSTRY" property="productIndustry" jdbcType="VARCHAR" />
+        <result column="PRODUCT_SORT" property="productSort" jdbcType="VARCHAR" />
+        <!--<result column="PRODUCT_SCGL_ID" property="productScglId" jdbcType="VARCHAR" />-->
+        <result column="SALE_AMOUNT" property="saleAmount" jdbcType="DECIMAL" />
+        <result column="BUY_COM_USER_ID" property="buyComUserId" jdbcType="VARCHAR" />
+        <result column="PRODUCT_AMOUNT" property="productAmount" jdbcType="DECIMAL" />
+        <result column="STORE_COUNT" property="storeCount" jdbcType="DECIMAL" />
+        <result column="FREEZE_COUNT" property="freezeCount" jdbcType="DECIMAL" />
+        <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="SOURCE_ENTITY" property="sourceEntity" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from TTS_TEMP_XSJL_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM TTS_TEMP_XSJL_V2 T
+    where 1 = 1 AND T.DEL_FLAG != 'Y'
+  </select>
+
+
+  <select id="getGroupProduct"  resultType="map" parameterType="hashmap">
+      SELECT X.PRODUCT_ID,X.PRODUCT_NAME,X.PRODUCT_INDUSTRY,
+      X.PRODUCT_SORT,X.UNIT_ID,X.JOIN_FLAG,X.HARVEST_UNIT,
+      SUM(STORE_COUNT) AS STORE_COUNT,SUM(SALE_AMOUNT) AS SALE_AMOUNT,COUNT(1) XSSL
+      FROM TTS_TEMP_XSJL_V2 X WHERE x.id = #{id}
+      GROUP BY X.PRODUCT_ID,X.PRODUCT_NAME,X.PRODUCT_INDUSTRY,
+      X.PRODUCT_SORT,X.UNIT_ID,X.JOIN_FLAG,X.HARVEST_UNIT
+  </select>
+
+</mapper>

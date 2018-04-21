@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsNewModelExpandMapper" >
+
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsCheckModelMapping">
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <id column="MODEL_ID" property="modelId" jdbcType="VARCHAR" />
+        <id column="MODEL_NAME" property="modelName" jdbcType="VARCHAR" />
+        <id column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+        <id column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+        <id column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <id column="CHECK_ID" property="checkId" jdbcType="VARCHAR" />
+        <id column="CHECK_NAME" property="checkName" jdbcType="VARCHAR" />
+        <id column="MAX_VALUE" property="maxValue" jdbcType="FLOAT" />
+        <id column="IS_ENABLE" property="isEnable" jdbcType="VARCHAR" />
+        <id column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+        <id column="TEMP_TIME" property="tempTime" jdbcType="VARCHAR" />
+        <id column="UPDATE_DATE" property="updateDate" jdbcType="DATE" />
+        <id column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <id column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+        <id column="ORGAN_ID" property="organId" jdbcType="VARCHAR" />
+        <id column="UNIT_MEASURE" property="unitMeasure" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="TestItemResultMap" type="com.sofn.model.generator.AdsTestItemModel">
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <id column="ITEM_NAME" property="itemName" jdbcType="VARCHAR"/>
+        <id column="STANDARD_CODE" property="standardCode" jdbcType="VARCHAR"/>
+        <id column="TEMP_TIME" property="tempTime" jdbcType="VARCHAR" />
+    </resultMap>
+    
+   <insert id="excelInsert" parameterType="java.util.List">
+       INSERT INTO ADS_CHECK_ITEMS(CHECK_ID,CHECK_NAME) VALUES
+       <foreach collection="list" item="item" index="index" separator="," >
+           (#{item.checkId},#{item.checkName})
+       </foreach>
+   </insert>
+
+    <insert id="addCheckItems" parameterType="com.sofn.model.generator.AdsCheckModelMapping" >
+        insert into ADS_CHECK_ITEMS (CHECK_ID,CHECK_NAME,CREATE_DATE,CREATE_BY,DEL_FLAG)
+        values (#{checkId,jdbcType=VARCHAR},#{checkName,jdbcType=VARCHAR},#{createDate,jdbcType=DATE},#{createBy,jdbcType=VARCHAR},'N'})
+    </insert>
+
+    <select id="getPageInfoAll" parameterType="hashmap" resultMap="TestItemResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ac.ID,
+        ac.ITEM_NAME,
+        ac.STANDARD_CODE,
+        to_char(ac.CREATE_TIME,'yyyy-mm-dd') TEMP_TIME
+        from SYS_TEST_ITEMS ac
+        where 1=1 and ac.DEL_FLAG != 'Y'
+        <if test="itemName != null and itemName !=''">
+            AND lower(ac.ITEM_NAME) like '%' || lower(trim(#{itemName})) ||'%'
+        </if>
+        <if test="idsArray != null and idsArray !=''">
+           and ac.id not in
+            <foreach collection="arrayList" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        order by CREATE_TIME desc) tmp
+        <![CDATA[ ) t
+     where t.rn >= 1+#{pageSize}*(#{pageNum}-1) and t.rn <= #{pageSize}*#{pageNum} ]]>
+    </select>
+
+    <select id="getCountAll" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from SYS_TEST_ITEMS ac
+        where 1 = 1 and ac.DEL_FLAG != 'Y'
+        <if test="checkName != null and checkName !=''">
+            AND lower(ac.ITEM_NAME) like '%' || lower(trim(#{checkName})) ||'%'
+        </if>
+        <if test="idsArray != null and idsArray !=''">
+            and ac.id not in
+            <foreach collection="arrayList" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <!--查询例行监测检测标准号-->
+    <select id="getPageInfoAllByDetail" parameterType="hashmap" resultMap="TestItemResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ac.ID,
+        ac.ITEM_NAME,
+        ac.STANDARD_CODE,
+        to_char(ac.CREATE_TIME,'yyyy-mm-dd') TEMP_TIME
+        from SYS_TEST_ITEMS ac
+        where 1=1 and ac.DEL_FLAG != 'Y'
+        <if test="itemName != null and itemName !=''">
+            AND lower(ac.ITEM_NAME) like '%' || lower(trim(#{itemName})) ||'%'
+        </if>
+        <if test="nameArray != null and nameArray !=''">
+            and ac.ITEM_NAME in
+            <foreach collection="arrayList" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        order by CREATE_TIME desc) tmp
+        <![CDATA[ ) t
+     where t.rn >= 1+#{pageSize}*(#{pageNum}-1) and t.rn <= #{pageSize}*#{pageNum} ]]>
+    </select>
+
+    <select id="getCountAllByDetail" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from SYS_TEST_ITEMS ac
+        where 1 = 1 and ac.DEL_FLAG != 'Y'
+        <if test="itemName != null and itemName !=''">
+            AND lower(ac.ITEM_NAME) like '%' || lower(trim(#{itemName})) ||'%'
+        </if>
+        <if test="nameArray != null and nameArray !=''">
+            and ac.ITEM_NAME in
+            <foreach collection="arrayList" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <update id="deleteByID" parameterType="com.sofn.model.generator.AdsCheckModelMapping">
+        update ADS_CHECK_ITEMS set DEL_FLAG = 'Y'
+        ,CREATE_DATE = #{createDate}
+        where CHECK_ID =#{checkId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getCheckItemsCount" parameterType="com.sofn.model.generator.AdsCheckModelMapping" resultType="long">
+        SELECT COUNT(1) from ADS_CHECK_ITEMS ac WHERE
+           ac.CHECK_NAME = #{checkName} and ac.DEL_FLAG != 'Y'
+    </select>
+
+    <select id="isOrNotUse" parameterType="com.sofn.model.generator.AdsCheckModelMapping" resultType="long">
+        select count(1) from ADS_MONITOR_MODEL amm where amm.model_id in(
+        select model_id from ADS_CHECK_MODEL_MAPPING acmm where CHECK_ID=#{checkId}) and amm.del_flag !='Y'
+    </select>
+
+    <select id="getModelPageInfoAll" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ac.MODEL_ID,
+        ac.IS_ENABLE,
+        ac.ORGAN_ID,
+        ac.MODEL_NAME,
+        ac.INDUSTRY,
+        to_char(ac.CREATE_DATE,'yyyy-mm-dd') TEMP_TIME
+        from ADS_MONITOR_MODEL ac
+        where 1=1 and ac.DEL_FLAG != 'Y'
+        <if test="modelName != null and modelName !=''">
+            AND lower(ac.MODEL_NAME) like '%' || lower(trim(#{modelName})) ||'%'
+        </if>
+        <if test="industry != null and industry !=''">
+            AND lower(ac.INDUSTRY) like '%' || lower(trim(#{industry})) ||'%'
+        </if>
+        and ac.ORGAN_ID = #{organId,jdbcType=VARCHAR}
+        order by CREATE_DATE desc) tmp
+        <![CDATA[
+          where rownum <= #{pageSize}*#{pageNum}) t
+     where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getModelCountAll" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ADS_MONITOR_MODEL ac
+        where 1 = 1 and ac.DEL_FLAG != 'Y'
+        <if test="modelName != null and modelName !=''">
+            AND lower(ac.MODEL_NAME) like '%' || lower(trim(#{modelName})) ||'%'
+        </if>
+        <if test="industry != null and industry !=''">
+            AND lower(ac.INDUSTRY) like '%' || lower(trim(#{industry})) ||'%'
+        </if>
+        and ac.ORGAN_ID=#{organId}
+    </select>
+
+
+    <select id="getMonitorModelCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ADS_MONITOR_MODEL ac
+        where 1 = 1 and ac.DEL_FLAG != 'Y'
+        <if test="modelName != null and modelName !=''">
+            AND lower(ac.MODEL_NAME) like '%' || lower(trim(#{modelName})) ||'%'
+        </if>
+        <if test="industry != null and industry !=''">
+            AND lower(ac.INDUSTRY) like '%' || lower(trim(#{industry})) ||'%'
+        </if>
+        and ac.ORGAN_ID=#{organId}
+    </select>
+
+    <insert id="addMonitorModel" parameterType="com.sofn.model.generator.AdsCheckModelMapping" >
+        insert into ADS_MONITOR_MODEL (MODEL_ID,MODEL_NAME,CREATE_DATE,CREATE_BY,INDUSTRY,DEL_FLAG,ORGAN_ID,IS_ENABLE)
+        values (#{modelId,jdbcType=VARCHAR},#{modelName,jdbcType=VARCHAR},#{createDate,jdbcType=DATE},#{createBy,jdbcType=VARCHAR},#{industry,jdbcType=DATE},'N',#{organId,jdbcType=VARCHAR},'0')
+    </insert>
+
+    <update id="deleteCheckModel" parameterType="com.sofn.model.generator.AdsCheckModelMapping">
+        update ADS_MONITOR_MODEL set DEL_FLAG = 'Y'
+        ,UPDATE_DATE = #{updateDate}
+        ,UPDATE_BY=#{updateBy}
+        where MODEL_ID =#{modelId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="saveCheckItem" parameterType="com.sofn.model.generator.AdsCheckModelMapping">
+        update ADS_CHECK_ITEMS set CHECK_NAME = #{checkName}
+        ,UPDATE_DATE = #{updateDate}
+        ,UPDATE_BY=#{updateBy}
+        where CHECK_ID =#{checkId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AdsCheckModelMapping">
+        update ADS_MONITOR_MODEL set MODEL_NAME = #{modelName}
+        ,INDUSTRY=#{industry}
+        ,UPDATE_DATE = #{updateDate}
+        ,UPDATE_BY=#{updateBy}
+        where MODEL_ID =#{modelId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select *
+        from ADS_MONITOR_MODEL
+        WHERE 1=1 AND DEL_FLAG != 'Y' AND MODEL_ID =#{modelId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getCheckItemById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select *
+        from ADS_CHECK_ITEMS
+        WHERE 1=1 AND DEL_FLAG != 'Y' AND CHECK_ID =#{checkId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getProductNameList" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select ac.PRODUCT_NAME
+        from ADS_CHECK_MODEL_MAPPING ac, ADS_MONITOR_MODEL am
+        where 1 = 1
+        and am.DEL_FLAG != 'Y'
+        and ac.MODEL_ID = am.MODEL_ID
+        and ac.model_id = #{modelId,jdbcType=VARCHAR}
+        group by ac.PRODUCT_NAME
+    </select>
+
+    <select id="getModelConfigListOrderByProductName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+          from (select ac.ID,
+                       ac.PRODUCT_ID,
+                       am.MODEL_NAME,
+                       ac.PRODUCT_NAME,
+                       ac.CHECK_ID,
+                       ac.CHECK_NAME,
+                       ac.MAX_VALUE,
+                       ac.UNIT_MEASURE
+                  from ADS_CHECK_MODEL_MAPPING ac, ADS_MONITOR_MODEL am
+                 where 1 = 1
+                   and am.DEL_FLAG != 'Y'
+                   and ac.MODEL_ID = am.MODEL_ID
+                   and ac.model_id =#{modelId,jdbcType=VARCHAR}
+                 order by ac.product_name) tmp) t
+    </select>
+
+    <select id="getModelConfigPageInfoAll" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ac.ID,
+        ac.PRODUCT_ID,
+        am.MODEL_NAME,
+        ac.PRODUCT_NAME,
+        ac.CHECK_ID,
+        ac.CHECK_NAME,
+        ac.MAX_VALUE,
+        ac.UNIT_MEASURE
+        from ADS_CHECK_MODEL_MAPPING ac,ADS_MONITOR_MODEL am
+        where 1=1 and am.DEL_FLAG != 'Y' and ac.MODEL_ID=am.MODEL_ID and ac.model_id = #{modelId,jdbcType=VARCHAR}) tmp
+        <![CDATA[
+          where rownum <= #{pageSize}*#{pageNum}) t
+     where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getModelConfigCountAll" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1)  from ADS_CHECK_MODEL_MAPPING ac,ADS_MONITOR_MODEL am
+        where 1=1 and am.DEL_FLAG != 'Y' and ac.MODEL_ID=am.MODEL_ID and ac.model_id = #{modelId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="saveModelConfig" parameterType="com.sofn.model.generator.AdsCheckModelMapping" >
+        insert into ADS_CHECK_MODEL_MAPPING (ID,MODEL_ID,PRODUCT_ID,PRODUCT_NAME,CHECK_ID,CHECK_NAME)
+        values (#{id,jdbcType=VARCHAR},#{modelId,jdbcType=VARCHAR},#{productId,jdbcType=DATE},#{productName,jdbcType=VARCHAR},#{checkId,jdbcType=VARCHAR},#{checkName,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="addModelConfigValue" parameterType="com.sofn.model.generator.AdsCheckModelMapping">
+        update ADS_CHECK_MODEL_MAPPING set MAX_VALUE = #{maxValue},UNIT_MEASURE = #{unitMeasure}
+        where ID =#{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getModelConfigDetail" parameterType="hashmap" resultMap="BaseResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ac.ID,
+        ac.PRODUCT_ID,
+        am.MODEL_NAME,
+        ac.PRODUCT_NAME,
+        ac.CHECK_ID,
+        ac.CHECK_NAME,
+        ac.MAX_VALUE
+        from ADS_CHECK_MODEL_MAPPING ac,ADS_MONITOR_MODEL am
+        where 1=1 and am.DEL_FLAG != 'Y' and ac.MODEL_ID=am.MODEL_ID and ac.model_id = #{modelId,jdbcType=VARCHAR}) tmp
+        <![CDATA[
+          where rownum <= #{pageSize}*#{pageNum}) t
+     where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getModelConfigDetailCount" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ADS_CHECK_MODEL_MAPPING ac,ADS_MONITOR_MODEL am
+        where 1=1 and am.DEL_FLAG != 'Y' and ac.MODEL_ID=am.MODEL_ID and ac.model_id = #{modelId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getPackageCheckItems" parameterType="hashmap" resultMap="BaseResultMap">
+       select ai.ID as CHECK_ID,ai.ITEM_NAME as CHECK_NAME  from SYS_TEST_ITEMS ai where ai.ID in (
+       select am.check_id from ADS_PACKAGE_MAPPING am,ADS_CHECK_PACKAGE ap where am.package_id =ap.id and ap.id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+       )
+    </select>
+
+    <select id="getPackageCheckItemsConflict" parameterType="hashmap" resultType="long">
+        select count(1) from ADS_CHECK_MODEL_MAPPING where model_id=#{modelId} and product_id =#{productId} and check_id in(
+        select ai.ID from SYS_TEST_ITEMS ai where ai.ID in (
+        select am.check_id from ADS_PACKAGE_MAPPING am,ADS_CHECK_PACKAGE ap where am.package_id =ap.id and ap.id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        )
+        )
+    </select>
+
+    <select id="getConflict" parameterType="hashmap" resultType="long">
+        select count(1) from ADS_CHECK_MODEL_MAPPING where model_id=#{modelId} and product_id =#{productId} and check_id = #{checkId}
+    </select>
+
+    <update id="enableAdsCheckModel" parameterType="com.sofn.model.generator.AdsCheckModelMapping">
+        update ADS_MONITOR_MODEL set IS_ENABLE = #{isEnable}
+            where MODEL_ID =#{modelId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delAdsCheckModelCongfig" parameterType="com.sofn.model.generator.AdsCheckModelMapping">
+       delete from ADS_CHECK_MODEL_MAPPING where ID=#{id,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="isExist" parameterType="com.sofn.model.generator.AdsCheckModelMapping" resultType="long">
+      select count(1) from ADS_MONITOR_MODEL where model_id = #{modelId} and is_enable='1' and del_flag != 'Y'
+    </select>
+
+    <select id="selectAllModel" parameterType="hashmap" resultType="map">
+        SELECT MODEL_ID , MODEL_NAME
+        FROM ADS_MONITOR_MODEL
+        where DEL_FLAG != 'Y'
+        <if test="organId != null and organId !=''">
+            AND ORGAN_ID= #{organId,jdbcType=VARCHAR}
+        </if>
+        <if test="isEnable != null and isEnable !=''">
+            AND IS_ENABLE = #{isEnable,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="getCheckProductNameListByModelId" parameterType="string" resultType="string">
+        select distinct t.product_name
+        from ads_check_model_mapping t
+        where t.model_id= #{modelId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getCheckObjectNameListByModelId" parameterType="string" resultType="string">
+        select distinct t.check_name
+        from ads_check_model_mapping t
+        where t.model_id= #{modelId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getIndustryByModelId" parameterType="string" resultType="string">
+        select t.INDUSTRY
+        from ADS_MONITOR_MODEL t
+        where t.model_id = #{modelId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryByModelIdAndName" resultMap="BaseResultMap" parameterType="hashmap" >
+        select *
+        from ads_check_model_mapping
+        WHERE 1=1 AND MODEL_ID =#{modelId,jdbcType=VARCHAR} AND PRODUCT_NAME =#{name,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.ads.AdsCheckModelExpandMapper" >
+
+ <resultMap id="BaseResultMap" type="com.sofn.model.generator.AdsCheckModel" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MODEL_NAME" property="modelName" jdbcType="VARCHAR" />
+    <result column="MONITOR_TYPE" property="monitorType" jdbcType="VARCHAR" />
+    <result column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="RN" property="rn" jdbcType="INTEGER" />
+    <result column="INDUSTRY_ID" property="industryId" jdbcType="VARCHAR" />
+    <result column="IS_ENABLE" property="isEnable" jdbcType="VARCHAR" />
+    <result column="ORGAN_ID" property="organId" jdbcType="VARCHAR" />
+ </resultMap>
+
+ <resultMap id="RelationResultMap" type="com.sofn.model.generator.AdsModelAttributeMapping" >
+     <id column="ID" property="id" jdbcType="VARCHAR" />
+     <result column="MODEL_ID" property="modelId" jdbcType="VARCHAR" />
+     <result column="OBJECT_ID" property="objectId" jdbcType="VARCHAR" />
+     <result column="TYPE" property="type" jdbcType="VARCHAR" />
+     <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+     <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+     <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+     <result column="RN" property="rn" jdbcType="INTEGER" />
+     <result column="NAME" property="name" jdbcType="VARCHAR" />
+     <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+ </resultMap>
+
+
+  <select id="getPageInfo" parameterType="hashmap" resultType="map">
+    SELECT Tab.*
+    FROM (
+    SELECT T.*,ROW_NUMBER() OVER(ORDER BY T.ID DESC) AS NUM from ADS_CHECK_MODEL T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+    )Tab
+    WHERE Tab.NUM BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+  </select>
+  
+  
+  <select id="getCount" parameterType="hashmap" resultType="long">
+    SELECT COUNT(*) FROM ADS_CHECK_MODEL T
+    where 1 = 1 AND T.DEL_FLAG != 'N'
+  </select>
+
+    <select id="selectAll" parameterType="hashmap" resultType="map">
+        SELECT ID , MODEL_NAME, MONITOR_TYPE
+        FROM ADS_CHECK_MODEL
+        where DEL_FLAG != 'Y'
+        <if test="isEnable != null and isEnable !=''">
+            AND IS_ENABLE = #{isEnable,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+  <select id="getPageInfoAll" parameterType="hashmap" resultMap="BaseResultMap">
+      select t.*
+      from (select tmp.*, rownum rn
+      from (select so.ID,
+      so.MODEL_NAME,
+      so.MONITOR_TYPE,
+      so.INDUSTRY,
+      so.IS_ENABLE
+      from ADS_CHECK_MODEL so
+      where 1 = 1
+      AND so.DEL_FLAG != 'Y'
+      <if test="modelName != null and modelName !=''">
+          AND lower(so.MODEL_NAME) like '%' || lower(trim(#{modelName})) ||'%'
+      </if>
+      <if test="monitorType != null and monitorType !=''">
+          AND so.MONITOR_TYPE = #{monitorType}
+      </if>
+      <if test="industry != null and industry !=''">
+          AND so.industry = #{industry}
+      </if>
+      <if test="organID != null and organID !=''">
+          AND so.ORGAN_ID = #{organID}
+      </if>
+      order by so.update_time desc,
+      so.create_time desc,so.id desc) tmp
+      <![CDATA[
+          where rownum <= #{pageSize}*#{pageNum}) t
+     where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+  </select>
+
+  <select id="getCountAll" parameterType="hashmap" resultType="long">
+      SELECT COUNT(1) from ADS_CHECK_MODEL so
+      where 1 = 1
+      AND so.DEL_FLAG != 'Y'
+      <if test="modelName != null and modelName !=''">
+          AND lower(so.MODEL_NAME) like '%' || lower(trim(#{modelName})) ||'%'
+      </if>
+      <if test="monitorType != null and monitorType !=''">
+          AND so.MONITOR_TYPE = #{monitorType}
+      </if>
+      <if test="industry != null and industry !=''">
+          AND so.industry = #{industry}
+      </if>
+      <if test="organID != null and organID !=''">
+          AND so.ORGAN_ID = #{organID}
+      </if>
+  </select>
+
+  <select id="selectByName" parameterType="com.sofn.model.generator.AdsCheckModel" resultType="long">
+     select count (*)
+     from ADS_CHECK_MODEL
+     where MODEL_NAME =#{modelName,jdbcType=VARCHAR}
+     <if test="id != null and id !=''">
+         AND id != #{id}
+     </if>
+  </select>
+
+    <select id="getPageInfoChecked" parameterType="hashmap" resultMap="RelationResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select a.id,b.NAME
+        from ADS_MODEL_ATTRIBUTE_MAPPING a
+        <if test='type== "TYPE"'>
+          ,ADS_MODEL_TYPE b
+        </if>
+        <if test='type== "SAMPLE_LINK"'>
+            ,ADS_MODEL_SAMPLE_LINK b
+        </if>
+        <if test='type== "CHECK_OBJECT"'>
+            ,ADS_MODEL_CHECK_OBJECT b
+        </if>
+        <if test='type== "JUDGE_STANDARD"'>
+            ,ADS_MODEL_JUDGE_STANDARD b
+        </if>
+        where 1 = 1
+        AND a.DEL_FLAG != 'Y'
+        AND b.DEL_FLAG != 'Y'
+        AND b.id = a.OBJECT_ID
+        AND a.MODEL_ID = #{modelId,jdbcType=VARCHAR}
+        <if test="name != null and name !=''">
+            AND lower(b.NAME) like '%' || lower(trim(#{name})) ||'%'
+        </if>
+        order by b.update_time desc,
+        b.create_time desc，b.id desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountChecked" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ADS_MODEL_ATTRIBUTE_MAPPING a
+        <if test='type== "TYPE"'>
+            ,ADS_MODEL_TYPE b
+        </if>
+        <if test='type== "SAMPLE_LINK"'>
+            ,ADS_MODEL_SAMPLE_LINK b
+        </if>
+        <if test='type== "CHECK_OBJECT"'>
+            ,ADS_MODEL_CHECK_OBJECT b
+        </if>
+        <if test='type== "JUDGE_STANDARD"'>
+            ,ADS_MODEL_JUDGE_STANDARD b
+        </if>
+        where 1 = 1
+        AND a.DEL_FLAG != 'Y'
+        AND b.DEL_FLAG != 'Y'
+        AND b.id = a.OBJECT_ID
+        AND a.MODEL_ID = #{modelId,jdbcType=VARCHAR}
+        <if test="name != null and name !=''">
+            AND lower(b.NAME) like '%' || lower(trim(#{name})) ||'%'
+        </if>
+    </select>
+
+
+    <select id="getPageInfoUnChecked" parameterType="hashmap" resultMap="RelationResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select ID, NAME
+        from
+        <if test='type== "TYPE"'>
+            ADS_MODEL_TYPE
+        </if>
+        <if test='type== "SAMPLE_LINK"'>
+            ADS_MODEL_SAMPLE_LINK
+        </if>
+        <if test='type== "CHECK_OBJECT"'>
+            ADS_MODEL_CHECK_OBJECT
+        </if>
+        <if test='type== "JUDGE_STANDARD"'>
+            ADS_MODEL_JUDGE_STANDARD
+        </if>
+        where 1 = 1
+        AND DEL_FLAG != 'Y'
+        AND ID NOT IN (SELECT OBJECT_ID
+        FROM ADS_MODEL_ATTRIBUTE_MAPPING
+        where 1 = 1
+        AND DEL_FLAG != 'Y'
+        AND MODEL_ID = #{modelId,jdbcType=VARCHAR}
+        )
+        <if test="name != null and name !=''">
+            AND lower(NAME) like '%' || lower(trim(#{name})) ||'%'
+        </if>
+        order by update_time desc,
+        create_time desc，id desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountUnChecked" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from
+        <if test='type== "TYPE"'>
+            ADS_MODEL_TYPE
+        </if>
+        <if test='type== "SAMPLE_LINK"'>
+            ADS_MODEL_SAMPLE_LINK
+        </if>
+        <if test='type== "CHECK_OBJECT"'>
+            ADS_MODEL_CHECK_OBJECT
+        </if>
+        <if test='type== "JUDGE_STANDARD"'>
+            ADS_MODEL_JUDGE_STANDARD
+        </if>
+        where 1 = 1
+        AND DEL_FLAG != 'Y'
+        AND ID NOT IN (SELECT OBJECT_ID
+        FROM ADS_MODEL_ATTRIBUTE_MAPPING
+        where 1 = 1
+        AND DEL_FLAG != 'Y'
+        AND MODEL_ID = #{modelId,jdbcType=VARCHAR}
+        )
+        <if test="name != null and name !=''">
+            AND lower(NAME) like '%' || lower(trim(#{name})) ||'%'
+        </if>
+    </select>
+
+    <select id="getIndustryByModelId" parameterType="string" resultType="string">
+        select distinct a.INDUSTRY
+        from ads_check_model a
+        where a.id = #{id}
+        and a.del_flag != 'Y'
+    </select>
+
+    <select id="findCountOfCheckModel" parameterType="hashmap" resultType="long">
+        select count(distinct(t.type))
+        from ADS_MODEL_ATTRIBUTE_MAPPING t
+        where t.MODEL_ID = #{modelId,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateIsEnable" parameterType="hashmap" >
+        update ADS_CHECK_MODEL
+        set
+        IS_ENABLE = #{isEnable,jdbcType=VARCHAR}
+        where ID = #{modelId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getPageInfoCheckedAndJudgeStandard" parameterType="hashmap" resultMap="RelationResultMap">
+        select t.*
+        from (select tmp.*, rownum rn
+        from (select a.id,b.NAME,b.FILE_PATH
+        from ADS_MODEL_ATTRIBUTE_MAPPING a
+            ,ADS_MODEL_JUDGE_STANDARD b
+        where 1 = 1
+        AND a.DEL_FLAG != 'Y'
+        AND b.DEL_FLAG != 'Y'
+        AND b.id = a.OBJECT_ID
+        AND a.MODEL_ID = #{modelId,jdbcType=VARCHAR}
+        <if test="name != null and name !=''">
+            AND lower(b.NAME) like '%' || lower(trim(#{name})) ||'%'
+        </if>
+        order by b.update_time desc,
+        b.create_time desc，b.id desc) tmp
+        <![CDATA[
+            where rownum <= #{pageSize}*#{pageNum}) t
+       where t.rn >= 1+#{pageSize}*(#{pageNum}-1)  ]]>
+    </select>
+
+    <select id="getCountCheckedAndJudgeStandard" parameterType="hashmap" resultType="long">
+        SELECT COUNT(1) from ADS_MODEL_ATTRIBUTE_MAPPING a
+            ,ADS_MODEL_JUDGE_STANDARD b
+        where 1 = 1
+        AND a.DEL_FLAG != 'Y'
+        AND b.DEL_FLAG != 'Y'
+        AND b.id = a.OBJECT_ID
+        AND a.MODEL_ID = #{modelId,jdbcType=VARCHAR}
+        <if test="name != null and name !=''">
+            AND lower(b.NAME) like '%' || lower(trim(#{name})) ||'%'
+        </if>
+    </select>
+</mapper>

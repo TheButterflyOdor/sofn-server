@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.qry.AsmsMonitorObjectExpandMapper">
+    <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsMonitorObject">
+        <id column="ID" jdbcType="CHAR" property="id" />
+        <result column="SUPERVISE_CHECK_TASK_ID" jdbcType="CHAR" property="superviseCheckTaskId" />
+        <result column="PRODUCT_TYPE" jdbcType="VARCHAR" property="productType" />
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+        <result column="TASK_BEGIN_TIME" jdbcType="TIMESTAMP" property="taskBeginTime" />
+        <result column="TASK_END_TIME" jdbcType="TIMESTAMP" property="taskEndTime" />
+        <result column="SAMPLE_UNIT_ID" jdbcType="CHAR" property="sampleUnitId" />
+        <result column="DETECTION_UNIT_ID" jdbcType="CHAR" property="detectionUnitId" />
+        <result column="DETECTION_STANDARD" jdbcType="VARCHAR" property="detectionStandard" />
+        <result column="JUDGE_STANDARD" jdbcType="VARCHAR" property="judgeStandard" />
+        <result column="CREATE_BY" jdbcType="CHAR" property="createBy" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_BY" jdbcType="CHAR" property="updateBy" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="ENABLE" jdbcType="CHAR" property="enable" />
+        <result column="MONITOR_NUM" jdbcType="VARCHAR" property="monitorNum" />
+        <result column="DEL_FLAG" jdbcType="CHAR" property="delFlag" />
+        <result column="IS_SAMPLE" jdbcType="CHAR" property="isSample" />
+        <result column="DETECTION_ITEM" jdbcType="VARCHAR" property="detectionItem" />
+        <result column="DETECTION_ITEM_ID" jdbcType="VARCHAR" property="detectionItemId" />
+        <result column="PRODUCT_TYPE_ID" jdbcType="CHAR" property="productTypeId" />
+        <result column="PRODUCT_NAME_ID" jdbcType="CHAR" property="productNameId" />
+        <result column="AREA_ID" jdbcType="CHAR" property="areaId" />
+        <result column="INDUSTRY" jdbcType="VARCHAR" property="industry" />
+    </resultMap>
+
+    <!--修改检测对象是否已提交抽样单状态-->
+    <update id="updateIsSample" parameterType="com.sofn.model.generator.AsmsMonitorObject">
+        UPDATE ASMS_MONITOR_OBJECT SET IS_SAMPLE = #{isSample} WHERE ID = #{id}
+    </update>
+
+    <delete id="delByTaskId" parameterType="com.sofn.model.generator.AsmsMonitorObject">
+        delete from ASMS_MONITOR_OBJECT
+        where SUPERVISE_CHECK_TASK_ID = '${superviseCheckTaskId}'
+    </delete>
+
+    <select id="getObjById" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        ASMS_MONITOR_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND M.SUPERVISE_CHECK_TASK_ID=#{id}
+        order by M.CREATE_TIME DESC
+    </select>
+
+    <!--根据任务获取关联对象列表-->
+    <select id="getMyTaskObjPagesList" resultMap="BaseResultMap">
+        SELECT * FROM (
+        SELECT
+        M.*,ROWNUM AS rn
+        FROM
+        ASMS_MONITOR_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND M.SUPERVISE_CHECK_TASK_ID = '${taskId}'
+        order by M.CREATE_TIME DESC
+        )
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getMyTaskObjPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_MONITOR_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG = 'N' AND M.SUPERVISE_CHECK_TASK_ID = '${taskId}'
+    </select>
+
+    <!--根据任务id获取检测对象列表-->
+    <select id="getMonObjByTaskId" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        ASMS_MONITOR_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG ='N' AND M.SUPERVISE_CHECK_TASK_ID=#{id}
+        order by M.CREATE_TIME DESC
+    </select>
+
+    <!--列表-->
+    <select id="getPagesList" resultMap="BaseResultMap">
+        SELECT * FROM(
+        SELECT
+        N.*,ROWNUM AS rn FROM (
+        SELECT
+        *
+        FROM
+        ASMS_MONITOR_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG ='N' AND M.SUPERVISE_CHECK_TASK_ID=#{taskId}
+        order by M.CREATE_TIME DESC
+        ) N)
+        WHERE rn BETWEEN 1+#{pageSize}*(#{pageNum}-1) AND #{pageSize}*#{pageNum}
+    </select>
+
+    <select id="getPageCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ASMS_MONITOR_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG ='N' AND M.SUPERVISE_CHECK_TASK_ID=#{taskId}
+    </select>
+
+    <select id="getMobjListByTaskId" resultMap="BaseResultMap">
+        SELECT
+          *
+        FROM
+        ASMS_MONITOR_OBJECT M
+        WHERE 1=1 AND M.DEL_FLAG ='N' AND M.SUPERVISE_CHECK_TASK_ID=#{superviseCheckTaskId}
+    </select>
+
+</mapper>

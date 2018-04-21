@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sofn.dao.generator.AsmsCheckTaskReportMapper">
+  <resultMap id="BaseResultMap" type="com.sofn.model.generator.AsmsCheckTaskReport">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="FILE_ADDRESS" jdbcType="VARCHAR" property="fileAddress" />
+    <result column="MONITOR_TASK_ID" jdbcType="VARCHAR" property="monitorTaskId" />
+    <result column="MONITOR_TASK" jdbcType="VARCHAR" property="monitorTask" />
+    <result column="UPLOAD_DEPARTMENT" jdbcType="VARCHAR" property="uploadDepartment" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DEL_FLAG" jdbcType="VARCHAR" property="delFlag" />
+    <result column="RESERVED_FIELD1" jdbcType="VARCHAR" property="reservedField1" />
+    <result column="RESERVED_FIELD2" jdbcType="VARCHAR" property="reservedField2" />
+    <result column="FILE_NAME" jdbcType="VARCHAR" property="fileName" />
+    <result column="MONITOR_TYPE" jdbcType="VARCHAR" property="monitorType" />
+    <result column="YEARS" jdbcType="VARCHAR" property="years" />
+    <result column="SOURCE" jdbcType="VARCHAR" property="source" />
+    <result column="FOLDER" jdbcType="VARCHAR" property="folder" />
+    <result column="FIELD" jdbcType="VARCHAR" property="field" />
+    <result column="ORGAN_TASK_ID" jdbcType="VARCHAR" property="organTaskId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ASMS_CHECK_TASK_REPORT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sofn.model.generator.AsmsCheckTaskReport">
+    insert into ASMS_CHECK_TASK_REPORT (ID, FILE_ADDRESS, MONITOR_TASK_ID, 
+      MONITOR_TASK, UPLOAD_DEPARTMENT, CREATE_BY, 
+      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+      DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2, 
+      FILE_NAME, MONITOR_TYPE, YEARS, 
+      SOURCE, FOLDER, FIELD, 
+      ORGAN_TASK_ID)
+    values (#{id,jdbcType=VARCHAR}, #{fileAddress,jdbcType=VARCHAR}, #{monitorTaskId,jdbcType=VARCHAR}, 
+      #{monitorTask,jdbcType=VARCHAR}, #{uploadDepartment,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=VARCHAR}, #{reservedField1,jdbcType=VARCHAR}, #{reservedField2,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{monitorType,jdbcType=VARCHAR}, #{years,jdbcType=VARCHAR}, 
+      #{source,jdbcType=VARCHAR}, #{folder,jdbcType=VARCHAR}, #{field,jdbcType=VARCHAR}, 
+      #{organTaskId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sofn.model.generator.AsmsCheckTaskReport">
+    update ASMS_CHECK_TASK_REPORT
+    set FILE_ADDRESS = #{fileAddress,jdbcType=VARCHAR},
+      MONITOR_TASK_ID = #{monitorTaskId,jdbcType=VARCHAR},
+      MONITOR_TASK = #{monitorTask,jdbcType=VARCHAR},
+      UPLOAD_DEPARTMENT = #{uploadDepartment,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DEL_FLAG = #{delFlag,jdbcType=VARCHAR},
+      RESERVED_FIELD1 = #{reservedField1,jdbcType=VARCHAR},
+      RESERVED_FIELD2 = #{reservedField2,jdbcType=VARCHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      MONITOR_TYPE = #{monitorType,jdbcType=VARCHAR},
+      YEARS = #{years,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=VARCHAR},
+      FOLDER = #{folder,jdbcType=VARCHAR},
+      FIELD = #{field,jdbcType=VARCHAR},
+      ORGAN_TASK_ID = #{organTaskId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, FILE_ADDRESS, MONITOR_TASK_ID, MONITOR_TASK, UPLOAD_DEPARTMENT, CREATE_BY, 
+    CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2, 
+    FILE_NAME, MONITOR_TYPE, YEARS, SOURCE, FOLDER, FIELD, ORGAN_TASK_ID
+    from ASMS_CHECK_TASK_REPORT
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, FILE_ADDRESS, MONITOR_TASK_ID, MONITOR_TASK, UPLOAD_DEPARTMENT, CREATE_BY, 
+    CREATE_TIME, UPDATE_BY, UPDATE_TIME, DEL_FLAG, RESERVED_FIELD1, RESERVED_FIELD2, 
+    FILE_NAME, MONITOR_TYPE, YEARS, SOURCE, FOLDER, FIELD, ORGAN_TASK_ID
+    from ASMS_CHECK_TASK_REPORT
+  </select>
+</mapper>
